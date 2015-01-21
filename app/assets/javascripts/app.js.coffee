@@ -1,21 +1,17 @@
-#= require angular
-#= require angular-route
-#= require angular-resource
-#= require angular-rails-templates
+#= require mohican
 #= require_tree ./templates
 #= require_self
 #= require_tree ./includes
 #= require_tree ./directives
 #= require_tree ./services
 #= require_tree ./controllers
-#= require angular-ui-bootstrap
 
 @id5_module = angular.module('id5', [
   'ngRoute', 
   'ngResource', 
   'templates',
   'ui.bootstrap',
-  'LocalStorageModule',
+  'mohican',
   ])
 
 @id5_module.config(['$routeProvider', ($routeProvider) ->
@@ -28,6 +24,7 @@
     }) 
 ])
 
+###
 @id5_module.config(['localStorageServiceProvider', (localStorageServiceProvider) ->
   localStorageServiceProvider
     .setPrefix('id5')
@@ -35,3 +32,4 @@
     .setStorageCookie(0, '<path>')
     .setNotify(true, true)
 ])
+###
