@@ -12,15 +12,25 @@ namespace :seed do
     p "authenticated. querying activities..."
     resp2 = RestClient.get("http://#{address}/Celesta/z/activities", cookies: resp.cookies, accept: :json)
     
-    resp_string = resp2.body
-    
     hash_response = JSON.parse(resp2.body)
     
     puts "RECEIVED #{hash_response['items'].count} OBJECTS!"
     
+    # remove all null fields, to save space.
+    # also flatten custom fields
+    hash_response['items'].each do |i|
+      i.delete_if { |key, value| value.nil? }
+      i['CustomFields'].each do |custom_field|
+        i[custom_field['Name']] = custom_field['Value']
+      end
+      i.delete 'CustomFields'
+    end      
+    
+    resp_string = hash_response.to_json
+    
     resp_string.force_encoding('UTF-8')
     
-    File.open(Rails.root.join('db','seeds','activities.json'), 'w') {|f| f.write(resp2.body) }
+    File.open(Rails.root.join('db','seeds','activities.json'), 'w') {|f| f.write(resp_string) }
     puts "Data saved to /db/seeds/activities.json"
   end
 end
