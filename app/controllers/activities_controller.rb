@@ -4,12 +4,21 @@ class ActivitiesController < ApplicationController
   # GET /activities
   # GET /activities.json
   def index
-    @activities = Activity.all
+    respond_to do |format|
+      format.json do
+        render json: Activity.all.as_json
+      end
+    end
   end
 
   # GET /activities/1
   # GET /activities/1.json
   def show
+    respond_to do |format|
+      format.json do
+        render json: Activity.collection.where('Order_ID' => 3164).first.as_json
+      end
+    end
   end
 
   # GET /activities/new
@@ -64,7 +73,8 @@ class ActivitiesController < ApplicationController
   private
     # Use callbacks to share common setup or constraints between actions.
     def set_activity
-      @activity = Activity.find(params[:id])
+      puts "Looking for 'Order_ID' => #{params[:id]}"
+      @activity = Activity.where(:'Order_ID' => params[:id]).all
     end
 
     # Never trust parameters from the scary internet, only allow the white list through.
