@@ -1,0 +1,32 @@
+!!!
+%html(ng-app="id5")
+  %head
+    %title #{"id5".capitalize}
+    %meta(name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=0")
+    -# android stand alone mode
+    %meta(name="mobile-web-app-capable" content="yes")
+    %link(rel="icon" sizes="192x192" href="/assets/icon.png")
+    -# iOS stand alone mode
+    %meta(name="apple-mobile-web-app-capable" content="yes")
+    %meta(name="apple-mobile-web-app-status-bar-style" content="black")
+    %link(rel="apple-touch-icon" href="/assets/icon.png")
+    %link(rel="apple-touch-startup-image" href="/assets/icon.png")
+    -# windows 8.1, maybe mobile, maybe not
+    %meta(name="application-name" content="ID Pickup")
+    %meta(name="msapplication-navbutton-color" content="#FF3300")
+    %meta(name="msapplication-square150x150logo" content="assets/icon.png")
+    %meta(name="msapplication-square310x310logo" content="assets/icon.png")
+    %meta(name="msapplication-square70x70logo" content="assets/icon.png")
+    %meta(name="msapplication-wide310x150logo" content="assets/icon.png")
+    %meta(name="msapplication-TileColor" content="#FF3300")
+    %meta(name="msapplication-TileImage" content="assets/icon.png")
+    %meta(name="msapplication-tooltip" content="ID Pickup")
+    -# 
+    = stylesheet_link_tag    'application', media: 'all'
+    = csrf_meta_tags
+    -# If you need something from the Ruby code, set it up here
+    -# %script
+  %body(role="document")
+    %div.full_height(ng-view)
+      %h1(style="margin-top: 10px;")=t :'Please wait' # Please wait while the application loads!
+    = javascript_include_tag 'app'

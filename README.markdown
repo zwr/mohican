@@ -1,0 +1,1 @@
+Application #{ARGV[1]} generated bu the zwr generator.

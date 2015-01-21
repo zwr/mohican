@@ -1,0 +1,16 @@
+.container(ng-controller="HomeController")
+  %nav.navbar.navbar-static-top.navbar-inverse(role="navigation")
+    .container-fluid
+      .navbar-header.pull-left
+        %a.navbar-brand(href="#")
+          =image_tag "logo.png", height: '20'
+          Refinder
+  #main
+    .row
+      .col-sm-6
+        .search_input
+          %input#search_control.form-control(type="search" placeholder="Search" ng-change="handle_search_criteria_change()" ng-model="criteria.criteria_text")
+          %span.glyphicon.glyphicon-search(ng-click="handle_search_button_click()")
+      .col-sm-6
+        %h1#second_page_title Second page!
+        %p This is the second page.
