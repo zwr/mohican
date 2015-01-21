@@ -8,6 +8,19 @@ GIT
       origin (~> 2.1)
       tzinfo (>= 0.3.37)
 
+PATH
+  remote: vendor/mohican
+  specs:
+    mohican (0.1.8)
+      railties (~> 4.0, >= 3.1)
+      zwr
+
+PATH
+  remote: vendor/zwr-gem
+  specs:
+    zwr (0.1.7)
+      railties (~> 4.0, >= 3.1)
+
 GEM
   remote: https://rubygems.org/
   specs:
@@ -180,8 +193,6 @@ GEM
       json (>= 1.8.0)
     warden (1.2.3)
       rack (>= 1.0)
-    zwr (0.1.7)
-      railties (~> 4.0, >= 3.1)
 
 PLATFORMS
   ruby
@@ -201,6 +212,7 @@ DEPENDENCIES
   html2haml
   jbuilder (~> 2.0)
   jquery-rails
+  mohican!
   mongoid (~> 4.0.0)!
   paperclip
   puma
@@ -212,4 +224,4 @@ DEPENDENCIES
   tzinfo
   tzinfo-data
   uglifier (>= 1.3.0)
-  zwr
+  zwr!
