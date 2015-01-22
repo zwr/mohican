@@ -24,12 +24,10 @@ namespace :seed do
         i[custom_field['Name']] = custom_field['Value']
       end
       i.delete 'CustomFields'
-    end      
-    
-    resp_string = hash_response.to_json
-    
+    end
+
+    resp_string = JSON.pretty_generate hash_response
     resp_string.force_encoding('UTF-8')
-    
     File.open(Rails.root.join('db','seeds','activities.json'), 'w') {|f| f.write(resp_string) }
     puts "Data saved to /db/seeds/activities.json"
   end
