@@ -1,1 +1,20 @@
-#acthecontainer
+.row
+  .col-sm-2.col-xs-3
+    .page-menu(style="padding: 1px 6px;")
+      =image_tag "refresh.ico"
+      %span(style="color: #006699;font-size: Medium;font-weight: bold;text-decoration: none; padding-top: 6px;") Siirtymät
+  .col-sm-10.col-xs-9
+    .page-menu.form-inline
+      .btn-group(style="")
+        %button.btn.btn-default Muokka
+        %button.btn.btn-default Poista
+        %button.btn.btn-default Pikasuodatin
+      .form-group.hidden-xs
+        %label(for="mainToolbarWeight")Weight
+        %input#mainToolbarWeight.form-control(type="text" placeholder="what is this?")
+      .form-group.hidden-md.hidden-sm.hidden-xs
+        %label.sr-only{:for => "exampleInputAmount"} Amount (in dollars)
+        .input-group
+          .input-group-addon Boombala
+          %input#exampleInputAmount.form-control{:placeholder => "How much money!", :type => "text"}/
+      %button.btn.btn-primary.hidden-sm.hidden-xs{"btn-primary" => "", :type => "submit"} Apuva!
