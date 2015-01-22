@@ -7,7 +7,11 @@ class ActivitiesController < ApplicationController
   def index
     respond_to do |format|
       format.json do
-        render json: Activity.limit(200).as_json
+        render json: { 
+          items: Activity.limit(5000).as_json,
+          offset: 0,
+          total_count: Activity.all.count
+        }
       end
     end
   end

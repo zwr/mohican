@@ -17,11 +17,11 @@
 
 @id5_module.config(['$routeProvider', ($routeProvider) ->
   $routeProvider.
-    #when('/url', {
-    #  templateUrl: 'template.html',
-    #}).
-    otherwise({
+    when('/:pageNo', {
       templateUrl: 'home.html',
+    }).
+    otherwise({
+      redirectTo: '/1',
     }) 
 ])
 
