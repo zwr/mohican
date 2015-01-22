@@ -4,6 +4,9 @@ activities = JSON.parse(IO.read(Rails.root.join('db','seeds','activities.json'))
 
 puts "Seeding #{activities['items'].length} activities"
 
+Activity.delete_all
+Layout.delete_all
+
 activities['items'].each do |a|
   Activity.collection.insert(a)
 end
