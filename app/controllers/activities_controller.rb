@@ -3,10 +3,21 @@ class ActivitiesController < ApplicationController
 
   # GET /activities
   # GET /activities.json
+  # GET /activities/?filter=xxxx&sort=gggg
   def index
     respond_to do |format|
       format.json do
-        render json: Activity.all.as_json
+        render json: Activity.limit(200).as_json
+      end
+    end
+  end
+
+  # GET /activities/layout
+  # GET /activities/layout.json
+  def layout
+    respond_to do |format|
+      format.json do
+        render json: Layout.where(doctype: :activity).as_json
       end
     end
   end
@@ -14,9 +25,10 @@ class ActivitiesController < ApplicationController
   # GET /activities/1
   # GET /activities/1.json
   def show
+    puts "trying to find #{params[:id]}"
     respond_to do |format|
       format.json do
-        render json: Activity.collection.where('Order_ID' => 3164).first.as_json
+        render json: Activity.where('Order_ID' => params[:id].to_i).first.as_json
       end
     end
   end
