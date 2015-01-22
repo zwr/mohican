@@ -1,11 +1,5 @@
-.container(ng-controller="HomeController")
-  %nav.navbar.navbar-static-top.navbar-inverse(role="navigation")
-    .container-fluid
-      .navbar-header.pull-left
-        %a.navbar-brand(href="#")
-          =image_tag "logo.png", height: '20'
-          Celesta II
-  #main
-    .row
-      .col-sm-12
-        %h1 here is something new
+.container-fluid(mn-full-size style="position:relative;" ng-controller="HomeController")
+  #cel-menu(ng-include="'header.html'")
+  #page-menu(ng-include="'activities-header.html'"  style="width: 100%; background-color: #eee; height: 80px;")
+  #page-content(ng-include="'activities-content.html'" style="width: 100%; background-color: blue;")
+  #page-footer(ng-include="'activities-footer.html'" style="position:absolute; bottom:0; width: 100%; height: 90px; background-color: #eee; padding: 0px 15px; margin-left: -15px;")

@@ -1,9 +1,12 @@
 /*
 *= require_self
 */
+
+$grid-float-breakpoint: 1520px;
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "zwr";
+@import "mohican";
 @import "rails_bootstrap_forms";
 
 #search_control, #second_page_title {
