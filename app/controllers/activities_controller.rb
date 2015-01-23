@@ -41,7 +41,7 @@ class ActivitiesController < ApplicationController
   def layout
     respond_to do |format|
       format.json do
-        render json: Layout.where(doctype: :activity).as_json
+        render json: Layout.where(doctype: :activity)[0].as_json
       end
     end
   end

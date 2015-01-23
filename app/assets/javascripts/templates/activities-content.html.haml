@@ -1,41 +1,8 @@
 %span
   %strong(ng-if="!page_count") Loading data, please wait
-
 %table.table.table-striped(ng-if="page_count")
   %thead
     %tr
-      %th(style="width:70px") ID
-      %th(style="width:80px") Tyyppi
-      %th(style="width:100px") Tila
-      %th(style="width:80px") Aloituspäivä
-      %th(style="width:120px") Tilaja-asiakas
-      %th(style="width:120px") Lähtöpaikan nimi
-      %th(style="width:120px") Lähtöosoitteen kaupunki
-      %th(style="width:60px") Määräosoitteen postinumero
-      %th(style="width:120px") Määräosoitteen kaupunki
-      %th(style="width:120px") Määräosoitteen nimi
-      %th(style="width:40px") Paino (kg)
-      %th(style="width:100px") Rahtikirjan numero
-      %th(style="width:80px") Purkupäivä
-      %th(style="width:120px") Kustannuspaikka
-      %th(style="width:100px") Ajoneuvo
-      %th(style="width:120px") Poikkeamia
-      %th(style="width:120px") Weight
+      %th(ng-repeat="field_info in layout()" ng-style="{width: field_info.ColumnWidth + 'px'}") {{field_info.HeaderText}}
   %tr(ng-repeat="item in page_items")
-    %td(style="width: 70px;") {{item.copy.Order_ID}}
-    %td(style="width: 80px;") {{item.copy.TypeCode}}
-    %td(style="width: 100px;") {{item.copy.Status}}
-    %td(style="width:80px;") {{item.copy.RPL_MinTime}}
-    %td(style="width:120px;") {{item.copy.Customer}}
-    %td(style="width:120px;") {{item.copy.RPL_Name}}
-    %td(style="width:120px;") {{item.copy.RPL_City}}
-    %td(style="width:60px;") {{item.copy.RPU_ZipCode}}
-    %td(style="width:120px;") {{item.copy.RPU_City}}
-    %td(style="width:120px;") {{item.copy.RPU_Name}}
-    %td(style="width:40px;") {{item.copy.Paino}}
-    %td(style="width:100px;") {{item.copy.Rahtikirjanumero}}
-    %td(style="width:80px;") {{item.copy.RPU_MinTime}}
-    %td(style="width:120px;") {{item.copy.Region}}
-    %td(style="width:100px;") {{item.copy.ResourceVisualName}}
-    %td(style="width:120px;") {{item.copy.Poikkeamia}}
-    %td(style="width:120px;") {{item.copy.OrderMaterial_Weight}}
+    %td(ng-repeat="field_info in layout()") {{item.copy[field_info.Name]}}

@@ -89,6 +89,8 @@
       { name: "RPU_ZipCode", show: "Sort by: Määräos. postinumero", desc: "Sort by Määräosoitteen postinumero", selected: $scope.sort == "RPU_ZipCode"  },
       { name: "RPU_City", show: "Sort by: Määräos. kauppunki", desc: "Sort by Määräosoitteen kauppunki", selected: $scope.sort == "RPU_City"  },
     ]
+    $scope.layout = ->
+      actService.layout.layout.layouts[0].definition
     actService.page_items(decodeURIComponent($scope.pageNo))
     .then($scope._rememberPageItems,$scope._errorHandler)
 ]
