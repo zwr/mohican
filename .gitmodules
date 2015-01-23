@@ -1,0 +1,6 @@
+[submodule "vendor/zwr-gem"]
+  path = vendor/zwr-gem
+  url = git@github.com:zmilojko/zwr-gem.git
+[submodule "vendor/mohican"]
+  path = vendor/mohican
+  url = git@github.com:zmilojko/mohican.git
