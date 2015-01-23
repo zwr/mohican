@@ -1,13 +1,19 @@
-%span
-  %strong(ng-if="!page_count") Loading data, please wait
-%nav.pointer(ng-if="page_count")
-  %ul.pointer.pagination.pagination-sm(style="margin: 0px 30px;")
-    %li.pointer(ng-class="{disabled: is_first_page()}")
-      %a(ng-click="goToPage(prevPage)" aria-label="Previous" ng-disabled="is_first_page()")
-        %span(aria-hidden="true") &laquo;
-    %li.pointer(ng-repeat="page_number in pagination_array()" ng-class="{active: page_number == pageNo}")
-      %a(ng-click="goToPage(page_number)") {{showPageNumber(page_number, $index)}}
-    %li.pointer(ng-class="{disabled: is_last_page()}")
-      %a(ng-click="goToPage(nextPage)" aria-label="Next")
-        %span(aria-hidden="true") &raquo;
-.clear
+.row
+  .col-lg-6
+    %span
+      %strong(ng-if="!page_count") Loading data, please wait
+    %nav.pointer(ng-if="page_count")
+      %ul.pointer.pagination.pagination-sm(style="margin: 0px 30px;")
+        %li.pointer(ng-class="{disabled: is_first_page()}")
+          %a(ng-click="goToPage(prevPage)" aria-label="Previous" ng-disabled="is_first_page()")
+            %span(aria-hidden="true") &laquo;
+        %li.pointer(ng-repeat="page_number in pagination_array()" ng-class="{active: page_number == pageNo}")
+          %a(ng-click="goToPage(page_number)") {{showPageNumber(page_number, $index)}}
+        %li.pointer(ng-class="{disabled: is_last_page()}")
+          %a(ng-click="goToPage(nextPage)" aria-label="Next")
+            %span(aria-hidden="true") &raquo;
+  .col-lg-6
+    .page-menu.form-inline
+      %span.inline-multi-select(multi-select input-model="modernWebBrowsers" button-label="name" item-label="name desc" tick-property="selected" helper-elements="" default-label="Default layout" output-model="selectedRaces" orientation="horizontal" is-disabled="true")
+      %span.inline-multi-select(multi-select input-model="modernWebBrowsers" button-label="name" item-label="name desc" tick-property="selected" helper-elements="" default-label="No filter selected" output-model="selectedRaces" orientation="horizontal" is-disabled="true")
+      %span.inline-multi-select(multi-select input-model="modernWebBrowsers" button-label="name" item-label="name desc" tick-property="selected" helper-elements="" default-label="Sorted by Order_ID (Default)" output-model="selectedRaces" orientation="horizontal")

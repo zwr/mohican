@@ -13,6 +13,7 @@
   'templates',
   'ui.bootstrap',
   'mohican',
+  'multi-select',
   ])
 
 @id5_module.config(['$routeProvider', ($routeProvider) ->
