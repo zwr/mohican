@@ -9,6 +9,7 @@
     @resource_url = 'activities'
     @resource_name = 'tag'
     @use_dotjson_suffix = false
+    @currently_sorted_by = null
     @sort_by = (field_name) ->
       start = +new Date();
       console.log "Sorting by #{field_name}, array length #{@front_end_buffer.length}"
@@ -18,5 +19,6 @@
         if a.copy[field_name] > b.copy[field_name]
           return 1
         return 0
+      @currently_sorted_by = field_name
       console.log "Done sorting #{(+new Date()) - start}ms."
     this]

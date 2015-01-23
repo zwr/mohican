@@ -1,8 +1,14 @@
 @id5_module.controller 'HomeController', [
-  '$scope', '$routeParams', '$location', '$window', '$timeout', 'actService', 
-  ($scope, $routeParams, $location, $window, $timeout, actService) ->
-    $scope.criteria =
-      criteria_text: null
+  '$scope', '$route', '$routeParams', '$location', '$window', '$timeout', 'actService', 
+  ($scope, $route, $routeParams, $location, $window, $timeout, actService) ->
+    # url will look like:
+    #   http://hostname/#/1?sort=Order_ID;asc&filter=something&layout=default
+    $scope.pageNo = $routeParams.pageNo
+    if !$scope.pageNo or parseInt($scope.pageNo) < 0
+      $location.path("1")
+    $scope.sort = $routeParams.sort or 'Order_ID'
+    $scope.filter = $routeParams.filter or 'all'
+    $scope.layout = $routeParams.layout or 'default'
     $scope.handle_search_criteria_change = ->
       console.log "Text change, now it is #{$scope.criteria.criteria_text}"
     $scope.handle_search_button_click = ->
@@ -18,10 +24,6 @@
       $scope.alerts.push({msg: 'Another alert!'});
     $scope.closeAlert = (index) ->
       $scope.alerts.splice(index, 1);
-    $scope.pageNo = 1
-    $scope.pageNo = $routeParams.pageNo
-    if !$scope.pageNo or parseInt($scope.pageNo) < 0
-      $location.path("1")
     $scope.handle_search_criteria_change = ->
       console.log "Text change, now it is #{$scope.criteria.criteria_text}"
     $scope.handle_search_button_click = ->
@@ -30,14 +32,16 @@
     $scope.page_count = null
     $scope.error_message = null
     $scope._rememberPageItems = (resp) ->
-      $scope.page_items = resp.items
-      $scope.page_count = resp.page_count
-      $scope.error_message = null
-      if parseInt($scope.pageNo) > $scope.page_count
-        $location.path("#{$scope.page_count}")
+      if actService.currently_sorted_by != $scope.sort
+        $scope.sort_by $scope.sort
+      else
+        $scope.page_items = resp.items
+        $scope.page_count = resp.page_count
+        $scope.error_message = null
+        if parseInt($scope.pageNo) > $scope.page_count
+          $location.path("#{$scope.page_count}")
     $scope._errorHandler = (error) ->
       $scope.error_message = "An error has occured."
-    $scope.prevPage = parseInt($scope.pageNo) - 1
     $scope.nextPage = parseInt($scope.pageNo) + 1
     $scope.goToPage = (pageNumber) ->
       if pageNumber > 0 and pageNumber <= $scope.page_count and parseInt(pageNumber) != parseInt($scope.pageNo)
@@ -61,9 +65,13 @@
         page_number
     $scope.sort_by = (field_name) ->
       actService.sort_by(field_name)
+      $scope.sort = field_name
+      if field_name == 'Order_ID'
+        $location.search('sort', null)
+      else
+        $route.updateParams {sort: field_name}
       actService.page_items(decodeURIComponent($scope.pageNo))
       .then($scope._rememberPageItems,$scope._errorHandler)
-
     $scope.listLayouts = [
       { name: "Default", show: "Layout: Default", desc: "Shows most important fields", selected: true  },
       { name: "Full view", show: "Layout: Full", desc: "All available fields (requires scrolling)", selected: false  },
@@ -76,10 +84,10 @@
       { name: "This week", show: "Filter: this week", desc: "Shows only documents to be handled this week, including today", selected: false  },
     ]
     $scope.listSorting = [
-      { name: "Order ID", show: "Sort by: ID", desc: "Sort by Order ID", selected: true  },
-      { name: "RPL_City", show: "Sort by: Lähtöos. kaupunki", desc: "Sort by Lähtöosoitteen kaupunki", selected: false  },
-      { name: "RPU_ZipCode", show: "Sort by: Määräos. postinumero", desc: "Sort by Määräosoitteen postinumero", selected: false  },
-      { name: "RPU_City", show: "Sort by: Määräos. kauppunki", desc: "Sort by Määräosoitteen kauppunki", selected: false  },
+      { name: "Order_ID", show: "Sort by: ID", desc: "Sort by Order ID", selected: $scope.sort == "Order_ID"  },
+      { name: "RPL_City", show: "Sort by: Lähtöos. kaupunki", desc: "Sort by Lähtöosoitteen kaupunki", selected: $scope.sort == "RPL_City"  },
+      { name: "RPU_ZipCode", show: "Sort by: Määräos. postinumero", desc: "Sort by Määräosoitteen postinumero", selected: $scope.sort == "RPU_ZipCode"  },
+      { name: "RPU_City", show: "Sort by: Määräos. kauppunki", desc: "Sort by Määräosoitteen kauppunki", selected: $scope.sort == "RPU_City"  },
     ]
     actService.page_items(decodeURIComponent($scope.pageNo))
     .then($scope._rememberPageItems,$scope._errorHandler)
