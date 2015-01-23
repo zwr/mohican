@@ -2,6 +2,9 @@
   'mnBaseService',
   actService = (mnBaseService) ->
     mnBaseService.extends_to(this)
+    @front_end_buffer_size = 5000
+    @eagerness = 30
+    @page_size = 20
     @identifier = 'Order_ID'
     @resource_url = 'activities'
     @resource_name = 'tag'
