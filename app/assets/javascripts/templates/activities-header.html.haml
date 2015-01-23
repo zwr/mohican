@@ -8,7 +8,7 @@
       %span.inline-multi-select(multi-select input-model="listLayouts" helper-elements="all none reset filter" button-label="show" item-label="name desc" tick-property="selected" default-label="Select layout" selection-mode="single")
       %span.inline-multi-select(multi-select input-model="listFitlers" helper-elements="" button-label="show" item-label="name desc" tick-property="selected" default-label="Select layout" selection-mode="single")
       .form-group.hidden-md.hidden-sm.hidden-xs
-      %span#select_sort.inline-multi-select(multi-select input-model="listSorting" helper-elements="" button-label="show" item-label="name desc" tick-property="selected" default-label="Select layout" selection-mode="single")
+      %span#select_sort.inline-multi-select(multi-select input-model="listSorting" helper-elements="" button-label="show" item-label="name desc" tick-property="selected" default-label="Select layout" selection-mode="single" on-item-click="sort_by(data.name)")
       .form-group.hidden-md.hidden-sm.hidden-xs
         .input-group
           .input-group-addon Boom
