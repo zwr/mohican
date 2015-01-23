@@ -5,16 +5,12 @@
       %span(style="color: #006699;font-size: Medium;font-weight: bold;text-decoration: none; padding-top: 6px;") Siirtymät
   .col-sm-10.col-xs-9
     .page-menu.form-inline
-      .btn-group(style="")
-        %button.btn.btn-default Muokka
-        %button.btn.btn-default Poista
-        %button.btn.btn-default Pikasuodatin
-      .form-group.hidden-xs
-        %label(for="mainToolbarWeight")Weight
-        %input#mainToolbarWeight.form-control(type="text" placeholder="what is this?")
+      %span.inline-multi-select(multi-select input-model="listLayouts" helper-elements="all none reset filter" button-label="show" item-label="name desc" tick-property="selected" default-label="Select layout" selection-mode="single")
+      %span.inline-multi-select(multi-select input-model="listFitlers" helper-elements="" button-label="show" item-label="name desc" tick-property="selected" default-label="Select layout" selection-mode="single")
       .form-group.hidden-md.hidden-sm.hidden-xs
-        %label.sr-only{:for => "exampleInputAmount"} Amount (in dollars)
+      %span#select_sort.inline-multi-select(multi-select input-model="listSorting" helper-elements="" button-label="show" item-label="name desc" tick-property="selected" default-label="Select layout" selection-mode="single")
+      .form-group.hidden-md.hidden-sm.hidden-xs
         .input-group
-          .input-group-addon Boombala
-          %input#exampleInputAmount.form-control{:placeholder => "How much money!", :type => "text"}/
-      %button.btn.btn-primary.hidden-sm.hidden-xs{"btn-primary" => "", :type => "submit"} Apuva!
+          .input-group-addon Boom
+          %input#exampleInputAmount.form-control{:placeholder => "So huge!", :type => "text"}/
+      %button.btn.btn-info.hidden-sm.hidden-xs(type="submit" style="float: right;") Apuva!

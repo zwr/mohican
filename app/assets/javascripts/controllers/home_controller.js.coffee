@@ -63,17 +63,24 @@
       actService.sort_by(field_name)
       actService.page_items(decodeURIComponent($scope.pageNo))
       .then($scope._rememberPageItems,$scope._errorHandler)
-    $scope.modernWebBrowsers = [
-      { name: "Sp4", desc: "Sprint 4 dogs, 7km", selected: false  },
-      { name: "Sp6", desc: "Sprint 6 dogs, 12km", selected: false  },
-      { name: "Sp8", desc: "Sprint 8 dogs, 12km", selected: false  },
-      { name: "SpU", desc: "Sprint open class, 22km", selected: false  },
-      { name: "SpJ4", desc: "Sprint 4 dogs, Juniors, 7km", selected: false  },
-      { name: "First run", desc: "Run for  kids with dogs, 300m", selected: false  },
+
+    $scope.listLayouts = [
+      { name: "Default", show: "Layout: Default", desc: "Shows most important fields", selected: true  },
+      { name: "Full view", show: "Layout: Full", desc: "All available fields (requires scrolling)", selected: false  },
+      { name: "Simple view", show: "Layout: Simple", desc: "View orders and customers", selected: false  },
     ]
-    $scope.raceboxsettings =
-      showCheckAll: false
-      showUncheckAll: false
+    $scope.listFitlers = [
+      { name: "Show all", show: "Filter: none (show all)", desc: "Shows all available documents", selected: true  },
+      { name: "Today", show: "Filter: today", desc: "Shows only documents to be handled today", selected: false  },
+      { name: "Tomorrow", show: "Filter: tomorrow", desc: "Shows only documents to be handled tomorrow", selected: false  },
+      { name: "This week", show: "Filter: this week", desc: "Shows only documents to be handled this week, including today", selected: false  },
+    ]
+    $scope.listSorting = [
+      { name: "Order ID", show: "Sort by: ID", desc: "Sort by Order ID", selected: true  },
+      { name: "RPL_City", show: "Sort by: Lähtöos. kaupunki", desc: "Sort by Lähtöosoitteen kaupunki", selected: false  },
+      { name: "RPU_ZipCode", show: "Sort by: Määräos. postinumero", desc: "Sort by Määräosoitteen postinumero", selected: false  },
+      { name: "RPU_City", show: "Sort by: Määräos. kauppunki", desc: "Sort by Määräosoitteen kauppunki", selected: false  },
+    ]
     actService.page_items(decodeURIComponent($scope.pageNo))
     .then($scope._rememberPageItems,$scope._errorHandler)
 ]

@@ -29,4 +29,12 @@ $grid-float-breakpoint: 1280px;
   float: left;
   clear: none;
   margin-right: 6px;
+  margin-bottom: 2px;
+}
+.multiSelect .button { 
+  width: 180px;
+}
+
+#select_sort .button { 
+  width: 240px;
 }
