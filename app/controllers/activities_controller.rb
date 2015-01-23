@@ -5,12 +5,32 @@ class ActivitiesController < ApplicationController
   # GET /activities.json
   # GET /activities/?filter=xxxx&sort=gggg
   def index
+    limit = params[:limit] || params[:count] || 200
+    offset = params[:offset] || params[:skip] || 0
+    filter = params[:filter] || ""
+    sort = params[:sort] || ""
+
+    limit = limit.to_i
+    offset = offset.to_i
+
+    offset = [0,params[:index].to_i - limit / 2].max if params[:index] and offset == 0
+
+    total_count = Activity.all.count
+
+    # Make sure you do return something
+    limit = [limit, total_count].min
+    offset = [offset, total_count - limit].min
+
     respond_to do |format|
       format.json do
         render json: { 
-          items: Activity.limit(5000).as_json,
-          offset: 0,
-          total_count: Activity.all.count
+          items: Activity
+            .limit(limit)
+            .skip(offset)
+            .order_by(Order_ID: 1)
+            .as_json,
+          offset: offset,
+          total_count: total_count
         }
       end
     end
