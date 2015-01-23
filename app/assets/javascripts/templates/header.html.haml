@@ -1,13 +1,13 @@
 %nav.navbar.navbar-static-top.navbar-inverse(role="navigation")
   .container-fluid
     .navbar-header.pull-left
-      %a.navbar-brand(href="#")
+      %a.navbar-brand(href="/#/")
         =image_tag "logo.png", height: '20'
     -# Sticky menu, on the right
     #navbar-steady.navbar-header.pull-right
       %ul.nav.navbar-nav.pull-left
         %li.pull-right
-          %a(href="#") (Lopeta)
+          %a (Lopeta)
         %li.navbar-text.pull-right
           %span
             %span Käyttäjä:
@@ -21,72 +21,72 @@
     #navbar.navbar-collapse.collapse(collapse="isCollapsed")
       %ul.nav.navbar-nav
         %li
-          %a(href="#") Aloitus
+          %a Aloitus
         %li.dropdown(dropdown on-toggle="toggled(open)")
           %a.dropdown-toggle(dropdown-toggle)
             Toimitukset ja Siirtymät
             %span.caret
           %ul.dropdown-menu
             %li
-              %a(ui-sref="#") Toimitukset
+              %a Toimitukset
             %li
-              %a(ui-sref="#") Siirtymät
+              %a Siirtymät
             %li
-              %a(ui-sref="#") Routes
+              %a Routes
         %li
-          %a(href="#") Suunnittelu
+          %a(ng-click="alertMe()") Suunnittelu
         %li
-          %a(href="#") Kartat
+          %a Kartat
         %li
-          %a(href="#") Historia
+          %a Historia
         %li.dropdown(dropdown on-toggle="toggled(open)")
           %a.dropdown-toggle(dropdown-toggle)
             Resurssit
             %span.caret
           %ul.dropdown-menu
             %li
-              %a(ui-sref="#") Resurssit
+              %a dResurssit
             %li
-              %a(ui-sref="#") Aikataulut
+              %a Aikataulut
             %li
-              %a(ui-sref="#") Resurssilinkit
+              %a Resurssilinkit
             %li
-              %a(ui-sref="#") Resurssiryhmät
+              %a Resurssiryhmät
             %li
-              %a(ui-sref="#") Tuntiraportit
+              %a Tuntiraportit
             %li
-              %a(ui-sref="#") Tuntikirjanpito
+              %a Tuntikirjanpito
         %li
-          %a(href="#") Asiakkaat
-        %li.dropdown(dropdown on-toggle="toggled(open)")
-          %a.dropdown-toggle(dropdown-toggle)
-            Kohteet
-            %span.caret
-          %ul.dropdown-menu
-            %li
-              %a(ui-sref="#") Asiakaskohteet
-            %li
-              %a(ui-sref="#") Kohteet
-            %li
-              %a(ui-sref="#") Hintaryhmät
-        %li
-          %a(href="#") Raportit
+          %a Asiakkaat
         %li.dropdown(dropdown on-toggle="toggled(open)")
           %a.dropdown-toggle(dropdown-toggle)
             Admin
             %span.caret
           %ul.dropdown-menu
             %li
-              %a(ui-sref="#") Laataa kuvia
+              %a Laataa kuvia
             %li
-              %a(ui-sref="#") Tehtävätyypit
-        %li
-          %a(href="#") Route Planning
+              %a Tehtävätyypit
+            %li.divider
+            %li.dropdown-header Some options
+            %li
+              %a Asiakaskohteet
+            %li
+              %a Kohteet
+            %li
+              %a Hintaryhmät
+            %li.divider
+            %li.dropdown-header Final admin options
+            %li
+              %a Raportit
+            
+            %li
+              %a Route Planning
     -# Following two are collapsible right-hand side items
       %ul.nav.navbar-nav.navbar-right
         %li
-          %a(href="#") Right 1
+          %a Right 1
         %li
-          %a(href="#") Right 2
+          %a Right 2
 %alert(ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)") {{alert.msg}}
 -# <button class='btn btn-default' ng-click="addAlert()">Add Alert</button>
