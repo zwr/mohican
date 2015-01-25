@@ -64,6 +64,14 @@
         "..."
       else
         page_number
+    $scope.showLayout = (definition_name) ->
+      $scope.layout = definition_name
+      if $scope.layout == 'default'
+        $location.search('layout', null)
+      else
+        $route.updateParams {layout: $scope.layout}
+      actService.page_items(decodeURIComponent($scope.pageNo))
+      .then($scope._rememberPageItems,$scope._errorHandler)
     $scope.sort_by = (field_name) ->
       actService.sort_by(field_name)
       $scope.sort = field_name
@@ -92,7 +100,7 @@
       { name: "RPU_City", show: "Sort by: Määräos. kauppunki", desc: "Sort by Määräosoitteen kauppunki", selected: $scope.sort == "RPU_City"  },
     ]
     $scope.currentLayout = ->
-      actService.layout.layout.layouts[0].definition
+      return layout.definition for layout in actService.layout.layout.layouts when layout.name == $scope.layout
     actService.page_items(decodeURIComponent($scope.pageNo))
     .then($scope._rememberPageItems,$scope._errorHandler)
 ]
