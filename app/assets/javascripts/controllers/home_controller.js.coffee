@@ -32,6 +32,7 @@
     $scope.page_count = null
     $scope.error_message = null
     $scope._rememberPageItems = (resp) ->
+      $scope.listLayouts = $scope.readListLayouts()
       if actService.currently_sorted_by != $scope.sort
         $scope.sort_by $scope.sort
       else
@@ -72,11 +73,12 @@
         $route.updateParams {sort: field_name}
       actService.page_items(decodeURIComponent($scope.pageNo))
       .then($scope._rememberPageItems,$scope._errorHandler)
-    $scope.listLayouts = [
-      { name: "Default", show: "Layout: Default", desc: "Shows most important fields", selected: true  },
-      { name: "Full view", show: "Layout: Full", desc: "All available fields (requires scrolling)", selected: false  },
-      { name: "Simple view", show: "Layout: Simple", desc: "View orders and customers", selected: false  },
-    ]
+    $scope.readListLayouts = ->
+      if actService.layout?
+        for layout in actService.layout.layout.layouts
+          { name: layout.name, show: "Layout: #{layout.name}", desc: "Shows #{layout.definition.length} fields", selected: layout.name ==  $scope.layout }
+      else
+        []
     $scope.listFitlers = [
       { name: "Show all", show: "Filter: none (show all)", desc: "Shows all available documents", selected: true  },
       { name: "Today", show: "Filter: today", desc: "Shows only documents to be handled today", selected: false  },
@@ -89,7 +91,7 @@
       { name: "RPU_ZipCode", show: "Sort by: Määräos. postinumero", desc: "Sort by Määräosoitteen postinumero", selected: $scope.sort == "RPU_ZipCode"  },
       { name: "RPU_City", show: "Sort by: Määräos. kauppunki", desc: "Sort by Määräosoitteen kauppunki", selected: $scope.sort == "RPU_City"  },
     ]
-    $scope.layout = ->
+    $scope.currentLayout = ->
       actService.layout.layout.layouts[0].definition
     actService.page_items(decodeURIComponent($scope.pageNo))
     .then($scope._rememberPageItems,$scope._errorHandler)
