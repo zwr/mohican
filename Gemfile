@@ -54,3 +54,6 @@ gem "devise", "~> 3.3.0"
 
 gem "rest-client"
 gem "pry-rails", :group => :development
+
+gem "rack-reverse-proxy", require: "rack/reverse_proxy", :git => 'https://github.com/jaswope/rack-reverse-proxy.git', :branch => 'master'
+# gem "rack-rewrite", "~> 1.5.0"
