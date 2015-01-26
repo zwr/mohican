@@ -45,7 +45,7 @@
             %span.caret
           %ul.dropdown-menu
             %li
-              %a dResurssit
+              %a Resurssit
             %li
               %a Aikataulut
             %li
@@ -58,6 +58,7 @@
               %a Tuntikirjanpito
         %li
           %a Asiakkaat
+      %ul.nav.navbar-nav.navbar-right
         %li.dropdown(dropdown on-toggle="toggled(open)")
           %a.dropdown-toggle(dropdown-toggle)
             Admin
@@ -82,11 +83,5 @@
             
             %li
               %a Route Planning
-    -# Following two are collapsible right-hand side items
-      %ul.nav.navbar-nav.navbar-right
-        %li
-          %a Right 1
-        %li
-          %a Right 2
 %alert(ng-repeat="alert in alerts" type="{{alert.type}}" close="closeAlert($index)") {{alert.msg}}
 -# <button class='btn btn-default' ng-click="addAlert()">Add Alert</button>
