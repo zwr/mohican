@@ -8,5 +8,6 @@ Rails.application.routes.draw do
     resources :users, as: 'users'
   end
 
+  get 'index_old', to: 'home#index_old'
   root to: 'home#index'
 end

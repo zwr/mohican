@@ -2,8 +2,7 @@
 *= require_self
 */
 
-$grid-float-breakpoint: 1280px;
-
+@import "config";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "mohican";
