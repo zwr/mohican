@@ -13,7 +13,7 @@ config(['$stateProvider',
   function startRoute($stateProvider) {
     'use strict';
     $stateProvider.state('base.start', {
-      url: '/start',
+      url: '/',
       template: '<div>{{start.echo}}</div>',
       controller: 'StartController',
       controllerAs: 'start',

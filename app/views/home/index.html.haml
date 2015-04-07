@@ -32,9 +32,6 @@
     -# If you need something from the Ruby code, set it up here
     -# %script
   %body(data-main-app ng-cloak)
-    %a{"ui-sref" => "base.start"}
-      start
-    %a{"ui-sref" => "base.map"}
-      map
+    %div(ng-include="'app/components/appHeader/appHeader.template.html'")
     %div(ui-view)
     = javascript_include_tag 'app'
