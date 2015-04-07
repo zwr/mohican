@@ -10,4 +10,9 @@ Rails.application.routes.draw do
 
   get 'index_old', to: 'home#index_old'
   root to: 'home#index'
+
+  #angular routes
+  get '/start', to: 'home#index'
+  get '/map', to: 'home#index'
+  #end angular routes
 end

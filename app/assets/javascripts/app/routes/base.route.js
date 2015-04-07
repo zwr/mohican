@@ -11,16 +11,17 @@ angular.module('baseRouteModule', [
     'use strict';
     $stateProvider.state('base', {
       abstract: true,
+      url: '',
       views: {
         '': {
-          template: '<ui-view>ee</ui-view>',
+          template: '<ui-view/>',
         },
       },
       resolve: {
-        echoService: [
-          'EchoService',
-          function echoServiceResolver(EchoService) {
-            return EchoService.repeat('echo');
+        echo: [
+          'Echo',
+          function echoServiceResolver(Echo) {
+            return Echo;
           },
         ],
       },

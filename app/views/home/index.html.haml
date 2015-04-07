@@ -27,14 +27,14 @@
         display: none;
       }
     -#
-    = stylesheet_link_tag    'application', media: 'all'
+    = stylesheet_link_tag    'app', media: 'all'
     = csrf_meta_tags
     -# If you need something from the Ruby code, set it up here
     -# %script
   %body(data-main-app ng-cloak)
-    %a{"ui-sref" => "start"}
+    %a{"ui-sref" => "base.start"}
       start
-    %a{"ui-sref" => "map"}
+    %a{"ui-sref" => "base.map"}
       map
     %div(ui-view)
     = javascript_include_tag 'app'

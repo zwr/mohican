@@ -6,7 +6,7 @@ var mainConfigModule = angular.module('mainConfigModule', [
 ]);
 
 mainConfigModule.config(['$locationProvider',
-  function($locationProvider) {
+  function locationProviderConfig($locationProvider) {
     'use strict';
     $locationProvider.html5Mode(true).hashPrefix('!');
   },

@@ -3,10 +3,13 @@
 var mapControllerModule = angular.module('mapControllerModule', []);
 
 mapControllerModule.controller('MapController', [
-  function () {
+  'Echo',
+  function mapController(Echo) {
     'use strict';
     var ctrl = this;
 
-    ctrl.echo = 'echo';
+    Echo.repeat('MAP').then(function(result) {
+      ctrl.echo = result;
+    });
   },
 ]);

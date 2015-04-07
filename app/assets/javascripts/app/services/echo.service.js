@@ -1,8 +1,8 @@
 //= require angular
 
-angular.module('echoServiceModule', []).factory('EchoService', [
+angular.module('echoServiceModule', []).factory('Echo', [
   '$q',
-  function EchoService($q) {
+  function Echo($q) {
     'use strict';
     function repeat(text) {
       var deferred = $q.defer();
@@ -13,7 +13,7 @@ angular.module('echoServiceModule', []).factory('EchoService', [
     }
 
     return {
-      get: repeat,
+      repeat: repeat,
     };
   },
 ]);

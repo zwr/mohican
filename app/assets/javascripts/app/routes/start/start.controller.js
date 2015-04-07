@@ -3,10 +3,13 @@
 var startControllerModule = angular.module('startControllerModule', []);
 
 startControllerModule.controller('StartController', [
-  function () {
+  'Echo',
+  function startController(Echo) {
     'use strict';
     var ctrl = this;
 
-    ctrl.echo = 'echo';
+    Echo.repeat('START').then(function(result) {
+      ctrl.echo = result;
+    });
   },
 ]);
