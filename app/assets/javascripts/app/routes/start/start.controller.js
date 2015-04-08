@@ -7,13 +7,21 @@
       .module('startControllerModule', [])
       .controller('StartController', StartController);
 
-  StartController.$inject = ['Echo'];
+  StartController.$inject = ['actServiceResolve'];
 
-  function StartController(Echo) {
+  function StartController(actServiceResolve) {
     var vm = this;
 
-    Echo.repeat('START').then(function(result) {
-      vm.echo = result;
+    function _getActivities() {
+      actServiceResolve.pageItems().then(function(result) {
+        vm.activities = result;
+      });
+    }
+
+    _getActivities();
+
+    angular.extend(vm, {
+      getActivities: _getActivities,
     });
   }
 })();

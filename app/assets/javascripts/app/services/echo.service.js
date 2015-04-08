@@ -5,21 +5,23 @@
 
   angular
       .module('echoServiceModule', [])
-      .factory('Echo', echo);
+      .factory('echoService', echoService);
 
-  echo.$inject = ['$q'];
+  echoService.$inject = ['$q'];
 
-  function echo($q) {
-    function repeat(text) {
+  function echoService($q) {
+    var service = {
+      echo: _echo,
+    };
+
+    return service;
+
+    function _echo(text) {
       var deferred = $q.defer();
 
       deferred.resolve(text);
 
       return deferred.promise;
     }
-
-    return {
-      repeat: repeat,
-    };
   }
 })();

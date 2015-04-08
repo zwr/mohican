@@ -7,13 +7,21 @@
       .module('mapControllerModule', [])
       .controller('MapController', MapController);
 
-  MapController.$inject = ['Echo'];
+  MapController.$inject = ['echoServiceResolve'];
 
-  function MapController(Echo) {
+  function MapController(echoServiceResolve) {
     var vm = this;
 
-    Echo.repeat('MAP').then(function(result) {
-      vm.echo = result;
+    function _callEcho() {
+      echoServiceResolve.echo('hello').then(function(result) {
+        vm.echo = result;
+      });
+    }
+
+    _callEcho();
+
+    angular.extend(vm, {
+      callEcho: _callEcho,
     });
   }
 })();

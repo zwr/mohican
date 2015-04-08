@@ -1,13 +1,17 @@
 //= require angular
 //= require includes/angular-ui-router
-//= require ./start.controller
+//= require angular-rails-templates
+
 //= require app/routes/base.route
+//= require ./start.controller
+//= require ./start.template
 
 (function() {
   'use strict';
 
   angular.module('startRouteModule', [
     'ui.router',
+    'templates',
     'baseRouteModule',
     'startRouteModule',
     'startControllerModule',
@@ -16,7 +20,7 @@
     function startRoute($stateProvider) {
       $stateProvider.state('base.start', {
         url: '/',
-        template: '<div>{{start.echo}}</div>',
+        templateUrl: 'app/routes/start/start.template.html',
         controller: 'StartController',
         controllerAs: 'vm',
       });

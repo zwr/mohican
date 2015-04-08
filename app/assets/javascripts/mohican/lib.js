@@ -1,4 +1,9 @@
 //= require angular
+//= require ./services/mnBaseService
 //= require_self
 
-this.mohican = angular.module('mohican', []);
+(function() {
+  'use strict';
+
+  angular.module('mohican', ['mnBaseServiceModule']);
+})();

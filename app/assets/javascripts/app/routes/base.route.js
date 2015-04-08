@@ -1,6 +1,7 @@
 //= require angular
 //= require includes/angular-ui-router
 //= require app/services/echo.service
+//= require app/services/act.service
 
 (function() {
   'use strict';
@@ -9,6 +10,7 @@
       .module('baseRouteModule', [
         'ui.router',
         'echoServiceModule',
+        'actServiceModule',
       ])
       .config([
         '$stateProvider',
@@ -22,10 +24,16 @@
               },
             },
             resolve: {
-              echo: [
-                'Echo',
-                function echoServiceResolver(Echo) {
-                  return Echo;
+              echoServiceResolve: [
+                'echoService',
+                function echoServiceResolver(echoService) {
+                  return echoService;
+                },
+              ],
+              actServiceResolve: [
+                'actService',
+                function actServiceResolver(actService) {
+                  return actService;
                 },
               ],
             },

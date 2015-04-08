@@ -1,7 +1,10 @@
 //= require angular
 //= require includes/angular-ui-router
-//= require ./map.controller
+//= require angular-rails-templates
+
 //= require app/routes/base.route
+//= require ./map.controller
+//= require ./map.template
 
 (function() {
   'use strict';
@@ -17,7 +20,7 @@
         function mapRoute($stateProvider) {
           $stateProvider.state('base.map', {
             url: '/map',
-            template: '<div>MAP</div>',
+            templateUrl: 'app/routes/map/map.template.html',
             controller: 'MapController',
             controllerAs: 'vm',
           });

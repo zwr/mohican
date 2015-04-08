@@ -39,7 +39,7 @@ gem "bootstrap_form"
 gem "puma", platforms: :ruby
 gem "haml-rails"
 gem "angularjs-rails"
-gem "angular-rails-templates"
+gem "angular-rails-templates" #TODO https://github.com/pitr/angular-rails-templates#configuration-option-ignore_prefix
 gem "angular-ui-bootstrap-rails"
 gem "angular_rails_csrf"
 gem "redcarpet"
