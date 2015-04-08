@@ -2,20 +2,24 @@
 
 (function() {
   'use strict';
-  angular.module('echoServiceModule', []).factory('Echo', [
-    '$q',
-    function Echo($q) {
-      function repeat(text) {
-        var deferred = $q.defer();
 
-        deferred.resolve(text);
+  angular
+      .module('echoServiceModule', [])
+      .factory('Echo', echo);
 
-        return deferred.promise;
-      }
+  echo.$inject = ['$q'];
 
-      return {
-        repeat: repeat,
-      };
-    },
-  ]);
+  function echo($q) {
+    function repeat(text) {
+      var deferred = $q.defer();
+
+      deferred.resolve(text);
+
+      return deferred.promise;
+    }
+
+    return {
+      repeat: repeat,
+    };
+  }
 })();

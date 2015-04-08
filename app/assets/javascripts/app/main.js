@@ -9,6 +9,7 @@
 
 (function() {
   'use strict';
+
   angular.module('id5', [
     'templates',
     'mainConfigModule',

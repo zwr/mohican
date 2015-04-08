@@ -2,16 +2,18 @@
 
 (function() {
   'use strict';
-  var startControllerModule = angular.module('startControllerModule', []);
 
-  startControllerModule.controller('StartController', [
-    'Echo',
-    function startController(Echo) {
-      var ctrl = this;
+  angular
+      .module('startControllerModule', [])
+      .controller('StartController', StartController);
 
-      Echo.repeat('START').then(function(result) {
-        ctrl.echo = result;
-      });
-    },
-  ]);
+  StartController.$inject = ['Echo'];
+
+  function StartController(Echo) {
+    var vm = this;
+
+    Echo.repeat('START').then(function(result) {
+      vm.echo = result;
+    });
+  }
 })();

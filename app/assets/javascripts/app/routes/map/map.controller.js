@@ -2,16 +2,18 @@
 
 (function() {
   'use strict';
-  var mapControllerModule = angular.module('mapControllerModule', []);
 
-  mapControllerModule.controller('MapController', [
-    'Echo',
-    function mapController(Echo) {
-      var ctrl = this;
+  angular
+      .module('mapControllerModule', [])
+      .controller('MapController', MapController);
 
-      Echo.repeat('MAP').then(function(result) {
-        ctrl.echo = result;
-      });
-    },
-  ]);
+  MapController.$inject = ['Echo'];
+
+  function MapController(Echo) {
+    var vm = this;
+
+    Echo.repeat('MAP').then(function(result) {
+      vm.echo = result;
+    });
+  }
 })();

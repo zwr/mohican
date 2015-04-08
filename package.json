@@ -1,0 +1,12 @@
+{
+  "name": "id5",
+  "version": "0.1.0",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/zmilojko/id5.git"
+  },
+  "devDependencies": {
+    "eslint": "^0.18.0",
+    "eslint-plugin-angular": "0.0.7"
+  }
+}

@@ -18,6 +18,7 @@ The latter is not at the moment described in this document.
 * Ruby 2.x, recommended 2.2 on RVM
 * MongoDB
 * Git, 2.x (any would work, but instructions might fail)
+* NodeJS, recommended 0.12.2 on NVM
 
 ## Get it, run it
 
@@ -25,8 +26,9 @@ Note that this project repo includes two git sobmodule - clone with `--recursive
 
     git clone --recursive git@github.com:zmilojko/id5.git
     cd id5
+    npm install
     bundle install
     rake db:seed
     rails s
-    
+
 If everything went well, hit [http://localhost:3000/]() and you are good to go.

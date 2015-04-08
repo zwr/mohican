@@ -5,6 +5,7 @@
 
 (function() {
   'use strict';
+
   angular.module('startRouteModule', [
     'ui.router',
     'baseRouteModule',
@@ -17,7 +18,7 @@
         url: '/',
         template: '<div>{{start.echo}}</div>',
         controller: 'StartController',
-        controllerAs: 'start',
+        controllerAs: 'vm',
       });
     },
   ]);
