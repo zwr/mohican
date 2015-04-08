@@ -31,7 +31,9 @@
     = csrf_meta_tags
     -# If you need something from the Ruby code, set it up here
     -# %script
-  %body(data-main-app ng-cloak)
-    %div(ng-include="'app/components/appHeader/appHeader.template.html'")
-    %div(ui-view)
+  %body(data-main-app ng-cloak role="document")
+    %div.full_height
+      .container-fluid(mn-full-size)
+        #cel-menu(ng-include="'app/components/appHeader/appHeader.template.html'")
+      %div.full_height(ui-view)
     = javascript_include_tag 'app'

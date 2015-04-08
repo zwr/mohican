@@ -1,9 +1,14 @@
 //= require angular
 //= require ./services/mnBaseService
-//= require_self
+
+//= require angular-rails-templates
+//= require_tree ./oldDirectives
 
 (function() {
   'use strict';
 
-  angular.module('mohican', ['mnBaseServiceModule']);
+  angular.module('mohican', [
+    'mnOldDirectives',
+    'mnBaseServiceModule',
+  ]);
 })();

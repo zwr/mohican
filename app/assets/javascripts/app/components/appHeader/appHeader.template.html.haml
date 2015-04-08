@@ -7,17 +7,15 @@
     %mn-menu (Lopeta)
   %mn-navbar-collapsible
     %mn-navbar-collapsible-left
-      %mn-menu
-        %a{"ui-sref" => "base.start"}
-          Aloitus
+      %mn-menu{"ui-sref" => "base.start"}
+        Aloitus
       %mn-menu-group(mn-text="Toimitukset ja Siirtymät")
         %mn-menu-item Toimitukset
         %mn-menu-item Siirtymät
         %mn-menu-item Routes
       %mn-menu(ng-click="alertMe()") Suunnittelu
-      %mn-menu
-        %a{"ui-sref" => "base.map"}
-          Kartat
+      %mn-menu{"ui-sref" => "base.map"}
+        Kartat
       %mn-menu Historia
       %mn-menu-group(mn-text="Resurssit")
         %mn-menu-item Resurssit
