@@ -7,9 +7,12 @@
 //= require angular-rails-templates
 //= require_tree ./components
 
-angular.module('id5', [
-  'templates',
-  'mainConfigModule',
-  'startRouteModule',
-  'mapRouteModule',
-]);
+(function() {
+  'use strict';
+  angular.module('id5', [
+    'templates',
+    'mainConfigModule',
+    'startRouteModule',
+    'mapRouteModule',
+  ]);
+})();

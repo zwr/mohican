@@ -3,20 +3,22 @@
 //= require ./start.controller
 //= require app/routes/base.route
 
-angular.module('startRouteModule', [
-  'ui.router',
-  'baseRouteModule',
-  'startRouteModule',
-  'startControllerModule',
-]).
-config(['$stateProvider',
-  function startRoute($stateProvider) {
-    'use strict';
-    $stateProvider.state('base.start', {
-      url: '/',
-      template: '<div>{{start.echo}}</div>',
-      controller: 'StartController',
-      controllerAs: 'start',
-    });
-  },
-]);
+(function() {
+  'use strict';
+  angular.module('startRouteModule', [
+    'ui.router',
+    'baseRouteModule',
+    'startRouteModule',
+    'startControllerModule',
+  ]).
+  config(['$stateProvider',
+    function startRoute($stateProvider) {
+      $stateProvider.state('base.start', {
+        url: '/',
+        template: '<div>{{start.echo}}</div>',
+        controller: 'StartController',
+        controllerAs: 'start',
+      });
+    },
+  ]);
+})();
