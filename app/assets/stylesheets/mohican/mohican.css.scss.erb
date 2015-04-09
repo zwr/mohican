@@ -1,0 +1,115 @@
+@import "config";
+@import "bootstrap-sprockets";
+@import "bootstrap";
+@import "rails_bootstrap_forms";
+
+@media(max-width: $grid-float-breakpoint - 1 /*767px*/) {
+  .navbar-text {
+    margin-top: 10px;
+  }
+  .navbar-toggle {
+    margin-left: 16px;
+  }
+  .navbar-nav {
+    margin-top: 5px;
+    margin-bottom: 0px;
+  }
+}
+
+[mn-full-size] {
+  background: #F6F6F6 url(<%= asset_path 'bg.png' %>) repeat-x;
+}
+
+.nav,
+.pagination,
+.carousel,
+.panel-title a,
+.pointer,
+[ng-click],
+[data-ng-click],
+[x-ng-click] {
+    cursor: pointer;
+}
+
+mn-menu-group > li {
+  float: left;
+}
+
+mn-menu-group > li > a {
+  color: #777777;
+  padding-top: 15px;
+  line-height: 20px;
+  box-sizing: border-box;
+  position: relative;
+  display: block;
+  padding: 15px;
+  list-style-position: outside;
+  text-decoration: none;
+}
+
+mn-menu-group > li > .dropdown-menu {
+  margin-top: 0;
+  border-top-right-radius: 0;
+  border-top-left-radius: 0;
+}
+
+.dropdown-menu .divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+
+mn-menu-item > li {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.428571429;
+  color: #333333;
+  white-space: nowrap;
+}
+
+mn-navbar-right mn-menu {
+  position: relative;
+  display: block;
+  float: left !important;
+}
+
+mn-navbar-right mn-menu li.navbar-text,
+mn-navbar-right mn-menu-group li.navbar-text{
+  margin-left: 0px;
+  margin-right: 0px;
+  padding-left: 15px;
+  padding-right: 15px;
+}
+
+mn-menu-item > li:hover, mn-menu-item > li:focus {
+  text-decoration: none;
+  color: #262626;
+  background-color: whitesmoke;
+}
+
+mn-menu > li:hover, mn-menu > li > span:hover, mn-menu-group > li > a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+mn-menu-group > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
+  background-color: #090909;
+  color: white;
+}
+
+.collapse.in mn-menu-group, .collapse.in mn-menu,
+.collapsing mn-menu-group, .collapsing mn-menu {
+  clear: both;
+  position: relative;
+  display: block;
+  box-sizing: border-box;
+}
+
+.collapsing mn-menu-group > li > a,
+.collapse.in mn-menu-group > li > a {
+  padding: 0px;
+  padding-bottom: 15px;
+}
