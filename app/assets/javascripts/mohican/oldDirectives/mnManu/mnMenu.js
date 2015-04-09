@@ -19,14 +19,21 @@ angular.module('mnOldDirectives', []).directive('mnNavbar', function() {
     transclude: true,
     templateUrl: "mohican/oldDirectives/mnManu/mnNavbarRight.html"
   };
-}).directive('mnNavbarCollapsible', function() {
+}).directive('mnNavbarCollapsible', ['$window', function($window) {
   var ret;
   return ret = {
     restrict: 'E',
     transclude: true,
+    link: function(scope) {
+      scope.isCollapsed = true;
+      angular.element($window).bind('resize', function () {
+        scope.isCollapsed = true;
+        scope.$apply();
+      });
+    },
     template: '<div id="navbar" class="navbar-collapse collapse" collapse="isCollapsed" ng-transclude></div>'
   };
-}).directive('mnNavbarCollapsibleLeft', function() {
+}]).directive('mnNavbarCollapsibleLeft', function() {
   var ret;
   return ret = {
     restrict: 'E',
