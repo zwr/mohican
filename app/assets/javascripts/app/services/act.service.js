@@ -1,5 +1,6 @@
 //= require angular
 //= require mohican/lib
+//= require_self
 
 (function() {
   'use strict';

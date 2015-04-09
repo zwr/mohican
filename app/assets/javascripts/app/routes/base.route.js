@@ -2,6 +2,7 @@
 //= require includes/angular-ui-router
 //= require app/services/echo.service
 //= require app/services/act.service
+//= require_self
 
 (function() {
   'use strict';

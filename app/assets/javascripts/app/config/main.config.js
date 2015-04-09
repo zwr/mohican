@@ -1,5 +1,6 @@
 //= require angular
 //= require includes/angular-ui-router
+//= require_self
 
 (function() {
   'use strict';

@@ -1,12 +1,12 @@
 //= require angular
 //= require angular-ui-bootstrap
-
+//= require angular-rails-templates
 //= require ./config/main.config
 //= require ./routes/start/start.route
 //= require ./routes/map/map.route
-
-//= require angular-rails-templates
-//= require_tree ./components
+//TODO find some better palce for layout templates loading
+//= require ./components/appHeader/appHeader.template
+//= require_self
 
 (function() {
   'use strict';

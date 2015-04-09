@@ -1,10 +1,10 @@
 //= require angular
 //= require includes/angular-ui-router
 //= require angular-rails-templates
-
 //= require app/routes/base.route
 //= require ./start.controller
 //= require ./start.template
+//= require_self
 
 (function() {
   'use strict';

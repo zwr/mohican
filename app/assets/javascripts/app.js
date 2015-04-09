@@ -1,5 +1,6 @@
 //= require angular
 //= require ./app/main
+//= require_self
 
 angular.element(document).ready(function documentReady() {
   'use strict';
