@@ -16,7 +16,8 @@
     "no-use-before-define": [2, "nofunc"],
     "camelcase": [2, {"properties": "always"}],
     "semi": [2, "always"],
-    "no-mixed-spaces-and-tabs": [2, "smart-tabs"]
+    "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
+    "angular/ng_di": [2, "array"]
   },
   "globals": {
     "angular": true,

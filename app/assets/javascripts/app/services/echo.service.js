@@ -5,9 +5,7 @@
 
   angular
       .module('echoServiceModule', [])
-      .factory('echoService', echoService);
-
-  echoService.$inject = ['$q'];
+      .factory('echoService', ['$q', echoService]);
 
   function echoService($q) {
     var service = {

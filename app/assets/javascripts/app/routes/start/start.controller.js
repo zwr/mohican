@@ -5,9 +5,7 @@
 
   angular
       .module('startControllerModule', [])
-      .controller('StartController', StartController);
-
-  StartController.$inject = ['actServiceResolve'];
+      .controller('StartController', ['actServiceResolve', StartController]);
 
   function StartController(actServiceResolve) {
     var vm = this;

@@ -5,9 +5,7 @@
 
   angular
       .module('mapControllerModule', [])
-      .controller('MapController', MapController);
-
-  MapController.$inject = ['echoServiceResolve'];
+      .controller('MapController', ['echoServiceResolve', MapController]);
 
   function MapController(echoServiceResolve) {
     var vm = this;

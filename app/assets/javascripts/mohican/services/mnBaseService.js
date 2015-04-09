@@ -5,9 +5,7 @@
 
   angular
       .module('mnBaseServiceModule', [])
-      .factory('mnBaseService', mnBaseService);
-
-      mnBaseService.$inject = ['$q'];
+      .factory('mnBaseService', ['$q', mnBaseService]);
 
   function mnBaseService($q) {
     var _service = {

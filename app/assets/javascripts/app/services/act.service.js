@@ -8,9 +8,7 @@
       .module('actServiceModule', [
         'mohican',
       ])
-      .factory('actService', actService);
-
-  actService.$inject = ['mnBaseService'];
+      .factory('actService', ['mnBaseService', actService]);
 
   function actService(mnBaseService) {
     var service = {};
