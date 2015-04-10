@@ -60,7 +60,7 @@ mn-menu-group > li > .dropdown-menu {
   background-color: #e5e5e5;
 }
 
-mn-menu-item > li {
+mn-menu-group-item > li {
   display: block;
   padding: 3px 20px;
   clear: both;
@@ -70,13 +70,13 @@ mn-menu-item > li {
   white-space: nowrap;
 }
 
-mn-navbar-right mn-menu {
+mn-navbar-right mn-menu-item {
   position: relative;
   display: block;
   float: left !important;
 }
 
-mn-navbar-right mn-menu li.navbar-text,
+mn-navbar-right mn-menu-item li.navbar-text,
 mn-navbar-right mn-menu-group li.navbar-text{
   margin-left: 0px;
   margin-right: 0px;
@@ -84,13 +84,13 @@ mn-navbar-right mn-menu-group li.navbar-text{
   padding-right: 15px;
 }
 
-mn-menu-item > li:hover, mn-menu-item > li:focus {
+mn-menu-group-item > li:hover, mn-menu-group-item > li:focus {
   text-decoration: none;
   color: #262626;
   background-color: whitesmoke;
 }
 
-mn-menu > li:hover, mn-menu > li > span:hover, mn-menu-group > li > a:hover {
+mn-menu-item > li:hover, mn-menu-item > li > span:hover, mn-menu-group > li > a:hover {
   color: white;
   text-decoration: none;
 }
@@ -100,8 +100,8 @@ mn-menu-group > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open >
   color: white;
 }
 
-.collapse.in mn-menu-group, .collapse.in mn-menu,
-.collapsing mn-menu-group, .collapsing mn-menu {
+.collapse.in mn-menu-group, .collapse.in mn-menu-item,
+.collapsing mn-menu-group, .collapsing mn-menu-item {
   clear: both;
   position: relative;
   display: block;

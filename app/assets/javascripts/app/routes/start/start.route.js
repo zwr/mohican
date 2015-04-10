@@ -13,7 +13,6 @@
     'ui.router',
     'templates',
     'baseRouteModule',
-    'startRouteModule',
     'startControllerModule',
   ]).
   config(['$stateProvider',

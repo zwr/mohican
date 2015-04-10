@@ -13,7 +13,6 @@
       .module('mapRouteModule', [
         'ui.router',
         'baseRouteModule',
-        'mapRouteModule',
         'mapControllerModule',
       ]).
       config(['$stateProvider',

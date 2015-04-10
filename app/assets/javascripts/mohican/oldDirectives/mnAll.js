@@ -17,7 +17,7 @@ angular.module('mnOldDirectives', []).directive('mnNavbar', function() {
   return ret = {
     restrict: 'E',
     transclude: true,
-    templateUrl: "mohican/oldDirectives/mnManu/mnNavbarRight.html"
+    templateUrl: "mohican/oldDirectives/templates/mnNavbarRight.html"
   };
 }).directive('mnNavbarCollapsible', ['$window', function($window) {
   var ret;
@@ -47,13 +47,6 @@ angular.module('mnOldDirectives', []).directive('mnNavbar', function() {
     transclude: true,
     template: '<ul class="nav navbar-nav navbar-right" ng-transclude>'
   };
-}).directive('mnMenu', function() {
-  var ret;
-  return ret = {
-    restrict: 'E',
-    transclude: true,
-    template: '<li class="navbar-text" ng-transclude/>'
-  };
 }).directive('mnMenuGroup', function() {
   var ret;
   return ret = {
@@ -64,7 +57,7 @@ angular.module('mnOldDirectives', []).directive('mnNavbar', function() {
     },
     template: '<li class="dropdown" dropdown on-toggle="toggled(open)"><a class="dropdown-toggle" dropdown-toggle><span>{{mnText}}</span><span class="caret"/></a><ul class="dropdown-menu" ng-transclude/></li>'
   };
-}).directive('mnMenuItem', function() {
+}).directive('mnMenuGroupItem', function() {
   var ret;
   return ret = {
     restrict: 'E',

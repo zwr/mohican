@@ -15,7 +15,9 @@
       ])
       .config([
         '$stateProvider',
-        function baseRoute($stateProvider) {
+        '$urlRouterProvider',
+        function baseRoute($stateProvider, $urlRouterProvider) {
+          $urlRouterProvider.otherwise('/');
           $stateProvider.state('base', {
             abstract: true,
             url: '',
