@@ -20,19 +20,21 @@
   background: #F6F6F6 url(<%= asset_path 'bg.png' %>) repeat-x;
 }
 mn-menu-item-route > a > span {
-  color: #777777;
-  text-decoration: none;
-}
-mn-menu-item-route > a,
-mn-menu-item-route > a > span:hover,
-mn-menu-group > li > a:hover,
-mn-menu-item-route > a:hover {
-  color: white;
+  color: $mn-menu-item-route-color;
   text-decoration: none;
 }
 
-a.mn-menu-item-route-active span, a.mn-menu-item-route-active span:focus, a.mn-menu-item-route-active:focus {
-  color: red;
+mn-menu-item-route > a:not(.mn-menu-item-route-active) > span:hover,
+mn-menu-group > li > a:hover,
+mn-menu-item-route > a:hover {
+  color: $mn-menu-item-route-hover-color;
+  text-decoration: none;
+}
+
+a.mn-menu-item-route-active span,
+a.mn-menu-item-route-active span:focus,
+a.mn-menu-item-route-active:focus {
+  color: $mn-menu-item-route-active-color;
   text-decoration: none;
 }
 
