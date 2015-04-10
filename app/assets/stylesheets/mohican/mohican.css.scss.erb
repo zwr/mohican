@@ -19,6 +19,19 @@
 [mn-full-size] {
   background: #F6F6F6 url(<%= asset_path 'bg.png' %>) repeat-x;
 }
+mn-menu-item-route > a > span {
+  color: #777777;
+  text-decoration: none;
+}
+mn-menu-item-route > a, mn-menu-item-route > a > span:hover, mn-menu-group > li > a:hover {
+  color: white;
+  text-decoration: none;
+}
+
+a.mn-menu-item-route-active span, a.mn-menu-item-route-active span:focus {
+  color: red;
+  text-decoration: none;
+}
 
 .nav,
 .pagination,
@@ -88,11 +101,6 @@ mn-menu-group-item > li:hover, mn-menu-group-item > li:focus {
   text-decoration: none;
   color: #262626;
   background-color: whitesmoke;
-}
-
-mn-menu-item > li:hover, mn-menu-item > li > span:hover, mn-menu-group > li > a:hover {
-  color: white;
-  text-decoration: none;
 }
 
 mn-menu-group > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {

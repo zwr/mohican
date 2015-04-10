@@ -2,8 +2,8 @@
 //= require includes/angular-ui-router
 //= require angular-rails-templates
 //= require app/routes/base.route
-//= require ./start.controller
-//= require ./start.template
+//= require ./controller
+//= require ./template
 //= require_self
 
 (function() {
@@ -19,7 +19,7 @@
     function startRoute($stateProvider) {
       $stateProvider.state('base.start', {
         url: '/',
-        templateUrl: 'app/routes/start/start.template.html',
+        templateUrl: 'app/routes/start/template.html',
         controller: 'StartController',
         controllerAs: 'vm',
       });

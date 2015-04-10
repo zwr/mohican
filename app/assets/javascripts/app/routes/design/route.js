@@ -2,25 +2,25 @@
 //= require includes/angular-ui-router
 //= require angular-rails-templates
 //= require app/routes/base.route
-//= require ./map.controller
-//= require ./map.template
+//= require ./controller
+//= require ./template
 //= require_self
 
 (function() {
   'use strict';
 
   angular
-      .module('mapRouteModule', [
+      .module('designRouteModule', [
         'ui.router',
         'baseRouteModule',
-        'mapControllerModule',
+        'designControllerModule',
       ]).
       config(['$stateProvider',
-        function mapRoute($stateProvider) {
-          $stateProvider.state('base.map', {
-            url: '/map',
-            templateUrl: 'app/routes/map/map.template.html',
-            controller: 'MapController',
+        function designRoute($stateProvider) {
+          $stateProvider.state('base.design', {
+            url: '/design',
+            templateUrl: 'app/routes/design/template.html',
+            controller: 'DesignController',
             controllerAs: 'vm',
           });
         },

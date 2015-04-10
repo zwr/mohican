@@ -14,5 +14,8 @@ Rails.application.routes.draw do
   #angular routes
   get '/start', to: 'home#index'
   get '/map', to: 'home#index'
+  get '/design', to: 'home#index'
+  get '/history', to: 'home#index'
+  get '/customers', to: 'home#index'
   #end angular routes
 end
