@@ -20,5 +20,11 @@ Rails.application.routes.draw do
   get '/deliveries', to: 'home#index'
   get '/transitions', to: 'home#index'
   get '/routes', to: 'home#index'
+  get '/resources', to: 'home#index'
+  get '/timetables', to: 'home#index'
+  get '/links', to: 'home#index'
+  get '/groups', to: 'home#index'
+  get '/hours-reports', to: 'home#index'
+  get '/hours-accounting', to: 'home#index'
   #end angular routes
 end

@@ -10,6 +10,12 @@
 //= require ./routes/deliveryAndTransitions/deliveries/route
 //= require ./routes/deliveryAndTransitions/transitions/route
 //= require ./routes/deliveryAndTransitions/routes/route
+//= require ./routes/resources/groups/route
+//= require ./routes/resources/hoursAccounting/route
+//= require ./routes/resources/hoursReports/route
+//= require ./routes/resources/links/route
+//= require ./routes/resources/resources/route
+//= require ./routes/resources/timetables/route
 //TODO find some better palce for layout templates loading
 //= require ./components/appHeader/appHeader.template
 //= require_self
@@ -29,5 +35,11 @@
     'deliveriesRouteModule',
     'transitionsRouteModule',
     'routesRouteModule',
+    'groupsRouteModule',
+    'hoursAccountingRouteModule',
+    'hoursReportsRouteModule',
+    'linksRouteModule',
+    'resourcesRouteModule',
+    'timetablesRouteModule',
   ]);
 })();
