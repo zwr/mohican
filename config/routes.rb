@@ -17,5 +17,8 @@ Rails.application.routes.draw do
   get '/design', to: 'home#index'
   get '/history', to: 'home#index'
   get '/customers', to: 'home#index'
+  get '/deliveries', to: 'home#index'
+  get '/transitions', to: 'home#index'
+  get '/routes', to: 'home#index'
   #end angular routes
 end
