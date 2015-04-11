@@ -1,0 +1,80 @@
+<div class="container-fluid" mn-full-size>
+  <div id="cel-menu">
+    <mn-navbar>
+      <mn-navbar-title></mn-navbar-title>
+      <mn-navbar-right>
+        <mn-menu-item>
+          <span>Käyttäjä:</span>
+          <strong>Identoi</strong>
+        </mn-menu-item>
+        <mn-menu-item>(Lopeta)</mn-menu-item>
+      </mn-navbar-right>
+      <mn-navbar-collapsible>
+        <mn-navbar-collapsible-left>
+          <mn-menu-item>
+            <mn-menu-item-route sref="base.start">Aloitus</mn-menu-item-route>
+          </mn-menu-item>
+          <mn-menu-group mn-text="Toimitukset ja Siirtymät">
+            <mn-menu-group-item>
+              <mn-menu-item-route sref="base.deliveries">Toimitukset</mn-menu-item-route>
+            </mn-menu-group-item>
+            <mn-menu-group-item>
+              <mn-menu-item-route sref="base.transitions">Siirtymät</mn-menu-item-route>
+            </mn-menu-group-item>
+            <mn-menu-group-item>
+              <mn-menu-item-route sref="base.routes">Routes</mn-menu-item-route>
+            </mn-menu-group-item>
+          </mn-menu-group>
+          <mn-menu-item>
+            <mn-menu-item-route sref="base.design">Suunnittelu</mn-menu-item-route>
+          </mn-menu-item>
+          <mn-menu-item>
+            <mn-menu-item-route sref="base.map">Kartat</mn-menu-item-route>
+          </mn-menu-item>
+          <mn-menu-item>
+            <mn-menu-item-route sref="base.history">Historia</mn-menu-item-route>
+          </mn-menu-item>
+          <mn-menu-group mn-text="Resurssit">
+            <mn-menu-group-item>
+              <mn-menu-item-route sref="base.resources">Resurssit</mn-menu-item-route>
+            </mn-menu-group-item>
+            <mn-menu-group-item>
+              <mn-menu-item-route sref="base.timetables">Aikataulut</mn-menu-item-route>
+            </mn-menu-group-item>
+            <mn-menu-group-item>
+              <mn-menu-item-route sref="base.links">Resurssilinkit</mn-menu-item-route>
+            </mn-menu-group-item>
+            <mn-menu-group-item>
+              <mn-menu-item-route sref="base.groups">Resurssiryhmät</mn-menu-item-route>
+            </mn-menu-group-item>
+            <mn-menu-group-item>
+              <mn-menu-item-route sref="base.hoursReports">Tuntiraportit</mn-menu-item-route>
+            </mn-menu-group-item>
+            <mn-menu-group-item>
+              <mn-menu-item-route sref="base.hoursAccounting">Tuntikirjanpito</mn-menu-item-route>
+            </mn-menu-group-item>
+          </mn-menu-group>
+          <mn-menu-item>
+            <mn-menu-item-route sref="base.customers">Asiakkaat</mn-menu-item-route>
+          </mn-menu-item>
+        </mn-navbar-collapsible-left>
+        <mn-navbar-collapsible-right>
+          <mn-menu-group mn-text="Admin">
+            <mn-menu-group-item> Laataa kuvia</mn-menu-group-item>
+            <mn-menu-group-item> Tehtävätyypit</mn-menu-group-item>
+            <mn-menu-divider></mn-menu-divider>
+            <mn-menu-header>Some options</mn-menu-header>
+            <mn-menu-group-item> Asiakaskohteet</mn-menu-group-item>
+            <mn-menu-group-item> Kohteet</mn-menu-group-item>
+            <mn-menu-group-item> Hintaryhmät</mn-menu-group-item>
+            <mn-menu-divider></mn-menu-divider>
+            <mn-menu-header>Final admin options</mn-menu-header>
+            <mn-menu-group-item> Raportit</mn-menu-group-item>
+            <mn-menu-group-item> Route Planning</mn-menu-group-item>
+          </mn-menu-group>
+        </mn-navbar-collapsible-right>
+      </mn-navbar-collapsible>
+    </mn-navbar>
+    <mn-alerts></mn-alerts>
+  </div>
+</div>

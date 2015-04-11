@@ -16,8 +16,9 @@
 //= require ./routes/resources/links/route
 //= require ./routes/resources/resources/route
 //= require ./routes/resources/timetables/route
+//= require ./components/appHeader/directive
 //TODO find some better palce for layout templates loading
-//= require ./components/appHeader/appHeader.template
+//= require ./components/appHeader/template
 //= require_self
 
 (function() {
@@ -41,5 +42,6 @@
     'linksRouteModule',
     'resourcesRouteModule',
     'timetablesRouteModule',
+    'mnAppHeaderModule',
   ]);
 })();
