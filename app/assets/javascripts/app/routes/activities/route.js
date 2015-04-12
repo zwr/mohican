@@ -9,21 +9,23 @@
 (function() {
   'use strict';
 
+  function mohicanRoute(routeName) {
+    return function($stateProvider){
+      $stateProvider.state('base.' + routeName, {
+        url: '/#/' + routeName,
+        templateUrl: 'app/routes/'+routeName+'/template.html',
+        controller: capitalize(routeName) + 'Controller',
+        controllerAs: 'vm',
+      });
+    }
+  }
+
+
   angular
       .module('activitiesRouteModule', [
         'ui.router',
         'baseRouteModule',
         'activitiesControllerModule',
       ]).
-      config(['$stateProvider',
-        function activitiesRoute($stateProvider) {
-          routeName = 'activities';
-          $stateProvider.state('base.' + routeName, {
-            url: '/' + routeName,
-            templateUrl: 'app/routes/'+routeName+'/template.html',
-            controller: capitalize(routeName) + 'Controller',
-            controllerAs: 'vm',
-          });
-        },
-      ]);
+      config(['$stateProvider', mohicanRoute('activities')]);
 })();
