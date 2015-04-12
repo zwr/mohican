@@ -10,17 +10,17 @@
   'use strict';
 
   angular
-      .module('transitionsRouteModule', [
+      .module('activitiesRouteModule', [
         'ui.router',
         'baseRouteModule',
-        'transitionsControllerModule',
+        'activitiesControllerModule',
       ]).
       config(['$stateProvider',
-        function transitionsRoute($stateProvider) {
-          $stateProvider.state('base.transitions', {
-            url: '/transitions',
-            templateUrl: 'app/routes/deliveryAndTransitions/transitions/template.html',
-            controller: 'TransitionsController',
+        function activitiesRoute($stateProvider) {
+          $stateProvider.state('base.activities', {
+            url: '/activities',
+            templateUrl: 'app/routes/activities/template.html',
+            controller: 'ActivitiesController',
             controllerAs: 'vm',
           });
         },

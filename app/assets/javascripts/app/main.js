@@ -8,7 +8,7 @@
 //= require ./routes/history/route
 //= require ./routes/customers/route
 //= require ./routes/deliveryAndTransitions/deliveries/route
-//= require ./routes/deliveryAndTransitions/transitions/route
+//= require ./routes/activities/route
 //= require ./routes/deliveryAndTransitions/routes/route
 //= require ./routes/resources/groups/route
 //= require ./routes/resources/hoursAccounting/route
@@ -32,7 +32,7 @@
     'historyRouteModule',
     'customersRouteModule',
     'deliveriesRouteModule',
-    'transitionsRouteModule',
+    'activitiesRouteModule',
     'routesRouteModule',
     'groupsRouteModule',
     'hoursAccountingRouteModule',

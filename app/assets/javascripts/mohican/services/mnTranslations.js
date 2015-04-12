@@ -33,9 +33,9 @@
       'fn': 'Toimitukset',
       'en': 'Deliveries',
     },
-    'transitions': {
+    'activities': {
       'fn': 'Siirtymät',
-      'en': 'Transitions',
+      'en': 'Activities',
     },
     'routes': {
       'fn': 'Routes',
