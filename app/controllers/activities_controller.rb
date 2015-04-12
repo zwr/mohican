@@ -5,7 +5,7 @@ class ActivitiesController < ApplicationController
   # GET /activities.json
   # GET /activities/?filter=xxxx&sort=gggg
   def index
-    limit = params[:limit] || params[:count] || 200
+    limit = params[:limit] || params[:count] || 5000
     offset = params[:offset] || params[:skip] || 0
     filter = params[:filter] || ""
     sort = params[:sort] || ""
