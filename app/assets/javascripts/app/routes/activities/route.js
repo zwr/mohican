@@ -12,7 +12,7 @@
   function mohicanRoute(routeName) {
     return function($stateProvider){
       $stateProvider.state('base.' + routeName, {
-        url: '/#/' + routeName,
+        url: '/#' + routeName,
         templateUrl: 'app/routes/'+routeName+'/template.html',
         controller: capitalize(routeName) + 'Controller',
         controllerAs: 'vm',
