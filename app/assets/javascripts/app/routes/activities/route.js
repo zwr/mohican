@@ -17,10 +17,11 @@
       ]).
       config(['$stateProvider',
         function activitiesRoute($stateProvider) {
-          $stateProvider.state('base.activities', {
-            url: '/activities',
-            templateUrl: 'app/routes/activities/template.html',
-            controller: 'ActivitiesController',
+          routeName = 'activities';
+          $stateProvider.state('base.' + routeName, {
+            url: '/' + routeName,
+            templateUrl: 'app/routes/'+routeName+'/template.html',
+            controller: capitalize(routeName) + 'Controller',
             controllerAs: 'vm',
           });
         },
