@@ -20,12 +20,17 @@
     }
   }
 
-
-  angular
-      .module('activitiesRouteModule', [
+  function defineMohicanRoute(routeName) {
+    angular
+      .module(routeName + 'RouteModule', [
         'ui.router',
         'baseRouteModule',
-        'activitiesControllerModule',
+        routeName + 'ControllerModule',
       ]).
-      config(['$stateProvider', mohicanRoute('activities')]);
+      config(['$stateProvider', mohicanRoute(routeName)]);
+  }
+  
+  defineMohicanRoute('activities');
+
+
 })();
