@@ -1,28 +1,22 @@
-//= require angular
-//= require includes/angular-ui-router
-//= require angular-rails-templates
-//= require app/routes/base.route
-//= require ./controller
-//= require ./template
+//=require ./service
+//=require ./template
 //= require_self
 
-(function() {
+(function(mnUtil) {
   'use strict';
 
-  angular
-      .module('customersRouteModule', [
-        'ui.router',
-        'baseRouteModule',
-        'customersControllerModule',
-      ]).
-      config(['$stateProvider',
-        function customersRoute($stateProvider) {
-          $stateProvider.state('base.customers', {
-            url: '/customers',
-            templateUrl: 'app/routes/customers/template.html',
-            controller: 'CustomersController',
-            controllerAs: 'vm',
-          });
-        },
-      ]);
-})();
+  mnUtil.defineMohicanRoute('customers', function(resolve) {
+    var vm = this;
+    function _get() {
+      resolve.pageItems().then(function(result) {
+        vm.collection = result;
+      });
+    }
+
+    _get();
+
+    _.extend(vm, {
+      get: _get,
+    });
+  });
+})(window.MohicanUtils);

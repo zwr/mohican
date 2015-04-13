@@ -17,9 +17,12 @@
     "camelcase": [2, {"properties": "always"}],
     "semi": [2, "always"],
     "no-mixed-spaces-and-tabs": [2, "smart-tabs"],
-    "angular/ng_di": [2, "array"]
+    "angular/ng_di": [2, "array"],
+    "angular/ng_window_service": 0,
+    "angular/ng_document_service": 0
   },
   "globals": {
+    "_": true,
     "angular": true,
     "require": true,
     "browser": true,

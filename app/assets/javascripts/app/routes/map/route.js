@@ -1,28 +1,22 @@
-//= require angular
-//= require includes/angular-ui-router
-//= require angular-rails-templates
-//= require app/routes/base.route
-//= require ./controller
-//= require ./template
+//=require ./service
+//=require ./template
 //= require_self
 
-(function() {
+(function(mnUtil) {
   'use strict';
 
-  angular
-      .module('mapRouteModule', [
-        'ui.router',
-        'baseRouteModule',
-        'mapControllerModule',
-      ]).
-      config(['$stateProvider',
-        function mapRoute($stateProvider) {
-          $stateProvider.state('base.map', {
-            url: '/map',
-            templateUrl: 'app/routes/map/template.html',
-            controller: 'MapController',
-            controllerAs: 'vm',
-          });
-        },
-      ]);
-})();
+  mnUtil.defineMohicanRoute('map', function(resolve) {
+    var vm = this;
+    function _get() {
+      resolve.pageItems().then(function(result) {
+        vm.collection = result;
+      });
+    }
+
+    _get();
+
+    _.extend(vm, {
+      get: _get,
+    });
+  });
+})(window.MohicanUtils);

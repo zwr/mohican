@@ -2,14 +2,13 @@
 #= require_tree ./templates
 #= require_self
 #= require_tree ./includes
-#= require_tree ./directives
 #= require_tree ./services
 #= require_tree ./controllers
 
 
 @id5_module = angular.module('id5', [
-  'ngRoute', 
-  'ngResource', 
+  'ngRoute',
+  'ngResource',
   'templates',
   'ui.bootstrap',
   'mohican',
@@ -23,7 +22,7 @@
     }).
     otherwise({
       redirectTo: '/1',
-    }) 
+    })
 ])
 
 ###

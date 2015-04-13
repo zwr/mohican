@@ -5,7 +5,7 @@
 (function(mnUtil) {
   'use strict';
 
-  mnUtil.defineMohicanRoute('design', function(resolve) {
+  mnUtil.defineMohicanRoute('timetables', function(resolve) {
     var vm = this;
     function _get() {
       resolve.pageItems().then(function(result) {

@@ -1,5 +1,3 @@
-//= require angular
-
 (function() {
   'use strict';
 

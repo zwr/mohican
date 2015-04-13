@@ -1,4 +1,4 @@
-//= require angular
+//= require mohican/lib
 //= require ./app/main
 //= require_self
 

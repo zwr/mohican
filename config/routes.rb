@@ -1,6 +1,8 @@
 Rails.application.routes.draw do
-  resources :activities, defaults: { format: 'json' } do
-    get 'layout', on: :collection
+  scope '/api' do
+    resources :activities, defaults: { format: 'json' } do
+      get 'layout', on: :collection
+    end
   end
 
   devise_for :users
@@ -18,7 +20,7 @@ Rails.application.routes.draw do
   get '/history', to: 'home#index'
   get '/customers', to: 'home#index'
   get '/deliveries', to: 'home#index'
-  get '/transitions', to: 'home#index'
+  get '/activities', to: 'home#index'
   get '/routes', to: 'home#index'
   get '/resources', to: 'home#index'
   get '/timetables', to: 'home#index'

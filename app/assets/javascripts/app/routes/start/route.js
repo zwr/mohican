@@ -1,28 +1,22 @@
-//= require angular
-//= require includes/angular-ui-router
-//= require angular-rails-templates
-//= require app/routes/base.route
-//= require ./controller
-//= require ./template
+//=require ./service
+//=require ./template
 //= require_self
 
-(function() {
+(function(mnUtil) {
   'use strict';
 
-  angular.module('startRouteModule', [
-    'ui.router',
-    'templates',
-    'baseRouteModule',
-    'startControllerModule',
-  ]).
-  config(['$stateProvider',
-    function startRoute($stateProvider) {
-      $stateProvider.state('base.start', {
-        url: '/',
-        templateUrl: 'app/routes/start/template.html',
-        controller: 'StartController',
-        controllerAs: 'vm',
+  mnUtil.defineMohicanRoute('start', function(resolve) {
+    var vm = this;
+    function _get() {
+      resolve.pageItems().then(function(result) {
+        vm.collection = result;
       });
-    },
-  ]);
-})();
+    }
+
+    _get();
+
+    _.extend(vm, {
+      get: _get,
+    });
+  });
+})(window.MohicanUtils);
