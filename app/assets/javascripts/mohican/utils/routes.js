@@ -26,7 +26,7 @@ angular
     controller.$inject = [routeName + 'ServiceResolve'];
     return function($stateProvider) {
       $stateProvider.state('base.' + routeName, {
-        url: '/' + routeName,
+        url: '/' + routeName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase(),
         templateUrl: 'app/routes/' + routeName + '/template.html',
         controller: controller,
         controllerAs: 'vm',
