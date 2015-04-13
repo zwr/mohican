@@ -11,6 +11,8 @@
   'use strict';
 
   angular.module('mohican', [
+    'ui.bootstrap',
+    'templates',
     'ui.router',
     'mnRoutes',
     'mnOldDirectives',

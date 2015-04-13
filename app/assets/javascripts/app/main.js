@@ -9,8 +9,6 @@
 
   angular.module('id5', [
     'mohican',
-    'templates',
-    'ui.bootstrap',
     'mainConfigModule',
     'servicesModule',
     'routesModule',
