@@ -3,7 +3,7 @@
   var _appHeader;
 
   angular
-      .module('servicesModule')
+      .module('id5.services')
       .factory('mnTranslations', [mnTranslations]);
 
   function mnTranslations() {

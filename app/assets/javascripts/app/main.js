@@ -10,7 +10,7 @@
   angular.module('id5', [
     'mohican',
     'mainConfigModule',
-    'servicesModule',
+    'id5.services',
     'routesModule',
     'id5AppHeaderModule',
   ]);

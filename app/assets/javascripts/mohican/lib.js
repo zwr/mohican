@@ -14,7 +14,7 @@
     'ui.bootstrap',
     'templates',
     'ui.router',
-    'mnRoutes',
+    'mohican.routes',
     'mnOldDirectives',
     'mnBaseServiceModule',
   ]);

@@ -1,5 +1,5 @@
 angular
-  .module('mnRoutes', []);
+  .module('mohican.routes', []);
 
 (function(mnUtils) {
   'use strict';
@@ -35,7 +35,7 @@ angular
   };
 
   mnUtils.defineMohicanRoute = function(routeName, controller) {
-    angular.module('mnRoutes').
+    angular.module('mohican.routes').
         config(['$stateProvider', mnUtils.mohicanRoute(routeName, controller)]);
   };
 

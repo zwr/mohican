@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-      .module('servicesModule')
+      .module('id5.services')
       .factory('customersService', ['mnBaseService', CustomersService]);
 
   function CustomersService(mnBaseService) {
