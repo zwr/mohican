@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-      .module('appHeaderControllerModule', [])
+      .module('id5AppHeaderModule')
       .controller('AppHeaderController', ['mnTranslations', AppHeaderController]);
 
   function AppHeaderController(mnTranslations) {

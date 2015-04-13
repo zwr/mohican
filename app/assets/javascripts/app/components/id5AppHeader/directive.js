@@ -1,10 +1,8 @@
+//= require_self
 //= require ./template
 //= require ./controller
 
-angular.module('mnAppHeaderModule', [
-    'templates',
-    'appHeaderControllerModule',
-  ])
+angular.module('id5AppHeaderModule', [])
   .directive('id5AppHeader', [function() {
       'use strict';
       return {

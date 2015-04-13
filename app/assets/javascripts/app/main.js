@@ -14,6 +14,6 @@
     'mainConfigModule',
     'servicesModule',
     'routesModule',
-    'mnAppHeaderModule',
+    'id5AppHeaderModule',
   ]);
 })();
