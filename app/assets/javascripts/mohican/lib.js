@@ -16,6 +16,7 @@
     'ui.bootstrap',
     'templates',
     'ui.router',
+    'multi-select',
     'mohican.routes',
     'mohican.services',
     'mohican.directives',

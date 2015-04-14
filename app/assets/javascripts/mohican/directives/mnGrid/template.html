@@ -1,1 +1,13 @@
-mn-grid
+<span>
+  <strong ng-if="!page_count">Loading data, please wait</strong>
+</span>
+<table class="table table-striped" ng-if="page_count">
+  <thead>
+    <tr>
+      <th ng-repeat="field_info in currentLayout()" ng-style="{width: field_info.ColumnWidth + 'px'}">{{field_info.HeaderText}}</th>
+    </tr>
+  </thead>
+  <tr ng-repeat="item in page_items">
+    <td ng-repeat="field_info in currentLayout()">{{item.copy[field_info.Name]}}</td>
+  </tr>
+</table>

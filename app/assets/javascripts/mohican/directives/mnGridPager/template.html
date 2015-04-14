@@ -1,1 +1,37 @@
-mn-grid-pager
+<div class="row">
+  <div class="col-lg-5">
+    <span>
+      <strong ng-if="!page_count">Loading data, please wait</strong>
+    </span>
+    <nav class="pointer" ng-if="page_count">
+      <ul class="pointer pagination pagination-sm" style="margin: 0px 30px;">
+        <li class="pointer" ng-class="{disabled: is_first_page()}">
+          <a ng-click="goToPage(prevPage)" aria-label="Previous" ng-disabled="is_first_page()">
+            <span aria-hidden="true">&laquo;</span>
+          </a>
+        </li>
+        <li class="pointer" ng-repeat="page_number in pagination_array()" ng-class="{active: page_number == pageNo}">
+          <a ng-click="goToPage(page_number)">{{showPageNumber(page_number, $index)}}</a>
+        </li>
+        <li class="pointer" ng-class="{disabled: is_last_page()}">
+          <a ng-click="goToPage(nextPage)" aria-label="Next">
+            <span aria-hidden="true">&raquo;</span>
+          </a>
+        </li>
+      </ul>
+    </nav>
+  </div>
+  <div class="col-lg-7 hidden-md hidden-sm hidden-xs">
+    <div class="page-menu form-inline">
+      <div class="btn-group" style="">
+        <button class="btn btn-default">Muokka</button>
+        <button class="btn btn-default">Poista</button>
+        <button class="btn btn-default">Pikasuodatin</button>
+      </div>
+      <div class="form-group hidden-xs">
+        <label for="mainToolbarWeight">Weight</label>
+        <input class="form-control" id="mainToolbarWeight" type="text" placeholder="what is this?"></input>
+      </div>
+    </div>
+  </div>
+</div>
