@@ -1,6 +1,3 @@
-angular
-  .module('mohican.routes', []);
-
 (function(MohicanUtils) {
   'use strict';
 

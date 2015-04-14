@@ -1,17 +1,16 @@
+//= require_self
 //= require ./config/main.config
 //= require ./services/base.service
 //= require ./routes/base.route
-//= require ./components/id5AppHeader/directive
-//= require_self
+//= require ./directives/base.directive
 
 (function() {
   'use strict';
 
   angular.module('id5', [
     'mohican',
-    'mainConfigModule',
     'id5.services',
-    'routesModule',
-    'id5AppHeaderModule',
+    'id5.directives',
+    'id5.routes',
   ]);
 })();

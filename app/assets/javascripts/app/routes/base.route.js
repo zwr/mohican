@@ -5,7 +5,7 @@
   'use strict';
 
   angular
-      .module('routesModule', [])
+      .module('id5.routes', [])
       .config([
         '$stateProvider',
         '$urlRouterProvider',

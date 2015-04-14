@@ -2,7 +2,9 @@
 //= require angular-ui-bootstrap
 //= require angular-rails-templates
 //= require_tree ./includes
-//= require_tree ./services
+//= require ./routes/base.route
+//= require ./services/base.service
+//= require ./directives/base.directive
 //= require ./utils/utilBase
 //= require_tree ./oldDirectives
 //= require_self
@@ -15,7 +17,8 @@
     'templates',
     'ui.router',
     'mohican.routes',
+    'mohican.services',
+    'mohican.directives',
     'mnOldDirectives',
-    'mnBaseServiceModule',
   ]);
 })();

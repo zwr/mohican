@@ -1,14 +1,14 @@
-//= require_self
 //= require ./template
 //= require ./controller
+//= require_self
 
-angular.module('id5AppHeaderModule', [])
+angular.module('id5.directives')
   .directive('id5AppHeader', [function() {
       'use strict';
       return {
         restrict: 'E',
         transclude: true,
-        templateUrl: 'app/components/id5AppHeader/template.html',
+        templateUrl: 'app/directives/id5AppHeader/template.html',
         controller: 'AppHeaderController',
         controllerAs: 'vm',
         bindToController: true,

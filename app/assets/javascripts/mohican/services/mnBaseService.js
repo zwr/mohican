@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('mnBaseServiceModule', [])
+      .module('mohican.services')
       .factory('mnBaseService', ['$q', mnBaseService]);
 
   function mnBaseService($q) {

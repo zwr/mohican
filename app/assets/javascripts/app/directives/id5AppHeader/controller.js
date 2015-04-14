@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-      .module('id5AppHeaderModule')
+      .module('id5.directives')
       .controller('AppHeaderController', ['mnTranslations', AppHeaderController]);
 
   function AppHeaderController(mnTranslations) {
