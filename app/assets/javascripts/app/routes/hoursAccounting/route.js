@@ -1,5 +1,5 @@
-//=require ./service
-//=require ./template
+//= require ./service
+//= require ./template
 //= require_self
 
 (function(mnUtil) {
