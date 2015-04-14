@@ -1,15 +1,15 @@
 angular
   .module('mohican.routes', []);
 
-(function(mnUtils) {
+(function(MohicanUtils) {
   'use strict';
 
-  mnUtils.routes = [];
+  MohicanUtils.routes = [];
 
-  mnUtils.makeDefaultServiceResolvers = function() {
+  MohicanUtils.makeDefaultServiceResolvers = function() {
     var resolve = {};
 
-    mnUtils.routes.forEach(function(routeName) {
+    MohicanUtils.routes.forEach(function(routeName) {
       resolve[routeName + 'ServiceResolve'] = [
         routeName + 'Service',
         function (service) {
@@ -21,12 +21,12 @@ angular
     return resolve;
   };
 
-  mnUtils.mohicanRoute = function(routeName, controller) {
-    mnUtils.routes.push(routeName);
+  MohicanUtils.mohicanRoute = function(routeName, controller) {
+    MohicanUtils.routes.push(routeName);
     controller.$inject = [routeName + 'ServiceResolve'];
     return function($stateProvider) {
       $stateProvider.state('base.' + routeName, {
-        url: '/' + routeName.replace(/([a-z])([A-Z])/g, '$1-$2').toLowerCase(),
+        url: '/' + MohicanUtils.toHyphen(routeName),
         templateUrl: 'app/routes/' + routeName + '/template.html',
         controller: controller,
         controllerAs: 'vm',
@@ -34,9 +34,29 @@ angular
     };
   };
 
-  mnUtils.defineMohicanRoute = function(routeName, controller) {
+  MohicanUtils.defineMohicanRoute = function(routeName, controller) {
     angular.module('mohican.routes').
-        config(['$stateProvider', mnUtils.mohicanRoute(routeName, controller)]);
+        config(['$stateProvider', MohicanUtils.mohicanRoute(routeName, controller)]);
+  };
+
+  //HelloWorld -> hello-world
+  MohicanUtils.toHyphen = function(string) {
+    return _.kebabCase(string);
+  };
+
+  //hello-world -> helloWorld
+  MohicanUtils.toCamel = function(string) {
+    return _.camelCase(string);
+  };
+
+  //hello-world -> HelloWorld
+  MohicanUtils.toCapitalCamel = function(string) {
+    return _.chain(string).camelCase().capitalize().value();
+  };
+
+  //HelloWorld -> hello_world
+  MohicanUtils.toSnake = function(string) {
+    return _.snakeCase(string);
   };
 
 }(window.MohicanUtils));

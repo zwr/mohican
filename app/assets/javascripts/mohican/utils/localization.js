@@ -1,6 +1,6 @@
-(function(mnUtils) {
+(function(MohicanUtils) {
   'use strict';
-  mnUtils.t = function(s) {
+  MohicanUtils.t = function(s) {
       return s;
   };
 }(window.MohicanUtils));
