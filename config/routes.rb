@@ -28,5 +28,20 @@ Rails.application.routes.draw do
   get '/groups', to: 'home#index'
   get '/hours-reports', to: 'home#index'
   get '/hours-accounting', to: 'home#index'
+
+  get '/start/:page', to: 'home#index'
+  get '/map/:page', to: 'home#index'
+  get '/design/:page', to: 'home#index'
+  get '/history/:page', to: 'home#index'
+  get '/customers/:page', to: 'home#index'
+  get '/deliveries/:page', to: 'home#index'
+  get '/activities/:page', to: 'home#index'
+  get '/routes/:page', to: 'home#index'
+  get '/resources/:page', to: 'home#index'
+  get '/timetables/:page', to: 'home#index'
+  get '/links/:page', to: 'home#index'
+  get '/groups/:page', to: 'home#index'
+  get '/hours-reports/:page', to: 'home#index'
+  get '/hours-accounting/:page', to: 'home#index'
   #end angular routes
 end

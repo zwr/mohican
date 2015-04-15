@@ -23,10 +23,13 @@
     controller.$inject = [routeName + 'ServiceResolve'];
     return function($stateProvider) {
       $stateProvider.state('base.' + routeName, {
-        url: '/' + MohicanUtils.toHyphen(routeName),
+        url: '/' + MohicanUtils.toHyphen(routeName) + '/{page}',
+        params: {
+          page: 1,
+        },
         templateUrl: 'app/routes/' + routeName + '/template.html',
         controller: controller,
-        controllerAs: 'vm',
+        controllerAs: 'ctrl',
       });
     };
   };

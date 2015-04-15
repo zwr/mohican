@@ -1,13 +1,10 @@
-<span>
-  <strong ng-if="!page_count">Loading data, please wait</strong>
-</span>
-<table class="table table-striped" ng-if="page_count">
+<table class="table table-striped">
   <thead>
     <tr>
-      <th ng-repeat="field_info in currentLayout()" ng-style="{width: field_info.ColumnWidth + 'px'}">{{field_info.HeaderText}}</th>
+      <th ng-repeat="field in vm.fields" ng-style="{width: field.ColumnWidth + 'px'}">{{field.HeaderText}}</th>
     </tr>
   </thead>
-  <tr ng-repeat="item in page_items">
-    <td ng-repeat="field_info in currentLayout()">{{item.copy[field_info.Name]}}</td>
+  <tr ng-repeat="item in vm.items">
+    <td ng-repeat="field in vm.fields">{{item[field.Name]}}</td>
   </tr>
 </table>

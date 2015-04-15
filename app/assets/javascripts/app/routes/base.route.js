@@ -10,7 +10,7 @@
         '$stateProvider',
         '$urlRouterProvider',
         function baseRoute($stateProvider, $urlRouterProvider) {
-          $urlRouterProvider.otherwise('/start');
+          $urlRouterProvider.otherwise('/start/1');
           $stateProvider.state('base', {
             abstract: true,
             url: '',
