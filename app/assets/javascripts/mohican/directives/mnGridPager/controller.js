@@ -1,6 +1,6 @@
 //= require_self
 
-(function() {
+(function(mnUtil) {
   'use strict';
 
   angular
@@ -10,11 +10,9 @@
   function MnGridPagerController($state, $stateParams) {
     var vm = this;
     vm.goToPage = function(pageNumber) {
-      console.log($state);
       console.log($stateParams);
-      console.log($stateParams.page);
-      console.log('aaaaaaaaaaaaaaaaaaaaaaaaaaaaa' + pageNumber);
-      $state.go($state.current.name, { page: pageNumber });
+      $stateParams.page = pageNumber.toString();
+      $state.go($state.current.name, mnUtil.escapeDefaultParameters($stateParams));
     };
   }
-})();
+})(window.MohicanUtils);

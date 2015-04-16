@@ -23,10 +23,7 @@
     controller.$inject = [routeName + 'ServiceResolve'];
     return function($stateProvider) {
       $stateProvider.state('base.' + routeName, {
-        url: '/' + MohicanUtils.toHyphen(routeName) + '/{page}',
-        params: {
-          page: 1,
-        },
+        url: '/' + MohicanUtils.toHyphen(routeName) + '?page&layout',
         templateUrl: 'app/routes/' + routeName + '/template.html',
         controller: controller,
         controllerAs: 'ctrl',
@@ -37,6 +34,17 @@
   MohicanUtils.defineMohicanRoute = function(routeName, controller) {
     angular.module('mohican.routes').
         config(['$stateProvider', MohicanUtils.mohicanRoute(routeName, controller)]);
+  };
+
+  MohicanUtils.escapeDefaultParameters = function(params) {
+    if (params.page === '1') {
+      params.page = undefined;
+    }
+    if (params.layout === 'default') {
+      params.layout = undefined;
+    }
+
+    return params;
   };
 
   //HelloWorld -> hello-world

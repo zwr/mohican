@@ -2,10 +2,10 @@
 //= require angular-ui-bootstrap
 //= require angular-rails-templates
 //= require_tree ./includes
+//= require ./utils/utilBase
 //= require ./routes/base.route
 //= require ./services/base.service
 //= require ./directives/base.directive
-//= require ./utils/utilBase
 //= require_tree ./oldDirectives
 //= require_self
 
