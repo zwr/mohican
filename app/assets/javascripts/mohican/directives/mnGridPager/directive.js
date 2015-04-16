@@ -7,6 +7,10 @@ angular.module('mohican.directives')
       'use strict';
       return {
         restrict: 'E',
+        scope: {
+          // pageCount: '=',
+          getPage: '&',
+        },
         templateUrl: 'mohican/directives/mnGridPager/template.html',
         controller: 'MnGridPagerController',
         controllerAs: 'vm',

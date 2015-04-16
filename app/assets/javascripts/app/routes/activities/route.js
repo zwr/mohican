@@ -5,10 +5,12 @@
 (function(mnUtil) {
   'use strict';
 
-  mnUtil.defineMohicanRoute('activities', function ActivitiesController(resolve) {
+  mnUtil.defineMohicanRoute('activities', function ActivitiesController(resolve, $stateParams) {
     var ctrl = this;
 
-    ctrl.currentPage = 1;
+    $stateParams = mnUtil.mnStateParameters($stateParams);
+
+    ctrl.currentPage = $stateParams.page;
 
     ctrl.items = null;
     ctrl.pagesCount = null;
@@ -33,7 +35,7 @@
     function _getPage(page) {
       resolve.getPage(page).then(function(items) {
         ctrl.items = items;
-        console.log(ctrl.items);
+        ctrl.currentPage = page;
         // And now, if there is ng-repeat="item in items"
         // in the tempalte, magic will happen!
       });

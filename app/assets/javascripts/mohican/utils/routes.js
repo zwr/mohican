@@ -20,7 +20,7 @@
 
   MohicanUtils.mohicanRoute = function(routeName, controller) {
     MohicanUtils.routes.push(routeName);
-    controller.$inject = [routeName + 'ServiceResolve'];
+    controller.$inject = [routeName + 'ServiceResolve', '$stateParams'];
     return function($stateProvider) {
       $stateProvider.state('base.' + routeName, {
         url: '/' + MohicanUtils.toHyphen(routeName) + '?page&layout',
@@ -42,6 +42,17 @@
     }
     if (params.layout === 'default') {
       params.layout = undefined;
+    }
+
+    return params;
+  };
+
+  MohicanUtils.mnStateParameters = function(params) {
+    if (!params.page) {
+      params.page = '1';
+    }
+    if (!params.layout) {
+      params.layout = 'default';
     }
 
     return params;
