@@ -11,10 +11,11 @@
     $stateParams = mnUtil.mnStateParameters($stateParams);
 
     ctrl.currentPage = $stateParams.page;
+    ctrl.layout = $stateParams.layout;
 
     ctrl.items = null;
     ctrl.pagesCount = 20;
-    ctrl.layoutDefinitions = null;
+    ctrl.layoutDefinitions = [];
     ctrl.fields = null;
 
     _getPage(ctrl.currentPage);
@@ -22,8 +23,15 @@
       ctrl.pagesCount = pagesCount;
     });
     resolve.getLayoutDefinitions().then(function(layoutDefinitions) {
-      ctrl.layoutDefinitions = layoutDefinitions;
-      ctrl.fields = ctrl.layoutDefinitions.layouts[0].definition;
+      layoutDefinitions.layouts.forEach(function(layout) {
+        ctrl.layoutDefinitions.push({
+          name: layout.name,
+          show: 'Layout: ' + layout.name,
+          desc: 'Shows ' + layout.definition.length + ' fields',
+          selected: layout.name === ctrl.layout,
+        });
+      });
+      ctrl.fields = layoutDefinitions.layouts[0].definition;
     });
 
     function _getPage(page) {

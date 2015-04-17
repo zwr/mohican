@@ -3,40 +3,14 @@
     <div class="page-menu form-inline">
       <span class="inline-multi-select"
             multi-select
-            input-model="listLayouts"
+            input-model="vm.layouts"
             helper-elements=""
             button-label="show"
             item-label="name desc"
             tick-property="selected"
             default-label="Select layout"
             selection-mode="single"
-            on-item-click="sort_by(data.name)"></span>
-      <span class="inline-multi-select"
-            multi-select input-model="listFitlers"
-            helper-elements="all none reset filter"
-            button-label="show"
-            item-label="name desc"
-            tick-property="selected"
-            default-label="Select filter"
-            selection-mode="single"></span>
-      <span class="inline-multi-select"
-            id="select_sort"
-            multi-select
-            input-model="listSorting"
-            helper-elements=""
-            button-label="show"
-            item-label="name desc"
-            tick-property="selected"
-            default-label="Select sorting"
-            selection-mode="single"
-            on-item-click="showLayout(data.name)"></span>
-      <div class="form-group hidden-md hidden-sm hidden-xs">
-        <div class="input-group">
-          <div class="input-group-addon">Boom</div>
-          <input class="form-control" id="exampleInputAmount" placeholder="So huge!" type="text"></input>
-        </div>
-      </div>
-      <button class="btn btn-info hidden-sm hidden-xs" type="submit" style="float: right;">Apuva!</button>
+            on-item-click="showLayout(data.name)" />
     </div>
   </div>
 </div>

@@ -7,6 +7,9 @@ angular.module('mohican.directives')
       'use strict';
       return {
         restrict: 'E',
+        scope: {
+          layouts: '=',
+        },
         templateUrl: 'mohican/directives/mnGridHeader/template.html',
         controller: 'MnGridHeaderController',
         controllerAs: 'vm',

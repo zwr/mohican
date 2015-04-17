@@ -8,6 +8,6 @@
       .controller('MnGridHeaderController', [MnGridHeaderController]);
 
   function MnGridHeaderController() {
-    // var vm = this;
+    var vm = this;
   }
 })();
