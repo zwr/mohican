@@ -1,10 +1,12 @@
-<table class="table table-striped">
-  <thead>
-    <tr>
-      <th ng-repeat="field in vm.fields" ng-style="{width: field.ColumnWidth + 'px'}">{{field.HeaderText}}</th>
+<div mn-fill-height style="width: 100%; overflow:auto;">
+  <table class="table table-striped">
+    <thead>
+      <tr>
+        <th ng-repeat="field in vm.fields" ng-style="{width: field.ColumnWidth + 'px'}">{{field.HeaderText}}</th>
+      </tr>
+    </thead>
+    <tr ng-repeat="item in vm.items">
+      <td ng-repeat="field in vm.fields">{{item[field.Name]}}</td>
     </tr>
-  </thead>
-  <tr ng-repeat="item in vm.items">
-    <td ng-repeat="field in vm.fields">{{item[field.Name]}}</td>
-  </tr>
-</table>
+  </table>
+</div>

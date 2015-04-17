@@ -1,80 +1,76 @@
-<div class="container-fluid" mn-full-size>
-  <div id="cel-menu">
-    <mn-navbar>
-      <mn-navbar-title></mn-navbar-title>
-      <mn-navbar-right>
-        <mn-menu-item>
-          <span>Käyttäjä:</span>
-          <strong>Identoi</strong>
-        </mn-menu-item>
-        <mn-menu-item>(Lopeta)</mn-menu-item>
-      </mn-navbar-right>
-      <mn-navbar-collapsible>
-        <mn-navbar-collapsible-left>
-          <mn-menu-item>
-            <mn-menu-item-route sref="base.start">{{vm.appHeaderTranslations.start.fn}}</mn-menu-item-route>
-          </mn-menu-item>
-          <mn-menu-group mn-text="{{vm.appHeaderTranslations.deliveryAndTransitionGroupTitle.fn}}">
-            <mn-menu-group-item>
-              <mn-menu-item-route sref="base.deliveries">{{vm.appHeaderTranslations.deliveries.fn}}</mn-menu-item-route>
-            </mn-menu-group-item>
-            <mn-menu-group-item>
-              <mn-menu-item-route sref="base.activities">{{vm.appHeaderTranslations.activities.fn}}</mn-menu-item-route>
-            </mn-menu-group-item>
-            <mn-menu-group-item>
-              <mn-menu-item-route sref="base.routes">{{vm.appHeaderTranslations.routes.fn}}</mn-menu-item-route>
-            </mn-menu-group-item>
-          </mn-menu-group>
-          <mn-menu-item>
-            <mn-menu-item-route sref="base.design">{{vm.appHeaderTranslations.design.fn}}</mn-menu-item-route>
-          </mn-menu-item>
-          <mn-menu-item>
-            <mn-menu-item-route sref="base.map">{{vm.appHeaderTranslations.map.fn}}</mn-menu-item-route>
-          </mn-menu-item>
-          <mn-menu-item>
-            <mn-menu-item-route sref="base.history">{{vm.appHeaderTranslations.history.fn}}</mn-menu-item-route>
-          </mn-menu-item>
-          <mn-menu-group mn-text="{{vm.appHeaderTranslations.resourcesGroupTitle.fn}}">
-            <mn-menu-group-item>
-              <mn-menu-item-route sref="base.resources">{{vm.appHeaderTranslations.resources.fn}}</mn-menu-item-route>
-            </mn-menu-group-item>
-            <mn-menu-group-item>
-              <mn-menu-item-route sref="base.timetables">{{vm.appHeaderTranslations.timetables.fn}}</mn-menu-item-route>
-            </mn-menu-group-item>
-            <mn-menu-group-item>
-              <mn-menu-item-route sref="base.links">{{vm.appHeaderTranslations.links.fn}}</mn-menu-item-route>
-            </mn-menu-group-item>
-            <mn-menu-group-item>
-              <mn-menu-item-route sref="base.groups">{{vm.appHeaderTranslations.groups.fn}}</mn-menu-item-route>
-            </mn-menu-group-item>
-            <mn-menu-group-item>
-              <mn-menu-item-route sref="base.hoursReports">{{vm.appHeaderTranslations.hoursReports.fn}}</mn-menu-item-route>
-            </mn-menu-group-item>
-            <mn-menu-group-item>
-              <mn-menu-item-route sref="base.hoursAccounting">{{vm.appHeaderTranslations.hoursAccounting.fn}}</mn-menu-item-route>
-            </mn-menu-group-item>
-          </mn-menu-group>
-          <mn-menu-item>
-            <mn-menu-item-route sref="base.customers">{{vm.appHeaderTranslations.customers.fn}}</mn-menu-item-route>
-          </mn-menu-item>
-        </mn-navbar-collapsible-left>
-        <mn-navbar-collapsible-right>
-          <mn-menu-group mn-text="Admin">
-            <mn-menu-group-item> Laataa kuvia</mn-menu-group-item>
-            <mn-menu-group-item> Tehtävätyypit</mn-menu-group-item>
-            <mn-menu-divider></mn-menu-divider>
-            <mn-menu-header>Some options</mn-menu-header>
-            <mn-menu-group-item> Asiakaskohteet</mn-menu-group-item>
-            <mn-menu-group-item> Kohteet</mn-menu-group-item>
-            <mn-menu-group-item> Hintaryhmät</mn-menu-group-item>
-            <mn-menu-divider></mn-menu-divider>
-            <mn-menu-header>Final admin options</mn-menu-header>
-            <mn-menu-group-item> Raportit</mn-menu-group-item>
-            <mn-menu-group-item> Route Planning</mn-menu-group-item>
-          </mn-menu-group>
-        </mn-navbar-collapsible-right>
-      </mn-navbar-collapsible>
-    </mn-navbar>
-    <mn-alerts></mn-alerts>
-  </div>
-</div>
+<mn-navbar>
+  <mn-navbar-title></mn-navbar-title>
+  <mn-navbar-right>
+    <mn-menu-item>
+      <span>Käyttäjä:</span>
+      <strong>Identoi</strong>
+    </mn-menu-item>
+    <mn-menu-item>(Lopeta)</mn-menu-item>
+  </mn-navbar-right>
+  <mn-navbar-collapsible>
+    <mn-navbar-collapsible-left>
+      <mn-menu-item>
+        <mn-menu-item-route sref="base.start">{{vm.appHeaderTranslations.start.fn}}</mn-menu-item-route>
+      </mn-menu-item>
+      <mn-menu-group mn-text="{{vm.appHeaderTranslations.deliveryAndTransitionGroupTitle.fn}}">
+        <mn-menu-group-item>
+          <mn-menu-item-route sref="base.deliveries">{{vm.appHeaderTranslations.deliveries.fn}}</mn-menu-item-route>
+        </mn-menu-group-item>
+        <mn-menu-group-item>
+          <mn-menu-item-route sref="base.activities">{{vm.appHeaderTranslations.activities.fn}}</mn-menu-item-route>
+        </mn-menu-group-item>
+        <mn-menu-group-item>
+          <mn-menu-item-route sref="base.routes">{{vm.appHeaderTranslations.routes.fn}}</mn-menu-item-route>
+        </mn-menu-group-item>
+      </mn-menu-group>
+      <mn-menu-item>
+        <mn-menu-item-route sref="base.design">{{vm.appHeaderTranslations.design.fn}}</mn-menu-item-route>
+      </mn-menu-item>
+      <mn-menu-item>
+        <mn-menu-item-route sref="base.map">{{vm.appHeaderTranslations.map.fn}}</mn-menu-item-route>
+      </mn-menu-item>
+      <mn-menu-item>
+        <mn-menu-item-route sref="base.history">{{vm.appHeaderTranslations.history.fn}}</mn-menu-item-route>
+      </mn-menu-item>
+      <mn-menu-group mn-text="{{vm.appHeaderTranslations.resourcesGroupTitle.fn}}">
+        <mn-menu-group-item>
+          <mn-menu-item-route sref="base.resources">{{vm.appHeaderTranslations.resources.fn}}</mn-menu-item-route>
+        </mn-menu-group-item>
+        <mn-menu-group-item>
+          <mn-menu-item-route sref="base.timetables">{{vm.appHeaderTranslations.timetables.fn}}</mn-menu-item-route>
+        </mn-menu-group-item>
+        <mn-menu-group-item>
+          <mn-menu-item-route sref="base.links">{{vm.appHeaderTranslations.links.fn}}</mn-menu-item-route>
+        </mn-menu-group-item>
+        <mn-menu-group-item>
+          <mn-menu-item-route sref="base.groups">{{vm.appHeaderTranslations.groups.fn}}</mn-menu-item-route>
+        </mn-menu-group-item>
+        <mn-menu-group-item>
+          <mn-menu-item-route sref="base.hoursReports">{{vm.appHeaderTranslations.hoursReports.fn}}</mn-menu-item-route>
+        </mn-menu-group-item>
+        <mn-menu-group-item>
+          <mn-menu-item-route sref="base.hoursAccounting">{{vm.appHeaderTranslations.hoursAccounting.fn}}</mn-menu-item-route>
+        </mn-menu-group-item>
+      </mn-menu-group>
+      <mn-menu-item>
+        <mn-menu-item-route sref="base.customers">{{vm.appHeaderTranslations.customers.fn}}</mn-menu-item-route>
+      </mn-menu-item>
+    </mn-navbar-collapsible-left>
+    <mn-navbar-collapsible-right>
+      <mn-menu-group mn-text="Admin">
+        <mn-menu-group-item> Laataa kuvia</mn-menu-group-item>
+        <mn-menu-group-item> Tehtävätyypit</mn-menu-group-item>
+        <mn-menu-divider></mn-menu-divider>
+        <mn-menu-header>Some options</mn-menu-header>
+        <mn-menu-group-item> Asiakaskohteet</mn-menu-group-item>
+        <mn-menu-group-item> Kohteet</mn-menu-group-item>
+        <mn-menu-group-item> Hintaryhmät</mn-menu-group-item>
+        <mn-menu-divider></mn-menu-divider>
+        <mn-menu-header>Final admin options</mn-menu-header>
+        <mn-menu-group-item> Raportit</mn-menu-group-item>
+        <mn-menu-group-item> Route Planning</mn-menu-group-item>
+      </mn-menu-group>
+    </mn-navbar-collapsible-right>
+  </mn-navbar-collapsible>
+</mn-navbar>
+<mn-alerts></mn-alerts>
