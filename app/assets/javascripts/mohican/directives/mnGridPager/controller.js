@@ -9,15 +9,24 @@
 
   function MnGridPagerController($state, $stateParams) {
     var vm = this;
+
     vm.goToPage = function(pageNumber) {
       $stateParams.page = pageNumber.toString();
       vm.getPage({page: pageNumber});
       $state.go($state.current.name, mnUtil.escapeDefaultParameters($stateParams));
     };
 
-    vm.pageCount = 20;
+    // vm.pageCount = 20;
     $stateParams = mnUtil.mnStateParameters($stateParams);
     vm.pageNo = $stateParams.page;
+
+    if (!vm.pageNo || parseInt(vm.pageNo) <= 0) {
+      vm.goToPage(1);
+    }
+    if (vm.pageNo > vm.pageCount) {
+      vm.goToPage(vm.pageCount);
+    }
+
     vm.nextPage = parseInt(vm.pageNo) + 1;
     vm.prevPage = parseInt(vm.pageNo) - 1;
 

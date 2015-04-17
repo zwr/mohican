@@ -8,8 +8,8 @@ angular.module('mohican.directives')
       return {
         restrict: 'E',
         scope: {
-          // pageCount: '=',
           getPage: '&',
+          pageCount: '=',
         },
         templateUrl: 'mohican/directives/mnGridPager/template.html',
         controller: 'MnGridPagerController',
