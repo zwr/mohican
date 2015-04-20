@@ -23,7 +23,9 @@
         ctrl.pagesCount = pagesCount;
       });
       ctrl.layoutDefinitions = [];
+      ctrl.layouts = [];
       resolve.getLayoutDefinitions().then(function(layoutDefinitions) {
+        ctrl.layouts = layoutDefinitions.layouts;
         layoutDefinitions.layouts.forEach(function(layout) {
           ctrl.layoutDefinitions.push({
             name: layout.name,
@@ -31,8 +33,10 @@
             desc: 'Shows ' + layout.definition.length + ' fields',
             selected: layout.name === ctrl.layout,
           });
+          if(layout.name === ctrl.layout) {
+            ctrl.fields = layout.definition;
+          }
         });
-        ctrl.fields = layoutDefinitions.layouts[0].definition;
       });
     }
 
@@ -41,21 +45,13 @@
       var newRouteParams = _.clone($stateParams);
       newRouteParams.page = page.toString();
       $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
-      resolve.getPage(page).then(function(items) {
-        ctrl.items = items;
-        ctrl.currentPage = page;
-      });
     }
 
     function _getLayout(layout) {
       _validateParams($stateParams);
       var newRouteParams = _.clone($stateParams);
-      newRouteParams.layout = layout.toString();
+      newRouteParams.layout = layout;
       $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
-      resolve.getLayout(layout).then(function(items) {
-        ctrl.items = items;
-        ctrl.layout = layout;
-      });
     }
 
     function _validateParams(params) {

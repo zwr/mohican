@@ -9,5 +9,9 @@
 
   function MnGridHeaderController() {
     var vm = this;
+
+    // vm._layoutChanged = function(layout) {
+    //   console.log(layout);
+    // };
   }
 })();
