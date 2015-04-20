@@ -8,6 +8,7 @@ angular.module('mohican.directives')
       return {
         restrict: 'E',
         scope: {
+          layoutChanged: '&',
           layouts: '=',
         },
         templateUrl: 'mohican/directives/mnGridHeader/template.html',

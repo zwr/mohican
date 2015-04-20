@@ -1,5 +1,5 @@
 <div>
-  <mn-grid-header layouts='ctrl.layoutDefinitions'></mn-grid-header>
+  <mn-grid-header layout-changed='ctrl.getLayout(layout)' layouts='ctrl.layoutDefinitions'></mn-grid-header>
   <mn-grid items="ctrl.items" fields="ctrl.fields"></mn-grid>
-  <mn-grid-pager get-page='ctrl.getPage(page)' page-count='ctrl.pagesCount'></mn-grid-pager>
+  <mn-grid-pager page-changed='ctrl.getPage(page)' pages-count='ctrl.pagesCount' current-page='ctrl.currentPage'></mn-grid-pager>
 </div>

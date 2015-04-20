@@ -2,16 +2,16 @@
   <div class="col-lg-5">
     <nav class="pointer">
       <ul class="pointer pagination pagination-sm" style="margin: 0px 30px;">
-        <li class="pointer" ng-class='{disabled: vm.isFirstPage()}'>
-          <a ng-click="vm.goToPage(vm.prevPage)" aria-label="Previous">
+        <li class="pointer" ng-class='{disabled: vm.currentPage == 1}'>
+          <a ng-click="vm._changePage(vm.prevPage)" aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
-        <li class="pointer" ng-repeat="pageNumber in vm.paginationArray()" ng-class="{active: pageNumber == vm.pageNo}">
-          <a ng-click="vm.goToPage(pageNumber)">{{vm.showPageNumber(pageNumber, $index)}}</a>
+        <li class="pointer" ng-repeat="pageNumber in vm.paginationArray()" ng-class="{active: pageNumber == vm.currentPage}">
+          <a ng-click="vm._changePage(pageNumber)">{{vm.showPageNumber(pageNumber, $index)}}</a>
         </li>
-        <li class="pointer" ng-class="{disabled: vm.isLastPage()}">
-          <a ng-click="vm.goToPage(vm.nextPage)" aria-label="Next">
+        <li class="pointer" ng-class="{disabled: vm.currentPage == vm.pagesCount}">
+          <a ng-click="vm._changePage(vm.nextPage)" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
           </a>
         </li>

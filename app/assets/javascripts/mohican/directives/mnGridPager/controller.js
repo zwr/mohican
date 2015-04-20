@@ -1,59 +1,47 @@
 //= require_self
 
-(function(mnUtil) {
+(function() {
   'use strict';
 
   angular
       .module('mohican.directives')
-      .controller('MnGridPagerController', ['$state', '$stateParams', MnGridPagerController]);
+      .controller('MnGridPagerController', [MnGridPagerController]);
 
-  function MnGridPagerController($state, $stateParams) {
+  function MnGridPagerController() {
     var vm = this;
 
-    vm.goToPage = function(pageNumber) {
-      $stateParams.page = pageNumber.toString();
-      vm.getPage({page: pageNumber});
-      $state.go($state.current.name, mnUtil.escapeDefaultParameters($stateParams));
+    vm.nextPage = vm.currentPage >= vm.pagesCount ? vm.pagesCount : (parseInt(vm.currentPage) + 1);
+    vm.prevPage = vm.currentPage <= 1 ? 1 : (parseInt(vm.currentPage) - 1);
+
+    vm._changePage = function(page) {
+      vm.pageChanged({page: page});
     };
-
-    // vm.pageCount = 20;
-    $stateParams = mnUtil.mnStateParameters($stateParams);
-    vm.pageNo = $stateParams.page;
-
-    if (!vm.pageNo || parseInt(vm.pageNo) <= 0) {
-      vm.goToPage(1);
-    }
-    if (vm.pageNo > vm.pageCount) {
-      vm.goToPage(vm.pageCount);
-    }
-
-    vm.nextPage = parseInt(vm.pageNo) + 1;
-    vm.prevPage = parseInt(vm.pageNo) - 1;
 
     vm.isFirstPage = function() {
-      return parseInt(vm.pageNo) === 1;
+      return parseInt(vm.currentPage) === 1;
     };
     vm.isLastPage = function() {
-      return parseInt(vm.pageNo) === vm.pageCount;
+      return parseInt(vm.currentPage) === vm.pagesCount;
     };
-    vm.maxToShow = 11;
+    vm._maxToShow = 11;
     vm.paginationArray = function() {
-      var number, result, _i;
-      var startPage = Math.max(1, vm.pageNo - Math.max(Math.floor(vm.maxToShow / 2), vm.maxToShow - vm.pageCount + parseInt(vm.pageNo) - 1));
-      var endPage = Math.min(vm.pageCount, startPage + vm.maxToShow - 1);
+      var pages = [];
+      var number, _i;
+      var startPage = Math.max(1, vm.currentPage - Math.max(Math.floor(vm._maxToShow / 2), vm._maxToShow - vm.pagesCount + parseInt(vm.currentPage) - 1));
+      var endPage = Math.min(vm.pagesCount, startPage + vm._maxToShow - 1);
       for (number = _i = startPage; startPage <= endPage ? _i <= endPage : _i >= endPage; number = startPage <= endPage ? ++_i : --_i) {
-        (result = result || []).push(number);
+        pages.push(number);
       }
-      return result;
+      return pages;
     };
 
     vm.paginationArray();
     vm.showPageNumber = function(pageNumber, index) {
-      if (index === 0 && pageNumber > 1 || index === vm.maxToShow - 1 && pageNumber < vm.pageCount) {
+      if (index === 0 && pageNumber > 1 || index === vm._maxToShow - 1 && pageNumber < vm.pagesCount) {
         return '...';
       } else {
         return pageNumber;
       }
     };
   }
-})(window.MohicanUtils);
+})();

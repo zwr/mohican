@@ -5,44 +5,71 @@
 (function(mnUtil) {
   'use strict';
 
-  mnUtil.defineMohicanRoute('activities', function ActivitiesController(resolve, $stateParams) {
+  mnUtil.defineMohicanRoute('activities', function ActivitiesController(resolve, $stateParams, $state) {
     var ctrl = this;
+    _initialize();
 
-    $stateParams = mnUtil.mnStateParameters($stateParams);
+    function _initialize() {
+      var initialParams = mnUtil.injectDefaultParameters($stateParams);
 
-    ctrl.currentPage = $stateParams.page;
-    ctrl.layout = $stateParams.layout;
+      ctrl.currentPage = initialParams.page;
+      ctrl.layout = initialParams.layout;
 
-    ctrl.items = null;
-    ctrl.pagesCount = 20;
-    ctrl.layoutDefinitions = [];
-    ctrl.fields = null;
-
-    _getPage(ctrl.currentPage);
-    resolve.getPageCount().then(function(pagesCount) {
-      ctrl.pagesCount = pagesCount;
-    });
-    resolve.getLayoutDefinitions().then(function(layoutDefinitions) {
-      layoutDefinitions.layouts.forEach(function(layout) {
-        ctrl.layoutDefinitions.push({
-          name: layout.name,
-          show: 'Layout: ' + layout.name,
-          desc: 'Shows ' + layout.definition.length + ' fields',
-          selected: layout.name === ctrl.layout,
-        });
+      resolve.getPage(ctrl.currentPage).then(function(items) {
+        ctrl.items = items;
       });
-      ctrl.fields = layoutDefinitions.layouts[0].definition;
-    });
+
+      resolve.getPageCount().then(function(pagesCount) {
+        ctrl.pagesCount = pagesCount;
+      });
+      ctrl.layoutDefinitions = [];
+      resolve.getLayoutDefinitions().then(function(layoutDefinitions) {
+        layoutDefinitions.layouts.forEach(function(layout) {
+          ctrl.layoutDefinitions.push({
+            name: layout.name,
+            show: 'Layout: ' + layout.name,
+            desc: 'Shows ' + layout.definition.length + ' fields',
+            selected: layout.name === ctrl.layout,
+          });
+        });
+        ctrl.fields = layoutDefinitions.layouts[0].definition;
+      });
+    }
 
     function _getPage(page) {
+      _validateParams($stateParams);
+      var newRouteParams = _.clone($stateParams);
+      newRouteParams.page = page.toString();
+      $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
       resolve.getPage(page).then(function(items) {
         ctrl.items = items;
         ctrl.currentPage = page;
       });
     }
 
+    function _getLayout(layout) {
+      _validateParams($stateParams);
+      var newRouteParams = _.clone($stateParams);
+      newRouteParams.layout = layout.toString();
+      $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
+      resolve.getLayout(layout).then(function(items) {
+        ctrl.items = items;
+        ctrl.layout = layout;
+      });
+    }
+
+    function _validateParams(params) {
+      if (params.page <= 0) {
+        params.page = 1;
+      }
+      if (params.page > ctrl.pagesCount) {
+        params.page = ctrl.pagesCount;
+      }
+    }
+
     _.extend(ctrl, {
       getPage: _getPage,
+      getLayout: _getLayout,
     });
   });
 })(window.MohicanUtils);
