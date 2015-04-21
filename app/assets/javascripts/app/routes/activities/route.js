@@ -26,6 +26,7 @@
       ctrl.layouts = [];
       resolve.getLayoutDefinitions().then(function(layoutDefinitions) {
         ctrl.layouts = layoutDefinitions.layouts;
+
         layoutDefinitions.layouts.forEach(function(layout) {
           ctrl.layoutDefinitions.push({
             name: layout.name,

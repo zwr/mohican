@@ -672,8 +672,8 @@ angular.module( 'isteven-multi-select', ['ng'] ).directive( 'istevenMultiSelect'
                         if ( !$scope.isDisabled ) {
                             $scope.tabIndex = $scope.tabIndex + helperItemsLength;
                             if ( $scope.inputModel.length > 0 ) {
-                                formElements[ $scope.tabIndex ].focus();
-                                $scope.setFocusStyle( $scope.tabIndex );
+                                // formElements[ $scope.tabIndex ].focus();
+                                // $scope.setFocusStyle( $scope.tabIndex );
                                 // blur button in vain
                                 angular.element( element ).children()[ 0 ].blur();
                             }
