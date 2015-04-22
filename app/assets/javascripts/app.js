@@ -1,6 +1,5 @@
 //= require config
 //= require mohican
-//= require translations
 //= require_tree ./lib
 //= require ./app/main
 //= require_self

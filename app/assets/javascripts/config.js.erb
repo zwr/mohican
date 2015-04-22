@@ -1,2 +1,12 @@
-window.ID5_LANGUAGE = '<%= "fi"  %>';
+window.ID5_LANGUAGE = '<%= I18n.default_locale.to_s  %>';
 window.ID5_ENV = '<%= Rails.env %>';
+
+window.MN_LANGUAGES = {};
+window.MN_LANGUAGES.en = {};
+
+<%# Following line is there to initialize I18n, so translations are loaded
+    before they are to_json-ized. %>
+<% I18n.t(:init) %>
+
+window.MN_LANGUAGES.fi = 
+  <%= I18n.backend.send(:translations)[I18n.default_locale].to_json %>;
