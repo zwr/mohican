@@ -47,7 +47,7 @@ angular.module('mnOldDirectives', []).directive('mnNavbar', function() {
     transclude: true,
     template: '<ul class="nav navbar-nav navbar-right" ng-transclude>'
   };
-}).directive('mnMenuGroup', function() {
+}).directive('mnMenuGroup', ['mnTranslations', function(mnTranslations) {
   var ret;
   return ret = {
     restrict: 'E',
@@ -55,9 +55,13 @@ angular.module('mnOldDirectives', []).directive('mnNavbar', function() {
     scope: {
       mnText: '@'
     },
-    template: '<li class="dropdown" dropdown on-toggle="toggled(open)"><a class="dropdown-toggle" dropdown-toggle><span>{{mnText}}</span><span class="caret"/></a><ul class="dropdown-menu" ng-transclude/></li>'
+    link: function(scope) {
+      scope.mnTextTranslated = mnTranslations.t(scope.mnText);
+    },
+    template: '<li class="dropdown" dropdown on-toggle="toggled(open)"><a class="dropdown-toggle" dropdown-toggle><span>{{mnTextTranslated}}</span><span class="caret"/></a><ul class="dropdown-menu" ng-transclude/></li>'
   };
-}).directive('mnMenuGroupItem', function() {
+}])
+.directive('mnMenuGroupItem', function() {
   var ret;
   return ret = {
     restrict: 'E',
