@@ -5,9 +5,9 @@
 
   angular
       .module('id5.directives')
-      .controller('AppHeaderController', ['mnTranslations', AppHeaderController]);
+      .controller('AppHeaderController', ['mnTranslations', '$scope', AppHeaderController]);
 
-  function AppHeaderController(mnTranslations) {
-    this.t = mnTranslations.t;
+  function AppHeaderController(mnTranslations, $scope) {
+    $scope.t: mnTranslations.t;
   }
 })();
