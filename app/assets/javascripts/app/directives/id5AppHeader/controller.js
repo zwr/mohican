@@ -8,10 +8,6 @@
       .controller('AppHeaderController', ['mnTranslations', AppHeaderController]);
 
   function AppHeaderController(mnTranslations) {
-    var vm = this;
-
-    angular.extend(vm, {
-      t: mnTranslations.t,
-    });
+    this.t = mnTranslations.t;
   }
 })();
