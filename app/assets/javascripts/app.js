@@ -1,4 +1,6 @@
-//= require mohican/lib
+//= require mohican
+//= require_tree ./config
+//= require_tree ./include
 //= require ./app/main
 //= require_self
 

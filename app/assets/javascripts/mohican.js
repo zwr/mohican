@@ -1,12 +1,13 @@
 //= require angular
 //= require angular-ui-bootstrap
 //= require angular-rails-templates
-//= require_tree ./includes
-//= require ./utils/utilBase
-//= require ./routes/base.route
-//= require ./services/base.service
-//= require ./directives/base.directive
-//= require_tree ./oldDirectives
+//= require_tree ./mohican/includes
+//= require ./mohican/utils/utilBase
+//= require ./mohican/routes/base.route
+//= require ./mohican/services/base.service
+//= require ./mohican/directives/base.directive
+//= require_tree ./mohican/oldDirectives
+//= require_tree ./mohican
 //= require_self
 
 (function() {
