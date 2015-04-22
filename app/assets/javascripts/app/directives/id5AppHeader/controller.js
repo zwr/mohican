@@ -11,7 +11,8 @@
     var vm = this;
 
     angular.extend(vm, {
-      appHeaderTranslations: mnTranslations.appHeader,
+      // appHeaderTranslations: mnTranslations.appHeader(),
+      t: mnTranslations.t,
     });
   }
 })();

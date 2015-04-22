@@ -1,5 +1,4 @@
 //= require_self
-//= require ./localization
-//= require ./routes
+//= require_tree .
 
 window.MohicanUtils = {};

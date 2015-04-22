@@ -1,6 +1,7 @@
 //= require angular
 //= require angular-ui-bootstrap
 //= require angular-rails-templates
+//= require ./mohican/config
 //= require_tree ./mohican/lib
 //= require ./mohican/utils/utilBase
 //= require ./mohican/routes/base.route
