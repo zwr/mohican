@@ -17,11 +17,11 @@
       var deferred = $q.defer();
 
       deferred.resolve([
-        { id: 1, departureCityAddress: 'TURKU' },
-        { id: 2, departureCityAddress: 'PAROLA' },
-        { id: 3, departureCityAddress: 'TURKU' },
-        { id: 4, departureCityAddress: 'LAHTI' },
-        { id: 5, departureCityAddress: 'TURKU' },
+        { id: 1, departureCityAddress: 'sample data' },
+        { id: 2, departureCityAddress: 'sample data' },
+        { id: 3, departureCityAddress: 'sample data' },
+        { id: 4, departureCityAddress: 'sample data' },
+        { id: 5, departureCityAddress: 'sample data' },
       ]);
 
       return deferred.promise;

@@ -1,16 +1,23 @@
 //= require_self
-//= require ./config/main.config
-//= require ./services/base.service
-//= require ./routes/base.route
-//= require ./directives/base.directive
+//= require_tree ./routes
+//= require_tree ./directives
 
 (function() {
   'use strict';
 
-  angular.module('id5', [
-    'mohican',
-    'id5.services',
-    'id5.directives',
-    'id5.routes',
-  ]);
+  angular.module('id5', ['mohican']).
+          config(['$stateProvider', '$urlRouterProvider', function($stateProvider, $urlRouterProvider) {
+              $urlRouterProvider.otherwise('/start');
+              $stateProvider.state('base', {
+                abstract: true,
+                url: '',
+                views: {
+                  '': { template: '<ui-view/>' },
+                },
+                //util makes an array of default services resolvers for all routes
+                //which will be injected into specific route controllers
+                resolve: window.MohicanUtils.makeDefaultServiceResolvers(),
+              });
+            },
+          ]);
 })();

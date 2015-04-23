@@ -39,7 +39,7 @@
         config(['$stateProvider', MohicanUtils._mohicanRoute(routeName, controller)]);
     angular.
         module('mohican.services').
-        factory(routeName + 'Service', ['mnBaseService', service]);
+        factory(routeName + 'Service', ['mnBaseService', '$http', '$q', service]);
   };
 
   MohicanUtils.escapeDefaultParameters = function(params) {
