@@ -4,7 +4,7 @@ fi:
   Deliveries:                       Toimitukset
   Activities:                       Siirtymät
   Routes:                           Routes
-  Design:                           Suunnittelu
+  Plan:                             Suunnittelu
   Map:                              Kartat
   History:                          Historia
   Resources:                        Resurssit
@@ -14,4 +14,3 @@ fi:
   Hours Reports:                    Tuntiraportit
   Hours Accounting:                 Tuntikirjanpito
   Customers:                        Asiakkaat
-    

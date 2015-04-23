@@ -19,6 +19,8 @@
                 template: '<ui-view/>',
               },
             },
+            //util makes an array of default service resolvers for all routes
+            //which will be injected into sepecific route controllers
             resolve: window.MohicanUtils.makeDefaultServiceResolvers(),
           });
         },

@@ -6,16 +6,13 @@
       .factory('mnTranslations', [mnTranslations]);
 
   function mnTranslations() {
-    var _service = {
-      t: _t,
+    var service = {};
+    service.t = function(text) {
+      // console.log('_t()');
+      return window.MN_LANGUAGES[window.MN_LANGUAGE][text] || text;
     };
 
-    return _service;
-  }
-
-  function _t(text) {
-    // console.log('_t()');
-    return window.MN_LANGUAGES[window.MN_LANGUAGE][text] || text;
+    return service;
   }
 
 })();

@@ -1,6 +1,9 @@
 (function(MohicanUtils) {
   'use strict';
 
+  angular
+      .module('mohican.routes', []);
+
   MohicanUtils.routes = [];
 
   MohicanUtils.makeDefaultServiceResolvers = function() {
@@ -18,22 +21,25 @@
     return resolve;
   };
 
-  MohicanUtils.mohicanRoute = function(routeName, controller) {
+  MohicanUtils._mohicanRoute = function(routeName, controller) {
     MohicanUtils.routes.push(routeName);
     controller.$inject = [routeName + 'ServiceResolve', '$stateParams', '$state'];
     return function($stateProvider) {
       $stateProvider.state('base.' + routeName, {
         url: '/' + MohicanUtils.toHyphen(routeName) + '?page&layout',
-        templateUrl: 'app/routes/' + routeName + '/template.html',
+        templateUrl: 'app/routes/' + routeName + 'Grid.html',
         controller: controller,
         controllerAs: 'ctrl',
       });
     };
   };
 
-  MohicanUtils.defineMohicanRoute = function(routeName, controller) {
+  MohicanUtils.defineMohicanRoute = function(routeName, controller, service) {
     angular.module('mohican.routes').
-        config(['$stateProvider', MohicanUtils.mohicanRoute(routeName, controller)]);
+        config(['$stateProvider', MohicanUtils._mohicanRoute(routeName, controller)]);
+    angular.
+        module('mohican.services').
+        factory(routeName + 'Service', ['mnBaseService', service]);
   };
 
   MohicanUtils.escapeDefaultParameters = function(params) {

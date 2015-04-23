@@ -3,8 +3,7 @@
 //= require angular-rails-templates
 //= require ./mohican/config
 //= require_tree ./mohican/lib
-//= require ./mohican/utils/utilBase
-//= require ./mohican/routes/base.route
+//= require ./mohican/utils/base.util
 //= require ./mohican/services/base.service
 //= require ./mohican/directives/base.directive
 //= require_tree ./mohican/oldDirectives
