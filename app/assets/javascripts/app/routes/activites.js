@@ -18,26 +18,31 @@
       _initialize();
 
       function _initialize() {
-        mnUtil.clearDefaultParameters($stateParams, $state);
-        var initialParams = mnUtil.injectDefaultParameters($stateParams);
+        mnUtil.redirectDefaultParameters($stateParams, $state);
+        mnUtil.injectDefaultParameters($stateParams);
 
-        ctrl.currentPage = initialParams.page;
-        ctrl.layout = initialParams.layout;
-
-        resolve.getPage(ctrl.currentPage).then(function(items) {
-          ctrl.items = items;
-        });
+        ctrl.page = $stateParams.page;
+        ctrl.layout = $stateParams.layout;
+        ctrl.layouts = [];
 
         resolve.getPageCount().then(function(pagesCount) {
           ctrl.pagesCount = pagesCount;
+          //implicit validation if page url param is not in valid
+          if(isNaN(ctrl.page.toString()) || ctrl.page < 1 || ctrl.page > ctrl.pagesCount) {
+            var newRouteParams = _.clone($stateParams);
+            newRouteParams.page = 1;
+            $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
+          }
+          else {
+            resolve.getPage(ctrl.page).then(function(items) {
+              ctrl.items = items;
+            });
+          }
         });
-        ctrl.layoutDefinitions = [];
-        ctrl.layouts = [];
-        resolve.getLayoutDefinitions().then(function(layoutDefinitions) {
-          ctrl.layouts = layoutDefinitions.layouts;
 
-          layoutDefinitions.layouts.forEach(function(layout) {
-            ctrl.layoutDefinitions.push({
+        resolve.getPreviewDefinitions().then(function(definition) {
+          definition.layouts.forEach(function(layout) {
+            ctrl.layouts.push({
               name: layout.name,
               show: 'Layout: ' + layout.name,
               desc: 'Shows ' + layout.definition.length + ' fields',
@@ -47,30 +52,25 @@
               ctrl.fields = layout.definition;
             }
           });
+          //implicit validation if layout url param is not in valid
+          if(!ctrl.fields) {
+            var newRouteParams = _.clone($stateParams);
+            newRouteParams.layout = 'default';
+            $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
+          }
         });
       }
 
       function _getPage(page) {
-        _validateParams($stateParams);
         var newRouteParams = _.clone($stateParams);
         newRouteParams.page = page.toString();
         $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
       }
 
       function _getLayout(layout) {
-        _validateParams($stateParams);
         var newRouteParams = _.clone($stateParams);
         newRouteParams.layout = layout;
         $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
-      }
-
-      function _validateParams(params) {
-        if (params.page <= 0) {
-          params.page = 1;
-        }
-        if (params.page > ctrl.pagesCount) {
-          params.page = ctrl.pagesCount;
-        }
       }
 
       _.extend(ctrl, {
@@ -241,12 +241,12 @@
       // layout getting is completelly independent
       service.layout = null;
       service.theLayoutPromise = null;
-      service.getLayoutDefinitions = function() {
+      service.getPreviewDefinitions = function() {
         if(service.layout) {
           return $q.when(service.layout);
         } else if(service.theLayoutPromise) {
           return service.theLayoutPromise.then(function() {
-            service.getLayoutDefinitions();
+            service.getPreviewDefinitions();
           });
         } else {
           trace("get activities layout");

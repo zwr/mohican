@@ -42,18 +42,7 @@
         factory(routeName + 'Service', ['mnBaseService', '$http', '$q', service]);
   };
 
-  MohicanUtils.escapeDefaultParameters = function(params) {
-    if (params.page === '1') {
-      params.page = undefined;
-    }
-    if (params.layout === 'default') {
-      params.layout = undefined;
-    }
-
-    return params;
-  };
-
-  MohicanUtils.clearDefaultParameters = function(params, state) {
+  var _checkDefaultParams = function(params) {
     var newParams = _.clone(params);
     var dirty = false;
     if (newParams.page === '1') {
@@ -65,9 +54,19 @@
       dirty = true;
     }
 
-    if(dirty) {
-      console.log(newParams);
-      state.go(state.current.name, newParams);
+    return {dirty: dirty, newParams: newParams};
+  };
+
+  MohicanUtils.escapeDefaultParameters = function(params) {
+    var checkResult = _checkDefaultParams(params);
+    return checkResult.newParams;
+  };
+
+  MohicanUtils.redirectDefaultParameters = function(params, state) {
+    var checkResult = _checkDefaultParams(params);
+
+    if(checkResult.dirty && state) {
+      state.go(state.current.name, checkResult.newParams);
     }
   };
 
