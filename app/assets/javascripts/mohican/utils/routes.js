@@ -53,6 +53,24 @@
     return params;
   };
 
+  MohicanUtils.clearDefaultParameters = function(params, state) {
+    var newParams = _.clone(params);
+    var dirty = false;
+    if (newParams.page === '1') {
+      newParams.page = undefined;
+      dirty = true;
+    }
+    if (newParams.layout === 'default') {
+      newParams.layout = undefined;
+      dirty = true;
+    }
+
+    if(dirty) {
+      console.log(newParams);
+      state.go(state.current.name, newParams);
+    }
+  };
+
   MohicanUtils.injectDefaultParameters = function(params) {
     if (!params.page) {
       params.page = '1';

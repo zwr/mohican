@@ -13,11 +13,12 @@
   //arguments: (routeName, controller, service)
   mnUtil.defineMohicanRoute(
     'activities',
-    function ActivitiesController(resolve, $stateParams, $state) {
+    function(resolve, $stateParams, $state) {
       var ctrl = this;
       _initialize();
 
       function _initialize() {
+        mnUtil.clearDefaultParameters($stateParams, $state);
         var initialParams = mnUtil.injectDefaultParameters($stateParams);
 
         ctrl.currentPage = initialParams.page;
@@ -77,7 +78,7 @@
         getLayout: _getLayout,
       });
     },
-    function ActivitiesService(mnBaseService, $http, $q) {
+    function (mnBaseService, $http, $q) {
       var service = {};
       // We will activate the following later
       // mnBaseService.extendsTo(service);
