@@ -13,9 +13,9 @@
   //arguments: (routeName, controller, service)
   mnUtil.defineMohicanRoute(
     'activities',
-    function(resolve, $stateParams, $state) {
+    function(resolve, $stateParams, $state, $location) {
       _.assign(this, mnUtil.mnBaseController);
-      this.initialize(resolve, $stateParams, $state);
+      this.initialize(resolve, $stateParams, $state, $location);
     },
     function (mnBaseService, $http, $q) {
       var service = {};

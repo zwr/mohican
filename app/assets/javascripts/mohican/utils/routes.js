@@ -23,7 +23,7 @@
 
   MohicanUtils._mohicanRoute = function(routeName, controller) {
     MohicanUtils.routes.push(routeName);
-    controller.$inject = [routeName + 'ServiceResolve', '$stateParams', '$state'];
+    controller.$inject = [routeName + 'ServiceResolve', '$stateParams', '$state', '$location'];
     return function($stateProvider) {
       $stateProvider.state('base.' + routeName, {
         url: '/' + MohicanUtils.toHyphen(routeName) + '?page&layout',
