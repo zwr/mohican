@@ -14,54 +14,8 @@
   mnUtil.defineMohicanRoute(
     'activities',
     function(resolve, $stateParams, $state) {
-      var ctrl = this;
-
-      ctrl.initialize = function() {
-        mnUtil.redirectDefaultParameters($stateParams, $state);
-        mnUtil.injectDefaultParameters($stateParams);
-
-        ctrl.page = $stateParams.page;
-        ctrl.layout = $stateParams.layout;
-        ctrl.layouts = [];
-
-        resolve.getPageCount().then(function(pagesCount) {
-          ctrl.pagesCount = pagesCount;
-          if(mnUtil.checkPageParameter(ctrl.page, ctrl.pagesCount, $state, $stateParams)) {
-            resolve.getPage(ctrl.page).then(function(items) {
-              ctrl.items = items;
-            });
-          }
-        });
-
-        resolve.getPreviewDefinitions().then(function(definition) {
-          definition.layouts.forEach(function(layout) {
-            ctrl.layouts.push({
-              name: layout.name,
-              show: 'Layout: ' + layout.name,
-              desc: 'Shows ' + layout.definition.length + ' fields',
-              selected: layout.name === ctrl.layout,
-            });
-            if(layout.name === ctrl.layout) {
-              ctrl.fields = layout.definition;
-            }
-          });
-          mnUtil.checkLayoutParameter(ctrl.layout, ctrl.layouts, $state, $stateParams);
-        });
-      };
-
-      ctrl.getPage = function(page) {
-        var newRouteParams = _.clone($stateParams);
-        newRouteParams.page = page;
-        $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
-      };
-
-      ctrl.getLayout = function(layout) {
-        var newRouteParams = _.clone($stateParams);
-        newRouteParams.layout = layout;
-        $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
-      };
-
-      ctrl.initialize();
+      _.assign(this, mnUtil.mnBaseController);
+      this.initialize(resolve, $stateParams, $state);
     },
     function (mnBaseService, $http, $q) {
       var service = {};
