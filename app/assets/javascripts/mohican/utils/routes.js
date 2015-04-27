@@ -23,7 +23,6 @@
 
   MohicanUtils._mohicanRoute = function(routeName, controller) {
     MohicanUtils.routes.push(routeName);
-    controller.$inject = [routeName + 'ServiceResolve', '$stateParams', '$state', '$location'];
     return function($stateProvider) {
       $stateProvider.state('base.' + routeName, {
         url: '/' + MohicanUtils.toHyphen(routeName) + '?page&layout',
@@ -44,7 +43,7 @@
   var _checkDefaultParams = function(params) {
     var newParams = _.clone(params);
     var dirty = false;
-    if (newParams.page === 1) {
+    if (newParams.page === '1') {
       newParams.page = undefined;
       dirty = true;
     }
@@ -65,13 +64,13 @@
     var checkResult = _checkDefaultParams(params);
 
     if(checkResult.dirty && state) {
-      state.go(state.current.name, checkResult.newParams);
+      state.go(state.current.name, checkResult.newParams, {reload: true});
     }
   };
 
   MohicanUtils.injectDefaultParameters = function(params) {
     if (!params.page) {
-      params.page = 1;
+      params.page = '1';
     }
     if (!params.layout) {
       params.layout = 'default';
@@ -83,7 +82,7 @@
   MohicanUtils.checkPageParameter = function(page, pagesCount, state, params) {
     if(isNaN(page.toString()) || page < 1 || page > pagesCount) {
       var newRouteParams = _.clone(params);
-      newRouteParams.page = 1;
+      newRouteParams.page = '1';
       state.go(state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     }
     else {

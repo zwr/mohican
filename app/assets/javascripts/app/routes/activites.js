@@ -3,20 +3,25 @@
 (function(mnUtil) {
   'use strict';
 
+  var ROUTE_NAME = 'activities';
   var DEBUG = false;
-    function trace(text) {
-      if(DEBUG) {
-        console.log(text);
-      }
+  function trace(text) {
+    if(DEBUG) {
+      console.log(text);
     }
+  }
+
+  var Controller = function(resolve, $stateParams, $state) {
+    _.assign(this, mnUtil.mnBaseController);
+    this.initialize(resolve, $stateParams, $state);
+  };
+
+  Controller.$inject = [ROUTE_NAME + 'ServiceResolve', '$stateParams', '$state'];
 
   //arguments: (routeName, controller, service)
   mnUtil.defineMohicanRoute(
-    'activities',
-    function(resolve, $stateParams, $state, $location) {
-      _.assign(this, mnUtil.mnBaseController);
-      this.initialize(resolve, $stateParams, $state, $location);
-    },
+    ROUTE_NAME,
+    Controller,
     function (mnBaseService, $http, $q) {
       var service = {};
       // We will activate the following later

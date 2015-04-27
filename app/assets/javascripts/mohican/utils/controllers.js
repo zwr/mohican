@@ -12,7 +12,7 @@
     pagesCount: undefined,
     item: undefined,
 
-    initialize: function(resolve, $stateParams, $state, $location) {
+    initialize: function(resolve, $stateParams, $state) {
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
       MohicanUtils.injectDefaultParameters($stateParams);
 
@@ -22,10 +22,6 @@
       this.resolve = resolve;
       this.$stateParams = $stateParams;
       this.$state = $state;
-
-      if(this.page === "1") {
-        $location.url($location.url().replace("page=1&","").replace("&page=1","").replace("?page=1",""));
-      }
 
       var that = this;
 
