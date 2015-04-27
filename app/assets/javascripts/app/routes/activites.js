@@ -3,7 +3,7 @@
 (function(mnUtil) {
   'use strict';
 
-  var DEBUG = true;
+  var DEBUG = false;
     function trace(text) {
       if(DEBUG) {
         console.log(text);
@@ -15,9 +15,8 @@
     'activities',
     function(resolve, $stateParams, $state) {
       var ctrl = this;
-      _initialize();
 
-      function _initialize() {
+      ctrl.initialize = function() {
         mnUtil.redirectDefaultParameters($stateParams, $state);
         mnUtil.injectDefaultParameters($stateParams);
 
@@ -27,13 +26,7 @@
 
         resolve.getPageCount().then(function(pagesCount) {
           ctrl.pagesCount = pagesCount;
-          //implicit validation if page url param is not in valid
-          if(isNaN(ctrl.page.toString()) || ctrl.page < 1 || ctrl.page > ctrl.pagesCount) {
-            var newRouteParams = _.clone($stateParams);
-            newRouteParams.page = 1;
-            $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
-          }
-          else {
+          if(mnUtil.checkPageParameter(ctrl.page, ctrl.pagesCount, $state, $stateParams)) {
             resolve.getPage(ctrl.page).then(function(items) {
               ctrl.items = items;
             });
@@ -52,31 +45,23 @@
               ctrl.fields = layout.definition;
             }
           });
-          //implicit validation if layout url param is not in valid
-          if(!ctrl.fields) {
-            var newRouteParams = _.clone($stateParams);
-            newRouteParams.layout = 'default';
-            $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
-          }
+          mnUtil.checkLayoutParameter(ctrl.layout, ctrl.layouts, $state, $stateParams);
         });
-      }
+      };
 
-      function _getPage(page) {
+      ctrl.getPage = function(page) {
         var newRouteParams = _.clone($stateParams);
-        newRouteParams.page = page.toString();
+        newRouteParams.page = page;
         $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
-      }
+      };
 
-      function _getLayout(layout) {
+      ctrl.getLayout = function(layout) {
         var newRouteParams = _.clone($stateParams);
         newRouteParams.layout = layout;
         $state.go($state.current.name, mnUtil.escapeDefaultParameters(newRouteParams));
-      }
+      };
 
-      _.extend(ctrl, {
-        getPage: _getPage,
-        getLayout: _getLayout,
-      });
+      ctrl.initialize();
     },
     function (mnBaseService, $http, $q) {
       var service = {};
