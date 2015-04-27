@@ -1,4 +1,4 @@
-<div class="row">
+<div class="row pager-row" ng-class='{hidden: !vm.pagesCount}'>
   <div class="col-lg-5">
     <nav class="pointer">
       <ul class="pointer pagination pagination-sm" style="margin: 0px 30px;">
@@ -10,7 +10,7 @@
         <li class="pointer" ng-repeat="pageNumber in vm.paginationArray()" ng-class="{active: pageNumber == vm.currentPage}">
           <a ng-click="vm._changePage(pageNumber)">{{vm.showPageNumber(pageNumber, $index)}}</a>
         </li>
-        <li class="pointer" ng-class="{disabled: vm.currentPage == vm.pagesCount}">
+        <li class="pointer" ng-class="{disabled: vm.currentPage == vm.pagesCount, hidden: !vm.pagesCount}">
           <a ng-click="vm._changePage(vm.nextPage)" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
           </a>
