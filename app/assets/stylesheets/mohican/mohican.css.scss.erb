@@ -16,6 +16,18 @@
     margin-bottom: 0px;
   }
 }
+.mn-navbar-title {
+  height: 50px;
+  display: inline;
+}
+@media(max-width: $app-hide-title) {
+  .mn-navbar-title > a{
+    width: 5px;
+    img {
+      display: none;
+    }
+  }
+}
 
 [mn-full-height] {
   background: #F6F6F6 url($mn-mn-full-height-backbround-image) repeat-x;
