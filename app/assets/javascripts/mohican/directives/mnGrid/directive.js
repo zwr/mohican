@@ -8,6 +8,7 @@ angular.module('mohican.directives')
       return {
         restrict: 'E',
         scope: {
+          orderChanged: '&',
           fields: '=',
           items: '=',
         },

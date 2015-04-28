@@ -25,7 +25,7 @@
     MohicanUtils.routes.push(routeName);
     return function($stateProvider) {
       $stateProvider.state('base.' + routeName, {
-        url: '/' + MohicanUtils.toHyphen(routeName) + '?page&layout',
+        url: '/' + MohicanUtils.toHyphen(routeName) + '?page&layout&order',
         templateUrl: 'app/routes/' + routeName + 'Grid.html',
         controller: controller,
         controllerAs: 'ctrl',
