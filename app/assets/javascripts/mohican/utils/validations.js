@@ -1,7 +1,7 @@
 (function(MohicanUtils) {
   'use strict';
 
-  MohicanUtils.checkPageParameter = function(page, pagesCount, state, params) {
+  MohicanUtils.validatePageParameter = function(page, pagesCount, state, params) {
     if(isNaN(page.toString()) || page < 1 || page > pagesCount) {
       var newRouteParams = _.clone(params);
       newRouteParams.page = '1';
@@ -13,7 +13,7 @@
     return false;
   };
 
-  MohicanUtils.checkLayoutParameter = function(layout, layouts, state, params) {
+  MohicanUtils.validateLayoutParameter = function(layout, layouts, state, params) {
     var isInList = false;
     layouts.forEach(function(lout) {
       if(layout === lout.name) {

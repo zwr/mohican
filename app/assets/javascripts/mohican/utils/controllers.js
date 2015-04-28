@@ -29,7 +29,7 @@
 
       that.resolve.getPageCount().then(function(pagesCount) {
         that.pagesCount = pagesCount;
-        if(MohicanUtils.checkPageParameter(that.page, that.pagesCount, that.$state, that.$stateParams)) {
+        if(MohicanUtils.validatePageParameter(that.page, that.pagesCount, that.$state, that.$stateParams)) {
           that.resolve.getPage(that.page).then(function(items) {
             that.items = items;
           });
@@ -48,7 +48,7 @@
             that.fields = layout.definition;
           }
         });
-        MohicanUtils.checkLayoutParameter(that.layout, that.layouts, that.$state, that.$stateParams);
+        MohicanUtils.validateLayoutParameter(that.layout, that.layouts, that.$state, that.$stateParams);
       });
     },
 

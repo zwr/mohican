@@ -64,7 +64,7 @@
     var checkResult = _checkDefaultParams(params);
 
     if(checkResult.dirty && state) {
-      state.go(state.current.name, checkResult.newParams, {reload: true});
+      state.go(state.current.name, checkResult.newParams);
     }
   };
 
