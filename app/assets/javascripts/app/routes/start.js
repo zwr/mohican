@@ -3,27 +3,21 @@
 (function(mnUtil) {
   'use strict';
 
+  var ROUTE_NAME = 'start';
+  var Controller = function(resolve, $stateParams, $state) {
+    _.assign(this, mnUtil.mnBaseController);
+    this.initialize(resolve, $stateParams, $state);
+  };
+
+  Controller.$inject = [ROUTE_NAME + 'ServiceResolve', '$stateParams', '$state'];
+
   //arguments: (routeName, controller, service)
   mnUtil.defineMohicanRoute(
-    'start',
-    function(resolve) {
-      var ctrl = this;
-      ctrl.get = function() {
-        resolve.pageItems().then(function(result) {
-          ctrl.collection = result;
-        });
-      };
-      ctrl.echo = resolve.echo;
-      ctrl.get();
-    },
-    function(mnBaseService) {
+    ROUTE_NAME,
+    Controller,
+    function (mnBaseService) {
       var service = {};
       mnBaseService.extendsTo(service);
-
-      service.echo = function(text) {
-        return text;
-      };
-
       return service;
     }
   );

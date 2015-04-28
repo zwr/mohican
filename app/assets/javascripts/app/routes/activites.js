@@ -3,7 +3,6 @@
 (function(mnUtil) {
   'use strict';
 
-  var ROUTE_NAME = 'activities';
   var DEBUG = false;
   function trace(text) {
     if(DEBUG) {
@@ -11,9 +10,11 @@
     }
   }
 
+  var ROUTE_NAME = 'activities';
   var Controller = function(resolve, $stateParams, $state) {
     _.assign(this, mnUtil.mnBaseController);
     this.initialize(resolve, $stateParams, $state);
+    this.loadInitialData();
   };
 
   Controller.$inject = [ROUTE_NAME + 'ServiceResolve', '$stateParams', '$state'];
@@ -87,12 +88,12 @@
         } else {
           // fetch now, and then continue eagerly
           service.beEager = true;
-          trace("get activities offset = " + startIndex
+          trace("get  offset = " + startIndex
             + " count = " + service.firstFetchSize);
           return service.thePromise = $http.get('/api/activities?offset=' +
               startIndex + '&count=' + service.firstFetchSize)
             .then(function(resp) {
-              trace("  - activities received");
+              trace("  -  received");
               service.thePromise = null;
               service.buffer = resp.data.items;
               service.totalCount = resp.data.total_count;
@@ -160,13 +161,13 @@
             service.fullyLoaded = true;
             return;
           }
-          trace("get activities offset = " + start
+          trace("get  offset = " + start
             + " count = " + count);
           service.thePromise = $http.get('/api/activities?offset='
               + start + '&count=' + count)
             .then(function(resp) {
               service.thePromise = null;
-              trace("  - activities received");
+              trace("  -  received");
               // if we were told to stop, just do nothing
               if(service.beEager) {
                 if(service.nextEagerGrowthForward) {
@@ -193,10 +194,10 @@
             service.getPreviewDefinitions();
           });
         } else {
-          trace("get activities layout");
+          trace("get  layout");
           return service.getLayoutPromise = $http.get('/api/activities/layout')
             .then(function(resp) {
-              trace("  - activities layout received");
+              trace("  -  layout received");
               service.getLayoutPromise = null;
               service.layout = resp.data.layout;
               return service.layout;

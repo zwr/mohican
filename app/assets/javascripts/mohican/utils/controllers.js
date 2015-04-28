@@ -22,19 +22,21 @@
       this.resolve = resolve;
       this.$stateParams = $stateParams;
       this.$state = $state;
+    },
 
+    loadInitialData: function() {
       var that = this;
 
-      resolve.getPageCount().then(function(pagesCount) {
+      that.resolve.getPageCount().then(function(pagesCount) {
         that.pagesCount = pagesCount;
         if(MohicanUtils.checkPageParameter(that.page, that.pagesCount, that.$state, that.$stateParams)) {
-          resolve.getPage(that.page).then(function(items) {
+          that.resolve.getPage(that.page).then(function(items) {
             that.items = items;
           });
         }
       });
 
-      resolve.getPreviewDefinitions().then(function(definition) {
+      that.resolve.getPreviewDefinitions().then(function(definition) {
         definition.layouts.forEach(function(layout) {
           that.layouts.push({
             name: layout.name,
@@ -46,7 +48,7 @@
             that.fields = layout.definition;
           }
         });
-        MohicanUtils.checkLayoutParameter(that.layout, that.layouts, $state, $stateParams);
+        MohicanUtils.checkLayoutParameter(that.layout, that.layouts, that.$state, that.$stateParams);
       });
     },
 
