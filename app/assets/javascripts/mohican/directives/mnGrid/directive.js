@@ -11,6 +11,7 @@ angular.module('mohican.directives')
           orderChanged: '&',
           fields: '=',
           items: '=',
+          quickFilterShown: '=',
         },
         templateUrl: 'mohican/directives/mnGrid/template.html',
         controller: 'MnGridController',

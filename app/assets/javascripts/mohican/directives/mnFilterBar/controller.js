@@ -5,9 +5,9 @@
 
   angular
       .module('mohican.directives')
-      .controller('MnGridHeaderController', [MnGridHeaderController]);
+      .controller('MnFilterBarController', [MnFilterBarController]);
 
-  function MnGridHeaderController() {
+  function MnFilterBarController() {
     // var vm = this;
   }
 })();

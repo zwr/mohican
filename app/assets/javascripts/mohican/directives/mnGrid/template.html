@@ -4,9 +4,16 @@
       <tr>
         <th ng-repeat="field in vm.fields" ng-click="vm.orderChanged({column: field.Name})" ng-style="{width: field.ColumnWidth + 'px'}">{{field.HeaderText}}</th>
       </tr>
+      <tr ng-show="vm.quickFilterShown">
+        <th ng-repeat="field in vm.fields">
+          <input type="text" name="name" value="" ng-style="{width: (field.ColumnWidth - 20) + 'px'}" />
+        </th>
+      </tr>
     </thead>
-    <tr ng-repeat="item in vm.items">
-      <td ng-repeat="field in vm.fields">{{item[field.Name]}}</td>
-    </tr>
+    <tbody>
+      <tr ng-repeat="item in vm.items">
+        <td ng-repeat="field in vm.fields">{{item[field.Name]}}</td>
+      </tr>
+    </tbody>
   </table>
 </div>

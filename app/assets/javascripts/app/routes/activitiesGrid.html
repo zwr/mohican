@@ -1,5 +1,15 @@
 <div>
-  <mn-grid-header layout-changed='ctrl.getLayout(layout)' layouts='ctrl.layouts'></mn-grid-header>
-  <mn-grid items="ctrl.items" fields="ctrl.fields" order-changed='ctrl.getOrder(column)'></mn-grid>
-  <mn-grid-pager page-changed='ctrl.getPage(page)' pages-count='ctrl.pagesCount' current-page='ctrl.page'></mn-grid-pager>
+  <mn-filter-bar layout-changed='ctrl.getLayout(layout)'
+                 layouts='ctrl.layouts'
+                 quick-filter-shown='ctrl.quickFilterShown'>
+  </mn-filter-bar>
+  <mn-grid items="ctrl.items"
+           fields="ctrl.fields"
+           order-changed='ctrl.getOrder(column)'
+           quick-filter-shown='ctrl.quickFilterShown'>
+  </mn-grid>
+  <mn-grid-pager page-changed='ctrl.getPage(page)'
+                 pages-count='ctrl.pagesCount'
+                 current-page='ctrl.page'>
+  </mn-grid-pager>
 </div>

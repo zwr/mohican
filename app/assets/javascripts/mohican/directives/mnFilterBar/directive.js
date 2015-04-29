@@ -3,16 +3,17 @@
 //= require_self
 
 angular.module('mohican.directives')
-  .directive('mnGridHeader', [function() {
+  .directive('mnFilterBar', [function() {
       'use strict';
       return {
         restrict: 'E',
         scope: {
           layoutChanged: '&',
           layouts: '=',
+          quickFilterShown: '=',
         },
-        templateUrl: 'mohican/directives/mnGridHeader/template.html',
-        controller: 'MnGridHeaderController',
+        templateUrl: 'mohican/directives/mnFilterBar/template.html',
+        controller: 'MnFilterBarController',
         controllerAs: 'vm',
         bindToController: true,
       };
