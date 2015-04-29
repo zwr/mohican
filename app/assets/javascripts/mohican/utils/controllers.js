@@ -13,8 +13,9 @@
     fields: undefined,
     pagesCount: undefined,
     item: undefined,
+    serviceDataLoaded: undefined,
 
-    initialize: function(resolve, $stateParams, $state, $filter) {
+    initialize: function(resolve, $stateParams, $state, $filter, $scope) {
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
       MohicanUtils.injectDefaultParameters($stateParams);
 
@@ -26,6 +27,11 @@
       this.$stateParams = $stateParams;
       this.$state = $state;
       this.$filter = $filter;
+      $scope.resolve = resolve;
+      var that = this;
+      $scope.$watch(function() { return that.resolve.fullyLoaded; }, function (newValue) {
+        that.serviceDataLoaded = newValue;
+      });
     },
 
     loadData: function() {

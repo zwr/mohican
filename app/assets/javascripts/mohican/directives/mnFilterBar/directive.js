@@ -11,10 +11,11 @@ angular.module('mohican.directives')
           layoutChanged: '&',
           layouts: '=',
           quickFilterShown: '=',
+          serviceDataLoaded: '=',
         },
         templateUrl: 'mohican/directives/mnFilterBar/template.html',
         controller: 'MnFilterBarController',
-        controllerAs: 'vm',
+        controllerAs: 'filterBar',
         bindToController: true,
       };
     },

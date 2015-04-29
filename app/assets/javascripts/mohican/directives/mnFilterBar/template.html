@@ -2,22 +2,23 @@
   <div class="col-sm-10 col-xs-9">
     <div class="page-menu form-inline">
       <span isteven-multi-select
-           class="inline-multi-select"
-           input-model="vm.layouts"
-           on-item-click="vm.layoutChanged({ layout: data.name })"
-           output-model="vm.outputBrowsers"
-           button-label="show"
-           item-label="name desc"
-           tick-property="selected"
-           selection-mode="single"
-           helper-elements="">
+            class="inline-multi-select"
+            input-model="filterBar.layouts"
+            on-item-click="filterBar.layoutChanged({ layout: data.name })"
+            output-model="filterBar.outputBrowsers"
+            button-label="show"
+            item-label="name desc"
+            tick-property="selected"
+            selection-mode="single"
+            helper-elements="">
       </span>
       <button type="button"
               class="btn filter-bar-button"
-              ng-model="vm.quickFilterShown"
+              ng-model="filterBar.quickFilterShown"
               btn-checkbox
               btn-checkbox-true="1"
-              btn-checkbox-false="0">
+              btn-checkbox-false="0"
+              ng-disabled="!filterBar.serviceDataLoaded">
         Quick Filter
       </button>
     </div>
