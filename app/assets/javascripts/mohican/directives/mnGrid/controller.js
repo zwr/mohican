@@ -12,7 +12,7 @@
 
     vm.orderBy = function(column) {
       if(vm.serviceDataLoaded) {
-        vm.orderChanged({column: column, direction: vm.orderDirection === 'asc' ? 'desc' : 'asc'});
+        vm.orderChanged({column: column, direction: (vm.orderDirection === 'asc' && vm.orderColumn === column) ? 'desc' : 'asc'});
       }
     };
   }

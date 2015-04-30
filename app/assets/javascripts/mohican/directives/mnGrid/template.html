@@ -6,9 +6,9 @@
             ng-class="{'mn-sortable': vm.serviceDataLoaded}"
             ng-click="vm.orderBy(field.Name)"
             ng-style="{width: field.ColumnWidth + 'px'}">
-          {{field.HeaderText}}{{vm.orderColumn}}
+          {{field.HeaderText}}
           <span ng-show="vm.orderColumn === field.Name && vm.serviceDataLoaded"
-                class="pull-right {{vm.orderDirection === 'asc' ? 'glyphicon glyphicon-arrow-down' : 'glyphicon glyphicon-arrow-up'}}"
+                class="pull-right {{vm.orderDirection === 'desc' ? 'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'}}"
                 aria-hidden="true"></span>
         </th>
       </tr>
