@@ -7,8 +7,8 @@
             ng-click="vm.orderBy(field.Name)"
             ng-style="{width: field.ColumnWidth + 'px'}">
           {{field.HeaderText}}{{vm.orderColumn}}
-          <span ng-show="vm.orderColumn == field.Name"
-                class="pull-right {{vm.orderDirection == 'asc' ? 'glyphicon glyphicon-arrow-down' : 'glyphicon glyphicon-arrow-up'}}"
+          <span ng-show="vm.orderColumn === field.Name"
+                class="pull-right {{vm.orderDirection === 'asc' ? 'glyphicon glyphicon-arrow-down' : 'glyphicon glyphicon-arrow-up'}}"
                 aria-hidden="true"></span>
         </th>
       </tr>
