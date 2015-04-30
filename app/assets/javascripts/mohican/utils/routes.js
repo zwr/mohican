@@ -25,7 +25,7 @@
     MohicanUtils.routes.push(routeName);
     return function($stateProvider) {
       $stateProvider.state('base.' + routeName, {
-        url: '/' + MohicanUtils.toHyphen(routeName) + '?page&layout&order',
+        url: '/' + MohicanUtils.toHyphen(routeName) + '?page&layout&column&direction',
         templateUrl: 'app/routes/' + routeName + 'Grid.html',
         controller: controller,
         controllerAs: 'ctrl',
@@ -51,6 +51,10 @@
       newParams.layout = undefined;
       dirty = true;
     }
+    if (newParams.direction === 'asc') {
+      newParams.direction = undefined;
+      dirty = true;
+    }
 
     return {dirty: dirty, newParams: newParams};
   };
@@ -74,6 +78,9 @@
     }
     if (!params.layout) {
       params.layout = 'default';
+    }
+    if (!params.direction) {
+      params.direction = 'asc';
     }
 
     return params;

@@ -5,6 +5,8 @@
     page: undefined,
     layout: undefined,
     order: undefined,
+    column: undefined,
+    direction: undefined,
     layouts: undefined,
     resolve: undefined,
     $stateParams: undefined,
@@ -22,6 +24,8 @@
       this.page = $stateParams.page;
       this.layout = $stateParams.layout;
       this.order = $stateParams.order;
+      this.column = $stateParams.column;
+      this.direction = $stateParams.direction;
       this.layouts = [];
       this.resolve = resolve;
       this.$stateParams = $stateParams;
@@ -75,9 +79,10 @@
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 
-    getOrder: function(column) {
+    getOrder: function(column, direction) {
       var newRouteParams = _.clone(this.$stateParams);
-      newRouteParams.order = column;
+      newRouteParams.column = column;
+      newRouteParams.direction = direction;
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
   };

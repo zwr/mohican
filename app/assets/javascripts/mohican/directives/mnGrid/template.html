@@ -2,7 +2,15 @@
   <table class="table table-striped">
     <thead>
       <tr>
-        <th ng-repeat="field in vm.fields" ng-click="vm.orderChanged({column: field.Name})" ng-style="{width: field.ColumnWidth + 'px'}">{{field.HeaderText}}</th>
+        <th ng-repeat="field in vm.fields"
+            ng-class="{'mn-sortable': vm.serviceDataLoaded}"
+            ng-click="vm.orderBy(field.Name)"
+            ng-style="{width: field.ColumnWidth + 'px'}">
+          {{field.HeaderText}}{{vm.orderColumn}}
+          <span ng-show="vm.orderColumn == field.Name"
+                class="pull-right {{vm.orderDirection == 'asc' ? 'glyphicon glyphicon-arrow-down' : 'glyphicon glyphicon-arrow-up'}}"
+                aria-hidden="true"></span>
+        </th>
       </tr>
       <tr ng-show="vm.quickFilterShown">
         <th ng-repeat="field in vm.fields">

@@ -8,6 +8,12 @@
       .controller('MnGridController', [MnGridController]);
 
   function MnGridController() {
-    // var vm = this;
+    var vm = this;
+
+    vm.orderBy = function(column) {
+      if(vm.serviceDataLoaded) {
+        vm.orderChanged({column: column, direction: vm.orderDirection === 'asc' ? 'desc' : 'asc'});
+      }
+    };
   }
 })();

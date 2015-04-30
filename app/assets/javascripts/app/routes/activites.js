@@ -3,7 +3,7 @@
 (function(mnUtil) {
   'use strict';
 
-  var DEBUG = true;
+  var DEBUG = false;
   function trace(text) {
     if(DEBUG) {
       console.log(text);

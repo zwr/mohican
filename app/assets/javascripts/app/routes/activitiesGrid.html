@@ -6,8 +6,11 @@
   </mn-filter-bar>
   <mn-grid items="ctrl.items"
            fields="ctrl.fields"
-           order-changed='ctrl.getOrder(column)'
-           quick-filter-shown='ctrl.quickFilterShown'>
+           order-column="ctrl.column"
+           order-direction="ctrl.direction"
+           order-changed='ctrl.getOrder(column, direction)'
+           quick-filter-shown='ctrl.quickFilterShown'
+           service-data-loaded='ctrl.serviceDataLoaded'>
   </mn-grid>
   <mn-grid-pager page-changed='ctrl.getPage(page)'
                  pages-count='ctrl.pagesCount'
