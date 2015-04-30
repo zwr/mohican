@@ -30,6 +30,7 @@
       this.$state = $state;
       $scope.resolve = resolve;
       var that = this;
+      that.serviceDataLoaded = that.resolve.fullyLoaded;
       $scope.$watch(function() { return that.resolve.fullyLoaded; }, function (newValue) {
         that.serviceDataLoaded = newValue;
       });
@@ -41,9 +42,16 @@
       that.resolve.getPageCount().then(function(pagesCount) {
         that.pagesCount = pagesCount;
         if(MohicanUtils.validatePageParameter(that.page, that.pagesCount, that.$state, that.$stateParams)) {
-          that.resolve.getPage(that.page).then(function(items) {
-            that.items = items;
-          });
+          if(that.$stateParams.column && that.serviceDataLoaded) {
+            that.resolve.getView(that.page, that.column, that.direction).then(function(items) {
+              that.items = items;
+            });
+          }
+          else {
+            that.resolve.getPage(that.page).then(function(items) {
+              that.items = items;
+            });
+          }
         }
       });
 

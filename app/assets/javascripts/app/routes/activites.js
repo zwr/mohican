@@ -57,20 +57,37 @@
       // Following becomes true when all the filter records have been retrieved
       service.fullyLoaded = false;
 
-      // pageIndex is 1 based!
-      service.getPage = function(pageIndex) {
+      service.getView = function(pageNumber, column, direction) {
+        function sortResults(collection, prop, asc) {
+          collection = collection.sort(function(a, b) {
+            if (asc) return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
+            else return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
+          });
+          return collection;
+        }
+        var bufferClone = _.cloneDeep(service.buffer);
+        bufferClone = sortResults(bufferClone, column, direction === 'asc' ? true : false);
+
+        return $q.when(bufferClone.slice(
+          (pageNumber - 1) * service.pageSize - service.bottomIndex,
+          pageNumber * service.pageSize - service.bottomIndex
+        ));
+      };
+
+      // pageNumber is 1 based!
+      service.getPage = function(pageNumber) {
         // If we have the page, return the page
-        if((pageIndex - 1) * service.pageSize >= service.bottomIndex
-           && pageIndex * service.pageSize - 1 <= service.topIndex) {
-          trace('got page ' + pageIndex);
+        if((pageNumber - 1) * service.pageSize >= service.bottomIndex
+           && pageNumber * service.pageSize - 1 <= service.topIndex) {
+          trace('got page ' + pageNumber);
           return $q.when(service.buffer.slice(
-            (pageIndex - 1) * service.pageSize - service.bottomIndex,
-            pageIndex * service.pageSize - service.bottomIndex
+            (pageNumber - 1) * service.pageSize - service.bottomIndex,
+            pageNumber * service.pageSize - service.bottomIndex
           ));
         } else {
-          return service.fetchEagerly((pageIndex - 1) * service.pageSize)
+          return service.fetchEagerly((pageNumber - 1) * service.pageSize)
           .then(function() {
-            return service.getPage(pageIndex);
+            return service.getPage(pageNumber);
           });
         }
       };
@@ -134,9 +151,9 @@
 
       service.continueEagerly = function() {
         if(service.beEager) {
-          if(service.bottomIndex == 0) {
+          if(service.bottomIndex === 0) {
             service.nextEagerGrowthForward = true;
-          } else if(service.topIndex == service.totalCount - 1) {
+          } else if(service.topIndex === service.totalCount - 1) {
             service.nextEagerGrowthForward = false;
           } else {
             service.nextEagerGrowthForward = !service.nextEagerGrowthForward;
@@ -146,18 +163,18 @@
           var start;
           if(service.nextEagerGrowthForward) {
             start = service.topIndex;
-            if(service.totalCount - service.topIndex < count ) {
+            if(service.totalCount - service.topIndex < count) {
               count = service.totalCount - service.topIndex;
             }
           } else {
             start = service.bottomIndex - service.fetchSize;
-            if(start < 0 ) {
+            if(start < 0) {
               // note that start is negative, so this lowers the count
               count += start;
               start = 0;
             }
           }
-          if(count==0) {
+          if(count === 0) {
             service.fullyLoaded = true;
             trace('data are fully loaded');
             return;
@@ -182,7 +199,7 @@
               }
             });
         }
-      }
+      };
 
       // layout getting is completelly independent
       service.layout = null;
