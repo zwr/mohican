@@ -11,13 +11,13 @@
   }
 
   var ROUTE_NAME = 'activities';
-  var Controller = function(resolve, $stateParams, $state, $filter, $scope) {
+  var Controller = function(resolve, $stateParams, $state, $scope) {
     _.assign(this, mnUtil.mnBaseController);
-    this.initialize(resolve, $stateParams, $state, $filter, $scope);
+    this.initialize(resolve, $stateParams, $state, $scope);
     this.loadData();
   };
 
-  Controller.$inject = [ROUTE_NAME + 'ServiceResolve', '$stateParams', '$state', '$filter', '$scope'];
+  Controller.$inject = [ROUTE_NAME + 'ServiceResolve', '$stateParams', '$state', '$scope'];
 
   //arguments: (routeName, controller, service)
   mnUtil.defineMohicanRoute(

@@ -4,20 +4,18 @@
   MohicanUtils.mnBaseController = {
     page: undefined,
     layout: undefined,
-    order: undefined,
     column: undefined,
     direction: undefined,
     layouts: undefined,
     resolve: undefined,
     $stateParams: undefined,
     $state: undefined,
-    $filter: undefined,
     fields: undefined,
     pagesCount: undefined,
     item: undefined,
     serviceDataLoaded: undefined,
 
-    initialize: function(resolve, $stateParams, $state, $filter, $scope) {
+    initialize: function(resolve, $stateParams, $state, $scope) {
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
       MohicanUtils.injectDefaultParameters($stateParams);
 
@@ -30,7 +28,6 @@
       this.resolve = resolve;
       this.$stateParams = $stateParams;
       this.$state = $state;
-      this.$filter = $filter;
       $scope.resolve = resolve;
       var that = this;
       $scope.$watch(function() { return that.resolve.fullyLoaded; }, function (newValue) {
@@ -45,8 +42,7 @@
         that.pagesCount = pagesCount;
         if(MohicanUtils.validatePageParameter(that.page, that.pagesCount, that.$state, that.$stateParams)) {
           that.resolve.getPage(that.page).then(function(items) {
-            var orderBy = that.$filter('orderBy');
-            that.items = orderBy(items, that.order, false);
+            that.items = items;
           });
         }
       });
