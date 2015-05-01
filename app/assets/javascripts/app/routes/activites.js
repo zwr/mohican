@@ -29,6 +29,7 @@
       // mnBaseService.extendsTo(service);
 
       service.buffer = null;
+      service.bufferView = null;
       // Following is used to calculate the actual index of the required element
       service.pageSize = 20;
       // Following points out in which direction to grow the buffer. First it will
@@ -57,18 +58,19 @@
       // Following becomes true when all the filter records have been retrieved
       service.fullyLoaded = false;
 
-      service.getView = function(pageNumber, column, direction) {
-        function sortResults(collection, prop, asc) {
-          collection = collection.sort(function(a, b) {
-            if (asc) return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0);
-            else return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0);
-          });
-          return collection;
-        }
-        var bufferClone = _.cloneDeep(service.buffer);
-        bufferClone = sortResults(bufferClone, column, direction === 'asc' ? true : false);
+      service._sortJson = function(collection, prop, asc) {
+        collection = collection.sort(function(a, b) {
+          if (asc) {return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0); }
+          else {return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0); }
+        });
+        return collection;
+      };
 
-        return $q.when(bufferClone.slice(
+      service.getView = function(pageNumber, column, direction) {
+        service.bufferView = _.cloneDeep(service.buffer);
+        service.bufferView = service._sortJson(service.bufferView, column, direction === 'asc' ? true : false);
+
+        return $q.when(service.bufferView.slice(
           (pageNumber - 1) * service.pageSize - service.bottomIndex,
           pageNumber * service.pageSize - service.bottomIndex
         ));
@@ -101,7 +103,7 @@
           service.beEager = false;
           return service.thePromise.then(function() {
             return service.fetchEagerly(startIndex);
-          })
+          });
         } else {
           // fetch now, and then continue eagerly
           service.beEager = true;
@@ -124,11 +126,11 @@
 
       service.getPageCount = function() {
         if(service.buffer) {
-          var page_count = parseInt(
+          var pageCount = parseInt(
             (service.totalCount - 1) / service.pageSize + 1);
-          trace('got page count ' + page_count
+          trace('got page count ' + pageCount
             + ' item count = ' + service.totalCount);
-          return $q.when(page_count);
+          return $q.when(pageCount);
         } else if(service.thePromise) {
           return service.thePromise.then(function() {
             // Somebody is already getting something, which will probably
