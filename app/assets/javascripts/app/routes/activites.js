@@ -66,8 +66,23 @@
         return collection;
       };
 
-      service.getView = function(pageNumber, column, direction) {
+      service._filterJson = function(collection, filters) {
+        collection = collection.filter(function(item) {
+          var met = true;
+          filters.forEach(function(filter) {
+            met = item[filter.column].toString() === filter.value;
+            if(!met) {
+              return;
+            }
+          });
+          return met;
+        });
+        return collection;
+      };
+
+      service.getView = function(pageNumber, column, direction, filters) {
         service.bufferView = _.cloneDeep(service.buffer);
+        service.bufferView = service._filterJson(service.bufferView, filters);
         service.bufferView = service._sortJson(service.bufferView, column, direction === 'asc' ? true : false);
 
         return $q.when(service.bufferView.slice(

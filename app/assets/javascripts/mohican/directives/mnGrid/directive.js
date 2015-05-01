@@ -9,6 +9,7 @@ angular.module('mohican.directives')
         restrict: 'E',
         scope: {
           orderChanged: '&',
+          filterChanged: '&',
           fields: '=',
           items: '=',
           quickFilterShown: '=',
@@ -18,7 +19,7 @@ angular.module('mohican.directives')
         },
         templateUrl: 'mohican/directives/mnGrid/template.html',
         controller: 'MnGridController',
-        controllerAs: 'vm',
+        controllerAs: 'grid',
         bindToController: true,
       };
     },

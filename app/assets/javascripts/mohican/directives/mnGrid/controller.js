@@ -15,5 +15,10 @@
         vm.orderChanged({column: column, direction: (vm.orderDirection === 'asc' && vm.orderColumn === column) ? 'desc' : 'asc'});
       }
     };
+
+    vm.filterBy = function(column) {
+      var filters = {column: column, value: vm[column]};
+      vm.filterChanged({column: null, direction: null, filters: filters});
+    };
   }
 })();

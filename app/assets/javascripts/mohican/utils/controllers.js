@@ -25,7 +25,8 @@
       this.order = $stateParams.order;
       this.column = $stateParams.column;
       this.direction = $stateParams.direction;
-      this.quickFilterShown = ($stateParams.qf === 'true');
+      this.quickFilterShown = false;
+      this.filters = [{column: 'Order_ID', value: '3164'}];
       this.layouts = [];
       this.resolve = resolve;
       this.$stateParams = $stateParams;
@@ -35,6 +36,12 @@
       that.serviceDataLoaded = that.resolve.fullyLoaded;
       $scope.$watch(function() { return that.resolve.fullyLoaded; }, function (newValue) {
         that.serviceDataLoaded = newValue;
+        if((that.$stateParams.column || that.$stateParams.qf) && that.serviceDataLoaded) {
+          that.quickFilterShown = ($stateParams.qf === 'true');
+          that.resolve.getView(that.page, that.column, that.direction, that.filters).then(function(items) {
+            that.items = items;
+          });
+        }
       });
     },
 
@@ -44,16 +51,9 @@
       that.resolve.getPageCount().then(function(pagesCount) {
         that.pagesCount = pagesCount;
         if(MohicanUtils.validatePageParameter(that.page, that.pagesCount, that.$state, that.$stateParams)) {
-          if(that.$stateParams.column && that.serviceDataLoaded) {
-            that.resolve.getView(that.page, that.column, that.direction).then(function(items) {
-              that.items = items;
-            });
-          }
-          else {
-            that.resolve.getPage(that.page).then(function(items) {
-              that.items = items;
-            });
-          }
+          that.resolve.getPage(that.page).then(function(items) {
+            that.items = items;
+          });
         }
       });
 
@@ -85,10 +85,17 @@
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 
-    getOrder: function(column, direction) {
+    getView: function(column, direction, filters) {
       var newRouteParams = _.clone(this.$stateParams);
-      newRouteParams.column = column;
-      newRouteParams.direction = direction;
+      if(column) {
+        newRouteParams.column = column;
+      }
+      if(direction) {
+        newRouteParams.direction = direction;
+      }
+      if(filters) {
+        newRouteParams.filters = 'column$Order_ID$$value$3164';
+      }
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 
