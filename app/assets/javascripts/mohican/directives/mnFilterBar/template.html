@@ -15,6 +15,7 @@
       <button type="button"
               class="btn filter-bar-button"
               ng-model="filterBar.quickFilterShown"
+              ng-click="filterBar.quickFilterToggled({ opened: !filterBar.quickFilterShown })"
               btn-checkbox
               btn-checkbox-true="1"
               btn-checkbox-false="0"

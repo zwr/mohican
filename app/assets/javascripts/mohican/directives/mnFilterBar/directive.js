@@ -12,6 +12,7 @@ angular.module('mohican.directives')
           layouts: '=',
           quickFilterShown: '=',
           serviceDataLoaded: '=',
+          quickFilterToggled: '&',
         },
         templateUrl: 'mohican/directives/mnFilterBar/template.html',
         controller: 'MnFilterBarController',

@@ -6,6 +6,7 @@
     layout: undefined,
     column: undefined,
     direction: undefined,
+    quickFilterShown: undefined,
     layouts: undefined,
     resolve: undefined,
     $stateParams: undefined,
@@ -24,6 +25,7 @@
       this.order = $stateParams.order;
       this.column = $stateParams.column;
       this.direction = $stateParams.direction;
+      this.quickFilterShown = ($stateParams.qf === 'true');
       this.layouts = [];
       this.resolve = resolve;
       this.$stateParams = $stateParams;
@@ -87,6 +89,12 @@
       var newRouteParams = _.clone(this.$stateParams);
       newRouteParams.column = column;
       newRouteParams.direction = direction;
+      this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
+    },
+
+    toggleQuickFilter: function(opened) {
+      var newRouteParams = _.clone(this.$stateParams);
+      newRouteParams.qf = opened;
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
   };
