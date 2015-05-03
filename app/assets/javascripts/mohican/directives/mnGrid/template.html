@@ -4,23 +4,23 @@
       <tr>
         <th ng-repeat="field in grid.fields"
             ng-class="{'mn-sortable': grid.serviceDataLoaded}"
-            ng-click="grid.orderBy(field.Name)"
-            ng-style="{width: field.ColumnWidth + 'px'}">
-          {{field.HeaderText}}
-          <span ng-show="grid.orderColumn === field.Name && grid.serviceDataLoaded"
+            ng-click="grid.orderBy(field.name)"
+            ng-style="{width: field.width + 'px'}">
+          {{field.header}}
+          <span ng-show="grid.orderColumn === field.name && grid.serviceDataLoaded"
                 class="pull-right {{grid.orderDirection === 'desc' ? 'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'}}"
                 aria-hidden="true"></span>
         </th>
       </tr>
       <tr ng-show="grid.quickFilterShown">
         <th ng-repeat="field in grid.fields">
-          <input type="text" name="name" value="" ng-model="grid[field.Name]" ng-change="grid.filterBy(field.Name)" ng-style="{width: (field.ColumnWidth - 20) + 'px'}" />
+          <input type="text" name="name" value="" ng-model="grid[field.name]" ng-change="grid.filterBy(field.name)" ng-style="{width: (field.width - 20) + 'px'}" />
         </th>
       </tr>
     </thead>
     <tbody>
       <tr ng-repeat="item in grid.items">
-        <td ng-repeat="field in grid.fields">{{item[field.Name]}}</td>
+        <td ng-repeat="field in grid.fields">{{item[field.name]}}</td>
       </tr>
     </tbody>
   </table>
