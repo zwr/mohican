@@ -28,18 +28,20 @@ puts "Seeding activities layouts"
 
 activities_layout  = JSON.parse(IO.read(
   Rails.root.join('db','seeds','activities_layout.json')))
+activities_layout["layouts"].each do |layout|
   new_definition = []
-activities_layout["layouts"][0]["definition"].each do |a|
-  b = {}
-  a.each do |old_key, value|
-    b[:name] = value if old_key == "Name"
-    b[:header] = value if old_key == "HeaderText"
-    b[:width] = value if old_key == "ColumnWidth"
-    b[old_key.to_sym] = value if old_key == old_key.downcase
+  layout["definition"].each do |a|
+    b = {}
+    a.each do |old_key, value|
+      b[:name] = value if old_key == "Name"
+      b[:header] = value if old_key == "HeaderText"
+      b[:width] = value if old_key == "ColumnWidth"
+      b[old_key.to_sym] = value if old_key == old_key.downcase
+    end
+    new_definition << b
   end
-  new_definition << b
+  layout["definition"] = new_definition
 end
-activities_layout["layouts"][0]["definition"] = new_definition
 
 Layout.collection.insert({
     doctype: :activity,
