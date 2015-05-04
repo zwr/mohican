@@ -8,7 +8,6 @@
   function mnGridFilterService() {
     var service = {
       jsonToUrlParam: function(filters) {
-        console.log(filters);
         var filterObjects = [];
         for (var key in filters) {
           if (filters.hasOwnProperty(key) && filters[key] !== '') {

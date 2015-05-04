@@ -88,7 +88,6 @@
     },
 
     getView: function(column, direction, filters) {
-      console.log(filters);
       var newRouteParams = _.clone(this.$stateParams);
       if(column) {
         newRouteParams.column = column;
