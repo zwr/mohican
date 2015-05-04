@@ -40,7 +40,13 @@
         that.serviceDataLoaded = newValue;
         if((that.$stateParams.column || that.$stateParams.qf) && that.serviceDataLoaded) {
           that.quickFilterShown = ($stateParams.qf === 'true');
-          that.resolve.getView(that.page, that.column, that.direction, that.filters).then(function(items) {
+
+          that.resolve.getView(that.page,
+                               that.column,
+                               that.direction,
+                               //apply filters only if quick filter param is true,
+                               //but still track quick filter params in url for later qf usege
+                               $stateParams.qf === 'true' ? that.filters : {}).then(function(items) {
             that.items = items;
           });
         }
