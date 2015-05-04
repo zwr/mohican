@@ -11,13 +11,13 @@
   }
 
   var ROUTE_NAME = 'activities';
-  var Controller = function(resolve, $stateParams, $state, $scope) {
+  var Controller = function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
     _.assign(this, mnUtil.mnBaseController);
-    this.initialize(resolve, $stateParams, $state, $scope);
+    this.initialize(resolve, mnGridFilterService, $stateParams, $state, $scope);
     this.loadData();
   };
 
-  Controller.$inject = [ROUTE_NAME + 'ServiceResolve', '$stateParams', '$state', '$scope'];
+  Controller.$inject = [ROUTE_NAME + 'ServiceResolve', 'mnGridFilterService', '$stateParams', '$state', '$scope'];
 
   //arguments: (routeName, controller, service)
   mnUtil.defineMohicanRoute(
@@ -68,14 +68,16 @@
 
       service._filterJson = function(collection, filters) {
         collection = collection.filter(function(item) {
-          var met = true;
-          filters.forEach(function(filter) {
-            met = item[filter.column].toString() === filter.value;
-            if(!met) {
-              return;
+          var filtered = true;
+          for (var key in filters) {
+            if (filters.hasOwnProperty(key)) {
+              filtered = item[key].toString() === filters[key];
+              if(!filtered) {
+                break;
+              }
             }
-          });
-          return met;
+          }
+          return filtered;
         });
         return collection;
       };

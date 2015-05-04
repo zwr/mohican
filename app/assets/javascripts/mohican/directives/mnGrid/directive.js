@@ -8,14 +8,14 @@ angular.module('mohican.directives')
       return {
         restrict: 'E',
         scope: {
-          orderChanged: '&',
-          filterChanged: '&',
+          clientViewChanged: '&',
           fields: '=',
           items: '=',
           quickFilterShown: '=',
           serviceDataLoaded: '=',
           orderColumn: '=',
           orderDirection: '=',
+          filters: '=',
         },
         templateUrl: 'mohican/directives/mnGrid/template.html',
         controller: 'MnGridController',

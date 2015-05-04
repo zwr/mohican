@@ -12,13 +12,20 @@
 
     vm.orderBy = function(column) {
       if(vm.serviceDataLoaded) {
-        vm.orderChanged({column: column, direction: (vm.orderDirection === 'asc' && vm.orderColumn === column) ? 'desc' : 'asc'});
+        vm.clientViewChanged({
+          column: column,
+          //change direction only if orderColumn is clicked second time in row
+          direction: (vm.orderDirection === 'asc' && vm.orderColumn === column) ? 'desc' : 'asc',
+        });
       }
     };
 
-    vm.filterBy = function(column) {
-      var filters = {column: column, value: vm[column]};
-      vm.filterChanged({column: null, direction: null, filters: filters});
+    vm.filterBy = function() {
+      vm.clientViewChanged({
+        column: vm.orderColumn,
+        direction: vm.orderDirection,
+        filters: vm.filters,
+      });
     };
   }
 })();

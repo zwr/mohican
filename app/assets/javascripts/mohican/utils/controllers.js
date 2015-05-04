@@ -9,6 +9,7 @@
     quickFilterShown: undefined,
     layouts: undefined,
     resolve: undefined,
+    mnGridFilterService: undefined,
     $stateParams: undefined,
     $state: undefined,
     fields: undefined,
@@ -16,7 +17,7 @@
     item: undefined,
     serviceDataLoaded: undefined,
 
-    initialize: function(resolve, $stateParams, $state, $scope) {
+    initialize: function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
       MohicanUtils.injectDefaultParameters($stateParams);
 
@@ -26,9 +27,10 @@
       this.column = $stateParams.column;
       this.direction = $stateParams.direction;
       this.quickFilterShown = false;
-      this.filters = [{column: 'Order_ID', value: '3164'}];
+      this.filters = mnGridFilterService.urlParamToJson($stateParams.filters);
       this.layouts = [];
       this.resolve = resolve;
+      this.mnGridFilterService = mnGridFilterService;
       this.$stateParams = $stateParams;
       this.$state = $state;
       $scope.resolve = resolve;
@@ -86,6 +88,7 @@
     },
 
     getView: function(column, direction, filters) {
+      console.log(filters);
       var newRouteParams = _.clone(this.$stateParams);
       if(column) {
         newRouteParams.column = column;
@@ -94,7 +97,7 @@
         newRouteParams.direction = direction;
       }
       if(filters) {
-        newRouteParams.filters = 'column$Order_ID$$value$3164';
+        newRouteParams.filters = this.mnGridFilterService.jsonToUrlParam(filters);
       }
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },

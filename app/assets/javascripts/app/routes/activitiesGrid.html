@@ -9,8 +9,9 @@
            fields="ctrl.fields"
            order-column="ctrl.column"
            order-direction="ctrl.direction"
-           order-changed='ctrl.getView(column, direction, filters)'
-           filter-changed='ctrl.getView(column, direction, filters)'
+           filters="ctrl.filters"
+           client-view-changed='ctrl.getView(column, direction, filters)'
+           client-view-changed='ctrl.getView(column, direction, filters)'
            quick-filter-shown='ctrl.quickFilterShown'
            service-data-loaded='ctrl.serviceDataLoaded'>
   </mn-grid>
