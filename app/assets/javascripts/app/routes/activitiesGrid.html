@@ -1,22 +1,30 @@
-<div>
-  <mn-filter-bar layout-changed='ctrl.getLayout(layout)'
-                 layouts='ctrl.layouts'
-                 quick-filter-shown='ctrl.quickFilterShown'
-                 quick-filter-toggled='ctrl.toggleQuickFilter(opened)'
-                 service-data-loaded='ctrl.serviceDataLoaded'>
-  </mn-filter-bar>
-  <mn-grid items="ctrl.items"
-           fields="ctrl.fields"
-           order-column="ctrl.column"
-           order-direction="ctrl.direction"
-           filters="ctrl.filters"
-           client-view-changed='ctrl.getView(column, direction, filters)'
-           client-view-changed='ctrl.getView(column, direction, filters)'
-           quick-filter-shown='ctrl.quickFilterShown'
-           service-data-loaded='ctrl.serviceDataLoaded'>
-  </mn-grid>
-  <mn-grid-pager page-changed='ctrl.getPage(page)'
-                 pages-count='ctrl.pagesCount'
-                 current-page='ctrl.page'>
-  </mn-grid-pager>
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <mn-filter-bar layout-changed='ctrl.getLayout(layout)'
+                     layouts='ctrl.layouts'
+                     quick-filter-shown='ctrl.quickFilterShown'
+                     quick-filter-toggled='ctrl.toggleQuickFilter(opened)'
+                     service-data-loaded='ctrl.serviceDataLoaded'>
+      </mn-filter-bar>
+    </div>
+  </div>
+  <div class="row mn-grid-layout-row">
+    <div class="col-xs-12">
+      <mn-grid items="ctrl.items"
+               fields="ctrl.fields"
+               order-column="ctrl.column"
+               order-direction="ctrl.direction"
+               filters="ctrl.filters"
+               client-view-changed='ctrl.getView(column, direction, filters)'
+               client-view-changed='ctrl.getView(column, direction, filters)'
+               quick-filter-shown='ctrl.quickFilterShown'
+               service-data-loaded='ctrl.serviceDataLoaded'>
+      </mn-grid>
+      <mn-grid-pager page-changed='ctrl.getPage(page)'
+                     pages-count='ctrl.pagesCount'
+                     current-page='ctrl.page'>
+      </mn-grid-pager>
+    </div>
+  </div>
 </div>
