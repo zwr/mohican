@@ -70,7 +70,7 @@
         collection = collection.filter(function(item) {
           var filtered = true;
           for (var key in filters) {
-            if (filters.hasOwnProperty(key)) {
+            if (filters.hasOwnProperty(key) && angular.isDefined(item[key])) {
               filtered = item[key].toString() === filters[key];
               if(!filtered) {
                 break;

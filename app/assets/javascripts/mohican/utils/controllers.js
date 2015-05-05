@@ -44,9 +44,7 @@
           that.resolve.getView(that.page,
                                that.column,
                                that.direction,
-                               //apply filters only if quick filter param is true,
-                               //but still track quick filter params in url for later qf usege
-                               $stateParams.qf === 'true' ? that.filters : {}).then(function(items) {
+                               that.filters).then(function(items) {
             that.items = items;
           });
         }
@@ -110,6 +108,9 @@
     toggleQuickFilter: function(opened) {
       var newRouteParams = _.clone(this.$stateParams);
       newRouteParams.qf = opened;
+      if(!newRouteParams.qf) {
+        newRouteParams.filters = undefined;
+      }
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
   };
