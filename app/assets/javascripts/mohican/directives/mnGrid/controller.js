@@ -5,9 +5,9 @@
 
   angular
       .module('mohican.directives')
-      .controller('MnGridController', [MnGridController]);
+      .controller('MnGridController', ['$timeout', MnGridController]);
 
-  function MnGridController() {
+  function MnGridController($timeout) {
     var vm = this;
 
     vm.orderBy = function(column) {
@@ -20,12 +20,17 @@
       }
     };
 
-    vm.filterBy = function() {
-      vm.clientViewChanged({
-        column: vm.orderColumn,
-        direction: vm.orderDirection,
-        filters: vm.filters,
-      });
+    vm.filterBy = function(field_name) {
+      var remember_current_text = vm.filters[field_name];
+      $timeout(function(){
+        if(remember_current_text == vm.filters[field_name]) {
+          vm.clientViewChanged({
+            column: vm.orderColumn,
+            direction: vm.orderDirection,
+            filters: vm.filters,
+          });
+        }
+      },800);
     };
   }
 })();
