@@ -20,17 +20,17 @@
       }
     };
 
-    vm.filterBy = function(field_name) {
-      var remember_current_text = vm.filters[field_name];
-      $timeout(function(){
-        if(remember_current_text == vm.filters[field_name]) {
+    vm.filterBy = function(fieldName) {
+      var rememberCurrentText = vm.filters[fieldName];
+      $timeout(function() {
+        if(rememberCurrentText === vm.filters[fieldName]) {
           vm.clientViewChanged({
             column: vm.orderColumn,
             direction: vm.orderDirection,
             filters: vm.filters,
           });
         }
-      },800);
+      }, 800);
     };
   }
 })();
