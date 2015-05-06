@@ -12,6 +12,7 @@ angular.module('mohican.directives')
           fields: '=',
           items: '=',
           quickFilterShown: '=',
+          quickFilterFocus: '=',
           serviceDataLoaded: '=',
           orderColumn: '=',
           orderDirection: '=',

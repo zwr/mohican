@@ -7,6 +7,7 @@
     column: undefined,
     direction: undefined,
     quickFilterShown: undefined,
+    qfFocus: undefined,
     layouts: undefined,
     resolve: undefined,
     mnGridFilterService: undefined,
@@ -27,6 +28,7 @@
       this.column = $stateParams.column;
       this.direction = $stateParams.direction;
       this.quickFilterShown = false;
+      this.qfFocus = $stateParams.qf;//read focused field information from qf param
       this.filters = mnGridFilterService.urlParamToJson($stateParams.filters);
       this.layouts = [];
       this.resolve = resolve;
@@ -39,7 +41,7 @@
       $scope.$watch(function() { return that.resolve.fullyLoaded; }, function (newValue) {
         that.serviceDataLoaded = newValue;
         if((that.$stateParams.column || that.$stateParams.qf) && that.serviceDataLoaded) {
-          that.quickFilterShown = ($stateParams.qf === 'true');
+          that.quickFilterShown = $stateParams.qf ? true : false;
 
           that.resolve.getView(that.page,
                                that.column,
@@ -91,7 +93,7 @@
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 
-    getView: function(column, direction, filters) {
+    getView: function(column, direction, filters, focus) {
       var newRouteParams = _.clone(this.$stateParams);
       if(column) {
         newRouteParams.column = column;
@@ -101,6 +103,10 @@
       }
       if(filters) {
         newRouteParams.filters = this.mnGridFilterService.jsonToUrlParam(filters);
+      }
+      if(focus) {
+        //store focused field information in qf param
+        newRouteParams.qf = focus;
       }
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },

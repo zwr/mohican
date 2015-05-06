@@ -86,9 +86,6 @@
     if (!params.direction) {
       params.direction = 'asc';
     }
-    if (!params.qf) {
-      params.qf = 'false';
-    }
 
     return params;
   };

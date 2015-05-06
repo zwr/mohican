@@ -16,8 +16,8 @@
                order-column="ctrl.column"
                order-direction="ctrl.direction"
                filters="ctrl.filters"
-               client-view-changed='ctrl.getView(column, direction, filters)'
-               client-view-changed='ctrl.getView(column, direction, filters)'
+               client-view-changed='ctrl.getView(column, direction, filters, focus)'
+               quick-filter-focus='ctrl.qfFocus'
                quick-filter-shown='ctrl.quickFilterShown'
                service-data-loaded='ctrl.serviceDataLoaded'>
       </mn-grid>
