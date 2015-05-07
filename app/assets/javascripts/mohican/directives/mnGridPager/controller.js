@@ -45,7 +45,7 @@
     };
 
     vm.showLinkFirst = function() {
-      if (vm.currentPage > (vm._maxToShow + 1) / 2) {
+      if (vm.currentPage > (vm._maxToShow + 1) / 2 && vm.pagesCount > vm._maxToShow) {
         return true;
       } else {
         return false;
@@ -53,7 +53,7 @@
     };
 
     vm.showLinkLast = function() {
-      if (vm.currentPage < vm.pagesCount - (vm._maxToShow - 1) / 2) {
+      if (vm.currentPage < vm.pagesCount - (vm._maxToShow - 1) / 2 && vm.pagesCount > vm._maxToShow) {
         return true;
       } else {
         return false;
