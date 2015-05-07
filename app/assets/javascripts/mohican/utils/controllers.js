@@ -8,6 +8,7 @@
     direction: undefined,
     quickFilterShown: undefined,
     qfFocus: undefined,
+    filters: undefined,
     layouts: undefined,
     resolve: undefined,
     mnGridFilterService: undefined,

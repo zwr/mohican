@@ -17,9 +17,10 @@
         return filterObjects.join('$$');
       },
       urlParamToJson: function(urlParamString) {
-        var filtersObject = {};
+        var filtersObject;
 
         if(urlParamString && urlParamString !== '') {
+          filtersObject = {};
           var urlFilters = urlParamString.split('$$');
           urlFilters.forEach(function(urlFilter) {
             var keyValue = urlFilter.split('$');

@@ -23,7 +23,8 @@
       </mn-grid>
       <mn-grid-pager page-changed='ctrl.getPage(page)'
                      pages-count='ctrl.pagesCount'
-                     current-page='ctrl.page'>
+                     current-page='ctrl.page'
+                     client-view-pager-style='!!ctrl.filters && ctrl.resolve.fullyLoaded'>
       </mn-grid-pager>
     </div>
   </div>

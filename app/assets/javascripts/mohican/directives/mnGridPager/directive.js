@@ -11,10 +11,11 @@ angular.module('mohican.directives')
           pageChanged: '&',
           pagesCount: '=',
           currentPage: '=',
+          clientViewPagerStyle: '=',
         },
         templateUrl: 'mohican/directives/mnGridPager/template.html',
         controller: 'MnGridPagerController',
-        controllerAs: 'vm',
+        controllerAs: 'gridPager',
         bindToController: true,
       };
     },
