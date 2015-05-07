@@ -16,7 +16,6 @@
     fields: undefined,
     pagesCount: undefined,
     item: undefined,
-    serviceDataLoaded: undefined,
 
     initialize: function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
@@ -35,36 +34,23 @@
       this.mnGridFilterService = mnGridFilterService;
       this.$stateParams = $stateParams;
       this.$state = $state;
-      $scope.resolve = resolve;
-      var that = this;
-      that.serviceDataLoaded = that.resolve.fullyLoaded;
-      $scope.$watch(function() { return that.resolve.fullyLoaded; }, function (newValue) {
-        that.serviceDataLoaded = newValue;
-        if((that.$stateParams.column || that.$stateParams.qf) && that.serviceDataLoaded) {
-          that.quickFilterShown = $stateParams.qf ? true : false;
-
-          that.resolve.getView(that.page,
-                               that.column,
-                               that.direction,
-                               that.filters).then(function(data) {
-            that.items = data.items;
-            that.pagesCount = data.pagesCount;
-          });
-        }
-      });
+      this.$scope = $scope;
+      this.$scope.resolve = resolve;
     },
 
     loadData: function() {
       var that = this;
 
-      that.resolve.getPageCount().then(function(pagesCount) {
-        that.pagesCount = pagesCount;
-        if(MohicanUtils.validatePageParameter(that.page, that.pagesCount, that.$state, that.$stateParams)) {
-          that.resolve.getPage(that.page).then(function(items) {
-            that.items = items;
-          });
-        }
-      });
+      if(!that.resolve.fullyLoaded) {
+        that.resolve.getBackendPageCount().then(function(pagesCount) {
+          that.pagesCount = pagesCount;
+          if(MohicanUtils.validatePageParameter(that.page, that.pagesCount, that.$state, that.$stateParams)) {
+            that.resolve.getBackendPage(that.page).then(function(items) {
+              that.items = items;
+            });
+          }
+        });
+      }
 
       that.resolve.getPreviewDefinitions().then(function(definition) {
         definition.layouts.forEach(function(layout) {
@@ -79,6 +65,21 @@
           }
         });
         MohicanUtils.validateLayoutParameter(that.layout, that.layouts, that.$state, that.$stateParams);
+      });
+
+      that.$scope.$watch(function() { return that.resolve.fullyLoaded; }, function (newValue) {
+        if((that.$stateParams.column || that.$stateParams.qf) && newValue) {
+          that.quickFilterShown = that.$stateParams.qf ? true : false;
+
+          that.resolve.getClientPage(that.page,
+                                     that.column,
+                                     that.direction,
+                                     that.filters).then(function(data) {
+            that.items = data.items;
+            that.pagesCount = data.pagesCount;
+            MohicanUtils.validatePageParameter(that.page, that.pagesCount, that.$state, that.$stateParams);
+          });
+        }
       });
     },
 
@@ -96,6 +97,7 @@
 
     getView: function(column, direction, filters, focus) {
       var newRouteParams = _.clone(this.$stateParams);
+      newRouteParams.page = 1;//for all client side actions reset page to 1
       if(column) {
         newRouteParams.column = column;
       }

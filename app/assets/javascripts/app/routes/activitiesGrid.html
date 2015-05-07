@@ -5,7 +5,7 @@
                      layouts='ctrl.layouts'
                      quick-filter-shown='ctrl.quickFilterShown'
                      quick-filter-toggled='ctrl.toggleQuickFilter(opened)'
-                     service-data-loaded='ctrl.serviceDataLoaded'>
+                     service-data-loaded='ctrl.resolve.fullyLoaded'>
       </mn-filter-bar>
     </div>
   </div>
@@ -19,7 +19,7 @@
                client-view-changed='ctrl.getView(column, direction, filters, focus)'
                quick-filter-focus='ctrl.qfFocus'
                quick-filter-shown='ctrl.quickFilterShown'
-               service-data-loaded='ctrl.serviceDataLoaded'>
+               service-data-loaded='ctrl.resolve.fullyLoaded'>
       </mn-grid>
       <mn-grid-pager page-changed='ctrl.getPage(page)'
                      pages-count='ctrl.pagesCount'

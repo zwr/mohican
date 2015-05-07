@@ -87,7 +87,7 @@
         return collection;
       };
 
-      service.getView = function(pageNumber, column, direction, filters) {
+      service.getClientPage = function(pageNumber, column, direction, filters) {
         service.bufferView = _.cloneDeep(service.buffer);
         service.bufferView = service._filter(service.bufferView, filters);
         service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false);
@@ -105,7 +105,7 @@
       };
 
       // pageNumber is 1 based!
-      service.getPage = function(pageNumber) {
+      service.getBackendPage = function(pageNumber) {
         // If we have the page, return the page
         if((pageNumber - 1) * service.pageSize >= service.bottomIndex
            && pageNumber * service.pageSize - 1 <= service.topIndex) {
@@ -117,7 +117,7 @@
         } else {
           return service.fetchEagerly((pageNumber - 1) * service.pageSize)
           .then(function() {
-            return service.getPage(pageNumber);
+            return service.getBackendPage(pageNumber);
           });
         }
       };
@@ -152,7 +152,7 @@
         }
       };
 
-      service.getPageCount = function() {
+      service.getBackendPageCount = function() {
         if(service.buffer) {
           var pageCount = parseInt(
             (service.totalCount - 1) / service.pageSize + 1);
@@ -164,12 +164,12 @@
             // Somebody is already getting something, which will probably
             // do what we need, so just wait for that promise to fullfil and
             // then try again the same.
-            return service.getPageCount();
+            return service.getBackendPageCount();
           });
         } else {
-          return service.getPage(1)
+          return service.getBackendPage(1)
             .then(function() {
-              return service.getPageCount();
+              return service.getBackendPageCount();
             });
         }
       };
