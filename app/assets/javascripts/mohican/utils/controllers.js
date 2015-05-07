@@ -35,7 +35,6 @@
       this.$stateParams = $stateParams;
       this.$state = $state;
       this.$scope = $scope;
-      this.$scope.resolve = resolve;
     },
 
     loadData: function() {
