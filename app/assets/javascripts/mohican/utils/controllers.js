@@ -46,8 +46,9 @@
           that.resolve.getView(that.page,
                                that.column,
                                that.direction,
-                               that.filters).then(function(items) {
-            that.items = items;
+                               that.filters).then(function(data) {
+            that.items = data.items;
+            that.pagesCount = data.pagesCount;
           });
         }
       });

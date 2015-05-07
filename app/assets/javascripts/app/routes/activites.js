@@ -92,10 +92,16 @@
         service.bufferView = service._filter(service.bufferView, filters);
         service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false);
 
-        return $q.when(service.bufferView.slice(
-          (pageNumber - 1) * service.pageSize - service.bottomIndex,
-          pageNumber * service.pageSize - service.bottomIndex
-        ));
+        var viewPagesCount = parseInt(
+          (service.bufferView.length - 1) / service.pageSize + 1);
+
+        return $q.when({
+          items: service.bufferView.slice(
+            (pageNumber - 1) * service.pageSize - service.bottomIndex,
+            pageNumber * service.pageSize - service.bottomIndex
+          ),
+          pagesCount: viewPagesCount,
+        });
       };
 
       // pageNumber is 1 based!
