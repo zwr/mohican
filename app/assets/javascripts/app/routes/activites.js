@@ -58,7 +58,7 @@
       // Following becomes true when all the filter records have been retrieved
       service.fullyLoaded = false;
 
-      service._sortJson = function(collection, prop, asc) {
+      service._sort = function(collection, prop, asc) {
         collection = collection.sort(function(a, b) {
           if (asc) {return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0); }
           else {return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0); }
@@ -66,7 +66,7 @@
         return collection;
       };
 
-      service._filterJson = function(collection, filters) {
+      service._filter = function(collection, filters) {
         collection = collection.filter(function(item) {
           var filtered = true;
           for (var key in filters) {
@@ -89,8 +89,8 @@
 
       service.getView = function(pageNumber, column, direction, filters) {
         service.bufferView = _.cloneDeep(service.buffer);
-        service.bufferView = service._filterJson(service.bufferView, filters);
-        service.bufferView = service._sortJson(service.bufferView, column, direction === 'asc' ? true : false);
+        service.bufferView = service._filter(service.bufferView, filters);
+        service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false);
 
         return $q.when(service.bufferView.slice(
           (pageNumber - 1) * service.pageSize - service.bottomIndex,
