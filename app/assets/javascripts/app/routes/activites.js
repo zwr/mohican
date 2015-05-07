@@ -87,8 +87,40 @@
         return collection;
       };
 
+      service.nextClonedBuffer = undefined;
+      service.clonedBuffer1 = [];
+      service.clonedBuffer2 = [];
+
+      service.cloneBuffer = function(bufferNumber) {
+        if(bufferNumber === 1) {
+          this.clonedBuffer1 = _.cloneDeep(service.buffer);
+          console.log('next buffer is cloned');
+        }
+        else {
+          this.clonedBuffer2 = _.cloneDeep(service.buffer);
+          console.log('next buffer is cloned');
+        }
+      };
+
+      service._getClonedBuffer = function() {
+        console.log('get cloned buffer');
+        if(this.nextCloned === 1) {
+          this.nextCloned = 2;
+          service .cloneBuffer(2);
+          console.log('after clone buffer');
+          return this.clonedBuffer1;
+        }
+        else {
+          this.nextCloned = 1;
+          service .cloneBuffer(1);
+          console.log('after clone buffer');
+          return this.clonedBuffer2;
+        }
+      };
+
       service.getClientPage = function(pageNumber, column, direction, filters) {
-        service.bufferView = _.cloneDeep(service.buffer);
+        service.bufferView = service._getClonedBuffer();//_.cloneDeep(service.buffer);
+        console.log('cloned buffer returned');
         service.bufferView = service._filter(service.bufferView, filters);
         service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false);
 
@@ -206,6 +238,8 @@
           }
           if(count === 0) {
             service.fullyLoaded = true;
+            this.cloneBuffer(1);
+            this.nextCloned = 1;
             trace('data are fully loaded');
             return;
           }
