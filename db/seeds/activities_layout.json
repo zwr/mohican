@@ -24,7 +24,7 @@
           "UpdatedBy": null,
           "FilterTypeVal": 0,
           "quicksort": true,
-          "quicfilter": null,
+          "quickfilter": null,
           "view": "text"
         },
         {
@@ -48,7 +48,7 @@
           "UpdatedBy": null,
           "FilterTypeVal": 0,
           "quicksort": true,
-          "quicfilter": "text",
+          "quickfilter": "text",
           "view": "text"
         },
         {
@@ -72,7 +72,7 @@
           "UpdatedBy": null,
           "FilterTypeVal": 0,
           "quicksort": true,
-          "quicfilter": "select",
+          "quickfilter": "select",
           "values": [ "Uusi", "Suunniteltu"],
           "view": "text"
         },
@@ -96,8 +96,8 @@
           "CreatedBy": null,
           "UpdatedBy": null,
           "FilterTypeVal": 0,
-          "quicksort": false,
-          "quicfilter": "none",
+          "quicksort": true,
+          "quickfilter": "date-range",
           "view": "text"
         },
         {
@@ -121,7 +121,7 @@
           "UpdatedBy": null,
           "FilterTypeVal": 0,
           "quicksort": true,
-          "quicfilter": "text"
+          "quickfilter": "text"
         },
         {
           "CustomColumn_ID": 43478,
@@ -144,7 +144,7 @@
           "UpdatedBy": null,
           "FilterTypeVal": 0,
           "quicksort": true,
-          "quicfilter": "text",
+          "quickfilter": "text",
           "view": "text"
         },
         {
@@ -168,7 +168,7 @@
           "UpdatedBy": null,
           "FilterTypeVal": 0,
           "quicksort": true,
-          "quicfilter": "text",
+          "quickfilter": "text",
           "view": "text"
         },
         {
@@ -192,7 +192,7 @@
           "UpdatedBy": null,
           "FilterTypeVal": 0,
           "quicksort": true,
-          "quicfilter": "text",
+          "quickfilter": "text",
           "view": "text"
         },
         {
@@ -216,7 +216,7 @@
           "UpdatedBy": null,
           "FilterTypeVal": 0,
           "quicksort": true,
-          "quicfilter": "text",
+          "quickfilter": "text",
           "view": "text"
         },
         {
@@ -263,8 +263,8 @@
           "UpdatedBy": null,
           "FilterTypeVal": 0,
           "quicksort": true,
-          "quicfilter": "text",
-          "view": "number(2)" 
+          "quickfilter": "text",
+          "view": "number(2)"
         },
         {
           "CustomColumn_ID": 43484,
@@ -392,7 +392,7 @@
           "UpdatedBy": null,
           "FilterTypeVal": 0,
           "quicksort": true,
-          "quicfilter": "text",
+          "quickfilter": "text",
           "view": "number(2)"
         }
       ]
