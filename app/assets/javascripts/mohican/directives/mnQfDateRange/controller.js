@@ -5,9 +5,9 @@
 
   angular
       .module('mohican.directives')
-      .controller('MnQfDateRangeController', ['$scope', '$element', '$timeout', MnQfDateRangeController]);
+      .controller('MnQfDateRangeController', ['$timeout', MnQfDateRangeController]);
 
-  function MnQfDateRangeController($scope, $element, $timeout) {
+  function MnQfDateRangeController($timeout) {
     var vm = this;
 
     if(vm.model) {
@@ -26,7 +26,9 @@
 
     vm.inputChanged = function() {
       //pack date picker to string url params
-      vm.model = vm.date.startDate.toString().split(' ').join('_') + '---' + vm.date.endDate.toString().split(' ').join('_');
+      vm.model = vm.date.startDate.toString().split(' ').join('_') +
+                 '---' +
+                 vm.date.endDate.toString().split(' ').join('_');
       var rememberCurrentText = vm.model;
       $timeout(function() {
         if(rememberCurrentText === vm.model) {
