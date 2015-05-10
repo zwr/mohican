@@ -2,7 +2,7 @@
   'use strict';
 
   MohicanUtils.validatePageParameter = function(page, pagesCount, state, params) {
-    if(isNaN(page.toString()) || page < 1 || page > pagesCount) {
+    if(isNaN(page.toString()) || page < 1 || (page > pagesCount && pagesCount > 0)) {
       var newRouteParams = _.clone(params);
       newRouteParams.page = '1';
       state.go(state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
