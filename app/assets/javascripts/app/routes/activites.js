@@ -87,6 +87,24 @@
         return collection;
       };
 
+      service._parseFieldTypes = function(buffer, dataFields) {
+        buffer.forEach(function(item) {
+          dataFields.forEach(function(field) {
+            if(field.view === 'date') {
+              if(item[field.name] &&
+                 !(item[field.name] instanceof Date)//do not cast if it is already Date()
+                ) {
+                item[field.name] = new Date(item[field.name]);
+                console.log(item[field.name]);
+              }
+              else {
+                item[field.name] = null;
+              }
+            }
+          });
+        });
+      };
+
       service.nextClonedBuffer = undefined;
       service.clonedBuffer1 = [];
       service.clonedBuffer2 = [];
@@ -119,7 +137,7 @@
       };
 
       service.getClientPage = function(pageNumber, column, direction, filters) {
-        service.bufferView = service._getClonedBuffer();//_.cloneDeep(service.buffer);
+        service.bufferView = service._getClonedBuffer();
         console.log('cloned buffer returned');
         service.bufferView = service._filter(service.bufferView, filters);
         service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false);
@@ -137,7 +155,7 @@
       };
 
       // pageNumber is 1 based!
-      service.getBackendPage = function(pageNumber) {
+      service.getBackendPage = function(pageNumber, dataFields) {
         // If we have the page, return the page
         if((pageNumber - 1) * service.pageSize >= service.bottomIndex
            && pageNumber * service.pageSize - 1 <= service.topIndex) {
@@ -147,14 +165,14 @@
             pageNumber * service.pageSize - service.bottomIndex
           ));
         } else {
-          return service.fetchEagerly((pageNumber - 1) * service.pageSize)
+          return service.fetchEagerly((pageNumber - 1) * service.pageSize, dataFields)
           .then(function() {
-            return service.getBackendPage(pageNumber);
+            return service.getBackendPage(pageNumber, dataFields);
           });
         }
       };
 
-      service.fetchEagerly = function(startIndex) {
+      service.fetchEagerly = function(startIndex, dataFields) {
         //reset the buffer with the following command
         service.fullyLoaded = false;
         // if there is an ongoing promise, wait for it to complete after making
@@ -162,7 +180,7 @@
         if(service.thePromise != null) {
           service.beEager = false;
           return service.thePromise.then(function() {
-            return service.fetchEagerly(startIndex);
+            return service.fetchEagerly(startIndex, dataFields);
           });
         } else {
           // fetch now, and then continue eagerly
@@ -175,16 +193,17 @@
               trace('  -  received');
               service.thePromise = null;
               service.buffer = resp.data.items;
+              service._parseFieldTypes(service.buffer, dataFields);
               service.totalCount = resp.data.total_count;
               service.bottomIndex = resp.data.offset;
               service.topIndex = service.bottomIndex + resp.data.items.length;
-              service.continueEagerly();
+              service.continueEagerly(dataFields);
               return service.buffer;
             });
         }
       };
 
-      service.getBackendPageCount = function() {
+      service.getBackendPageCount = function(dataFields) {
         if(service.buffer) {
           var pageCount = parseInt(
             (service.totalCount - 1) / service.pageSize + 1);
@@ -196,12 +215,12 @@
             // Somebody is already getting something, which will probably
             // do what we need, so just wait for that promise to fullfil and
             // then try again the same.
-            return service.getBackendPageCount();
+            return service.getBackendPageCount(dataFields);
           });
         } else {
-          return service.getBackendPage(1)
+          return service.getBackendPage(1, dataFields)
             .then(function() {
-              return service.getBackendPageCount();
+              return service.getBackendPageCount(dataFields);
             });
         }
       };
@@ -211,7 +230,7 @@
         return this;
       };
 
-      service.continueEagerly = function() {
+      service.continueEagerly = function(dataFields) {
         if(service.beEager) {
           if(service.bottomIndex === 0) {
             service.nextEagerGrowthForward = true;
@@ -255,11 +274,13 @@
                 if(service.nextEagerGrowthForward) {
                   service.topIndex += resp.data.items.length;
                   service.buffer.append(resp.data.items);
+                  service._parseFieldTypes(service.buffer, dataFields);
                 } else {
                   service.bottomIndex -= resp.data.items.length;
                   service.buffer = resp.data.items.append(service.buffer);
+                  service._parseFieldTypes(service.buffer, dataFields);
                 }
-                service.continueEagerly();
+                service.continueEagerly(dataFields);
               }
             });
         }

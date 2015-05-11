@@ -31,7 +31,9 @@
     </thead>
     <tbody>
       <tr ng-repeat="item in grid.items">
-        <td ng-repeat="field in grid.fields">{{item[field.name]}}</td>
+        <td ng-repeat="field in grid.fields">
+          <mn-view-field model="item[field.name]" field="field"></mn-view-field>
+        </td>
       </tr>
     </tbody>
   </table>

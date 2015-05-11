@@ -24,6 +24,7 @@
   "globals": {
     "_": true,
     "angular": true,
+    "moment": true,
     "require": true,
     "browser": true,
     "element": true,
