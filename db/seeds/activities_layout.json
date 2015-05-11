@@ -98,7 +98,7 @@
           "FilterTypeVal": 0,
           "quicksort": true,
           "quickfilter": "date-range",
-          "view": "text"
+          "view": "date"
         },
         {
           "CustomColumn_ID": 43477,
