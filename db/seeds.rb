@@ -12,7 +12,7 @@ puts "Seeding #{activities['items'].length} activities"
 activities['items'].each do |a|
   # We want to store as date those fields that are dates
   a.as_json.each do |key, value|
-    if value.class == String
+    if value.class == String && value.length > 12
       begin
         maybe_date = DateTime.parse(value)
         a[key] = maybe_date
