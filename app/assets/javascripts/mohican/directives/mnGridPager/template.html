@@ -1,4 +1,4 @@
-<div class="row pager-row" ng-class="{hidden: !gridPager.pagesCount}">
+<div class="row pager-row" ng-class="{hidden: !gridPager.pageCount}">
   <div class="col-lg-5">
     <nav class="pointer">
       <ul class="pointer pagination pagination-sm"
@@ -18,11 +18,11 @@
           <a ng-click="gridPager._changePage(pageNumber)">{{gridPager.showPageNumber(pageNumber, $index)}}</a>
         </li>
         <li>
-          <a ng-click="gridPager._changePage(gridPager.pagesCount)"
+          <a ng-click="gridPager._changePage(gridPager.pageCount)"
              ng-class="{hidden: !gridPager.showLinkLast()}"
-             aria-label="Last">{{gridPager.pagesCount}}</a>
+             aria-label="Last">{{gridPager.pageCount}}</a>
         </li>
-        <li class="pointer" ng-class="{disabled: gridPager.currentPage == gridPager.pagesCount, hidden: !gridPager.pagesCount}">
+        <li class="pointer" ng-class="{disabled: gridPager.currentPage == gridPager.pageCount, hidden: !gridPager.pageCount}">
           <a ng-click="gridPager._changePage(gridPager.nextPage)" aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
           </a>

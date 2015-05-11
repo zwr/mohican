@@ -9,7 +9,7 @@ angular.module('mohican.directives')
         restrict: 'E',
         scope: {
           pageChanged: '&',
-          pagesCount: '=',
+          pageCount: '=',
           currentPage: '=',
           clientViewPagerStyle: '=',
         },

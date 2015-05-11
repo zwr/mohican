@@ -124,7 +124,7 @@
         service.bufferView = service._filter(service.bufferView, filters);
         service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false);
 
-        var viewPagesCount = parseInt(
+        var viewpageCount = parseInt(
           (service.bufferView.length - 1) / service.pageSize + 1);
 
         return $q.when({
@@ -132,7 +132,7 @@
             (pageNumber - 1) * service.pageSize - service.bottomIndex,
             pageNumber * service.pageSize - service.bottomIndex
           ),
-          pagesCount: viewPagesCount,
+          pageCount: viewpageCount,
         });
       };
 

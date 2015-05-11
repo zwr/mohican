@@ -15,7 +15,7 @@
     $stateParams: undefined,
     $state: undefined,
     fields: undefined,
-    pagesCount: undefined,
+    pageCount: undefined,
     item: undefined,
 
     initialize: function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
@@ -42,9 +42,9 @@
       var that = this;
 
       if(!that.resolve.fullyLoaded) {
-        that.resolve.getBackendPageCount().then(function(pagesCount) {
-          that.pagesCount = pagesCount;
-          if(MohicanUtils.validatePageParameter(that.page, that.pagesCount, that.$state, that.$stateParams)) {
+        that.resolve.getBackendPageCount().then(function(pageCount) {
+          that.pageCount = pageCount;
+          if(MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams)) {
             that.resolve.getBackendPage(that.page).then(function(items) {
               that.items = items;
             });
@@ -76,8 +76,8 @@
                                      that.direction,
                                      that.filters).then(function(data) {
             that.items = data.items;
-            that.pagesCount = data.pagesCount;
-            MohicanUtils.validatePageParameter(that.page, that.pagesCount, that.$state, that.$stateParams);
+            that.pageCount = data.pageCount;
+            MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams);
           });
         }
       });
