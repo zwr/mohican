@@ -15,11 +15,12 @@
         vm.field.format = 'DD.MM.YYYY.';//TODO: store format information in db
         return vm.model ? moment(vm.model).format(vm.field.format) : '';
       }
-      if(_.startsWith(vm.field.view, 'number')) {
+      else if(_.startsWith(vm.field.view, 'number')) {
         var decimalParams = vm.field.view.slice(7, vm.field.view.length - 1);
         return vm.model ? vm.model.toFixed(decimalParams) : '';
       }
-      if(vm.field.view === 'text') {
+      //vm.field.view === 'text'
+      else {
         return vm.model;
       }
     };
