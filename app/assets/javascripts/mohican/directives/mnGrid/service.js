@@ -10,19 +10,22 @@
       jsonToUrlParam: function(filters, dataFields) {
         var filterObjects = [];
         for (var key in filters) {
-          if ((filters.hasOwnProperty(key) && filters[key] !== '') ||
-              (filters.hasOwnProperty(key) && filters[key] instanceof Object)) {
-
+          if (filters.hasOwnProperty(key)) {
             var field = service._getDataField(dataFields, key);
-
             if(field.quickfilter === 'date-range') {
-              var filterVal = filters[key].startDate.toString().split(' ').join('_') +
-                         '---' +
-                         filters[key].endDate.toString().split(' ').join('_');
-              filterObjects.push(key + '$' + filterVal);
+              if(filters[key] instanceof Object &&
+                 filters[key].startDate !== null &&
+                 filters[key].endDate !== null) {
+                var filterVal = filters[key].startDate.toString().split(' ').join('_') +
+                                '---' +
+                                filters[key].endDate.toString().split(' ').join('_');
+                filterObjects.push(key + '$' + filterVal);
+              }
             }
             else {
-              filterObjects.push(key + '$' + filters[key]);
+              if(filters[key] !== '') {
+                filterObjects.push(key + '$' + filters[key]);
+              }
             }
           }
         }

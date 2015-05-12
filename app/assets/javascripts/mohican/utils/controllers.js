@@ -29,7 +29,6 @@
       this.direction = $stateParams.direction;
       this.quickFilterShown = false;
       this.qfFocus = $stateParams.qf;//read focused field information from qf param
-      this.filters = [];
       this.layouts = [];
       this.resolve = resolve;
       this.mnGridFilterService = mnGridFilterService;
