@@ -95,7 +95,7 @@
                  !(item[field.name] instanceof Date)//do not cast if it is already Date()
                 ) {
                 item[field.name] = new Date(item[field.name]);
-                console.log(item[field.name]);
+                trace(item[field.name]);
               }
               else {
                 item[field.name] = null;
@@ -112,33 +112,33 @@
       service.cloneBuffer = function(bufferNumber) {
         if(bufferNumber === 1) {
           this.clonedBuffer1 = _.cloneDeep(service.buffer);
-          console.log('next buffer is cloned');
+          trace('next buffer is cloned');
         }
         else {
           this.clonedBuffer2 = _.cloneDeep(service.buffer);
-          console.log('next buffer is cloned');
+          trace('next buffer is cloned');
         }
       };
 
       service._getClonedBuffer = function() {
-        console.log('get cloned buffer');
+        trace('get cloned buffer');
         if(this.nextCloned === 1) {
           this.nextCloned = 2;
           service .cloneBuffer(2);
-          console.log('after clone buffer');
+          trace('after clone buffer');
           return this.clonedBuffer1;
         }
         else {
           this.nextCloned = 1;
           service .cloneBuffer(1);
-          console.log('after clone buffer');
+          trace('after clone buffer');
           return this.clonedBuffer2;
         }
       };
 
       service.getClientPage = function(pageNumber, column, direction, filters) {
         service.bufferView = service._getClonedBuffer();
-        console.log('cloned buffer returned');
+        trace('cloned buffer returned');
         service.bufferView = service._filter(service.bufferView, filters);
         service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false);
 
