@@ -58,7 +58,7 @@
       // Following becomes true when all the filter records have been retrieved
       service.fullyLoaded = false;
 
-      service._sort = function(collection, prop, asc) {
+      service._sort = function(collection, prop, asc, dataFields) {
         collection = collection.sort(function(a, b) {
           if (asc) {return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0); }
           else {return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0); }
@@ -66,7 +66,7 @@
         return collection;
       };
 
-      service._filter = function(collection, filters) {
+      service._filter = function(collection, filters, dataFields) {
         collection = collection.filter(function(item) {
           var filtered = true;
           for (var key in filters) {
@@ -124,23 +124,23 @@
         trace('get cloned buffer');
         if(this.nextCloned === 1) {
           this.nextCloned = 2;
-          service .cloneBuffer(2);
+          service.cloneBuffer(2);
           trace('after clone buffer');
           return this.clonedBuffer1;
         }
         else {
           this.nextCloned = 1;
-          service .cloneBuffer(1);
+          service.cloneBuffer(1);
           trace('after clone buffer');
           return this.clonedBuffer2;
         }
       };
 
-      service.getClientPage = function(pageNumber, column, direction, filters) {
+      service.getClientPage = function(pageNumber, column, direction, filters, dataFields) {
         service.bufferView = service._getClonedBuffer();
         trace('cloned buffer returned');
         service.bufferView = service._filter(service.bufferView, filters);
-        service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false);
+        service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false, dataFields);
 
         var viewpageCount = parseInt(
           (service.bufferView.length - 1) / service.pageSize + 1);
@@ -256,6 +256,7 @@
             }
           }
           if(count === 0) {
+            //TODO :https://github.com/zmilojko/id5/commit/fc45e4a8e86b1733805fdef5ed8f868acf38f6f0#diff-334bb00856ce250e5c3d6873acf4ab20R215
             service.fullyLoaded = true;
             this.cloneBuffer(1);
             this.nextCloned = 1;

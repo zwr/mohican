@@ -29,7 +29,7 @@
       this.direction = $stateParams.direction;
       this.quickFilterShown = false;
       this.qfFocus = $stateParams.qf;//read focused field information from qf param
-      this.filters = mnGridFilterService.urlParamToJson($stateParams.filters);
+      this.filters = [];
       this.layouts = [];
       this.resolve = resolve;
       this.mnGridFilterService = mnGridFilterService;
@@ -54,6 +54,7 @@
           }
         });
         MohicanUtils.validateLayoutParameter(that.layout, that.layouts, that.$state, that.$stateParams);
+        that.filters = that.mnGridFilterService.urlParamToJson(that.$stateParams.filters, that.fields);
 
         that.resolve.getBackendPageCount(that.fields).then(function(pageCount) {
           that.pageCount = pageCount;
@@ -72,7 +73,8 @@
           that.resolve.getClientPage(that.page,
                                      that.column,
                                      that.direction,
-                                     that.filters).then(function(data) {
+                                     that.filters,
+                                     that.fields).then(function(data) {
             that.items = data.items;
             that.pageCount = data.pageCount;
             MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams);
@@ -103,7 +105,7 @@
         newRouteParams.direction = direction;
       }
       if(filters) {
-        newRouteParams.filters = this.mnGridFilterService.jsonToUrlParam(filters);
+        newRouteParams.filters = this.mnGridFilterService.jsonToUrlParam(filters, this.fields);
       }
       if(focus) {
         //store focused field information in qf param
