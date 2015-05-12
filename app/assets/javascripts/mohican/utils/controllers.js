@@ -55,16 +55,14 @@
         });
         MohicanUtils.validateLayoutParameter(that.layout, that.layouts, that.$state, that.$stateParams);
 
-        if(!that.resolve.fullyLoaded) {
-          that.resolve.getBackendPageCount(that.fields).then(function(pageCount) {
-            that.pageCount = pageCount;
-            if(MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams)) {
-              that.resolve.getBackendPage(that.page, that.fields).then(function(items) {
-                that.items = items;
-              });
-            }
-          });
-        }
+        that.resolve.getBackendPageCount(that.fields).then(function(pageCount) {
+          that.pageCount = pageCount;
+          if(MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams)) {
+            that.resolve.getBackendPage(that.page, that.fields).then(function(items) {
+              that.items = items;
+            });
+          }
+        });
       });
 
       that.$scope.$watch(function() { return that.resolve.fullyLoaded; }, function (newValue) {
