@@ -58,11 +58,56 @@
       // Following becomes true when all the filter records have been retrieved
       service.fullyLoaded = false;
 
-      service._sort = function(collection, prop, asc, dataFields) {
-        collection = collection.sort(function(a, b) {
-          if (asc) {return (a[prop] > b[prop]) ? 1 : ((a[prop] < b[prop]) ? -1 : 0); }
-          else {return (b[prop] > a[prop]) ? 1 : ((b[prop] < a[prop]) ? -1 : 0); }
+      service._getDataField = function(dataFields, name) {
+        var field;
+        dataFields.forEach(function(dField) {
+          if(dField.name === name) {
+            field = dField;
+            return;
+          }
         });
+        return field;
+      };
+
+      service._sort = function(collection, prop, asc, dataFields) {
+        console.log(collection);
+        // console.log(prop);
+        // var rplMinTimes = [];
+        // collection.forEach(function(elem) {
+        //   rplMinTimes.push(elem[prop]);
+        // });
+        // console.log(rplMinTimes);
+        // rplMinTimes.sort(function (a, b) {
+        //     if(a == null || angular.isUndefined(a) || a === '') {
+        //       return 1;
+        //     }
+        //     if(b == null || angular.isUndefined(b) || b === '') {
+        //       return 0;
+        //     }
+        //     return a > b;
+        // });
+        // console.log(rplMinTimes);
+
+        var dataField = service._getDataField(dataFields, prop);
+
+        if(dataField) {
+          collection = collection.sort(function(a, b) {
+            // console.log(a[prop]);
+            // console.log(b[prop]);
+            if(a[prop] == null || angular.isUndefined(a[prop]) || a[prop] === '') {
+              return 1;
+              }
+            if(b[prop] == null || angular.isUndefined(b[prop]) || b[prop] === '') {
+              return 0;
+            }
+            if(asc) {
+              return (a[prop] > b[prop]);
+            }
+            else {
+              return (b[prop] > a[prop]);
+            }
+          });
+        }
         return collection;
       };
 
