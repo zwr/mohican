@@ -108,24 +108,23 @@
         collection = collection.filter(function(item) {
           var filtered = true;
           for (var key in filters) {
-            if (filters.hasOwnProperty(key)) {
-              if(!!item[key]) {
-                var dataField = service._getDataField(dataFields, key);
-                if(dataField.quickfilter === 'date-range') {
-                  var filter = filters[key];
-                  var value = item[key];
-                  filtered = filtered && (value >= filter.startDate && value <= filter.endDate);
-                }
-                else {
-                  filtered = filtered && item[key].toString().toLowerCase().includes(filters[key].toString().toLowerCase());
-                }
-                if(!filtered) {
-                  break;
-                }
-              } else {
-                filtered = false;
+            if (filters.hasOwnProperty(key) && !!item[key]) {
+              var filter = filters[key];
+              var value = item[key];
+              var dataField = service._getDataField(dataFields, key);
+              if(dataField && dataField.quickfilter === 'date-range') {
+                filtered = filtered && (value >= filter.startDate && value <= filter.endDate);
+              }
+              else {
+                filtered = filtered && value.toString().toLowerCase().includes(filter.toString().toLowerCase());
+              }
+              if(!filtered) {
                 break;
               }
+            }
+            else {
+              filtered = false;
+              break;
             }
           }
           return filtered;
