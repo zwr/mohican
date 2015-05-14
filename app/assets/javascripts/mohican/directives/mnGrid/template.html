@@ -14,6 +14,12 @@
       </tr>
       <tr ng-show="grid.quickFilterShown">
         <th ng-repeat="field in grid.fields">
+          <mn-qf-select
+                ng-if="field.quickfilter === 'select'"
+                model="grid.filters[field.name]"
+                qf-changed="grid.filterBy(fieldName)"
+                field="field"
+                focus="grid.quickFilterFocus === field.name"></mn-qf-select>
           <mn-qf-text
                 ng-if="field.quickfilter === 'text'"
                 model="grid.filters[field.name]"
