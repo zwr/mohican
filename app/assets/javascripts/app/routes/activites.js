@@ -109,8 +109,16 @@
           var filtered = true;
           for (var key in filters) {
             if (filters.hasOwnProperty(key)) {
-              if(angular.isDefined(item[key])) {
-                filtered = filtered && (!!item[key]) && item[key].toString().includes(filters[key]);
+              if(!!item[key]) {
+                var dataField = service._getDataField(dataFields, key);
+                if(dataField.quickfilter === 'date-range') {
+                  var filter = filters[key];
+                  var value = item[key];
+                  filtered = filtered && (value >= filter.startDate && value <= filter.endDate);
+                }
+                else {
+                  filtered = filtered && item[key].toString().toLowerCase().includes(filters[key].toString().toLowerCase());
+                }
                 if(!filtered) {
                   break;
                 }
@@ -177,7 +185,7 @@
       service.getClientPage = function(pageNumber, column, direction, filters, dataFields) {
         service.bufferView = service._getClonedBuffer();
         trace('cloned buffer returned');
-        service.bufferView = service._filter(service.bufferView, filters);
+        service.bufferView = service._filter(service.bufferView, filters, dataFields);
         service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false, dataFields);
 
         var viewpageCount = parseInt(
