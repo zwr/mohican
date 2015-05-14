@@ -21,7 +21,6 @@
     });
 
     vm.inputChanged = function(name) {
-      console.log(name);
       vm.model = name;
       var rememberCurrentText = vm.model;
       $timeout(function() {

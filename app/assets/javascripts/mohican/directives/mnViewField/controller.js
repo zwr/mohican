@@ -17,7 +17,7 @@
       }
       else if(_.startsWith(vm.field.view, 'number')) {
         var decimalParams = vm.field.view.slice(7, vm.field.view.length - 1);
-        return vm.model ? vm.model.toFixed(decimalParams) : '';
+        return angular.isDefined(vm.model) ? vm.model.toFixed(decimalParams) : '';
       }
       //vm.field.view === 'text'
       else {
