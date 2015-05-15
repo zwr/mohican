@@ -49,6 +49,10 @@
                 endDate: endDate,
               };
             }
+            else if(field.quickfilter === 'select') {
+              var selectParams = keyValue[1].split(',');
+              filtersObject[keyValue[0]] = selectParams;
+            }
             else {
               filtersObject[keyValue[0]] = keyValue[1];
             }

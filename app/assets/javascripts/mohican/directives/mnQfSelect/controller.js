@@ -10,24 +10,25 @@
   function MnQfSelectController($scope, $timeout) {
     var vm = this;
 
-    vm.selectValues = [];
+    vm.selectItems = [];
 
     vm.field.values.forEach(function(value) {
-      vm.selectValues.push({
+      vm.selectItems.push({
         name: value,
-        show: value,
-        selected: value === vm.model,
+        selected: _.contains(vm.model, value),
       });
     });
 
-    vm.inputChanged = function(name) {
-      vm.model = name;
-      var rememberCurrentText = vm.model;
+    vm.inputChanged = function() {
+      vm.model = vm.selectedValues.map(function(elem) {
+        return elem.name;
+      });
+      var rememberCurrentSelectedList = vm.model;
       $timeout(function() {
-        if(rememberCurrentText === vm.model) {
+        if(rememberCurrentSelectedList === vm.model) {
           vm.qfChanged({fieldName: vm.field.name});
         }
-      });
+      }, 800);
     };
   }
 })();

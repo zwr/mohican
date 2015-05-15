@@ -115,6 +115,9 @@
               if(dataField && dataField.quickfilter === 'date-range') {
                 filtered = filtered && (value >= filter.startDate && value <= filter.endDate);
               }
+              else if(dataField && dataField.quickfilter === 'select') {
+                filtered = filtered && _.contains(filter, value);
+              }
               else {
                 filtered = filtered && value.toString().toLowerCase().includes(filter.toString().toLowerCase());
               }
