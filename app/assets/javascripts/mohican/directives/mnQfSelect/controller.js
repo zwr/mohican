@@ -19,6 +19,10 @@
       });
     });
 
+    vm.labels = {
+      nothingSelected: 'All',
+    };
+
     vm.inputChanged = function() {
       vm.model = vm.selectedValues.map(function(elem) {
         return elem.name;

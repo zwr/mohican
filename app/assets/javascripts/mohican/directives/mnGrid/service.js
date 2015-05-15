@@ -22,6 +22,11 @@
                 filterObjects.push(key + '$' + filterVal);
               }
             }
+            if(field.quickfilter === 'select') {
+              if(filters[key].length > 0) {
+                filterObjects.push(key + '$' + filters[key]);
+              }
+            }
             else {
               if(filters[key] !== '') {
                 filterObjects.push(key + '$' + filters[key]);
