@@ -139,13 +139,21 @@
         buffer.forEach(function(item) {
           dataFields.forEach(function(field) {
             if(field.view === 'date') {
-              if(item[field.name] &&
-                 !(item[field.name] instanceof Date)//do not cast if it is already Date()
-                ) {
-                item[field.name] = new Date(item[field.name]);
-                trace(item[field.name]);
+              if(item[field.name]) {
+                if(!(item[field.name] instanceof Date)) {
+                  //do not cast if it is already Date()
+                  item[field.name] = new Date(item[field.name]);
+                  // If the date is illegal, getTime returns NaN
+                  if(isNaN(item[field.name].getTime())) {
+                    item[field.name] = null;
+                    trace("Illegal date received");
+                  }
+                  trace(item[field.name]);
+                }
               }
               else {
+                // this is to avoid undefined and null values.
+                // but this also will not allow 0, date has to be string.
                 item[field.name] = null;
               }
             }
