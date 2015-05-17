@@ -148,7 +148,6 @@
                     item[field.name] = null;
                     trace("Illegal date received");
                   }
-                  trace(item[field.name]);
                 }
               }
               else {
@@ -166,6 +165,7 @@
       service.clonedBuffer2 = [];
 
       service.cloneBuffer = function(bufferNumber) {
+        var start = Date.now();
         if(bufferNumber === 1) {
           this.clonedBuffer1 = _.cloneDeep(service.buffer);
           trace('next buffer is cloned');
@@ -174,6 +174,7 @@
           this.clonedBuffer2 = _.cloneDeep(service.buffer);
           trace('next buffer is cloned');
         }
+        trace("Cloning took ms:" + (Date.now() - start))
       };
 
       service._getClonedBuffer = function() {
@@ -193,6 +194,8 @@
       };
 
       service.getClientPage = function(pageNumber, column, direction, filters, dataFields) {
+        trace("getClientPage starting");
+        var start = Date.now();
         service.bufferView = service._getClonedBuffer();
         trace('cloned buffer returned');
         service.bufferView = service._filter(service.bufferView, filters, dataFields);
@@ -201,13 +204,15 @@
         var viewpageCount = parseInt(
           (service.bufferView.length - 1) / service.pageSize + 1);
 
-        return $q.when({
+        var res =  $q.when({
           items: service.bufferView.slice(
             (pageNumber - 1) * service.pageSize - service.bottomIndex,
             pageNumber * service.pageSize - service.bottomIndex
           ),
           pageCount: viewpageCount,
         });
+        trace("getClientPage done in ms: " + (Date.now() - start));
+        return res;
       };
 
       // pageNumber is 1 based!
@@ -246,7 +251,6 @@
           return service.thePromise = $http.get('/api/activities?offset=' +
               startIndex + '&count=' + service.firstFetchSize)
             .then(function(resp) {
-              trace('  -  received');
               service.thePromise = null;
               service.buffer = resp.data.items;
               service._parseFieldTypes(service.buffer, dataFields);
@@ -325,7 +329,6 @@
               + start + '&count=' + count)
             .then(function(resp) {
               service.thePromise = null;
-              trace('  -  received');
               // if we were told to stop, just do nothing
               if(service.beEager) {
                 if(service.nextEagerGrowthForward) {
@@ -357,7 +360,6 @@
           trace('get  layout');
           return service.getLayoutPromise = $http.get('/api/activities/layout')
             .then(function(resp) {
-              trace('  -  layout received');
               service.getLayoutPromise = null;
               service.layout = resp.data.layout;
               return service.layout;
