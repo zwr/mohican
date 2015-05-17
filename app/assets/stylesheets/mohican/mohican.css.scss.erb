@@ -37,10 +37,18 @@
   height: 34px;
 }
 
+mn-grid th {
+  border-style: solid !important;
+  border-width: 1px !important;
+  border-color: #aaa !important;
+  color: #444 !important;
+}
+
 mn-grid th.mn-sortable {
   border-style: solid !important;
   border-width: 1px !important;
   border-color: black !important;
+  color: #444 !important;
 }
 .mn-grid-layout-row { margin-top: $mn-grid-layout-row; }
 
@@ -173,3 +181,25 @@ mn-menu-group > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open >
   border-style: solid;
   border-width: 1px;
 }
+
+.table > thead > tr > th, .table > thead > tr > td,
+.table > tbody > tr > th, .table > tbody > tr > td,
+.table > tfoot > tr > th, .table > tfoot > tr > td {
+  padding: 4px 0px;
+}
+
+.grid-header-container {
+
+}
+
+.grid-header-field-name {
+  padding-left: 2px;
+  display: block;
+  overflow: hidden;
+  float: left;
+}
+
+.grid-header-field-dir {
+  margin-right: 0px;
+}
+

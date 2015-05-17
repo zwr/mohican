@@ -5,15 +5,20 @@
         <th ng-repeat="field in grid.fields"
             ng-class="{'mn-sortable': grid.serviceDataLoaded}"
             ng-click="grid.orderBy(field.name)"
-            ng-style="{width: field.width + 'px'}">
-          {{field.header}}
+            ng-style="{width: field.width + 'px'}"
+            class="grid-header-container">
+          <span class="grid-header-field-name"
+                ng-style="{width: (field.width - 18) + 'px'}">
+            {{field.header}}
+          </span>
           <span ng-show="grid.orderColumn === field.name && grid.serviceDataLoaded"
-                class="pull-right {{grid.orderDirection === 'desc' ? 'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'}}"
+                class="pull-right grid-header-field-dir "
+                ng-class="grid.orderDirection === 'desc' ? 'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'"
                 aria-hidden="true"></span>
         </th>
       </tr>
       <tr ng-show="grid.quickFilterShown">
-        <th ng-repeat="field in grid.fields">
+        <th ng-repeat="field in grid.fields" ng-style="{width: field.width + 'px'}">
           <mn-qf-text
                 ng-if="field.quickfilter === 'text'"
                 model="grid.filters[field.name]"
