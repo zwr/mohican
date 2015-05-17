@@ -21,9 +21,9 @@ activities['items'].each do |a|
       end
     end
   end
-  binding.pry if a["RPL_MinTime"]
-  a['RPL_MinTime'] = (rand(100).days.ago + 50.days).to_datetime
-  puts "saved the date #{a['RPL_MinTime']} for order id  #{a['Order_ID']}"
+  if (rand(847) != 33) # this is awesome
+    a['RPL_MinTime'] = (rand(100).days.ago + 50.days).to_datetime
+  end
   Activity.collection.insert(a)
 end
 
