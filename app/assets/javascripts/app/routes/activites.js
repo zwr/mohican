@@ -160,11 +160,11 @@
       service.cloneBuffer = function(bufferNumber) {
         var start = Date.now();
         if(bufferNumber === 1) {
-          this.clonedBuffer1 = _.cloneDeep(service.buffer);
+          this.clonedBuffer1 = _.clone(service.buffer);
           trace('next buffer is cloned');
         }
         else {
-          this.clonedBuffer2 = _.cloneDeep(service.buffer);
+          this.clonedBuffer2 = _.clone(service.buffer);
           trace('next buffer is cloned');
         }
         trace("Cloning took ms:" + (Date.now() - start))
