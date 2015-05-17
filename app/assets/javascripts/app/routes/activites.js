@@ -212,7 +212,9 @@
       service.getBackendPage = function(pageNumber, dataFields) {
         // If we have the page, return the page
         if((pageNumber - 1) * service.pageSize >= service.bottomIndex
-           && pageNumber * service.pageSize - 1 <= service.topIndex) {
+           && (pageNumber * service.pageSize <= service.topIndex) 
+                 || (service.topIndex == service.totalCount
+                      && (pageNumber + 1) * service.pageSize - 1 > service.totalCount)) {
           trace('got page ' + pageNumber);
           return $q.when(service.buffer.slice(
             (pageNumber - 1) * service.pageSize - service.bottomIndex,
