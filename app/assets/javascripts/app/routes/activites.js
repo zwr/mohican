@@ -72,33 +72,31 @@
       service._sort = function(collection, prop, asc, dataFields) {
         var timeStart = Date.now();
         var dataField = service._getDataField(dataFields, prop);
+        asc = (asc ? 1 : -1);
 
         if(dataField) {
           collection = collection.sort(function(a, b) {
-            if(a[prop] == null || angular.isUndefined(a[prop]) || a[prop] === '') {
-              return 1;
+            var a = a[prop];
+            var b = b[prop]; 
+            
+            if(!a && (a !== 0)) { 
+              if(!b && (b !== 0)) {
+                return 0;
+              }
+              return asc;
             }
-            if(b[prop] == null || angular.isUndefined(b[prop]) || b[prop] === '') {
-              return -1;
+            if(!b && (b !== 0)) {
+              return -asc;
             }
-            if(a[prop] === b[prop]) {
+
+            if(a === b) {
               return 0;
             }
-            if(asc) {
-              if(a[prop] < b[prop]) {
-                return -1;
-              }
-              else {
-                return 1;
-              }
+            if(a < b) {
+              return -asc;
             }
             else {
-              if(a[prop] > b[prop]) {
-                return -1;
-              }
-              else {
-                return 1;
-              }
+              return asc;
             }
           });
         }
