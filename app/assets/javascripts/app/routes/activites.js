@@ -70,6 +70,7 @@
       };
 
       service._sort = function(collection, prop, asc, dataFields) {
+        var timeStart = Date.now();
         var dataField = service._getDataField(dataFields, prop);
 
         if(dataField) {
@@ -101,6 +102,7 @@
             }
           });
         }
+        trace("Sorting done ms: " + (Date.now() - timeStart));
         return collection;
       };
 
