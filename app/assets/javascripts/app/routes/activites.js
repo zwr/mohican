@@ -3,13 +3,6 @@
 (function(mnUtil) {
   'use strict';
 
-  var DEBUG = false;
-  function trace(text) {
-    if(DEBUG) {
-      console.log(text);
-    }
-  }
-
   var ROUTE_NAME = 'activities';
   var Controller = function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
     _.assign(this, mnUtil.mnBaseController);

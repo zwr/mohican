@@ -1,2 +1,12 @@
+var DEBUG = false;
+function trace(text) {
+  if(DEBUG) {
+    console.log(text);
+  }
+}
+function trace_timestamp(text) {
+  trace(Date.now() + " - " + text);
+}
+
 window.MN_LANGUAGE = '<%= I18n.default_locale.to_s  %>';
 window.MN_ENV = '<%= Rails.env %>';

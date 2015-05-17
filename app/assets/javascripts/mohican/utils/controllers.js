@@ -1,6 +1,6 @@
 (function(MohicanUtils) {
   'use strict';
-
+  trace_timestamp("Executing controller");
   MohicanUtils.mnBaseController = {
     page: undefined,
     layout: undefined,
@@ -19,6 +19,7 @@
     item: undefined,
 
     initialize: function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
+      trace_timestamp("Controller initialized");
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
       MohicanUtils.injectDefaultParameters($stateParams);
 
@@ -41,6 +42,7 @@
       var that = this;
 
       that.resolve.getPreviewDefinitions().then(function(definition) {
+        trace_timestamp("Started getPreviewDefinitions.")
         definition.layouts.forEach(function(layout) {
           that.layouts.push({
             name: layout.name,
@@ -51,6 +53,7 @@
           if(layout.name === that.layout) {
             that.fields = layout.definition;
           }
+          trace_timestamp("done with the layout navigation iteration");
         });
         MohicanUtils.validateLayoutParameter(that.layout, that.layouts, that.$state, that.$stateParams);
         that.filters = that.mnGridFilterService.urlParamToJson(that.$stateParams.filters, that.fields);
@@ -62,7 +65,9 @@
               that.items = items;
             });
           }
+          trace_timestamp("done with the page count");
         });
+        trace_timestamp("done with the resolving");
       });
 
       that.$scope.$watch(function() { return that.resolve.fullyLoaded; }, function (newValue) {
@@ -79,22 +84,28 @@
             MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams);
           });
         }
+        trace_timestamp("done with the watcher");
       });
     },
 
     getPage: function(page) {
+      trace_timestamp("Started getPage.")
       var newRouteParams = _.clone(this.$stateParams);
       newRouteParams.page = page;
+      trace_timestamp("now setting state again");
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 
     getLayout: function(layout) {
+      trace_timestamp("Started getLayout.")
       var newRouteParams = _.clone(this.$stateParams);
       newRouteParams.layout = layout;
+      trace_timestamp("now setting state again2");
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 
     getView: function(column, direction, filters, focus) {
+      trace_timestamp("Started getView.")
       var newRouteParams = _.clone(this.$stateParams);
       newRouteParams.page = 1;//for all client side actions reset page to 1
       if(column) {
@@ -110,6 +121,7 @@
         //store focused field information in qf param
         newRouteParams.qf = focus;
       }
+      trace_timestamp("now setting state again3");
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 
@@ -119,6 +131,7 @@
       if(!newRouteParams.qf) {
         newRouteParams.filters = undefined;
       }
+      trace_timestamp("now setting state again4");
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
   };
