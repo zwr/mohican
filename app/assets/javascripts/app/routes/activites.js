@@ -221,10 +221,16 @@
             pageNumber * service.pageSize - service.bottomIndex
           ));
         } else {
-          return service.fetchEagerly((pageNumber - 1) * service.pageSize, dataFields)
-          .then(function() {
-            return service.getBackendPage(pageNumber, dataFields);
-          });
+          if(this.thePromise) {
+            return this.thePromise.then(function() {
+              return service.getBackendPage(pageNumber, dataFields);
+            });
+          } else {
+            return service.fetchEagerly((pageNumber - 1) * service.pageSize, dataFields)
+            .then(function() {
+              return service.getBackendPage(pageNumber, dataFields);
+            });
+          }
         }
       };
 
