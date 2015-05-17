@@ -1,4 +1,4 @@
-var DEBUG = false;
+var DEBUG = <%= ENV['trace'] ? 'true' : 'false' %>;
 function trace(text) {
   if(DEBUG) {
     console.log(text);
