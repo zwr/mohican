@@ -21,6 +21,26 @@
 (function() {
   'use strict';
 
+  var interceptor = ['$q' ,function($q) {
+    return {
+      response: function(response){
+            if (response.status === 401) {
+              window.location.replace("/users/sign_in")
+              return null;
+            }
+            return response || $q.when(response);
+        },
+      responseError: function(rejection) {
+        // do something on error
+        if (rejection.status === 401) {
+          window.location.replace("/users/sign_in")
+          return null;
+        }
+        return $q.reject(rejection);
+      }
+    };
+  }]; 
+
   angular.module('mohican', [
     'ui.bootstrap',
     'templates',
@@ -31,5 +51,7 @@
     'mohican.services',
     'mohican.directives',
     'mnOldDirectives',
-  ]);
+  ]).config(['$httpProvider', function($httpProvider) {
+    $httpProvider.interceptors.push(interceptor);
+    }]);
 })();
