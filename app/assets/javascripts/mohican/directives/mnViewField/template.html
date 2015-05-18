@@ -1,5 +1,5 @@
 <div ng-style="{width: viewField.field.width + 'px'}" style="overflow: hidden">
   <span>
-    {{viewField.formatedModel()}}
+    {{viewField.model[viewField.field.name + '_formatted']}}
   </span>
 </div>

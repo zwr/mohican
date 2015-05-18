@@ -148,6 +148,15 @@
                 // but this also will not allow 0, date has to be string.
                 item[field.name] = null;
               }
+              field.format = 'DD.MM.YYYY.';//TODO: store format information in db
+              item[field.name + '_formatted'] = (item[field.name] ? moment(item[field.name]).format(field.format) : '');
+            }
+            else if((_.startsWith(field.view, 'number'))) {
+              var decimalParams = field.view.slice(7, field.view.length - 1);
+              item[field.name + '_formatted'] = (angular.isDefined(item[field.name]) ? item[field.name].toFixed(decimalParams) : '');
+            }
+            else {
+              item[field.name + '_formatted'] = (angular.isDefined(item[field.name]) ? item[field.name] : '');
             }
           });
         });
