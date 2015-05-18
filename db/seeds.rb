@@ -6,6 +6,9 @@ puts "Clearing the database"
 
 Activity.delete_all
 Layout.delete_all
+User.delete_all
+
+User.create! email: "mohican@zwr.fi",password: "mohican123"
 
 puts "Seeding #{activities['items'].length} activities"
 
