@@ -171,6 +171,7 @@
           ),
           pageCount: viewpageCount,
         });
+        service.bufferView = null;
         trace("getClientPage done in ms: " + (Date.now() - start));
         return res;
       };
