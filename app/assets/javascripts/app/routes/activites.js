@@ -70,9 +70,9 @@
         if(dataField) {
           collection = collection.sort(function(a, b) {
             var a = a[prop];
-            var b = b[prop]; 
-            
-            if(!a && (a !== 0)) { 
+            var b = b[prop];
+
+            if(!a && (a !== 0)) {
               if(!b && (b !== 0)) {
                 return 0;
               }
@@ -153,43 +153,10 @@
         });
       };
 
-      service.nextClonedBuffer = undefined;
-      service.clonedBuffer1 = [];
-      service.clonedBuffer2 = [];
-
-      service.cloneBuffer = function(bufferNumber) {
-        var start = Date.now();
-        if(bufferNumber === 1) {
-          this.clonedBuffer1 = _.clone(service.buffer);
-          trace('next buffer is cloned');
-        }
-        else {
-          this.clonedBuffer2 = _.clone(service.buffer);
-          trace('next buffer is cloned');
-        }
-        trace("Cloning took ms:" + (Date.now() - start))
-      };
-
-      service._getClonedBuffer = function() {
-        trace('get cloned buffer');
-        if(this.nextCloned === 1) {
-          this.nextCloned = 2;
-          service.cloneBuffer(2);
-          trace('after clone buffer');
-          return this.clonedBuffer1;
-        }
-        else {
-          this.nextCloned = 1;
-          service.cloneBuffer(1);
-          trace('after clone buffer');
-          return this.clonedBuffer2;
-        }
-      };
-
       service.getClientPage = function(pageNumber, column, direction, filters, dataFields) {
         trace("getClientPage starting");
         var start = Date.now();
-        service.bufferView = service._getClonedBuffer();
+        service.bufferView = _.clone(service.buffer);
         trace('cloned buffer returned');
         service.bufferView = service._filter(service.bufferView, filters, dataFields);
         service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false, dataFields);
@@ -212,7 +179,7 @@
       service.getBackendPage = function(pageNumber, dataFields) {
         // If we have the page, return the page
         if((pageNumber - 1) * service.pageSize >= service.bottomIndex
-           && (pageNumber * service.pageSize <= service.topIndex) 
+           && (pageNumber * service.pageSize <= service.topIndex)
                  || (service.topIndex == service.totalCount
                       && (pageNumber + 1) * service.pageSize - 1 > service.totalCount)) {
           trace('got page ' + pageNumber);
@@ -319,7 +286,6 @@
           if(count === 0) {
             //TODO :https://github.com/zmilojko/id5/commit/fc45e4a8e86b1733805fdef5ed8f868acf38f6f0#diff-334bb00856ce250e5c3d6873acf4ab20R215
             service.fullyLoaded = true;
-            this.cloneBuffer(1);
             this.nextCloned = 1;
             trace('data are fully loaded');
             return;
