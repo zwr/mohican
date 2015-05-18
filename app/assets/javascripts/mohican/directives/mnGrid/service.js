@@ -13,6 +13,7 @@
           if (filters.hasOwnProperty(key)) {
             var field = service._getDataField(dataFields, key);
             if(field.quickfilter === 'date-range') {
+              console.log(filters[key]);
               if(filters[key] instanceof Object &&
                  filters[key].startDate !== null &&
                  filters[key].endDate !== null) {
@@ -22,12 +23,14 @@
                 filterObjects.push(key + '$' + filterVal);
               }
             }
-            if(field.quickfilter === 'select') {
+            else if(field.quickfilter === 'select') {
+              console.log(filters[key]);
               if(filters[key].length > 0) {
                 filterObjects.push(key + '$' + filters[key]);
               }
             }
             else {
+              console.log(filters[key]);
               if(filters[key] !== '') {
                 filterObjects.push(key + '$' + filters[key]);
               }
