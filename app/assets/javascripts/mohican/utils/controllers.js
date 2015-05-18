@@ -17,6 +17,7 @@
     fields: undefined,
     pageCount: undefined,
     item: undefined,
+    clientViewLoadingNotification: undefined,
 
     initialize: function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
       trace_timestamp("Controller initialized");
@@ -29,6 +30,14 @@
       this.column = $stateParams.column;
       this.direction = $stateParams.direction;
       this.quickFilterShown = false;
+      if(angular.isDefined($stateParams.column) ||
+            angular.isDefined($stateParams.qf) ||
+            angular.isDefined($stateParams.filters)) {
+        this.clientViewLoadingNotification = true;
+      }
+      else {
+        this.clientViewLoadingNotification = false;
+      }
       this.qfFocus = $stateParams.qf;//read focused field information from qf param
       this.layouts = [];
       this.resolve = resolve;
@@ -133,6 +142,19 @@
       }
       trace_timestamp("now setting state again4");
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
+    },
+
+    clearClientSortAndFilter: function() {
+      var newRouteParams = _.clone(this.$stateParams);
+
+      newRouteParams.page = undefined;
+      newRouteParams.layout = undefined;
+      newRouteParams.column = undefined;
+      newRouteParams.direction = undefined;
+      newRouteParams.qf = undefined;
+      newRouteParams.filters = undefined;
+
+      this.$state.go(this.$state.current.name, newRouteParams);
     },
   };
 }(window.MohicanUtils));
