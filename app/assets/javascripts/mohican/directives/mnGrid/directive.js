@@ -7,6 +7,7 @@ angular.module('mohican.directives')
       'use strict';
       return {
         restrict: 'E',
+        transclude: true,
         scope: {
           clientViewChanged: '&',
           fields: '=',

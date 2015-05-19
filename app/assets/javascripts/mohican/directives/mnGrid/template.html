@@ -16,6 +16,7 @@
                 ng-class="grid.orderDirection === 'desc' ? 'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'"
                 aria-hidden="true"></span>
         </th>
+        <th style="width: 30px;">actions</th>
       </tr>
       <tr ng-show="grid.quickFilterShown">
         <th ng-repeat="field in grid.fields" ng-style="{width: field.width + 'px'}">
@@ -38,6 +39,7 @@
                 field="field"
                 focus="grid.quickFilterFocus === field.name"></mn-qf-select>
         </th>
+        <th></th>
       </tr>
     </thead>
     <tbody>
@@ -45,6 +47,7 @@
         <td ng-repeat="field in grid.fields">
           <mn-view-field model="item" field="field"></mn-view-field>
         </td>
+        <td ng-transclude></td>
       </tr>
     </tbody>
   </table>
