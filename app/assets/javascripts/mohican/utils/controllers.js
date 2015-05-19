@@ -1,6 +1,6 @@
 (function(MohicanUtils) {
   'use strict';
-  trace_timestamp("Executing controller");
+  trace_timestamp('Executing controller');
   MohicanUtils.mnBaseController = {
     page: undefined,
     layout: undefined,
@@ -20,7 +20,7 @@
     clientViewLoadingNotification: undefined,
 
     initialize: function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
-      trace_timestamp("Controller initialized");
+      trace_timestamp('Controller initialized');
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
       MohicanUtils.injectDefaultParameters($stateParams);
 

@@ -276,7 +276,7 @@
         trace('data are fully loaded');
       };
 
-      service._continueEagerly = function(dataFields, nextEagerGrowthForward) {
+      service._continueEagerly = function(dataFields) {
         if(service.beEager) {
           if(service.bottomIndex === 0) {
             service.nextEagerGrowthForward = true;
