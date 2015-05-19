@@ -51,7 +51,7 @@
       var that = this;
 
       that.resolve.getPreviewDefinitions().then(function(definition) {
-        trace_timestamp("Started getPreviewDefinitions.")
+        trace_timestamp('Started getPreviewDefinitions.');
         definition.layouts.forEach(function(layout) {
           that.layouts.push({
             name: layout.name,
@@ -62,7 +62,7 @@
           if(layout.name === that.layout) {
             that.fields = layout.definition;
           }
-          trace_timestamp("done with the layout navigation iteration");
+          trace_timestamp('done with the layout navigation iteration');
         });
         MohicanUtils.validateLayoutParameter(that.layout, that.layouts, that.$state, that.$stateParams);
         that.filters = that.mnGridFilterService.urlParamToJson(that.$stateParams.filters, that.fields);
