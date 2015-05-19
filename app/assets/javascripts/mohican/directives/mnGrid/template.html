@@ -45,7 +45,11 @@
     <tbody>
       <tr ng-repeat="item in grid.items">
         <td ng-repeat="field in grid.fields">
-          <mn-view-field model="item" field="field"></mn-view-field>
+          <div ng-style="{width: field.width + 'px'}" style="overflow: hidden">
+            <span>
+              {{item[field.name + '_formatted']}}
+            </span>
+          </div>
         </td>
         <td ng-transclude></td>
       </tr>
