@@ -29,6 +29,8 @@
     "require": true,
     "browser": true,
     "element": true,
-    "by": true
+    "trace": true,
+    "trace_timestamp": true,
+    "by": true,
   }
 }

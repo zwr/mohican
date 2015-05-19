@@ -35,11 +35,9 @@
       service.firstFetchSize = 200;
       // Following is the bottom and top index of the buffer data. At some point,
       // when it is completelly loaded, these two will be 0 and totalCount.
-      // Indexes are zero based, which means that when the eager loading is
-      // complete, topIndex == totalCount - 1.
-      service.bottomIndex;
-      service.topIndex;
-      service.totalCount;
+      service.bottomIndex = undefined;
+      service.topIndex = undefined;
+      service.totalCount = undefined;
       // Following is the ongoing promise. This is the only promise that can
       // run against the server. If this is already take (not null), we need to
       // wait for it to fulfill and only .then set our own promise.
@@ -69,8 +67,8 @@
 
         if(dataField) {
           collection = collection.sort(function(a, b) {
-            var a = a[prop];
-            var b = b[prop];
+            a = a[prop];
+            b = b[prop];
 
             if(!a && (a !== 0)) {
               if(!b && (b !== 0)) {
@@ -93,7 +91,7 @@
             }
           });
         }
-        trace("Sorting done ms: " + (Date.now() - timeStart));
+        trace('Sorting done ms: ' + (Date.now() - timeStart));
         return collection;
       };
 
@@ -139,7 +137,7 @@
                   // If the date is illegal, getTime returns NaN
                   if(isNaN(item[field.name].getTime())) {
                     item[field.name] = null;
-                    trace("Illegal date received");
+                    trace('Illegal date received');
                   }
                 }
               }
@@ -162,8 +160,9 @@
         });
       };
 
+
       service.getClientPage = function(pageNumber, column, direction, filters, dataFields) {
-        trace("getClientPage starting");
+        trace('getClientPage starting');
         var start = Date.now();
         service.bufferView = _.clone(service.buffer);
         trace('cloned buffer returned');
@@ -173,7 +172,7 @@
         var viewpageCount = parseInt(
           (service.bufferView.length - 1) / service.pageSize + 1);
 
-        var res =  $q.when({
+        var res = $q.when({
           items: service.bufferView.slice(
             (pageNumber - 1) * service.pageSize - service.bottomIndex,
             pageNumber * service.pageSize - service.bottomIndex
@@ -190,7 +189,7 @@
         // If we have the page, return the page
         if((pageNumber - 1) * service.pageSize >= service.bottomIndex
            && (pageNumber * service.pageSize <= service.topIndex)
-                 || (service.topIndex == service.totalCount
+                 || (service.topIndex === service.totalCount
                       && (pageNumber + 1) * service.pageSize - 1 > service.totalCount)) {
           trace('got page ' + pageNumber);
           return $q.when(service.buffer.slice(
@@ -199,7 +198,7 @@
           ));
         } else {
           if(this.thePromise) {
-            return this.thePromise.then(function() {
+            return this.thePromise.then(function() {
               return service.getBackendPage(pageNumber, dataFields);
             });
           } else {
@@ -226,7 +225,7 @@
           service.beEager = true;
           trace('get  offset = ' + startIndex
             + ' count = ' + service.firstFetchSize);
-          return service.thePromise = $http.get('/api/activities?offset=' +
+          service.thePromise = $http.get('/api/activities?offset=' +
               startIndex + '&count=' + service.firstFetchSize)
             .then(function(resp) {
               service.thePromise = null;
@@ -239,6 +238,7 @@
               service._continueEagerly(dataFields);
               return service.buffer;
             });
+          return service.thePromise;
         }
       };
 
@@ -264,18 +264,19 @@
         }
       };
 
-      Array.prototype.append = function(other_array) {
-        other_array.forEach(function(v) {this.push(v)}, this);
+      /* eslint-disable no-extend-native */
+      Array.prototype.append = function(otherArray) {
+        otherArray.forEach(function(v) { this.push(v); }, this);
         return this;
       };
+      /* eslint-enable no-extend-native */
 
       service._completeFullLoading = function() {
         //TODO :https://github.com/zmilojko/id5/commit/fc45e4a8e86b1733805fdef5ed8f868acf38f6f0#diff-334bb00856ce250e5c3d6873acf4ab20R215
-        service.fullyLoadedPromise.resolve();
-        service.cloneBuffer(1);
+        service.fullyLoaded = true;
         service.nextCloned = 1;
         trace('data are fully loaded');
-      }
+      };
 
       service._continueEagerly = function(dataFields, nextEagerGrowthForward) {
         if(service.beEager) {
@@ -307,10 +308,7 @@
             }
           }
           if(count === 0) {
-            //TODO :https://github.com/zmilojko/id5/commit/fc45e4a8e86b1733805fdef5ed8f868acf38f6f0#diff-334bb00856ce250e5c3d6873acf4ab20R215
-            service.fullyLoaded = true;
-            this.nextCloned = 1;
-            trace('data are fully loaded');
+            service._completeFullLoading();
             return;
           }
           trace('get  offset = ' + start
@@ -348,12 +346,13 @@
           });
         } else {
           trace('get  layout');
-          return service.getLayoutPromise = $http.get('/api/activities/layout')
+          service.getLayoutPromise = $http.get('/api/activities/layout')
             .then(function(resp) {
               service.getLayoutPromise = null;
               service.layout = resp.data.layout;
               return service.layout;
             });
+          return service.getLayoutPromise;
         }
       };
 
