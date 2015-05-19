@@ -1,6 +1,6 @@
 <div class="row">
-  <div class="col-sm-1.1 col-xs-1">
-    <div class="page-menu form-inline">
+  <div class="col-xs-12">
+    <div class="filter-bar-item">
       <div isteven-multi-select
             class="inline-multi-select"
             input-model="filterBar.layouts"
@@ -14,9 +14,7 @@
             style="width: 132px;">
       </div>
     </div>
-  </div>
-  <div class="col-sm-1 col-xs-1">
-    <div class="page-menu form-inline">
+    <div class="filter-bar-item">
       <button type="button"
               class="btn filter-bar-button"
               ng-model="filterBar.quickFilterShown"
@@ -25,13 +23,11 @@
               btn-checkbox-true="true"
               btn-checkbox-false="false"
               ng-disabled="!filterBar.serviceDataLoaded">
-        Quick Filter
-        <div class="loader" ng-show="!filterBar.serviceDataLoaded">Loading...</div>
+        <span style="float: left;">Quick Filter</span>
+        <span class="loader" ng-show="!filterBar.serviceDataLoaded" style="float: left; margin: 0px 0px 0px 8px;">Loading...</span>
       </button>
     </div>
-  </div>
-  <div class="col-sm-5 col-xs-5">
-    <div class="alert alert-warning"
+    <div class="alert alert-warning filter-bar-item filter-bar-alert"
          role="alert"
          ng-show="!filterBar.serviceDataLoaded && filterBar.clientViewLoadingNotification">
       <strong>Warning!</strong> You will be shown filtered and sorted data when
