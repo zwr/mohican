@@ -38,6 +38,7 @@
       else {
         this.clientViewLoadingNotification = false;
       }
+      this.fullyLoaded = false;
       this.qfFocus = $stateParams.qf;//read focused field information from qf param
       this.layouts = [];
       this.resolve = resolve;
@@ -67,33 +68,36 @@
         MohicanUtils.validateLayoutParameter(that.layout, that.layouts, that.$state, that.$stateParams);
         that.filters = that.mnGridFilterService.urlParamToJson(that.$stateParams.filters, that.fields);
 
+        that.fullyLoaded = false;
         that.resolve.getBackendPageCount(that.fields, that.$state.params.page).then(function(pageCount) {
           that.pageCount = pageCount;
           if(MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams)) {
             that.resolve.getBackendPage(that.page, that.fields).then(function(items) {
               that.items = items;
-            });
+              // We want to be careful to call waitFullyLoaded only when the
+              // initial promise has returned! Now we are sure the eager loading
+              // is ongoing.
+              that.resolve.waitFullyLoaded().then(function() {
+                that.fullyLoaded = true;
+                if(that.$stateParams.column || that.$stateParams.qf) {
+                  that.quickFilterShown = that.$stateParams.qf ? true : false;
+
+                  that.resolve.getClientPage(that.page,
+                                             that.column,
+                                             that.direction,
+                                             that.filters,
+                                             that.fields).then(function(data) {
+                    that.items = data.items;
+                    that.pageCount = data.pageCount;
+                    MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams);
+                  });
+                }
+                trace_timestamp("done with the watcher");
+              });            });
           }
           trace_timestamp("done with the page count");
         });
         trace_timestamp("done with the resolving");
-      });
-
-      that.$scope.$watch(function() { return that.resolve.fullyLoaded; }, function (newValue) {
-        if((that.$stateParams.column || that.$stateParams.qf) && newValue) {
-          that.quickFilterShown = that.$stateParams.qf ? true : false;
-
-          that.resolve.getClientPage(that.page,
-                                     that.column,
-                                     that.direction,
-                                     that.filters,
-                                     that.fields).then(function(data) {
-            that.items = data.items;
-            that.pageCount = data.pageCount;
-            MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams);
-          });
-        }
-        trace_timestamp("done with the watcher");
       });
     },
 

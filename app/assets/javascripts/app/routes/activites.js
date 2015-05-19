@@ -47,7 +47,11 @@
       // where it is set to false to understand why we would do it.
       service.beEager = false;
       // Following becomes true when all the filter records have been retrieved
-      service.fullyLoaded = false;
+      service._fullyLoadedPromise = null;
+
+      service.waitFullyLoaded = function() {
+        return service._fullyLoadedPromise.promise;
+      };
 
       service._getDataField = function(dataFields, name) {
         var field;
@@ -202,6 +206,8 @@
               return service.getBackendPage(pageNumber, dataFields);
             });
           } else {
+            // Here we start the new eager loading
+            service._fullyLoadedPromise = $q.defer();
             return service.fetchEagerly((pageNumber - 1) * service.pageSize, dataFields)
             .then(function() {
               return service.getBackendPage(pageNumber, dataFields);
@@ -212,7 +218,7 @@
 
       service.fetchEagerly = function(startIndex, dataFields) {
         //reset the buffer with the following command
-        service.fullyLoaded = false;
+        //service.fullyLoaded = false;
         // if there is an ongoing promise, wait for it to complete after making
         // sure there will be no continuation
         if(service.thePromise != null) {
@@ -273,7 +279,7 @@
 
       service._completeFullLoading = function() {
         //TODO :https://github.com/zmilojko/id5/commit/fc45e4a8e86b1733805fdef5ed8f868acf38f6f0#diff-334bb00856ce250e5c3d6873acf4ab20R215
-        service.fullyLoaded = true;
+        service._fullyLoadedPromise.resolve();
         service.nextCloned = 1;
         trace('data are fully loaded');
       };
