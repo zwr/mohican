@@ -20,7 +20,7 @@
     clientViewLoadingNotification: undefined,
 
     initialize: function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
-      trace_timestamp('Controller initialized');
+      trace('Controller initialized');
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
       MohicanUtils.injectDefaultParameters($stateParams);
 
