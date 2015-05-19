@@ -43,7 +43,7 @@
   var _checkDefaultParams = function(params) {
     var newParams = _.clone(params);
     var dirty = false;
-    if (newParams.page === '1') {
+    if (newParams.page === '1' || newParams.page === 1) {
       newParams.page = undefined;
       dirty = true;
     }
