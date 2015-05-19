@@ -234,14 +234,15 @@
               service._parseFieldTypes(service.buffer, dataFields);
               service.totalCount = resp.data.total_count;
               service.bottomIndex = resp.data.offset;
+              // topIndex is not the index of top document, but one beyond!
               service.topIndex = service.bottomIndex + resp.data.items.length;
-              service.continueEagerly(dataFields);
+              service._continueEagerly(dataFields);
               return service.buffer;
             });
         }
       };
 
-      service.getBackendPageCount = function(dataFields) {
+      service.getBackendPageCount = function(dataFields, tip) {
         if(service.buffer) {
           var pageCount = parseInt(
             (service.totalCount - 1) / service.pageSize + 1);
@@ -256,7 +257,7 @@
             return service.getBackendPageCount(dataFields);
           });
         } else {
-          return service.getBackendPage(1, dataFields)
+          return service.getBackendPage(tip || 1, dataFields)
             .then(function() {
               return service.getBackendPageCount(dataFields);
             });
@@ -268,11 +269,23 @@
         return this;
       };
 
-      service.continueEagerly = function(dataFields) {
+      service._completeFullLoading = function() {
+        //TODO :https://github.com/zmilojko/id5/commit/fc45e4a8e86b1733805fdef5ed8f868acf38f6f0#diff-334bb00856ce250e5c3d6873acf4ab20R215
+        service.fullyLoadedPromise.resolve();
+        service.cloneBuffer(1);
+        service.nextCloned = 1;
+        trace('data are fully loaded');
+      }
+
+      service._continueEagerly = function(dataFields, nextEagerGrowthForward) {
         if(service.beEager) {
           if(service.bottomIndex === 0) {
             service.nextEagerGrowthForward = true;
-          } else if(service.topIndex === service.totalCount - 1) {
+            if(service.topIndex === service.totalCount) {
+              service._completeFullLoading();
+              return;
+            }
+          } else if(service.topIndex === service.totalCount) {
             service.nextEagerGrowthForward = false;
           } else {
             service.nextEagerGrowthForward = !service.nextEagerGrowthForward;
@@ -317,7 +330,7 @@
                   service.buffer = resp.data.items.append(service.buffer);
                   service._parseFieldTypes(service.buffer, dataFields);
                 }
-                service.continueEagerly(dataFields);
+                service._continueEagerly(dataFields);
               }
             });
         }
