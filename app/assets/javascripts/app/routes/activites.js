@@ -164,12 +164,8 @@
         });
       };
 
-
       service.getClientPage = function(pageNumber, column, direction, filters, dataFields) {
-        trace('getClientPage starting');
-        var start = Date.now();
         service.bufferView = _.clone(service.buffer);
-        trace('cloned buffer returned');
         service.bufferView = service._filter(service.bufferView, filters, dataFields);
         service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false, dataFields);
 
@@ -184,7 +180,6 @@
           pageCount: viewpageCount,
         });
         service.bufferView = null;
-        trace("getClientPage done in ms: " + (Date.now() - start));
         return res;
       };
 
@@ -195,7 +190,6 @@
            && (pageNumber * service.pageSize <= service.topIndex)
                  || (service.topIndex === service.totalCount
                       && (pageNumber + 1) * service.pageSize - 1 > service.totalCount)) {
-          trace('got page ' + pageNumber);
           return $q.when(service.buffer.slice(
             (pageNumber - 1) * service.pageSize - service.bottomIndex,
             pageNumber * service.pageSize - service.bottomIndex
@@ -252,8 +246,6 @@
         if(service.buffer) {
           var pageCount = parseInt(
             (service.totalCount - 1) / service.pageSize + 1);
-          trace('got page count ' + pageCount
-            + ' item count = ' + service.totalCount);
           return $q.when(pageCount);
         } else if(service.thePromise) {
           return service.thePromise.then(function() {

@@ -12,7 +12,7 @@
 
     vm.orderBy = function(column) {
       if(vm.serviceDataLoaded) {
-        trace_timestamp("Clicked header, starting sorting.")
+        trace_timestamp('Clicked header, starting sorting. ******************************')
         vm.clientViewChanged({
           column: column,
           //change direction only if orderColumn is clicked second time in row
