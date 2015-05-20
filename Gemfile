@@ -37,6 +37,7 @@ gem "mohican", :path => "vendor/mohican"
 #TODO: all mohican vendor games could be moved to mohican Gemfile?
 gem "bootstrap-sass", "~> 3.2.0"
 gem "bootstrap_form"
+gem "font-awesome-sass"
 gem "puma", platforms: :ruby
 gem "haml-rails"
 gem "angularjs-rails"

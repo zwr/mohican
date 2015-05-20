@@ -5,9 +5,9 @@
 
   angular
       .module('mohican.directives')
-      .controller('mnItemActionController', ['$scope', mnItemActionController]);
+      .controller('mnItemReportsController', ['$scope', mnItemReportsController]);
 
-  function mnItemActionController($scope) {
+  function mnItemReportsController($scope) {
     var vm = this;
 
     vm.orderId = _findOrderId($scope);
