@@ -15,6 +15,20 @@
       </div>
     </div>
     <div class="filter-bar-item">
+      <div isteven-multi-select
+            class="inline-multi-select"
+            input-model="filterBar.backendFilters"
+            on-item-click="filterBar.backendFilterChanged({ backendFilter: data.name })"
+            output-model="filterBar.outputBrowsers"
+            button-label="show"
+            item-label="name"
+            tick-property="selected"
+            selection-mode="single"
+            helper-elements=""
+            style="width: 132px;">
+      </div>
+    </div>
+    <div class="filter-bar-item">
       <button type="button"
               class="btn filter-bar-button"
               ng-model="filterBar.quickFilterShown"

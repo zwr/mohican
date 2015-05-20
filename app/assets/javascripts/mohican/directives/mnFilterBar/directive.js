@@ -10,6 +10,8 @@ angular.module('mohican.directives')
         scope: {
           layoutChanged: '&',
           layouts: '=',
+          backendFilterChanged: '&',
+          backendFilters: '=',
           quickFilterShown: '=',
           serviceDataLoaded: '=',
           quickFilterToggled: '&',

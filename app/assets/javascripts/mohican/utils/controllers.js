@@ -4,12 +4,14 @@
   MohicanUtils.mnBaseController = {
     page: undefined,
     layout: undefined,
+    backendFilter: undefined,
     column: undefined,
     direction: undefined,
     quickFilterShown: undefined,
     qfFocus: undefined,
     filters: undefined,
     layouts: undefined,
+    backendFilters: undefined,
     resolve: undefined,
     mnGridFilterService: undefined,
     $stateParams: undefined,
@@ -26,6 +28,7 @@
 
       this.page = $stateParams.page;
       this.layout = $stateParams.layout;
+      this.backendFilter = $stateParams.backendfilter;
       this.order = $stateParams.order;
       this.column = $stateParams.column;
       this.direction = $stateParams.direction;
@@ -41,6 +44,7 @@
       this.fullyLoaded = false;
       this.qfFocus = $stateParams.qf;//read focused field information from qf param
       this.layouts = [];
+      this.backendFilters = [];
       this.resolve = resolve;
       this.mnGridFilterService = mnGridFilterService;
       this.$stateParams = $stateParams;
@@ -64,6 +68,16 @@
           }
         });
         MohicanUtils.validateLayoutParameter(that.layout, that.layouts, that.$state, that.$stateParams);
+        that.resolve.getBackendFilters().then(function(backendFilters) {
+          backendFilters.forEach(function(backendFilter) {
+            that.backendFilters.push({
+              name: backendFilter.name,
+              show: 'Filter: ' + backendFilter.name,
+              selected: backendFilter.name === that.backendFilter,
+            });
+          });
+          MohicanUtils.validateBackendFilterParameter(that.backendFilter, that.backendFilters, that.$state, that.$stateParams);
+        });
         that.filters = that.mnGridFilterService.urlParamToJson(that.$stateParams.filters, that.fields);
 
         that.fullyLoaded = false;
@@ -106,6 +120,12 @@
     getLayout: function(layout) {
       var newRouteParams = _.clone(this.$stateParams);
       newRouteParams.layout = layout;
+      this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
+    },
+
+    getBackendFilters: function(backendFilter) {
+      var newRouteParams = _.clone(this.$stateParams);
+      newRouteParams.backendfilter = backendFilter;
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 

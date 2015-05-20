@@ -33,4 +33,24 @@
     return false;
   };
 
+  MohicanUtils.validateBackendFilterParameter = function(backendFilter, backendFilters, state, params) {
+    var isInList = false;
+    backendFilters.forEach(function(fter) {
+      if(backendFilter === fter.name) {
+        isInList = true;
+        return;
+      }
+    });
+
+    if(isInList) {
+      return true;
+    }
+    else {
+      var newRouteParams = _.clone(params);
+      newRouteParams.backendfilter = 'default';
+      state.go(state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
+    }
+    return false;
+  };
+
 }(window.MohicanUtils));

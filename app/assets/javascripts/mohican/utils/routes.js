@@ -25,7 +25,7 @@
     MohicanUtils.routes.push(routeName);
     return function($stateProvider) {
       $stateProvider.state('base.' + routeName, {
-        url: '/' + MohicanUtils.toHyphen(routeName) + '?page&layout&column&direction&qf&filters',
+        url: '/' + MohicanUtils.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters',
         templateUrl: 'app/routes/' + routeName + 'Grid.html',
         controller: controller,
         controllerAs: 'ctrl',
@@ -43,6 +43,10 @@
   var _checkDefaultParams = function(params) {
     var newParams = _.clone(params);
     var dirty = false;
+    if (newParams.backendfilter === 'default') {
+      newParams.backendfilter = undefined;
+      dirty = true;
+    }
     if (newParams.page === '1' || newParams.page === 1) {
       newParams.page = undefined;
       dirty = true;
@@ -77,6 +81,9 @@
   };
 
   MohicanUtils.injectDefaultParameters = function(params) {
+    if (!params.backendfilter) {
+      params.backendfilter = 'default';
+    }
     if (!params.page) {
       params.page = '1';
     }

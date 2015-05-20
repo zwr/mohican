@@ -354,6 +354,29 @@
         }
       };
 
+      // backendFilters getting is completelly independent
+      service.backendFilters = null;
+      service.theBackendFiltersPromise = null;
+      service.getBackendFilters = function() {
+        if(service.backendFilters) {
+          return $q.when(service.backendFilters);
+        } else if(service.theBackendFiltersPromise) {
+          return service.theBackendFiltersPromise.then(function() {
+            service.getBackendFilters();
+          });
+        } else {
+          trace('get  backendFilters');
+
+          var mockHttp = $q.defer();
+          service.getBackendFilterPromise = mockHttp.promise;
+
+          service.backendFilters = [{name: 'default'}, {name: 'first'}, {name: 'second'}];
+          mockHttp.resolve(service.backendFilters);
+
+          return service.getBackendFilterPromise;
+        }
+      };
+
       return service;
     }
   );
