@@ -7,10 +7,10 @@ angular.module('mohican.directives')
       'use strict';
       return {
         restrict: 'E',
-        scope: {
+        /*scope: {
           item: '=',
           label: '@',
-        },
+        },*/
         templateUrl: 'mohican/directives/mnItemAction/template.html',
         controller: 'mnItemActionController',
         controllerAs: 'itemAction',

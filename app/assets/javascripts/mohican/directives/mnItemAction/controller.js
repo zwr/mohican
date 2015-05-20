@@ -5,13 +5,13 @@
 
   angular
       .module('mohican.directives')
-      .controller('mnItemActionController', [mnItemActionController]);
+      .controller('mnItemActionController', ['$scope', mnItemActionController]);
 
-  function mnItemActionController() {
+  function mnItemActionController($scope) {
     var vm = this;
 
     vm.click = function() {
-      console.log(vm.item);
+      console.log($scope.$parent.$parent.item.Order_ID);
     };
   }
 })();
