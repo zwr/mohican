@@ -1,9 +1,9 @@
-<a target="_blank" ng-href="/report_{{itemReports.orderId}}.pdf">
+<a target="_blank" ng-hide="{{itemReports.orderId === null}}" ng-href="/report_{{itemReports.orderId}}.pdf">
   <i class="fa fa-file-pdf-o"></i>
 </a>
-<a target="_blank" ng-href="/report_{{itemReports.orderId}}.xls">
+<a target="_blank" ng-hide="{{itemReports.orderId === null}}" ng-href="/report_{{itemReports.orderId}}.xls">
   <i class="fa fa-file-excel-o"></i>
 </a>
-<a target="_blank" ng-href="/report_{{itemReports.orderId}}.xml">
+<a target="_blank" ng-hide="{{itemReports.orderId === null}}" ng-href="/report_{{itemReports.orderId}}.xml">
   <i class="fa fa-file-code-o"></i>
 </a>

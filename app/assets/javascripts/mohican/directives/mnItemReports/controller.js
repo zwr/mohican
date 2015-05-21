@@ -12,16 +12,17 @@
 
     vm.orderId = _findOrderId($scope);
 
-    vm.click = function() {
-      console.log(vm.orderId);
-    };
-
     function _findOrderId(scope) {
       if(scope.item && scope.item.Order_ID) {
         return scope.item.Order_ID;
       }
       else {
-        return _findOrderId(scope.$parent);
+        if(scope.$parent !== null) {
+          return _findOrderId(scope.$parent);
+        }
+        else {
+          return null;
+        }
       }
     }
   }
