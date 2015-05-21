@@ -184,7 +184,7 @@
       };
 
       // pageNumber is 1 based!
-      service.getBackendPage = function(pageNumber, dataFields) {
+      service.getBackendPage = function(pageNumber, dataFields, backendFilter) {
         // If we have the page, return the page
         if((pageNumber - 1) * service.pageSize >= service.bottomIndex
            && (pageNumber * service.pageSize <= service.topIndex)
@@ -197,20 +197,20 @@
         } else {
           if(this.thePromise) {
             return this.thePromise.then(function() {
-              return service.getBackendPage(pageNumber, dataFields);
+              return service.getBackendPage(pageNumber, dataFields, backendFilter);
             });
           } else {
             // Here we start the new eager loading
             service._fullyLoadedPromise = $q.defer();
-            return service.fetchEagerly((pageNumber - 1) * service.pageSize, dataFields)
+            return service.fetchEagerly((pageNumber - 1) * service.pageSize, dataFields, backendFilter)
             .then(function() {
-              return service.getBackendPage(pageNumber, dataFields);
+              return service.getBackendPage(pageNumber, dataFields, backendFilter);
             });
           }
         }
       };
 
-      service.fetchEagerly = function(startIndex, dataFields) {
+      service.fetchEagerly = function(startIndex, dataFields, backendFilter) {
         //reset the buffer with the following command
         //service.fullyLoaded = false;
         // if there is an ongoing promise, wait for it to complete after making
@@ -218,7 +218,7 @@
         if(service.thePromise != null) {
           service.beEager = false;
           return service.thePromise.then(function() {
-            return service.fetchEagerly(startIndex, dataFields);
+            return service.fetchEagerly(startIndex, dataFields, backendFilter);
           });
         } else {
           // fetch now, and then continue eagerly
@@ -226,7 +226,7 @@
           trace('get  offset = ' + startIndex
             + ' count = ' + service.firstFetchSize);
           service.thePromise = $http.get('/api/activities?offset=' +
-              startIndex + '&count=' + service.firstFetchSize)
+              startIndex + '&count=' + service.firstFetchSize + '&backendfilter=' + backendFilter)
             .then(function(resp) {
               service.thePromise = null;
               service.buffer = resp.data.items;
@@ -235,14 +235,14 @@
               service.bottomIndex = resp.data.offset;
               // topIndex is not the index of top document, but one beyond!
               service.topIndex = service.bottomIndex + resp.data.items.length;
-              service._continueEagerly(dataFields);
+              service._continueEagerly(dataFields, backendFilter);
               return service.buffer;
             });
           return service.thePromise;
         }
       };
 
-      service.getBackendPageCount = function(dataFields, tip) {
+      service.getBackendPageCount = function(dataFields, tip, backendFilter) {
         if(service.buffer) {
           var pageCount = parseInt(
             (service.totalCount - 1) / service.pageSize + 1);
@@ -252,12 +252,12 @@
             // Somebody is already getting something, which will probably
             // do what we need, so just wait for that promise to fullfil and
             // then try again the same.
-            return service.getBackendPageCount(dataFields);
+            return service.getBackendPageCount(dataFields, tip, backendFilter);
           });
         } else {
-          return service.getBackendPage(tip || 1, dataFields)
+          return service.getBackendPage(tip || 1, dataFields, backendFilter)
             .then(function() {
-              return service.getBackendPageCount(dataFields);
+              return service.getBackendPageCount(dataFields, tip, backendFilter);
             });
         }
       };
@@ -270,13 +270,12 @@
       /* eslint-enable no-extend-native */
 
       service._completeFullLoading = function() {
-        //TODO :https://github.com/zmilojko/id5/commit/fc45e4a8e86b1733805fdef5ed8f868acf38f6f0#diff-334bb00856ce250e5c3d6873acf4ab20R215
         service._fullyLoadedPromise.resolve();
         service.nextCloned = 1;
         trace('data are fully loaded');
       };
 
-      service._continueEagerly = function(dataFields) {
+      service._continueEagerly = function(dataFields, backendFilter) {
         if(service.beEager) {
           if(service.bottomIndex === 0) {
             service.nextEagerGrowthForward = true;
@@ -312,7 +311,7 @@
           trace('get  offset = ' + start
             + ' count = ' + count);
           service.thePromise = $http.get('/api/activities?offset='
-              + start + '&count=' + count)
+              + start + '&count=' + count + '&backendfilter=' + backendFilter)
             .then(function(resp) {
               service.thePromise = null;
               // if we were told to stop, just do nothing
@@ -326,7 +325,7 @@
                   service.buffer = resp.data.items.append(service.buffer);
                   service._parseFieldTypes(service.buffer, dataFields);
                 }
-                service._continueEagerly(dataFields);
+                service._continueEagerly(dataFields, backendFilter);
               }
             });
         }

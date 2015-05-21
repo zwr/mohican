@@ -81,10 +81,10 @@
         that.filters = that.mnGridFilterService.urlParamToJson(that.$stateParams.filters, that.fields);
 
         that.fullyLoaded = false;
-        that.resolve.getBackendPageCount(that.fields, that.$state.params.page).then(function(pageCount) {
+        that.resolve.getBackendPageCount(that.fields, that.$state.params.page, that.backendFilter).then(function(pageCount) {
           that.pageCount = pageCount;
           if(MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams)) {
-            that.resolve.getBackendPage(that.page, that.fields).then(function(items) {
+            that.resolve.getBackendPage(that.page, that.fields, that.backendFilter).then(function(items) {
               that.items = items;
               // We want to be careful to call waitFullyLoaded only when the
               // initial promise has returned! Now we are sure the eager loading
