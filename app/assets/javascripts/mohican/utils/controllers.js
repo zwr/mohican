@@ -28,6 +28,7 @@
 
       //if we have qf or qs on, show first this.page from backend filter,
       //but after loading data is finished, this.page will be set to $stateParams.page
+      //also check resolve.thePromise to see if user has changed page while eager loading
       if(($stateParams.qf || $stateParams.column) && resolve.thePromise === null) {
         this.page = 1;
       }
