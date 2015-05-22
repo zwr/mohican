@@ -123,6 +123,14 @@
 
     getPage: function(page) {
       var newRouteParams = _.clone(this.$stateParams);
+      //if eager loading, go to requested page and clear all client selections
+      if(this.resolve.thePromise !== null) {
+        // newRouteParams.layout = undefined;
+        newRouteParams.column = undefined;
+        newRouteParams.direction = undefined;
+        newRouteParams.qf = undefined;
+        newRouteParams.filters = undefined;
+      }
       newRouteParams.page = page;
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
@@ -172,7 +180,7 @@
       var newRouteParams = _.clone(this.$stateParams);
 
       newRouteParams.page = undefined;
-      newRouteParams.layout = undefined;
+      // newRouteParams.layout = undefined;
       newRouteParams.column = undefined;
       newRouteParams.direction = undefined;
       newRouteParams.qf = undefined;
