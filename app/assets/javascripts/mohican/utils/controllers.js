@@ -26,7 +26,14 @@
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
       MohicanUtils.injectDefaultParameters($stateParams);
 
-      this.page = $stateParams.page;
+      //if we have qf or qs on, show first this.page from backend filter,
+      //but after loading data is finished, this.page will be set to $stateParams.page
+      if(($stateParams.qf || $stateParams.column) && resolve.thePromise === null) {
+        this.page = 1;
+      }
+      else {
+        this.page = $stateParams.page;
+      }
       this.layout = $stateParams.layout;
       this.backendFilter = $stateParams.backendfilter;
       this.order = $stateParams.order;
@@ -81,7 +88,8 @@
         that.filters = that.mnGridFilterService.urlParamToJson(that.$stateParams.filters, that.fields);
 
         that.fullyLoaded = false;
-        that.resolve.getBackendPageCount(that.fields, that.$state.params.page, that.backendFilter).then(function(pageCount) {
+
+        that.resolve.getBackendPageCount(that.fields, that.page, that.backendFilter).then(function(pageCount) {
           that.pageCount = pageCount;
           if(MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams)) {
             that.resolve.getBackendPage(that.page, that.fields, that.backendFilter).then(function(items) {
@@ -92,6 +100,7 @@
               that.resolve.waitFullyLoaded().then(function() {
                 that.fullyLoaded = true;
                 if(that.$stateParams.column || that.$stateParams.qf) {
+                  that.page = that.$state.params.page;
                   that.quickFilterShown = that.$stateParams.qf ? true : false;
 
                   that.resolve.getClientPage(that.page,
