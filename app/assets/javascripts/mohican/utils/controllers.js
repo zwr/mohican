@@ -164,6 +164,7 @@
       if(!newRouteParams.qf) {
         newRouteParams.filters = undefined;
       }
+      newRouteParams.page = 1;//for all client side actions reset page to 1
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 
