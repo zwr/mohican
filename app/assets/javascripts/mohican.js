@@ -25,7 +25,7 @@
     return {
       response: function(response) {
             if (response.status === 401) {
-              window.location.replace('/users/sign_in');
+              window.location.replace(window.MN_LOGIN);
               return null;
             }
             return response || $q.when(response);
@@ -33,7 +33,7 @@
       responseError: function(rejection) {
         // do something on error
         if (rejection.status === 401) {
-          window.location.replace('/users/sign_in');
+          window.location.replace(window.MN_LOGIN);
           return null;
         }
         return $q.reject(rejection);

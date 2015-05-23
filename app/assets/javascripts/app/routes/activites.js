@@ -225,7 +225,7 @@
           service.beEager = true;
           trace('get  offset = ' + startIndex
             + ' count = ' + service.firstFetchSize);
-          service.thePromise = $http.get('/api/activities?offset=' +
+          service.thePromise = $http.get(window.MN_BASE + '/activities?offset=' +
               startIndex + '&count=' + service.firstFetchSize + '&backendfilter=' + backendFilter)
             .then(function(resp) {
               service.thePromise = null;
@@ -310,7 +310,7 @@
           }
           trace('get  offset = ' + start
             + ' count = ' + count);
-          service.thePromise = $http.get('/api/activities?offset='
+          service.thePromise = $http.get(window.MN_BASE + '/activities?offset='
               + start + '&count=' + count + '&backendfilter=' + backendFilter)
             .then(function(resp) {
               service.thePromise = null;
@@ -343,7 +343,7 @@
           });
         } else {
           trace('get  layout');
-          service.getLayoutPromise = $http.get('/api/activities/layout')
+          service.getLayoutPromise = $http.get(window.MN_BASE + '/activities/layout')
             .then(function(resp) {
               service.getLayoutPromise = null;
               service.layout = resp.data.layout;
