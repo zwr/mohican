@@ -32,8 +32,8 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # gem 'debugger', group: [:development, :test]
 
 
-gem "zwr", :path => "vendor/zwr-gem"
-gem "mohican", :path => "vendor/mohican"
+#gem "zwr", :path => "vendor/zwr-gem"
+#gem "mohican", :path => "vendor/mohican"
 #TODO: all mohican vendor games could be moved to mohican Gemfile?
 gem "bootstrap-sass", "~> 3.2.0"
 gem "bootstrap_form"
