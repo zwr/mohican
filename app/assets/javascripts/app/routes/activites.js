@@ -9,6 +9,17 @@
     this.initialize(resolve, mnGridFilterService, $stateParams, $state, $scope);
     this.loadData();
     this.reportLocation = '/reports';
+    this.attached = false;
+    this.printMe = function(item) {
+      $('#printf').attr('src', "/id.pdf");
+      if(!this.attached) {
+        this.attached = true;
+        $('#printf').load(function() {
+          window.frames["printf"].focus();
+          window.frames["printf"].print();
+        });
+      }
+    };
   };
 
   Controller.$inject = [ROUTE_NAME + 'ServiceResolve', 'mnGridFilterService', '$stateParams', '$state', '$scope'];

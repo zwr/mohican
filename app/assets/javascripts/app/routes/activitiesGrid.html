@@ -33,6 +33,9 @@
         <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.xml">
           <i class="fa fa-file-code-o"></i>
         </a>
+        <a target="_blank" ng-click="ctrl.printMe(item)">
+          <i class="fa fa-print"></i>
+        </a>
       </mn-grid>
       <mn-grid-pager page-changed='ctrl.getPage(page)'
                      page-count='ctrl.pageCount'
@@ -41,4 +44,5 @@
       </mn-grid-pager>
     </div>
   </div>
+  <iframe id="printf" name="printf" src="" style="display:none;"></iframe>
 </div>
