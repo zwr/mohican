@@ -111,7 +111,9 @@
               filtered = filtered && _.contains(filter, value);
             }
             else {
-              filtered = filtered && value.toString().toLowerCase().includes(filter.toString().toLowerCase());
+              filtered = filtered &&
+                            (value.toString().toLowerCase().
+                                   indexOf(filter.toString().toLowerCase()) !== -1);
             }
             if(!filtered) {
               break;
