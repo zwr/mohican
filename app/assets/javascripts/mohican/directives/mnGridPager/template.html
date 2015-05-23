@@ -4,8 +4,10 @@
       <ul class="pointer pagination pagination-sm"
           style="margin: 0px 30px;"
           ng-class="{'client-pager': gridPager.clientViewPagerStyle}">
-        <li class="pointer" ng-class='{disabled: gridPager.currentPage == 1}'>
-          <a ng-click="gridPager._changePage(gridPager.prevPage)" aria-label="Previous">
+        <li class="pointer" ng-class='{disabled: gridPager.currentPage === 1}'>
+          <a ng-click="gridPager._changePage(gridPager.prevPage())"
+             ng-disabled="gridPager.currentPage === 1"
+             aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
           </a>
         </li>
@@ -22,8 +24,10 @@
              ng-class="{hidden: !gridPager.showLinkLast()}"
              aria-label="Last">{{gridPager.pageCount}}</a>
         </li>
-        <li class="pointer" ng-class="{disabled: gridPager.currentPage == gridPager.pageCount, hidden: !gridPager.pageCount}">
-          <a ng-click="gridPager._changePage(gridPager.nextPage)" aria-label="Next">
+        <li class="pointer" ng-class="{disabled: gridPager.currentPage === gridPager.pageCount, hidden: !gridPager.pageCount}">
+          <a ng-click="gridPager._changePage(gridPager.nextPage())"
+             ng-disabled="gridPager.currentPage === gridPager.pageCount"
+             aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
           </a>
         </li>

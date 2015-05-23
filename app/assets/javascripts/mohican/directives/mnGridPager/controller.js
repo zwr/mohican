@@ -10,8 +10,12 @@
   function MnGridPagerController() {
     var vm = this;
 
-    vm.nextPage = vm.currentPage >= vm.pageCount ? vm.pageCount : (parseInt(vm.currentPage) + 1);
-    vm.prevPage = vm.currentPage <= 1 ? 1 : (parseInt(vm.currentPage) - 1);
+    vm.nextPage = function() {
+      return vm.currentPage >= vm.pageCount ? vm.pageCount : (parseInt(vm.currentPage) + 1);
+    };
+    vm.prevPage = function() {
+      return vm.currentPage <= 1 ? 1 : (parseInt(vm.currentPage) - 1);
+    };
 
     vm._changePage = function(page) {
       vm.pageChanged({page: page});
