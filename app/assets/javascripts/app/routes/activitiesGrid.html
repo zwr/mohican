@@ -24,7 +24,15 @@
                quick-filter-focus='ctrl.qfFocus'
                quick-filter-shown='ctrl.quickFilterShown'
                service-data-loaded='ctrl.fullyLoaded'>
-        <mn-item-reports></mn-item-reports>
+        <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.pdf">
+          <i class="fa fa-file-pdf-o"></i>
+        </a>
+        <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.xls">
+          <i class="fa fa-file-excel-o"></i>
+        </a>
+        <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.xml">
+          <i class="fa fa-file-code-o"></i>
+        </a>
       </mn-grid>
       <mn-grid-pager page-changed='ctrl.getPage(page)'
                      page-count='ctrl.pageCount'

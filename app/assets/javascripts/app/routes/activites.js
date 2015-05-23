@@ -8,6 +8,7 @@
     _.assign(this, mnUtil.mnBaseController);
     this.initialize(resolve, mnGridFilterService, $stateParams, $state, $scope);
     this.loadData();
+    this.reportLocation = '/reports';
   };
 
   Controller.$inject = [ROUTE_NAME + 'ServiceResolve', 'mnGridFilterService', '$stateParams', '$state', '$scope'];
