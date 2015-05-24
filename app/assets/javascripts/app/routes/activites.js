@@ -238,7 +238,7 @@
           trace('get  offset = ' + startIndex
             + ' count = ' + service.firstFetchSize);
           service.thePromise = $http.get(window.MN_BASE + '/activities?offset=' +
-              startIndex + '&count=' + service.firstFetchSize + '&backendfilter=' + backendFilter)
+              startIndex + '&count=' + service.firstFetchSize + '&filter=' + backendFilter)
             .then(function(resp) {
               service.thePromise = null;
               service.buffer = resp.data.items;
@@ -323,7 +323,7 @@
           trace('get  offset = ' + start
             + ' count = ' + count);
           service.thePromise = $http.get(window.MN_BASE + '/activities?offset='
-              + start + '&count=' + count + '&backendfilter=' + backendFilter)
+              + start + '&count=' + count + '&filter=' + backendFilter)
             .then(function(resp) {
               service.thePromise = null;
               // if we were told to stop, just do nothing
