@@ -33,8 +33,36 @@
       // We will activate the following later
       // mnBaseService.extendsTo(service);
 
-      service.buffer = null;
-      service.bufferView = null;
+      service.resetLoading = function() {
+        service.buffer = null;
+        service.bufferBackendFilter = null;
+        service.bufferView = null;
+
+        // Following is the bottom and top index of the buffer data. At some point,
+        // when it is completelly loaded, these two will be 0 and totalCount.
+        service.bottomIndex = undefined;
+        service.topIndex = undefined;
+        service.totalCount = undefined;
+        // Following is set to true when eager loading starts. Setting this to false
+        // interupts eager loading, so that we can start it all over again. See
+        // where it is set to false to understand why we would do it.
+        service.beEager = false;
+
+        // Following becomes true when all the filter records have been retrieved
+        // if somebody was waiting on this promise, we need to disapoint them
+        if(service._fullyLoadedPromise) {
+          service._fullyLoadedPromise.reject();
+        }
+        service._fullyLoadedPromise = null;
+      };
+
+      service.resetLoading()
+
+      // Following is the ongoing promise. This is the only promise that can
+      // run against the server. If this is already take (not null), we need to
+      // wait for it to fulfill and only .then set our own promise.
+      service.thePromise = null;
+
       // Following is used to calculate the actual index of the required element
       service.pageSize = 20;
       // Following points out in which direction to grow the buffer. First it will
@@ -45,21 +73,6 @@
       // larger than pageSize
       service.fetchSize = 100;
       service.firstFetchSize = 200;
-      // Following is the bottom and top index of the buffer data. At some point,
-      // when it is completelly loaded, these two will be 0 and totalCount.
-      service.bottomIndex = undefined;
-      service.topIndex = undefined;
-      service.totalCount = undefined;
-      // Following is the ongoing promise. This is the only promise that can
-      // run against the server. If this is already take (not null), we need to
-      // wait for it to fulfill and only .then set our own promise.
-      service.thePromise = null;
-      // Following is set to true when eager loading starts. Setting this to false
-      // interupts eager loading, so that we can start it all over again. See
-      // where it is set to false to understand why we would do it.
-      service.beEager = false;
-      // Following becomes true when all the filter records have been retrieved
-      service._fullyLoadedPromise = null;
 
       service.waitFullyLoaded = function() {
         return service._fullyLoadedPromise.promise;
@@ -197,6 +210,11 @@
 
       // pageNumber is 1 based!
       service.getBackendPage = function(pageNumber, dataFields, backendFilter) {
+        if(service.bufferBackendFilter !== backendFilter) {
+          service.resetLoading();
+          service.bufferBackendFilter = backendFilter;
+        }
+
         // If we have the page, return the page
         if((pageNumber - 1) * service.pageSize >= service.bottomIndex
            && (pageNumber * service.pageSize <= service.topIndex)
@@ -241,20 +259,28 @@
               startIndex + '&count=' + service.firstFetchSize + '&filter=' + backendFilter)
             .then(function(resp) {
               service.thePromise = null;
-              service.buffer = resp.data.items;
-              service._parseFieldTypes(service.buffer, dataFields);
-              service.totalCount = resp.data.total_count;
-              service.bottomIndex = resp.data.offset;
-              // topIndex is not the index of top document, but one beyond!
-              service.topIndex = service.bottomIndex + resp.data.items.length;
-              service._continueEagerly(dataFields, backendFilter);
-              return service.buffer;
+              if(service.bufferBackendFilter === backendFilter) {
+                service.buffer = resp.data.items;
+                service._parseFieldTypes(service.buffer, dataFields);
+                service.totalCount = resp.data.total_count;
+                service.bottomIndex = resp.data.offset;
+                // topIndex is not the index of top document, but one beyond!
+                service.topIndex = service.bottomIndex + resp.data.items.length;
+                service._continueEagerly(dataFields, backendFilter);
+                return service.buffer;
+              } else {
+                /* loading has been restarted, possibly backend filter changed */
+                return null;
+              }
             });
           return service.thePromise;
         }
       };
 
       service.getBackendPageCount = function(dataFields, tip, backendFilter) {
+        if(service.bufferBackendFilter !== backendFilter) {
+          service.resetLoading();
+        }
         if(service.buffer) {
           var pageCount = parseInt(
             (service.totalCount - 1) / service.pageSize + 1);
