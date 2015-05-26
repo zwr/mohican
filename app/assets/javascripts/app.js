@@ -1,5 +1,3 @@
-//= require config
-//= require mohican
 //= require_tree ./lib
 //= require ./app/main
 //= require_tree ./app
