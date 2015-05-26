@@ -28,7 +28,7 @@
   MohicanUtils.defineMohicanRoute(
     ROUTE_NAME,
     Controller,
-    ['mnBaseService', '$http', '$q', function (mnBaseService, $http, $q) {
+    ['$http', '$q', function ($http, $q) {
       var service = MohicanUtils.mnBaseFactory(ROUTE_NAME, $http, $q);
       // do a lot of stuff
       return service;

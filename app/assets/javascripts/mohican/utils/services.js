@@ -4,7 +4,6 @@
   MohicanUtils.mnBaseFactory = function(docname, $http, $q) {
     var service = {};
     // We will activate the following later
-    // mnBaseService.extendsTo(service);
 
     service.resetLoading = function() {
       service.buffer = null;

@@ -15,10 +15,9 @@
   mnUtil.defineMohicanRoute(
     ROUTE_NAME,
     Controller,
-    ['mnBaseService', function (mnBaseService) {
+    function () {
       var service = {};
-      mnBaseService.extendsTo(service);
       return service;
-    }]
+    }
   );
 })(window.MohicanUtils);
