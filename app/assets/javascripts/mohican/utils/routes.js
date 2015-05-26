@@ -35,7 +35,7 @@
 
   MohicanUtils.defineMohicanRoute = function(routeName, controller, service) {
     angular.module('mohican.services').
-        factory(routeName + 'Service', ['mnBaseService', '$http', '$q', service]);
+        factory(routeName + 'Service', service);
     angular.module('mohican.routes').
         config(['$stateProvider', MohicanUtils._mohicanRoute(routeName, controller)]);
   };

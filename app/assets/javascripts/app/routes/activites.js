@@ -28,10 +28,10 @@
   MohicanUtils.defineMohicanRoute(
     ROUTE_NAME,
     Controller,
-    function (mnBaseService, $http, $q) {
+    ['mnBaseService', '$http', '$q', function (mnBaseService, $http, $q) {
       var service = MohicanUtils.mnBaseFactory(ROUTE_NAME, $http, $q);
       // do a lot of stuff
       return service;
-    }
+    }]
   );
 })(window.MohicanUtils);
