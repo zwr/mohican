@@ -3,6 +3,5 @@
 (function(mnUtil) {
   'use strict';
 
-  //arguments: (routeName, controller, service)
-  mnUtil.defineMohicanRoute('start', function() {});
+  mnUtil.defineMohicanRoute({name: 'start', controller: function() {}});
 })(window.MohicanUtils);

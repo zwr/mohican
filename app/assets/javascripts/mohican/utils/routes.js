@@ -18,13 +18,13 @@
     };
   };
 
-  MohicanUtils.defineMohicanRoute = function(routeName, controller, service) {
-    if(service) {
+  MohicanUtils.defineMohicanRoute = function(definition) {
+    if(definition.service) {
       angular.module('mohican.services').
-          factory(routeName + 'Service', service);
+          factory(definition.name + 'Service', definition.service);
     }
     angular.module('mohican.routes').
-        config(['$stateProvider', MohicanUtils._mohicanRoute(routeName, controller)]);
+        config(['$stateProvider', MohicanUtils._mohicanRoute(definition.name, definition.controller)]);
   };
 
   var _checkDefaultParams = function(params) {
