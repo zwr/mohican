@@ -13,12 +13,13 @@
         this.reportLocation = '/reports';
         this.attached = false;
         this.printMe = function(item) {
-          $('#printf').attr('src', "/id.pdf");
+          console.log(item);
+          angular.element('#printf').attr('src', '/id.pdf');
           if(!this.attached) {
             this.attached = true;
-            $('#printf').load(function() {
-              window.frames["printf"].focus();
-              window.frames["printf"].print();
+            angular.element('#print-f').load(function() {
+              window.frames['print-f'].focus();
+              window.frames['print-f'].print();
             });
           }
         };
