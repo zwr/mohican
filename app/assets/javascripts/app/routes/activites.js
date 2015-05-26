@@ -1,11 +1,11 @@
 //= require_self
 
-(function(mnUtil) {
+(function(MohicanUtils) {
   'use strict';
 
   var ROUTE_NAME = 'activities';
   var Controller = function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
-    _.assign(this, mnUtil.mnBaseController);
+    _.assign(this, MohicanUtils.mnBaseController);
     this.initialize(resolve, mnGridFilterService, $stateParams, $state, $scope);
     this.loadData();
     this.reportLocation = '/reports';
@@ -25,7 +25,7 @@
   Controller.$inject = [ROUTE_NAME + 'ServiceResolve', 'mnGridFilterService', '$stateParams', '$state', '$scope'];
 
   //arguments: (routeName, controller, service)
-  mnUtil.defineMohicanRoute(
+  MohicanUtils.defineMohicanRoute(
     ROUTE_NAME,
     Controller,
     function (mnBaseService, $http, $q) {
