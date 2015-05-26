@@ -24,7 +24,7 @@
 
   Controller.$inject = [ROUTE_NAME + 'ServiceResolve', 'mnGridFilterService', '$stateParams', '$state', '$scope'];
 
-  MohicanUtils.mnBaseFactory = function($http, $q) {
+  MohicanUtils.mnBaseFactory = function(docname, $http, $q) {
     var service = {};
     // We will activate the following later
     // mnBaseService.extendsTo(service);
@@ -251,7 +251,7 @@
         service.beEager = true;
         trace('get  offset = ' + startIndex
           + ' count = ' + service.firstFetchSize);
-        service.thePromise = $http.get(window.MN_BASE + '/activities?offset=' +
+        service.thePromise = $http.get(window.MN_BASE + '/' + docname + '?offset=' +
             startIndex + '&count=' + service.firstFetchSize + '&filter=' + backendFilter)
           .then(function(resp) {
             service.thePromise = null;
@@ -344,7 +344,7 @@
         }
         trace('get  offset = ' + start
           + ' count = ' + count);
-        service.thePromise = $http.get(window.MN_BASE + '/activities?offset='
+        service.thePromise = $http.get(window.MN_BASE + '/' + docname + '?offset='
             + start + '&count=' + count + '&filter=' + backendFilter)
           .then(function(resp) {
             service.thePromise = null;
@@ -377,7 +377,7 @@
         });
       } else {
         trace('get  layout');
-        service.getLayoutPromise = $http.get(window.MN_BASE + '/activities/layout')
+        service.getLayoutPromise = $http.get(window.MN_BASE + '/' + docname + '/layout')
           .then(function(resp) {
             service.getLayoutPromise = null;
             service.layout = resp.data.layout;
@@ -418,7 +418,7 @@
     ROUTE_NAME,
     Controller,
     function (mnBaseService, $http, $q) {
-      var service = MohicanUtils.mnBaseFactory($http, $q);
+      var service = MohicanUtils.mnBaseFactory(ROUTE_NAME, $http, $q);
       // do a lot of stuff
       return service;
     }
