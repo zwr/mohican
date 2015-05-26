@@ -1,27 +1,28 @@
 Dir[Rails.root.join('db/seeds/*.rb')].each { |file| load file }
 
-activities = JSON.parse(IO.read(Rails.root.join('db','seeds','activities.json')))
+activities = JSON.parse(IO.read(Rails.root.join('db', 'seeds', 'activities.json')))
 
-puts "Clearing the database"
+puts 'Clearing the database'
 
 Activity.delete_all
 Layout.delete_all
 User.delete_all
 
-User.create! email: "mohican@zwr.fi",password: "mohican123"
+User.create! email: 'mohican@zwr.fi', password: 'mohican123'
 
 puts "Seeding #{activities['items'].length} activities"
 
 activities['items'].each do |a|
   # We want to store as date those fields that are dates
   a.as_json.each do |key, value|
-    if value.class == String && value.length > 12
-      begin
-        maybe_date = DateTime.parse(value)
-        a[key] = maybe_date
-      rescue
-        # we are fine, it is not a date
-      end
+    next unless value.class == String && value.length > 12
+    begin
+      maybe_date = DateTime.zone.parse(value)
+      a[key] = maybe_date
+      # rubocop:disable HandleExceptions
+    rescue
+      # rubocop:enable HandleExceptions
+      # we are fine, it is not a date
     end
   end
   if (rand(847) != 33) # this is awesome
@@ -30,28 +31,28 @@ activities['items'].each do |a|
   Activity.collection.insert(a)
 end
 
-puts "Seeding activities layouts"
+puts 'Seeding activities layouts'
 
-activities_layout  = JSON.parse(IO.read(
-  Rails.root.join('db','seeds','activities_layout.json')))
-activities_layout["layouts"].each do |layout|
+activities_layout  = JSON.parse(
+  IO.read(Rails.root.join('db', 'seeds', 'activities_layout.json')))
+activities_layout['layouts'].each do |layout|
   new_definition = []
-  layout["definition"].each do |a|
+  layout['definition'].each do |a|
     b = {}
     a.each do |old_key, value|
-      b[:name] = value if old_key == "Name"
-      b[:header] = value if old_key == "HeaderText"
-      b[:width] = value if old_key == "ColumnWidth"
+      b[:name] = value if old_key == 'Name'
+      b[:header] = value if old_key == 'HeaderText'
+      b[:width] = value if old_key == 'ColumnWidth'
       b[old_key.to_sym] = value if old_key == old_key.downcase
     end
     new_definition << b
   end
-  layout["definition"] = new_definition
+  layout['definition'] = new_definition
 end
 
-Layout.collection.insert({
-    doctype: :activity,
-    layout: activities_layout
-  })
+Layout.collection.insert(
+  doctype: :activity,
+  layout: activities_layout
+)
 
-puts "Seeded."
+puts 'Seeded.'

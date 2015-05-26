@@ -8,13 +8,13 @@ class ActivitiesController < ApplicationController
   def index
     limit = params[:limit] || params[:count] || 5000
     offset = params[:offset] || params[:skip] || 0
-    filter = params[:filter] || ""
-    sort = params[:sort] || ""
+    # filter = params[:filter] || ""
+    # sort = params[:sort] || ''
 
     limit = limit.to_i
     offset = offset.to_i
 
-    offset = [0,params[:index].to_i - limit / 2].max if params[:index] and offset == 0
+    offset = [0, params[:index].to_i - limit / 2].max if params[:index] && offset == 0
 
     total_count = Activity.all.count
 
@@ -24,7 +24,7 @@ class ActivitiesController < ApplicationController
 
     respond_to do |format|
       format.json do
-        render json: { 
+        render json: {
           items: Activity
             .limit(limit)
             .skip(offset)
@@ -108,14 +108,15 @@ class ActivitiesController < ApplicationController
   end
 
   private
-    # Use callbacks to share common setup or constraints between actions.
-    def set_activity
-      puts "Looking for 'Order_ID' => #{params[:id]}"
-      @activity = Activity.where(:'Order_ID' => params[:id]).all
-    end
 
-    # Never trust parameters from the scary internet, only allow the white list through.
-    def activity_params
-      params[:activity]
-    end
+  # Use callbacks to share common setup or constraints between actions.
+  def set_activity
+    puts "Looking for 'Order_ID' => #{params[:id]}"
+    @activity = Activity.where(Order_ID: params[:id]).all
+  end
+
+  # Never trust parameters from the scary internet, only allow the white list through.
+  def activity_params
+    params[:activity]
+  end
 end

@@ -14,6 +14,7 @@ namespace :zwr do
       puts "Undigesting #{non_digested}"
       FileUtils.cp(file, non_digested)
     end
-    `cd #{Rails.root.join('public', 'assets')} && tar -zcvf #{Rails.root.join('tmp', 'assets.tar.gz')} .`
+    `cd #{Rails.root.join('public', 'assets')} && \
+      tar -zcvf #{Rails.root.join('tmp', 'assets.tar.gz')} .`
   end
 end
