@@ -1,0 +1,6 @@
+AllCops:
+  Exclude:
+    - 'vendor/**/*'
+
+Documentation:
+  Enabled: false
