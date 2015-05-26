@@ -1,6 +1,5 @@
 //= require_self
 //= require_tree ./routes
-//= require_tree ./directives
 
 (function() {
   'use strict';
