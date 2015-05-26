@@ -3,10 +3,9 @@
 (function(MohicanUtils) {
   'use strict';
 
-  var ROUTE_NAME = 'activities';
   MohicanUtils.defineMohicanRoute({
-    name: ROUTE_NAME,
-    controller: [ROUTE_NAME + 'Service', 'mnGridFilterService', '$stateParams', '$state', '$scope',
+    name: 'activities',
+    controller: ['service', 'mnGridFilterService', '$stateParams', '$state', '$scope',
       function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
         _.assign(this, MohicanUtils.mnBaseController);
         this.initialize(resolve, mnGridFilterService, $stateParams, $state, $scope);
@@ -26,7 +25,7 @@
       }
     ],
     service: ['$http', '$q', function ($http, $q) {
-      var service = MohicanUtils.mnBaseFactory(ROUTE_NAME, $http, $q);
+      var service = MohicanUtils.mnBaseFactory('activities', $http, $q);
       // do a lot of stuff
       return service;
     }]

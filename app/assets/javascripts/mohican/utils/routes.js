@@ -19,7 +19,16 @@
   };
 
   MohicanUtils.defineMohicanRoute = function(definition) {
+    var i;
     if(definition.service) {
+      if(definition.controller && Array.isArray(definition.controller)) {
+        for(i = 0; i < definition.controller.length; i++) {
+          if(definition.controller[i] === 'service') {
+            definition.controller[i] = definition.name + 'Service';
+          }
+        }
+      }
+
       angular.module('mohican.services').
           factory(definition.name + 'Service', definition.service);
     }
