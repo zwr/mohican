@@ -16,7 +16,7 @@
                 },
                 //util makes an array of default services resolvers for all routes
                 //which will be injected into specific route controllers
-                resolve: window.MohicanUtils.makeDefaultServiceResolvers(),
+                //resolve: window.MohicanUtils.makeDefaultServiceResolvers(),
               });
             },
           ]);

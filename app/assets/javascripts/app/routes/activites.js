@@ -22,7 +22,7 @@
     };
   };
 
-  Controller.$inject = [ROUTE_NAME + 'ServiceResolve', 'mnGridFilterService', '$stateParams', '$state', '$scope'];
+  Controller.$inject = [ROUTE_NAME + 'Service', 'mnGridFilterService', '$stateParams', '$state', '$scope'];
 
   //arguments: (routeName, controller, service)
   MohicanUtils.defineMohicanRoute(

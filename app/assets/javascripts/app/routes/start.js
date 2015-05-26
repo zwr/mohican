@@ -9,7 +9,7 @@
     this.initialize(resolve, $stateParams, $state);
   };
 
-  Controller.$inject = [ROUTE_NAME + 'ServiceResolve', '$stateParams', '$state'];
+  Controller.$inject = [ROUTE_NAME + 'Service', '$stateParams', '$state'];
 
   //arguments: (routeName, controller, service)
   mnUtil.defineMohicanRoute(

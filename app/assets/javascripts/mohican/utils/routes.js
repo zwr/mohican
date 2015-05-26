@@ -6,21 +6,6 @@
 
   MohicanUtils.routes = [];
 
-  MohicanUtils.makeDefaultServiceResolvers = function() {
-    var resolve = {};
-
-    MohicanUtils.routes.forEach(function(routeName) {
-      resolve[routeName + 'ServiceResolve'] = [
-        routeName + 'Service',
-        function (service) {
-          return service;
-        },
-      ];
-    });
-
-    return resolve;
-  };
-
   MohicanUtils._mohicanRoute = function(routeName, controller) {
     MohicanUtils.routes.push(routeName);
     return function($stateProvider) {
