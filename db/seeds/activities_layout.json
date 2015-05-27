@@ -285,7 +285,10 @@
           "CreatedDate": "2014-10-09T14:16:43.66",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": null,
+          "view": "text"
         },
         {
           "CustomColumn_ID": 43485,
@@ -306,7 +309,10 @@
           "CreatedDate": "2014-10-09T14:16:43.66",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": null,
+          "view": "text"
         },
         {
           "CustomColumn_ID": 43486,
@@ -327,7 +333,10 @@
           "CreatedDate": "2014-10-09T14:16:43.66",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": null,
+          "view": "text"
         },
         {
           "CustomColumn_ID": 43101,
@@ -348,7 +357,10 @@
           "CreatedDate": "2011-01-18T02:00:00",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": null,
+          "view": "text"
         },
         {
           "CustomColumn_ID": 43487,
@@ -369,7 +381,10 @@
           "CreatedDate": "2014-10-09T14:16:43.66",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": null,
+          "view": "text"
         },
         {
           "CustomColumn_ID": 43515,
@@ -419,7 +434,10 @@
           "CreatedDate": "2011-01-12T21:17:22.267",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": null,
+          "view": "text"
         },
         {
           "CustomColumn_ID": 42980,
@@ -440,7 +458,11 @@
           "CreatedDate": "2011-01-12T21:17:22.267",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": "select",
+          "values": [ "Uusi", "Suunniteltu"],
+          "view": "text"
         },
         {
           "CustomColumn_ID": 43476,
@@ -461,7 +483,10 @@
           "CreatedDate": "2014-10-09T14:16:43.66",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": "text",
+          "view": "text"
         },
         {
           "CustomColumn_ID": 43478,
@@ -482,7 +507,10 @@
           "CreatedDate": "2014-10-09T14:16:43.66",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": "text",
+          "view": "text"
         },
         {
           "CustomColumn_ID": 43479,
@@ -503,7 +531,10 @@
           "CreatedDate": "2014-10-09T14:16:43.66",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": "text",
+          "view": "text"
         },
         {
           "CustomColumn_ID": 43480,
@@ -524,7 +555,10 @@
           "CreatedDate": "2014-10-09T14:16:43.66",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": "text",
+          "view": "text"
         },
         {
           "CustomColumn_ID": 43481,
@@ -566,7 +600,10 @@
           "CreatedDate": "2014-10-09T14:16:43.66",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": "text",
+          "view": "text"
         },
         {
           "CustomColumn_ID": 43515,
@@ -587,7 +624,10 @@
           "CreatedDate": "2014-02-12T02:00:00",
           "CreatedBy": null,
           "UpdatedBy": null,
-          "FilterTypeVal": 0
+          "FilterTypeVal": 0,
+          "quicksort": true,
+          "quickfilter": "text",
+          "view": "number(2)"
         }
       ]
     }

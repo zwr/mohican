@@ -6,7 +6,7 @@
         <col style="width: 64px;">
         <th ng-repeat="field in grid.fields"
             ng-class="{'mn-sortable': grid.serviceDataLoaded}"
-            ng-click="grid.orderBy(field.name)"
+            ng-click="grid.orderBy(field)"
             class="grid-header-container">
           <span class="grid-header-field-name"
                 ng-style="{width: (field.width - 18) + 'px'}">

@@ -10,13 +10,13 @@
   function MnGridController() {
     var vm = this;
 
-    vm.orderBy = function(column) {
-      if(vm.serviceDataLoaded) {
+    vm.orderBy = function(field) {
+      if(field.quicksort === true && vm.serviceDataLoaded) {
         trace_timestamp('Clicked header, starting sorting. ******************************')
         vm.clientViewChanged({
-          column: column,
+          column: field.name,
           //change direction only if orderColumn is clicked second time in row
-          direction: (vm.orderDirection === 'asc' && vm.orderColumn === column) ? 'desc' : 'asc',
+          direction: (vm.orderDirection === 'asc' && vm.orderColumn === field.name) ? 'desc' : 'asc',
         });
       }
     };
