@@ -28,7 +28,7 @@
       service._fullyLoadedPromise = null;
     };
 
-    service.resetLoading()
+    service.resetLoading();
 
     // Following is the ongoing promise. This is the only promise that can
     // run against the server. If this is already take (not null), we need to
