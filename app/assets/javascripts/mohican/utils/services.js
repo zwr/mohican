@@ -164,8 +164,7 @@
     };
 
     service.getClientPage = function(pageNumber, column, direction, filters, dataFields) {
-      service.bufferView = _.clone(service.buffer);
-      service.bufferView = service._filter(service.bufferView, filters, dataFields);
+      service.bufferView = service._filter(service.buffer, filters, dataFields);
       service.bufferView = service._sort(service.bufferView, column, direction === 'asc' ? true : false, dataFields);
 
       var viewpageCount = parseInt(
