@@ -15,15 +15,7 @@
   </div>
   <div class="row mn-grid-layout-row">
     <div class="col-xs-12">
-      <mn-grid items="ctrl.items"
-               fields="ctrl.fields"
-               order-column="ctrl.column"
-               order-direction="ctrl.direction"
-               filters="ctrl.filters"
-               client-view-changed='ctrl.getView(column, direction, filters, focus)'
-               quick-filter-focus='ctrl.qfFocus'
-               quick-filter-shown='ctrl.quickFilterShown'
-               service-data-loaded='ctrl.fullyLoaded'>
+      <mn-grid>
         <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.pdf">
           <i class="fa fa-file-pdf-o"></i>
         </a>

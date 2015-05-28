@@ -11,23 +11,23 @@
     var vm = this;
 
     vm.orderBy = function(field) {
-      if(field.quicksort === true && vm.serviceDataLoaded) {
+      if(field.quicksort === true && vm.owner.fullyLoaded) {
         trace_timestamp('Clicked header, starting sorting. ******************************');
-        vm.clientViewChanged({
-          column: field.name,
+        vm.owner.getView(
+          field.name,
           //change direction only if orderColumn is clicked second time in row
-          direction: (vm.orderDirection === 'asc' && vm.orderColumn === field.name) ? 'desc' : 'asc',
-        });
+          ((vm.owner.direction === 'asc' && vm.owner.column === field.name) ? 'desc' : 'asc')
+        );
       }
     };
 
     vm.filterBy = function(fieldName) {
-      vm.clientViewChanged({
-        column: vm.orderColumn,
-        direction: vm.orderDirection,
-        filters: vm.filters,
-        focus: fieldName,
-      });
+      vm.owner.getView(
+        vm.owner.column,
+        vm.owner.direction,
+        vm.owner.filters,
+        fieldName
+      );
     };
   }
 })();

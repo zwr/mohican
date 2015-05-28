@@ -2,50 +2,50 @@
   <table class="table table-striped" style="table-layout:fixed;">
     <thead>
       <tr>
-        <col ng-repeat="field in grid.fields" ng-style="{width: field.width + 'px'}"/>
+        <col ng-repeat="field in grid.owner.fields" ng-style="{width: field.width + 'px'}"/>
         <col style="width: 64px;">
-        <th ng-repeat="field in grid.fields"
-            ng-class="{'mn-sortable': grid.serviceDataLoaded}"
+        <th ng-repeat="field in grid.owner.fields"
+            ng-class="{'mn-sortable': grid.owner.fullyLoaded}"
             ng-click="grid.orderBy(field)"
             class="grid-header-container">
           <span class="grid-header-field-name"
                 ng-style="{width: (field.width - 18) + 'px'}">
             {{field.header}}
           </span>
-          <span ng-show="grid.orderColumn === field.name && grid.serviceDataLoaded"
+          <span ng-show="grid.owner.column === field.name && grid.owner.fullyLoaded"
                 class="pull-right grid-header-field-dir "
-                ng-class="grid.orderDirection === 'desc' ? 'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'"
+                ng-class="grid.owner.direction === 'desc' ? 'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'"
                 aria-hidden="true"></span>
         </th>
         <th></th>
       </tr>
-      <tr ng-show="grid.quickFilterShown">
-        <th ng-repeat="field in grid.fields">
+      <tr ng-show="grid.owner.quickFilterShown">
+        <th ng-repeat="field in grid.owner.fields">
           <mn-qf-text
                 ng-if="field.quickfilter === 'text'"
-                model="grid.filters[field.name]"
+                model="grid.owner.filters[field.name]"
                 qf-changed="grid.filterBy(fieldName)"
                 field="field"
-                focus="grid.quickFilterFocus === field.name"></mn-qf-text>
+                focus="grid.owner.qfFocus === field.name"></mn-qf-text>
           <mn-qf-date-range
                 ng-if="field.quickfilter === 'date-range'"
-                model="grid.filters[field.name]"
+                model="grid.owner.filters[field.name]"
                 qf-changed="grid.filterBy(fieldName)"
                 field="field"
-                focus="grid.quickFilterFocus === field.name"></mn-qf-date-range>
+                focus="grid.owner.qfFocus === field.name"></mn-qf-date-range>
           <mn-qf-select
                 ng-if="field.quickfilter === 'select'"
-                model="grid.filters[field.name]"
+                model="grid.owner.filters[field.name]"
                 qf-changed="grid.filterBy(fieldName)"
                 field="field"
-                focus="grid.quickFilterFocus === field.name"></mn-qf-select>
+                focus="grid.owner.qfFocus === field.name"></mn-qf-select>
         </th>
         <th></th>
       </tr>
     </thead>
     <tbody>
-      <tr ng-repeat="item in grid.items">
-        <td ng-repeat="field in grid.fields" style="overflow: hidden;">
+      <tr ng-repeat="item in grid.owner.items">
+        <td ng-repeat="field in grid.owner.fields" style="overflow: hidden;">
           <div>
             <span>
               {{item[field.name + '_formatted']}}

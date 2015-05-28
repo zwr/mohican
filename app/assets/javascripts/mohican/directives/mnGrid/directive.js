@@ -9,21 +9,22 @@ angular.module('mohican.directives')
         restrict: 'E',
         transclude: true,
         scope: {
-          clientViewChanged: '&',
-          fields: '=',
-          items: '=',
-          quickFilterShown: '=',
-          quickFilterFocus: '=',
-          serviceDataLoaded: '=',
-          orderColumn: '=',
-          orderDirection: '=',
-          filters: '=',
+          owner: '=?'
         },
         templateUrl: 'mohican/directives/mnGrid/template.html',
         controller: 'MnGridController',
         controllerAs: 'grid',
         bindToController: true,
         link: function(scope, element, attrs, ctrl, $transcludeFn) {
+          var i, runner = scope;
+          for(i=0;(!scope.owner) && i<10;i++) {
+            if(runner.$parent && runner.$parent.ctrl) {
+              scope.owner = runner.$parent.ctrl;
+              break;
+            }
+            runner = runner.$parent;
+          }
+          ctrl.owner = scope.owner;
           scope.compileItForMe = function(itemScope, itemElement) {
             $transcludeFn(itemScope, function(notLinkedClone) {
               itemElement.append(notLinkedClone);
@@ -40,8 +41,7 @@ angular.module('mohican.directives')
     return {
       scope: false,
       link: function(scope, element) {
-        scope.ctrl = scope.$parent.$parent.ctrl;
-        scope.ctrlScope = scope.$parent.$parent;
+        scope.ctrl = scope.$parent.owner;
         scope.$parent.compileItForMe(scope, element);
       },
     };
