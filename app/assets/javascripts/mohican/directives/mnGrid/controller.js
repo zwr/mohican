@@ -12,7 +12,7 @@
 
     vm.orderBy = function(field) {
       if(field.quicksort === true && vm.serviceDataLoaded) {
-        trace_timestamp('Clicked header, starting sorting. ******************************')
+        trace_timestamp('Clicked header, starting sorting. ******************************');
         vm.clientViewChanged({
           column: field.name,
           //change direction only if orderColumn is clicked second time in row
