@@ -485,8 +485,8 @@
           "UpdatedBy": null,
           "FilterTypeVal": 0,
           "quicksort": true,
-          "quickfilter": "text",
-          "view": "text"
+          "quickfilter": "date-range",
+          "view": "date"
         },
         {
           "CustomColumn_ID": 43478,
