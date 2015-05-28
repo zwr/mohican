@@ -25,7 +25,7 @@ angular.module('mohican.directives')
         bindToController: true,
         link: function(scope, element, attrs, ctrl, $transcludeFn) {
           scope.compileItForMe = function(itemScope, itemElement) {
-            $transcludeFn(itemScope, function(notLinkedClone, cloneScope){
+            $transcludeFn(itemScope, function(notLinkedClone) {
               itemElement.append(notLinkedClone);
             });
           };
@@ -36,6 +36,7 @@ angular.module('mohican.directives')
 
 angular.module('mohican.directives')
   .directive('mnGridActions', [function() {
+    'use strict';
     return {
       scope: false,
       link: function(scope, element) {
