@@ -64,33 +64,12 @@
     service._sort = function(collection, prop, asc, dataFields) {
       var timeStart = Date.now();
       var dataField = service._getDataField(dataFields, prop);
-      asc = (asc ? 1 : -1);
 
       if(dataField) {
-        collection = collection.sort(function(a, b) {
-          a = a[prop];
-          b = b[prop];
-
-          if(!a && (a !== 0)) {
-            if(!b && (b !== 0)) {
-              return 0;
-            }
-            return asc;
-          }
-          if(!b && (b !== 0)) {
-            return -asc;
-          }
-
-          if(a === b) {
-            return 0;
-          }
-          if(a < b) {
-            return -asc;
-          }
-          else {
-            return asc;
-          }
+        collection = _.sortBy(collection, function (obj) {
+          return obj[prop];
         });
+        collection = asc ? collection : collection.reverse();
       }
       trace('Sorting done ms: ' + (Date.now() - timeStart));
       return collection;
