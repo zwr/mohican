@@ -3,8 +3,8 @@
     <div class="filter-bar-item">
       <div isteven-multi-select
             class="inline-multi-select"
-            input-model="filterBar.layouts"
-            on-item-click="filterBar.layoutChanged({ layout: data.name })"
+            input-model="filterBar.owner.layouts"
+            on-item-click="filterBar.owner.getLayout(data.name)"
             output-model="filterBar.outputBrowsers"
             button-label="show"
             item-label="name desc"
@@ -17,8 +17,8 @@
     <div class="filter-bar-item">
       <div isteven-multi-select
             class="inline-multi-select"
-            input-model="filterBar.backendFilters"
-            on-item-click="filterBar.backendFilterChanged({ backendFilter: data.name })"
+            input-model="filterBar.owner.backendFilters"
+            on-item-click="filterBar.owner.getBackendFilters(data.name)"
             output-model="filterBar.outputBrowsers"
             button-label="show"
             item-label="name"
@@ -31,22 +31,22 @@
     <div class="filter-bar-item">
       <button type="button"
               class="btn filter-bar-button"
-              ng-model="filterBar.quickFilterShown"
-              ng-click="filterBar.quickFilterToggled({ opened: !filterBar.quickFilterShown })"
+              ng-model="filterBar.owner.quickFilterShown"
+              ng-click="filterBar.owner.toggleQuickFilter(!filterBar.quickFilterShown)"
               btn-checkbox
               btn-checkbox-true="true"
               btn-checkbox-false="false"
-              ng-disabled="!filterBar.serviceDataLoaded">
+              ng-disabled="!filterBar.owner.fullyLoaded">
         <span style="float: left;">Quick Filter</span>
-        <span class="loader" ng-show="!filterBar.serviceDataLoaded" style="float: left; margin: 0px 0px 0px 8px;">Loading...</span>
+        <span class="loader" ng-show="!filterBar.owner.fullyLoaded" style="float: left; margin: 0px 0px 0px 8px;">Loading...</span>
       </button>
     </div>
     <div class="alert alert-warning filter-bar-item filter-bar-alert"
          role="alert"
-         ng-show="!filterBar.serviceDataLoaded && filterBar.clientViewLoadingNotification">
+         ng-show="!filterBar.owner.fullyLoaded && filterBar.owner.clientViewLoadingNotification">
       <strong>Warning!</strong> You will be shown filtered and sorted data when
       fully loaded or you can clear requested fiter and sort parameters
-      <button ng-click="filterBar.clearClientSortAndFilter()">here</button>
+      <button ng-click="filterBar.owner.clearClientSortAndFilter()">here</button>
     </div>
   </div>
 </div>
