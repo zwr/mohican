@@ -1,12 +1,12 @@
-<div class="row pager-row" ng-class="{hidden: !gridPager.pageCount}">
+<div class="row pager-row" ng-class="{hidden: !gridPager.owner.pageCount}">
   <div class="col-lg-12">
     <nav class="pointer">
       <ul class="pointer pagination pagination-sm"
           style="margin: 0px 30px;"
-          ng-class="{'client-pager': gridPager.clientViewPagerStyle}">
-        <li class="pointer" ng-class='{disabled: gridPager.currentPage === 1}'>
+          ng-class="{'client-pager': !!gridPager.owner.filters && gridPager.owner.fullyLoaded}">
+        <li class="pointer" ng-class='{disabled: gridPager.owner.page === 1}'>
           <a ng-click="gridPager._changePage(gridPager.prevPage())"
-             ng-disabled="gridPager.currentPage === 1"
+             ng-disabled="gridPager.owner.page === 1"
              aria-label="Previous">
             <span aria-hidden="true">&laquo;</span>
           </a>
@@ -16,17 +16,17 @@
              ng-class="{hidden: !gridPager.showLinkFirst()}"
              aria-label="First">1</a>
         </li>
-        <li class="pointer" ng-repeat="pageNumber in gridPager.paginationArray()" ng-class="{active: pageNumber == gridPager.currentPage}">
+        <li class="pointer" ng-repeat="pageNumber in gridPager.paginationArray()" ng-class="{active: pageNumber == gridPager.owner.page}">
           <a ng-click="gridPager._changePage(pageNumber)">{{gridPager.showPageNumber(pageNumber, $index)}}</a>
         </li>
         <li>
-          <a ng-click="gridPager._changePage(gridPager.pageCount)"
+          <a ng-click="gridPager._changePage(gridPager.owner.pageCount)"
              ng-class="{hidden: !gridPager.showLinkLast()}"
-             aria-label="Last">{{gridPager.pageCount}}</a>
+             aria-label="Last">{{gridPager.owner.pageCount}}</a>
         </li>
-        <li class="pointer" ng-class="{disabled: gridPager.currentPage === gridPager.pageCount, hidden: !gridPager.pageCount}">
+        <li class="pointer" ng-class="{disabled: gridPager.owner.page === gridPager.owner.pageCount, hidden: !gridPager.owner.pageCount}">
           <a ng-click="gridPager._changePage(gridPager.nextPage())"
-             ng-disabled="gridPager.currentPage === gridPager.pageCount"
+             ng-disabled="gridPager.owner.page === gridPager.owner.pageCount"
              aria-label="Next">
             <span aria-hidden="true">&raquo;</span>
           </a>
