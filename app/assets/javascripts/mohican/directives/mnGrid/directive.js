@@ -17,7 +17,7 @@ angular.module('mohican.directives')
         bindToController: true,
         link: function(scope, element, attrs, ctrl, $transcludeFn) {
           var i, runner = scope;
-          for(i=0;(!scope.owner) && i<10;i++) {
+          for(i = 0; (!scope.owner) && i < 10; i++) {
             if(runner.$parent && runner.$parent.ctrl) {
               scope.owner = runner.$parent.ctrl;
               break;
