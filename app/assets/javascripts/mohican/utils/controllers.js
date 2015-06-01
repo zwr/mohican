@@ -166,9 +166,9 @@
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 
-    toggleQuickFilter: function(opened) {
+    toggleQuickFilter: function() {
       var newRouteParams = _.clone(this.$stateParams);
-      newRouteParams.qf = opened;
+      newRouteParams.qf = !this.quickFilterShown;
       if(!newRouteParams.qf) {
         newRouteParams.filters = undefined;
       }
