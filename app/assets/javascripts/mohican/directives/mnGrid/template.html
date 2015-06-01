@@ -2,8 +2,10 @@
   <table class="table table-striped" style="table-layout:fixed;">
     <thead>
       <tr>
+        <col ng-show="grid.showSelectColumn" style="width: 20px;">
         <col ng-repeat="field in grid.owner.fields" ng-style="{width: field.width + 'px'}"/>
         <col style="width: 64px;">
+        <th ng-show="grid.showSelectColumn"></th>
         <th ng-repeat="field in grid.owner.fields"
             ng-class="{'mn-sortable': grid.owner.fullyLoaded}"
             ng-click="grid.orderBy(field)"
@@ -20,6 +22,7 @@
         <th></th>
       </tr>
       <tr ng-show="grid.owner.quickFilterShown">
+        <th ng-show="grid.showSelectColumn"></th>
         <th ng-repeat="field in grid.owner.fields">
           <mn-qf-text
                 ng-if="field.quickfilter === 'text'"
@@ -45,6 +48,11 @@
     </thead>
     <tbody>
       <tr ng-repeat="item in grid.owner.items">
+        <td ng-show="grid.showSelectColumn">
+          <input type="checkbox"
+                 ng-model="item.selected"
+                 ng-change="grid.selectionChanged()">
+        </td>
         <td ng-repeat="field in grid.owner.fields" style="overflow: hidden;">
           <div>
             <span>
@@ -52,7 +60,9 @@
             </span>
           </div>
         </td>
-        <td style="overflow: hidden;"><mn-grid-actions/><td>
+        <td style="overflow: hidden;">
+          <mn-grid-actions />
+        <td>
       </tr>
     </tbody>
   </table>

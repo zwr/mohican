@@ -188,5 +188,9 @@
 
       this.$state.go(this.$state.current.name, newRouteParams);
     },
+
+    onItemSelect: function(selectedItems) {
+      console.log(selectedItems);
+    },
   };
 }(window.MohicanUtils));

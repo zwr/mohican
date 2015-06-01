@@ -11,7 +11,10 @@
           restrict: 'E',
           transclude: true,
           scope: {
-            owner: '=?'
+            owner: '=?',
+            mnSelect: '@?',
+            mnSelectType: '@?',
+            mnOnSelect: '&',
           },
           templateUrl: 'mohican/directives/mnGrid/template.html',
           controller: 'MnGridController',
@@ -31,7 +34,6 @@
 
   angular.module('mohican.directives')
     .directive('mnGridActions', [function() {
-      'use strict';
       return {
         scope: false,
         link: function(scope, element) {
