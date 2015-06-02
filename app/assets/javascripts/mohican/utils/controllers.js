@@ -13,7 +13,6 @@
     layouts: undefined,
     backendFilters: undefined,
     resolve: undefined,
-    mnGridFilterService: undefined,
     $stateParams: undefined,
     $state: undefined,
     fields: undefined,
@@ -21,7 +20,7 @@
     item: undefined,
     clientViewLoadingNotification: undefined,
 
-    initialize: function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
+    initialize: function(resolve, $stateParams, $state, $scope) {
       trace('Controller initialized');
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
       MohicanUtils.injectDefaultParameters($stateParams);
@@ -54,7 +53,6 @@
       this.layouts = [];
       this.backendFilters = [];
       this.resolve = resolve;
-      this.mnGridFilterService = mnGridFilterService;
       this.$stateParams = $stateParams;
       this.$state = $state;
       this.$scope = $scope;
@@ -86,7 +84,7 @@
           });
           MohicanUtils.validateBackendFilterParameter(that.backendFilter, that.backendFilters, that.$state, that.$stateParams);
         });
-        that.filters = that.mnGridFilterService.urlParamToJson(that.$stateParams.filters, that.fields);
+        that.filters = MohicanUtils.urlParamToJson(that.$stateParams.filters, that.fields);
 
         that.fullyLoaded = false;
 
@@ -157,7 +155,7 @@
         newRouteParams.direction = direction;
       }
       if(filters) {
-        newRouteParams.filters = this.mnGridFilterService.jsonToUrlParam(filters, this.fields);
+        newRouteParams.filters = MohicanUtils.jsonToUrlParam(filters, this.fields);
       }
       if(focus) {
         //store focused field information in qf param

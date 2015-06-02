@@ -5,10 +5,10 @@
 
   MohicanUtils.defineMohicanRoute({
     name: 'activities',
-    controller: ['service', 'mnGridFilterService', '$stateParams', '$state', '$scope',
-      function(resolve, mnGridFilterService, $stateParams, $state, $scope) {
+    controller: ['service', '$stateParams', '$state', '$scope',
+      function(resolve, $stateParams, $state, $scope) {
         _.assign(this, MohicanUtils.mnBaseController);
-        this.initialize(resolve, mnGridFilterService, $stateParams, $state, $scope);
+        this.initialize(resolve, $stateParams, $state, $scope);
         this.loadData();
         this.reportLocation = '/reports';
         this.attached = false;
