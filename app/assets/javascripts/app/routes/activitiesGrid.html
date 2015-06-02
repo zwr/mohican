@@ -6,7 +6,8 @@
   </div>
   <div class="row mn-grid-layout-row">
     <div class="col-xs-12">
-      <mn-grid mn-select="single"
+      <mn-grid mn-id="activitiesGrid"
+               mn-select="single"
                mn-select-type="check"
                mn-on-select="ctrl.onItemSelect(selectedItems)">
         <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.pdf">

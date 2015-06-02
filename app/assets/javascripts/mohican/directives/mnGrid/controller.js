@@ -5,12 +5,12 @@
 
   angular
       .module('mohican.directives')
-      .controller('MnGridController', [MnGridController]);
+      .controller('MnGridController', ['mnGridSelectedItemsService', MnGridController]);
 
-  function MnGridController() {
+  function MnGridController(mnGridSelectedItemsService) {
     var vm = this;
 
-    vm.selectedItems = [];
+    vm.selectedItems = mnGridSelectedItemsService.getSelectedItems(vm.mnId);
 
     if(angular.isUndefined(vm.mnSelect)) { vm.mnSelect = 'none'; }
     else {
@@ -36,12 +36,27 @@
       vm.showSelectColumn = false;
     }
 
-    vm.selectionChanged = function() {
+    vm.selectionChanged = function(item) {
+      var index = vm.selectedItems.indexOf(item);
+      if(index === -1) {
+        vm.selectedItems.push(item);
+      }
+      else {
+        vm.selectedItems.splice(index, 1);
+      }
       vm.mnOnSelect({
-        selectedItems: vm.owner.items.filter(function(item) {
-          return item.selected === true;
-        }),
+        selectedItems: vm.selectedItems,
       });
+    };
+
+    vm.isItemSelected = function(item) {
+      var index = vm.selectedItems.indexOf(item);
+      if(index === -1) {
+        return false;
+      }
+      else {
+        return true;
+      }
     };
 
     vm.orderBy = function(field) {

@@ -50,8 +50,8 @@
       <tr ng-repeat="item in grid.owner.items">
         <td ng-show="grid.showSelectColumn">
           <input type="checkbox"
-                 ng-model="item.selected"
-                 ng-change="grid.selectionChanged()">
+                 ng-checked="grid.isItemSelected(item)"
+                 ng-click="grid.selectionChanged(item)">
         </td>
         <td ng-repeat="field in grid.owner.fields" style="overflow: hidden;">
           <div>

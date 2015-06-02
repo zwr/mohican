@@ -12,6 +12,7 @@
           transclude: true,
           scope: {
             owner: '=?',
+            mnId: '@?',
             mnSelect: '@?',
             mnSelectType: '@?',
             mnOnSelect: '&',

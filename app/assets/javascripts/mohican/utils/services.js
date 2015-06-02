@@ -108,24 +108,6 @@
       return collection;
     };
 
-    service._addSelectColumn = function(collection) {
-      collection.forEach(function(item) {
-        if(angular.isUndefined(item.selected)) {
-          item.selected = false;
-        }
-      });
-    };
-
-    // service.getSelectedItems = function() {
-    //   var selectedItems = [];
-    //   if(service.buffer !== null) {
-    //     selectedItems = service.buffer.filter(function(item) {
-    //       return item.selected === true;
-    //     });
-    //   }
-    //   return selectedItems;
-    // };
-
     service._parseFieldTypes = function(buffer, dataFields) {
       buffer.forEach(function(item) {
         dataFields.forEach(function(field) {
@@ -232,7 +214,6 @@
             if(service.bufferBackendFilter === backendFilter) {
               service.buffer = resp.data.items;
               service._parseFieldTypes(service.buffer, dataFields);
-              service._addSelectColumn(service.buffer);
               service.totalCount = resp.data.total_count;
               service.bottomIndex = resp.data.offset;
               // topIndex is not the index of top document, but one beyond!
@@ -329,12 +310,10 @@
                 service.topIndex += resp.data.items.length;
                 service.buffer.append(resp.data.items);
                 service._parseFieldTypes(service.buffer, dataFields);
-                service._addSelectColumn(service.buffer);
               } else {
                 service.bottomIndex -= resp.data.items.length;
                 service.buffer = resp.data.items.append(service.buffer);
                 service._parseFieldTypes(service.buffer, dataFields);
-                service._addSelectColumn(service.buffer);
               }
               service._continueEagerly(dataFields, backendFilter);
             }
