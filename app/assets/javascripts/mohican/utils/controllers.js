@@ -19,7 +19,6 @@
     $state: undefined,
     fields: undefined,
     pageCount: undefined,
-    item: undefined,
     clientViewLoadingNotification: undefined,
 
     initialize: function(resolve, $stateParams, $state, $scope) {
@@ -43,7 +42,6 @@
       }
       this.stateMachine.layout = $stateParams.layout;
       this.stateMachine.backendFilter = $stateParams.backendfilter;
-      this.order = $stateParams.order;
       this.stateMachine.column = $stateParams.column;
       this.stateMachine.direction = $stateParams.direction;
       this.stateMachine.quickFilterShown = false;
