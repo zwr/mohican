@@ -21,6 +21,7 @@
     clientViewLoadingNotification: undefined,
 
     initialize: function(resolve, $stateParams, $state, $scope) {
+      console.log('controller initialize');
       trace('Controller initialized');
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
       MohicanUtils.injectDefaultParameters($stateParams);
@@ -171,7 +172,11 @@
         newRouteParams.filters = undefined;
       }
       newRouteParams.page = 1;//for all client side actions reset page to 1
-      this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
+      this.$state.go(this.$state.current.name,
+                     MohicanUtils.escapeDefaultParameters(newRouteParams),
+                     {
+                       notify: false,
+                     });
     },
 
     clearClientSortAndFilter: function() {

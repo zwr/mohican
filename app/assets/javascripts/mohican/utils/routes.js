@@ -55,7 +55,7 @@
       newParams.direction = undefined;
       dirty = true;
     }
-    if (newParams.qf === 'false') {
+    if (newParams.qf === 'false' || newParams.qf === false) {
       newParams.qf = undefined;
       dirty = true;
     }
