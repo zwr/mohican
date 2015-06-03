@@ -3,22 +3,54 @@
   trace_timestamp('Executing controller');
   MohicanUtils.mnBaseController = {
     stateMachine: {
-      page: undefined,
-      layout: undefined,
-      backendFilter: undefined,
-      column: undefined,
-      direction: undefined,
+      page:             undefined,
+      layout:           undefined,
+      backendFilter:    undefined,
+      column:           undefined,
+      direction:        undefined,
       quickFilterShown: undefined,
-      qfFocus: undefined,
-      filters: undefined,
+      qfFocus:          undefined,
+      filters:          undefined,
+
+      _stateMachineFromUrl: function($stateParams, resolve) {
+        //if we have qf or qs on, show first page from backend filter,
+        //but after loading data is finished, page will be set to $stateParams.page
+        //also check resolve.thePromise to see if user has changed page while eager loading
+        if(($stateParams.qf || $stateParams.column) && resolve.thePromise === null) {
+          this.page = 1;
+        }
+        else {
+          this.page = $stateParams.page;
+        }
+        this.layout = $stateParams.layout;
+        this.backendFilter = $stateParams.backendfilter;
+        this.column = $stateParams.column;
+        this.direction = $stateParams.direction;
+        this.quickFilterShown = false;
+        this.qfFocus = $stateParams.qf;
+      },
+
+      _stateMachineToUrl: function() {
+        return {
+          page:             this.page,
+          layout:           this.layout,
+          backendFilter:    this.backendFilter,
+          column:           this.column,
+          direction:        this.direction,
+          quickFilterShown: this.quickFilterShown,
+          qfFocus:          this.qfFocus,
+        };
+      },
     },
+
     backendFilters: undefined,
-    layouts: undefined,
-    resolve: undefined,
-    $stateParams: undefined,
-    $state: undefined,
-    fields: undefined,
-    pageCount: undefined,
+    layouts:        undefined,
+    resolve:        undefined,
+    $stateParams:   undefined,
+    $state:         undefined,
+    fields:         undefined,
+    pageCount:      undefined,
+
     clientViewLoadingNotification: undefined,
 
     initialize: function(resolve, $stateParams, $state) {
@@ -30,20 +62,8 @@
       this.$stateParams = $stateParams;
       this.$state = $state;
 
-      //if we have qf or qs on, show first page from backend filter,
-      //but after loading data is finished, page will be set to $stateParams.page
-      //also check resolve.thePromise to see if user has changed page while eager loading
-      if(($stateParams.qf || $stateParams.column) && resolve.thePromise === null) {
-        this.stateMachine.page = 1;
-      }
-      else {
-        this.stateMachine.page = $stateParams.page;
-      }
-      this.stateMachine.layout = $stateParams.layout;
-      this.stateMachine.backendFilter = $stateParams.backendfilter;
-      this.stateMachine.column = $stateParams.column;
-      this.stateMachine.direction = $stateParams.direction;
-      this.stateMachine.quickFilterShown = false;
+      this.stateMachine._stateMachineFromUrl($stateParams, resolve);
+
       if(angular.isDefined($stateParams.column) ||
             angular.isDefined($stateParams.qf) ||
             angular.isDefined($stateParams.filters)) {
@@ -53,7 +73,6 @@
         this.clientViewLoadingNotification = false;
       }
       this.fullyLoaded = false;
-      this.stateMachine.qfFocus = $stateParams.qf;//read focused field information from qf param
       this.layouts = [];
       this.backendFilters = [];
       this.resolve = resolve;
@@ -65,9 +84,9 @@
       that.resolve.getPreviewDefinitions().then(function(definition) {
         definition.layouts.forEach(function(layout) {
           that.layouts.push({
-            name: layout.name,
-            show: 'Layout: ' + layout.name,
-            desc: 'Shows ' + layout.definition.length + ' fields',
+            name:     layout.name,
+            show:     'Layout: ' + layout.name,
+            desc:     'Shows ' + layout.definition.length + ' fields',
             selected: layout.name === that.stateMachine.layout,
           });
           if(layout.name === that.stateMachine.layout) {
@@ -78,8 +97,8 @@
         that.resolve.getBackendFilters().then(function(backendFilters) {
           backendFilters.forEach(function(backendFilter) {
             that.backendFilters.push({
-              name: backendFilter.name,
-              show: 'Filter: ' + backendFilter.name,
+              name:     backendFilter.name,
+              show:     'Filter: ' + backendFilter.name,
               selected: backendFilter.name === that.stateMachine.backendFilter,
             });
           });
