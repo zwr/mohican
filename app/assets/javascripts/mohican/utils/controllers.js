@@ -2,16 +2,18 @@
   'use strict';
   trace_timestamp('Executing controller');
   MohicanUtils.mnBaseController = {
-    page: undefined,
-    layout: undefined,
-    backendFilter: undefined,
-    column: undefined,
-    direction: undefined,
-    quickFilterShown: undefined,
-    qfFocus: undefined,
-    filters: undefined,
-    layouts: undefined,
+    stateMachine: {
+      page: undefined,
+      layout: undefined,
+      backendFilter: undefined,
+      column: undefined,
+      direction: undefined,
+      quickFilterShown: undefined,
+      qfFocus: undefined,
+      filters: undefined,
+    },
     backendFilters: undefined,
+    layouts: undefined,
     resolve: undefined,
     $stateParams: undefined,
     $state: undefined,
@@ -26,21 +28,25 @@
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
       MohicanUtils.injectDefaultParameters($stateParams);
 
-      //if we have qf or qs on, show first this.page from backend filter,
-      //but after loading data is finished, this.page will be set to $stateParams.page
+      this.$stateParams = $stateParams;
+      this.$state = $state;
+      this.$scope = $scope;
+
+      //if we have qf or qs on, show first page from backend filter,
+      //but after loading data is finished, page will be set to $stateParams.page
       //also check resolve.thePromise to see if user has changed page while eager loading
       if(($stateParams.qf || $stateParams.column) && resolve.thePromise === null) {
-        this.page = 1;
+        this.stateMachine.page = 1;
       }
       else {
-        this.page = $stateParams.page;
+        this.stateMachine.page = $stateParams.page;
       }
-      this.layout = $stateParams.layout;
-      this.backendFilter = $stateParams.backendfilter;
+      this.stateMachine.layout = $stateParams.layout;
+      this.stateMachine.backendFilter = $stateParams.backendfilter;
       this.order = $stateParams.order;
-      this.column = $stateParams.column;
-      this.direction = $stateParams.direction;
-      this.quickFilterShown = false;
+      this.stateMachine.column = $stateParams.column;
+      this.stateMachine.direction = $stateParams.direction;
+      this.stateMachine.quickFilterShown = false;
       if(angular.isDefined($stateParams.column) ||
             angular.isDefined($stateParams.qf) ||
             angular.isDefined($stateParams.filters)) {
@@ -50,13 +56,10 @@
         this.clientViewLoadingNotification = false;
       }
       this.fullyLoaded = false;
-      this.qfFocus = $stateParams.qf;//read focused field information from qf param
+      this.stateMachine.qfFocus = $stateParams.qf;//read focused field information from qf param
       this.layouts = [];
       this.backendFilters = [];
       this.resolve = resolve;
-      this.$stateParams = $stateParams;
-      this.$state = $state;
-      this.$scope = $scope;
     },
 
     loadData: function() {
@@ -68,31 +71,31 @@
             name: layout.name,
             show: 'Layout: ' + layout.name,
             desc: 'Shows ' + layout.definition.length + ' fields',
-            selected: layout.name === that.layout,
+            selected: layout.name === that.stateMachine.layout,
           });
-          if(layout.name === that.layout) {
+          if(layout.name === that.stateMachine.layout) {
             that.fields = layout.definition;
           }
         });
-        MohicanUtils.validateLayoutParameter(that.layout, that.layouts, that.$state, that.$stateParams);
+        MohicanUtils.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.$state, that.$stateParams);
         that.resolve.getBackendFilters().then(function(backendFilters) {
           backendFilters.forEach(function(backendFilter) {
             that.backendFilters.push({
               name: backendFilter.name,
               show: 'Filter: ' + backendFilter.name,
-              selected: backendFilter.name === that.backendFilter,
+              selected: backendFilter.name === that.stateMachine.backendFilter,
             });
           });
-          MohicanUtils.validateBackendFilterParameter(that.backendFilter, that.backendFilters, that.$state, that.$stateParams);
+          MohicanUtils.validateBackendFilterParameter(that.stateMachine.backendFilter, that.backendFilters, that.$state, that.$stateParams);
         });
-        that.filters = MohicanUtils.urlParamToJson(that.$stateParams.filters, that.fields);
+        that.stateMachine.filters = MohicanUtils.urlParamToJson(that.$stateParams.filters, that.fields);
 
         that.fullyLoaded = false;
 
-        that.resolve.getBackendPageCount(that.fields, that.page, that.backendFilter).then(function(pageCount) {
+        that.resolve.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.backendFilter).then(function(pageCount) {
           that.pageCount = pageCount;
-          if(MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams)) {
-            that.resolve.getBackendPage(that.page, that.fields, that.backendFilter).then(function(items) {
+          if(MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams)) {
+            that.resolve.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
               that.items = items;
               // We want to be careful to call waitFullyLoaded only when the
               // initial promise has returned! Now we are sure the eager loading
@@ -100,17 +103,17 @@
               that.resolve.waitFullyLoaded().then(function() {
                 that.fullyLoaded = true;
                 if(that.$stateParams.column || that.$stateParams.qf) {
-                  that.page = that.$state.params.page;
-                  that.quickFilterShown = that.$stateParams.qf ? true : false;
+                  that.stateMachine.page = that.$state.params.page;
+                  that.stateMachine.quickFilterShown = that.$stateParams.qf ? true : false;
 
-                  that.resolve.getClientPage(that.page,
-                                             that.column,
-                                             that.direction,
-                                             that.filters,
+                  that.resolve.getClientPage(that.stateMachine.page,
+                                             that.stateMachine.column,
+                                             that.stateMachine.direction,
+                                             that.stateMachine.filters,
                                              that.fields).then(function(data) {
                     that.items = data.items;
                     that.pageCount = data.pageCount;
-                    MohicanUtils.validatePageParameter(that.page, that.pageCount, that.$state, that.$stateParams);
+                    MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
                   });
                 }
               });
@@ -167,7 +170,7 @@
 
     toggleQuickFilter: function() {
       var newRouteParams = _.clone(this.$stateParams);
-      newRouteParams.qf = !this.quickFilterShown;
+      newRouteParams.qf = !this.stateMachine.quickFilterShown;
       if(!newRouteParams.qf) {
         newRouteParams.filters = undefined;
       }

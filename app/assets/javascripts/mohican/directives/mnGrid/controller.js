@@ -65,16 +65,16 @@
         vm.owner.getView(
           field.name,
           //change direction only if orderColumn is clicked second time in row
-          ((vm.owner.direction === 'asc' && vm.owner.column === field.name) ? 'desc' : 'asc')
+          ((vm.owner.stateMachine.direction === 'asc' && vm.owner.stateMachine.column === field.name) ? 'desc' : 'asc')
         );
       }
     };
 
     vm.filterBy = function(fieldName) {
       vm.owner.getView(
-        vm.owner.column,
-        vm.owner.direction,
-        vm.owner.filters,
+        vm.owner.stateMachine.column,
+        vm.owner.stateMachine.direction,
+        vm.owner.stateMachine.filters,
         fieldName
       );
     };
