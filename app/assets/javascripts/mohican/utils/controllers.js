@@ -21,7 +21,7 @@
     pageCount: undefined,
     clientViewLoadingNotification: undefined,
 
-    initialize: function(resolve, $stateParams, $state, $scope) {
+    initialize: function(resolve, $stateParams, $state) {
       console.log('controller initialize');
       trace('Controller initialized');
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
@@ -29,7 +29,6 @@
 
       this.$stateParams = $stateParams;
       this.$state = $state;
-      this.$scope = $scope;
 
       //if we have qf or qs on, show first page from backend filter,
       //but after loading data is finished, page will be set to $stateParams.page
