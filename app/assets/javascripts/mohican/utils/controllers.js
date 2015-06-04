@@ -13,6 +13,19 @@
       filters:          undefined,
 
       _stateMachineFromUrl: function($stateParams, resolve) {
+        if (!$stateParams.backendfilter) {
+          this.backendfilter = 'default';
+        }
+        if (!$stateParams.page) {
+          this.page = '1';
+        }
+        if (!$stateParams.layout) {
+          this.layout = 'default';
+        }
+        if (!$stateParams.direction) {
+          this.direction = 'asc';
+        }
+
         //if we have qf or qs on, show first page from backend filter,
         //but after loading data is finished, page will be set to $stateParams.page
         //also check resolve.thePromise to see if user has changed page while eager loading
@@ -26,28 +39,24 @@
         this.backendFilter = $stateParams.backendfilter;
         this.column = $stateParams.column;
         this.direction = $stateParams.direction;
-        this.quickFilterShown = false;
         this.qfFocus = $stateParams.qf;
+
+        //filters and qf show will be available after fullyLoaded
+        this.quickFilterShown = false;
+        this.filters = undefined;
       },
 
-      _stateMachineToUrl: function() {
-        var qfilter;
-        //just testing
-        if(this.quickFilterShown === 'true' || this.quickFilterShown === true) {
-          qfilter = false;
-        }
-        else {
-          qfilter = true;
-        }
-        return {
+      _stateMachineToUrl: function(fields) {
+        return MohicanUtils.escapeDefaultParameters({
           page:          this.page,
           layout:        this.layout,
           backendFilter: this.backendFilter,
           column:        this.column,
           direction:     this.direction,
-          qf:            qfilter,
+          qf:            this.quickFilterShown,
           qfFocus:       this.qfFocus,
-        };
+          filters:       MohicanUtils.jsonToUrlParam(this.filters, fields),
+        });
       },
     },
 
@@ -119,28 +128,30 @@
         that.resolve.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.backendFilter).then(function(pageCount) {
           that.pageCount = pageCount;
           if(MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams)) {
-            that.resolve.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
-              that.items = items;
-              // We want to be careful to call waitFullyLoaded only when the
-              // initial promise has returned! Now we are sure the eager loading
-              // is ongoing.
-              that.resolve.waitFullyLoaded().then(function() {
-                that.fullyLoaded = true;
-                if(that.$stateParams.column || that.$stateParams.qf) {
-                  that.stateMachine.page = that.$state.params.page;
-                  that.stateMachine.quickFilterShown = that.$stateParams.qf ? true : false;
+            that._loadGridData();
+          }
+        });
+      });
+    },
 
-                  that.resolve.getClientPage(that.stateMachine.page,
-                                             that.stateMachine.column,
-                                             that.stateMachine.direction,
-                                             that.stateMachine.filters,
-                                             that.fields).then(function(data) {
-                    that.items = data.items;
-                    that.pageCount = data.pageCount;
-                    MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
-                  });
-                }
-              });
+    _loadGridData: function() {
+      var that = this;
+      that.resolve.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
+        that.items = items;
+        // We want to be careful to call waitFullyLoaded only when the
+        // initial promise has returned! Now we are sure the eager loading
+        // is ongoing.
+        that.resolve.waitFullyLoaded().then(function() {
+          that.fullyLoaded = true;
+          if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
+            that.resolve.getClientPage(that.stateMachine.page,
+                                       that.stateMachine.column,
+                                       that.stateMachine.direction,
+                                       that.stateMachine.filters,
+                                       that.fields).then(function(data) {
+              that.items = data.items;
+              that.pageCount = data.pageCount;
+              MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
             });
           }
         });
@@ -148,17 +159,13 @@
     },
 
     getPage: function(page) {
-      var newRouteParams = _.clone(this.$stateParams);
-      //if eager loading, go to requested page and clear all client selections
-      if(this.resolve.thePromise !== null) {
-        // newRouteParams.layout = undefined;
-        newRouteParams.column = undefined;
-        newRouteParams.direction = undefined;
-        newRouteParams.qf = undefined;
-        newRouteParams.filters = undefined;
-      }
-      newRouteParams.page = page;
-      this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
+      this.stateMachine.page = page;
+      this.$state.go(this.$state.current.name,
+                     this.stateMachine._stateMachineToUrl(this.fields),
+                     {
+                       notify: false,
+                     });
+      this._loadGridData();
     },
 
     getLayout: function(layout) {
@@ -173,23 +180,25 @@
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 
-    getView: function(column, direction, filters, focus) {
-      var newRouteParams = _.clone(this.$stateParams);
-      newRouteParams.page = 1;//for all client side actions reset page to 1
+    getView: function(column, direction, filters) {
+      this.stateMachine.page = 1;//for all client side actions reset page to 1
       if(column) {
-        newRouteParams.column = column;
+        this.stateMachine.column = column;
       }
       if(direction) {
-        newRouteParams.direction = direction;
+        this.stateMachine.direction = direction;
       }
       if(filters) {
-        newRouteParams.filters = MohicanUtils.jsonToUrlParam(filters, this.fields);
+        this.stateMachine.filters = filters;
       }
-      if(focus) {
-        //store focused field information in qf param
-        newRouteParams.qf = focus;
-      }
-      this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
+      console.log(this.stateMachine._stateMachineToUrl(this.fields));
+
+      this.$state.go(this.$state.current.name,
+                     this.stateMachine._stateMachineToUrl(this.fields),
+                     {
+                       notify: false,
+                     });
+      this._loadGridData();
     },
 
     toggleQuickFilter: function() {
@@ -199,23 +208,27 @@
       this.stateMachine.page = 1;//for all client side actions reset page to 1
 
       this.$state.go(this.$state.current.name,
-                     MohicanUtils.escapeDefaultParameters(this.stateMachine._stateMachineToUrl()),
+                     this.stateMachine._stateMachineToUrl(this.fields),
                      {
                        notify: false,
                      });
+      this._loadGridData();
     },
 
     clearClientSortAndFilter: function() {
-      var newRouteParams = _.clone(this.$stateParams);
+      this.stateMachine.page = undefined;
+      // this.stateMachine.layout = undefined;
+      this.stateMachine.column = undefined;
+      this.stateMachine.direction = undefined;
+      this.stateMachine.quickFilterShown = false;
+      this.stateMachine.filters = undefined;
 
-      newRouteParams.page = undefined;
-      // newRouteParams.layout = undefined;
-      newRouteParams.column = undefined;
-      newRouteParams.direction = undefined;
-      newRouteParams.qf = undefined;
-      newRouteParams.filters = undefined;
-
-      this.$state.go(this.$state.current.name, newRouteParams);
+      this.$state.go(this.$state.current.name,
+                     this.stateMachine._stateMachineToUrl(this.fields),
+                     {
+                       notify: false,
+                     });
+      this._loadGridData();
     },
 
     onItemSelect: function(selectedItems) {

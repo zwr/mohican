@@ -70,12 +70,11 @@
       }
     };
 
-    vm.filterBy = function(fieldName) {
+    vm.filterBy = function() {
       vm.owner.getView(
         vm.owner.stateMachine.column,
         vm.owner.stateMachine.direction,
-        vm.owner.stateMachine.filters,
-        fieldName
+        vm.owner.stateMachine.filters
       );
     };
   }
