@@ -32,3 +32,26 @@ Note that this project repo includes two git sobmodule - clone with `--recursive
     rails s
 
 If everything went well, hit [http://localhost:3000/]() and you are good to go.
+
+## Export it
+
+It should be enough to run in the Rails.root:
+
+    rake tmp:clear ; rm -rf public/assets; rm tmp/assets.tar.gz ; rake assets:precompile ; rake zwr:undigest_assets
+
+and everything should be in public/assets, plus the package tmp/assets.tar.gz.
+
+### Naming convention
+
+At this point, releases are ordered by number, so Mohican release 002 is just
+that. There can be more apps based on same Mohican release, but Mohican release
+must be tagged with a tag mn_002.
+
+Any shipped package should be named the following:
+
+    mn_002_appname_hash.tar.gz
+
+where 002 is the mohican release matching a tag, appname is a free and
+possibly empty app name and hash is an exact hash of the commit which is packed.
+This hash will mostly not match the tag, but hte tag must be its ancestor and
+no changes in Mohican must be in between, only the demo app.
