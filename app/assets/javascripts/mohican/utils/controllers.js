@@ -125,30 +125,27 @@
         that.resolve.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.backendFilter).then(function(pageCount) {
           that.pageCount = pageCount;
           if(MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams)) {
-            that._loadGridData();
-          }
-        });
-      });
-    },
+            that.resolve.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
+              that.items = items;
+              // We want to be careful to call waitFullyLoaded only when the
+              // initial promise has returned! Now we are sure the eager loading
+              // is ongoing.
+              that.resolve.waitFullyLoaded().then(function() {
+                that.fullyLoaded = true;
+                if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
+                  that.stateMachine.page = that.$state.params.page;
 
-    _loadGridData: function() {
-      var that = this;
-      that.resolve.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
-        that.items = items;
-        // We want to be careful to call waitFullyLoaded only when the
-        // initial promise has returned! Now we are sure the eager loading
-        // is ongoing.
-        that.resolve.waitFullyLoaded().then(function() {
-          that.fullyLoaded = true;
-          if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
-            that.resolve.getClientPage(that.stateMachine.page,
-                                       that.stateMachine.column,
-                                       that.stateMachine.direction,
-                                       that.stateMachine.filters,
-                                       that.fields).then(function(data) {
-              that.items = data.items;
-              that.pageCount = data.pageCount;
-              MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+                  that.resolve.getClientPage(that.stateMachine.page,
+                                             that.stateMachine.column,
+                                             that.stateMachine.direction,
+                                             that.stateMachine.filters,
+                                             that.fields).then(function(data) {
+                    that.items = data.items;
+                    that.pageCount = data.pageCount;
+                    MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+                  });
+                }
+              });
             });
           }
         });
@@ -162,7 +159,15 @@
                      {
                        notify: false,
                      });
-      this._loadGridData();
+       this.resolve.getClientPage(this.stateMachine.page,
+                                  this.stateMachine.column,
+                                  this.stateMachine.direction,
+                                  this.stateMachine.filters,
+                                  this.fields).then(function(data) {
+         this.items = data.items;
+         this.pageCount = data.pageCount;
+        //  MohicanUtils.validatePageParameter(this.stateMachine.page, this.pageCount, this.$state, this.$stateParams);
+       });
     },
 
     getLayout: function(layout) {
@@ -191,7 +196,16 @@
                      {
                        notify: false,
                      });
-      this._loadGridData();
+       var that = this;
+       that.resolve.getClientPage(that.stateMachine.page,
+                                  that.stateMachine.column,
+                                  that.stateMachine.direction,
+                                  that.stateMachine.filters,
+                                  that.fields).then(function(data) {
+         that.items = data.items;
+         that.pageCount = data.pageCount;
+         MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+       });
     },
 
     toggleQuickFilter: function() {
@@ -205,7 +219,16 @@
                      {
                        notify: false,
                      });
-      this._loadGridData();
+       var that = this;
+       that.resolve.getClientPage(that.stateMachine.page,
+                                  that.stateMachine.column,
+                                  that.stateMachine.direction,
+                                  that.stateMachine.filters,
+                                  that.fields).then(function(data) {
+         that.items = data.items;
+         that.pageCount = data.pageCount;
+         MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+       });
     },
 
     clearClientSortAndFilter: function() {
@@ -221,7 +244,16 @@
                      {
                        notify: false,
                      });
-      this._loadGridData();
+       var that = this;
+       that.resolve.getClientPage(that.stateMachine.page,
+                                  that.stateMachine.column,
+                                  that.stateMachine.direction,
+                                  that.stateMachine.filters,
+                                  that.fields).then(function(data) {
+         that.items = data.items;
+         that.pageCount = data.pageCount;
+         MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+       });
     },
 
     onItemSelect: function(selectedItems) {
