@@ -13,7 +13,6 @@
       filters:          undefined,
 
       _stateMachineFromUrl: function($stateParams, resolve) {
-        console.log('_stateMachineFromUrl');
         //if we have qf or qs on, show first page from backend filter,
         //but after loading data is finished, page will be set to $stateParams.page
         //also check resolve.thePromise to see if user has changed page while eager loading
@@ -35,6 +34,9 @@
         var qfilter;
         //just testing
         if(this.quickFilterShown === 'true' || this.quickFilterShown === true) {
+          qfilter = false;
+        }
+        else {
           qfilter = true;
         }
         return {
@@ -191,30 +193,13 @@
     },
 
     toggleQuickFilter: function() {
-      // console.log(this.stateMachine.quickFilterShown);
-      // this.stateMachine.quickFilterShown = !this.stateMachine.quickFilterShown;
-      // console.log(this.stateMachine.quickFilterShown);
-      // if(!this.stateMachine.quickFilterShown) {
-      //   this.stateMachine.filters = undefined;
-      // }
-      // this.stateMachine.page = 1;//for all client side actions reset page to 1
-      //
-      // console.log(this.stateMachine._stateMachineToUrl().qf);
-      // console.log(this.$stateParams);
-      //
-      // this.$state.go(this.$state.current.name,
-      //                MohicanUtils.escapeDefaultParameters(this.stateMachine._stateMachineToUrl()),
-      //                {
-      //                  notify: false,
-      //                });
-      var newRouteParams = _.clone(this.$stateParams);
-      newRouteParams.qf = !this.quickFilterShown;
-      if(!newRouteParams.qf) {
-        newRouteParams.filters = undefined;
+      if(!this.stateMachine.quickFilterShown) {
+        this.stateMachine.filters = undefined;
       }
-      newRouteParams.page = 1;//for all client side actions reset page to 1
+      this.stateMachine.page = 1;//for all client side actions reset page to 1
+
       this.$state.go(this.$state.current.name,
-                     MohicanUtils.escapeDefaultParameters(newRouteParams),
+                     MohicanUtils.escapeDefaultParameters(this.stateMachine._stateMachineToUrl()),
                      {
                        notify: false,
                      });
