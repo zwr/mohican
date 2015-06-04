@@ -9,7 +9,6 @@
       column:           undefined,
       direction:        undefined,
       quickFilterShown: undefined,
-      qfFocus:          undefined,
       filters:          undefined,
 
       _stateMachineFromUrl: function($stateParams, resolve) {
@@ -39,10 +38,9 @@
         this.backendFilter = $stateParams.backendfilter;
         this.column = $stateParams.column;
         this.direction = $stateParams.direction;
-        this.qfFocus = $stateParams.qf;
 
         //filters and qf show will be available after fullyLoaded
-        this.quickFilterShown = false;
+        this.quickFilterShown = $stateParams.qf;
         this.filters = undefined;
       },
 
@@ -54,7 +52,6 @@
           column:        this.column,
           direction:     this.direction,
           qf:            this.quickFilterShown,
-          qfFocus:       this.qfFocus,
           filters:       MohicanUtils.jsonToUrlParam(this.filters, fields),
         });
       },
@@ -180,7 +177,7 @@
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 
-    getView: function(column, direction, filters) {
+    getView: function(column, direction) {
       this.stateMachine.page = 1;//for all client side actions reset page to 1
       if(column) {
         this.stateMachine.column = column;
@@ -188,10 +185,6 @@
       if(direction) {
         this.stateMachine.direction = direction;
       }
-      if(filters) {
-        this.stateMachine.filters = filters;
-      }
-      console.log(this.stateMachine._stateMachineToUrl(this.fields));
 
       this.$state.go(this.$state.current.name,
                      this.stateMachine._stateMachineToUrl(this.fields),

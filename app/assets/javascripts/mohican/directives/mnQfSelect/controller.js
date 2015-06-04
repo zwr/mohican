@@ -32,7 +32,7 @@
         if(rememberCurrentSelectedList === vm.model) {
           vm.qfChanged({fieldName: vm.field.name});
         }
-      }, 800);
+      });
     };
   }
 })();

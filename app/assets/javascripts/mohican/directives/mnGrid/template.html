@@ -21,27 +21,24 @@
         </th>
         <th></th>
       </tr>
-      <tr ng-show="grid.owner.stateMachine.quickFilterShown">
+      <tr ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
         <th ng-show="grid.showSelectColumn"></th>
         <th ng-repeat="field in grid.owner.fields">
           <mn-qf-text
                 ng-if="field.quickfilter === 'text'"
                 model="grid.owner.stateMachine.filters[field.name]"
                 qf-changed="grid.filterBy(fieldName)"
-                field="field"
-                focus="grid.owner.stateMachine.qfFocus === field.name"></mn-qf-text>
+                field="field"></mn-qf-text>
           <mn-qf-date-range
                 ng-if="field.quickfilter === 'date-range'"
                 model="grid.owner.stateMachine.filters[field.name]"
                 qf-changed="grid.filterBy(fieldName)"
-                field="field"
-                focus="grid.owner.stateMachine.qfFocus === field.name"></mn-qf-date-range>
+                field="field"></mn-qf-date-range>
           <mn-qf-select
                 ng-if="field.quickfilter === 'select'"
                 model="grid.owner.stateMachine.filters[field.name]"
                 qf-changed="grid.filterBy(fieldName)"
-                field="field"
-                focus="grid.owner.stateMachine.qfFocus === field.name"></mn-qf-select>
+                field="field"></mn-qf-select>
         </th>
         <th></th>
       </tr>
