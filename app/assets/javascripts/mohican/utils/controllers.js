@@ -240,17 +240,17 @@
 
       this.$state.go(this.$state.current.name,
                      this.stateMachine._stateMachineToUrl(this.fields),
-                     { notify: false });
-       var that = this;
-       that.resolve.getClientPage(that.stateMachine.page,
-                                  that.stateMachine.column,
-                                  that.stateMachine.direction,
-                                  that.stateMachine.filters,
-                                  that.fields).then(function(data) {
-         that.items = data.items;
-         that.pageCount = data.pageCount;
-         MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
-       });
+                     { notify: true });
+      //  var that = this;
+      //  that.resolve.getClientPage(that.stateMachine.page,
+      //                             that.stateMachine.column,
+      //                             that.stateMachine.direction,
+      //                             that.stateMachine.filters,
+      //                             that.fields).then(function(data) {
+      //    that.items = data.items;
+      //    that.pageCount = data.pageCount;
+      //    MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+      //  });
     },
 
     clearClientSortAndFilter: function() {
