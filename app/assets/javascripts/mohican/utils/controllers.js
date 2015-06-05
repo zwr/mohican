@@ -153,19 +153,20 @@
     },
 
     getPage: function(page) {
+      var that = this;
       this.stateMachine.page = page;
       this.$state.go(this.$state.current.name,
                      this.stateMachine._stateMachineToUrl(this.fields),
                      {
                        notify: false,
                      });
-       this.resolve.getClientPage(this.stateMachine.page,
+      this.resolve.getClientPage(this.stateMachine.page,
                                   this.stateMachine.column,
                                   this.stateMachine.direction,
                                   this.stateMachine.filters,
                                   this.fields).then(function(data) {
-         this.items = data.items;
-         this.pageCount = data.pageCount;
+         that.items = data.items;
+         that.pageCount = data.pageCount;
         //  MohicanUtils.validatePageParameter(this.stateMachine.page, this.pageCount, this.$state, this.$stateParams);
        });
     },
