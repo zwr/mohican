@@ -62,7 +62,7 @@
     vm.orderBy = function(field) {
       if(field.quicksort === true && vm.owner.fullyLoaded) {
         trace_timestamp('Clicked header, starting sorting. ******************************');
-        vm.owner.getView(
+        vm.owner.clientViewChanged(
           field.name,
           //change direction only if orderColumn is clicked second time in row
           ((vm.owner.stateMachine.direction === 'asc' && vm.owner.stateMachine.column === field.name) ? 'desc' : 'asc')
@@ -71,7 +71,7 @@
     };
 
     vm.filterBy = function() {
-      vm.owner.getView(
+      vm.owner.clientViewChanged(
         vm.owner.stateMachine.column,
         vm.owner.stateMachine.direction,
         vm.owner.stateMachine.filters

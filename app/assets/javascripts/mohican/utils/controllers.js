@@ -16,7 +16,7 @@
           this.backendfilter = 'default';
         }
         if (!$stateParams.page) {
-          this.page = '1';
+          this.page = 1;
         }
         if (!$stateParams.layout) {
           this.layout = 'default';
@@ -59,6 +59,7 @@
 
     backendFilters: undefined,
     layouts:        undefined,
+    layoutDefs:     undefined,
     resolve:        undefined,
     $stateParams:   undefined,
     $state:         undefined,
@@ -88,6 +89,7 @@
       }
       this.fullyLoaded = false;
       this.layouts = [];
+      this.layoutDefs = [];
       this.backendFilters = [];
       this.resolve = resolve;
     },
@@ -95,8 +97,10 @@
     loadData: function() {
       var that = this;
 
-      that.resolve.getPreviewDefinitions().then(function(definition) {
-        definition.layouts.forEach(function(layout) {
+      that.resolve.getPreviewDefinitions().
+      then(function(definition) {
+        that.layoutDefs = definition.layouts;
+        that.layoutDefs.forEach(function(layout) {
           that.layouts.push({
             name:     layout.name,
             show:     'Layout: ' + layout.name,
@@ -107,6 +111,8 @@
             that.fields = layout.definition;
           }
         });
+      }).
+      then(function() {
         MohicanUtils.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.$state, that.$stateParams);
         that.resolve.getBackendFilters().then(function(backendFilters) {
           backendFilters.forEach(function(backendFilter) {
@@ -133,7 +139,7 @@
               that.resolve.waitFullyLoaded().then(function() {
                 that.fullyLoaded = true;
                 if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
-                  that.stateMachine.page = that.$state.params.page;
+                  that.stateMachine.page = parseInt(angular.isUndefined(that.$state.params.page) ? 1 : parseInt(that.$state.params.page));
 
                   that.resolve.getClientPage(that.stateMachine.page,
                                              that.stateMachine.column,
@@ -154,7 +160,7 @@
 
     getPage: function(page) {
       var that = this;
-      this.stateMachine.page = page;
+      this.stateMachine.page = parseInt(page);
       this.$state.go(this.$state.current.name,
                      this.stateMachine._stateMachineToUrl(this.fields),
                      { notify: false });
@@ -169,10 +175,17 @@
        });
     },
 
-    getLayout: function(layout) {
-      var newRouteParams = _.clone(this.$stateParams);
-      newRouteParams.layout = layout;
-      this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
+    clientLayoutChanged: function(newLayoutName) {
+      this.stateMachine.page = 1;
+      var that = this;
+      this.layoutDefs.forEach(function(layout) {
+        if(layout.name === newLayoutName) {
+          that.fields = layout.definition;
+        }
+      });
+      this.$state.go(this.$state.current.name,
+                     this.stateMachine._stateMachineToUrl(this.fields),
+                     { notify: false });
     },
 
     getBackendFilters: function(backendFilter) {
@@ -181,7 +194,7 @@
       this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
     },
 
-    getView: function(column, direction) {
+    clientViewChanged: function(column, direction) {
       this.stateMachine.page = 1;//for all client side actions reset page to 1
       if(column) {
         this.stateMachine.column = column;

@@ -4,7 +4,7 @@
       <div isteven-multi-select
             class="inline-multi-select"
             input-model="filterBar.owner.layouts"
-            on-item-click="filterBar.owner.getLayout(data.name)"
+            on-item-click="filterBar.owner.clientLayoutChanged(data.name)"
             output-model="filterBar.outputBrowsers"
             button-label="show"
             item-label="name desc"
