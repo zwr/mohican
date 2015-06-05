@@ -157,9 +157,7 @@
       this.stateMachine.page = page;
       this.$state.go(this.$state.current.name,
                      this.stateMachine._stateMachineToUrl(this.fields),
-                     {
-                       notify: false,
-                     });
+                     { notify: false });
       this.resolve.getClientPage(this.stateMachine.page,
                                   this.stateMachine.column,
                                   this.stateMachine.direction,
@@ -194,9 +192,7 @@
 
       this.$state.go(this.$state.current.name,
                      this.stateMachine._stateMachineToUrl(this.fields),
-                     {
-                       notify: false,
-                     });
+                     { notify: false });
        var that = this;
        that.resolve.getClientPage(that.stateMachine.page,
                                   that.stateMachine.column,
@@ -217,9 +213,7 @@
 
       this.$state.go(this.$state.current.name,
                      this.stateMachine._stateMachineToUrl(this.fields),
-                     {
-                       notify: false,
-                     });
+                     { notify: false });
        var that = this;
        that.resolve.getClientPage(that.stateMachine.page,
                                   that.stateMachine.column,
@@ -242,9 +236,7 @@
 
       this.$state.go(this.$state.current.name,
                      this.stateMachine._stateMachineToUrl(this.fields),
-                     {
-                       notify: false,
-                     });
+                     { notify: false });
        var that = this;
        that.resolve.getClientPage(that.stateMachine.page,
                                   that.stateMachine.column,
