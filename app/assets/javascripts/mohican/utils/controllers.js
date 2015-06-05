@@ -32,7 +32,7 @@
           this.page = 1;
         }
         else {
-          this.page = $stateParams.page;
+          this.page = parseInt($stateParams.page);
         }
         this.layout = $stateParams.layout;
         this.backendFilter = $stateParams.backendfilter;
@@ -40,7 +40,7 @@
         this.direction = $stateParams.direction;
 
         //filters and qf show will be available after fullyLoaded
-        this.quickFilterShown = $stateParams.qf;
+        this.quickFilterShown = $stateParams.qf === 'true' ? true : false;
         this.filters = undefined;
       },
 
