@@ -158,21 +158,35 @@
       });
     },
 
-    getPage: function(page) {
+    pageChanged: function(page) {
       var that = this;
-      this.stateMachine.page = parseInt(page);
-      this.$state.go(this.$state.current.name,
-                     this.stateMachine._stateMachineToUrl(this.fields),
-                     { notify: false });
-      this.resolve.getClientPage(this.stateMachine.page,
-                                  this.stateMachine.column,
-                                  this.stateMachine.direction,
-                                  this.stateMachine.filters,
-                                  this.fields).then(function(data) {
-         that.items = data.items;
-         that.pageCount = data.pageCount;
-        //  MohicanUtils.validatePageParameter(this.stateMachine.page, this.pageCount, this.$state, this.$stateParams);
-       });
+      if(this.resolve.thePromise !== null) {
+        this.stateMachine.page = parseInt(page);
+        // this.stateMachine.layout = undefined;
+        this.stateMachine.column = undefined;
+        this.stateMachine.direction = undefined;
+        this.stateMachine.quickFilterShown = false;
+        this.stateMachine.filters = undefined;
+
+        this.$state.go(this.$state.current.name,
+                       this.stateMachine._stateMachineToUrl(this.fields),
+                       { notify: true });
+      }
+      else {
+        this.stateMachine.page = parseInt(page);
+        this.$state.go(this.$state.current.name,
+                       this.stateMachine._stateMachineToUrl(this.fields),
+                       { notify: false });
+        this.resolve.getClientPage(this.stateMachine.page,
+                                   this.stateMachine.column,
+                                   this.stateMachine.direction,
+                                   this.stateMachine.filters,
+                                   this.fields).then(function(data) {
+          that.items = data.items;
+          that.pageCount = data.pageCount;
+          MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+        });
+      }
     },
 
     clientLayoutChanged: function(newLayoutName) {
@@ -249,17 +263,7 @@
 
       this.$state.go(this.$state.current.name,
                      this.stateMachine._stateMachineToUrl(this.fields),
-                     { notify: false });
-       var that = this;
-       that.resolve.getClientPage(that.stateMachine.page,
-                                  that.stateMachine.column,
-                                  that.stateMachine.direction,
-                                  that.stateMachine.filters,
-                                  that.fields).then(function(data) {
-         that.items = data.items;
-         that.pageCount = data.pageCount;
-         MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
-       });
+                     { notify: true });
     },
 
     onItemSelect: function(selectedItems) {

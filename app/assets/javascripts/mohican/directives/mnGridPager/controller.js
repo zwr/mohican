@@ -19,7 +19,7 @@
     };
 
     vm._changePage = function(page) {
-      vm.owner.getPage(page);
+      vm.owner.pageChanged(page);
     };
 
     vm.isFirstPage = function() {
