@@ -10,11 +10,10 @@
   function MnQfTextController($scope, $element, $timeout) {
     var vm = this;
 
-    if(vm.focus) {
-      $element.find('input')[0].focus();
-    }
-
     vm.inputChanged = function() {
+      if(vm.model === '') {
+        vm.model = undefined;
+      }
       var rememberCurrentText = vm.model;
       $timeout(function() {
         if(rememberCurrentText === vm.model) {

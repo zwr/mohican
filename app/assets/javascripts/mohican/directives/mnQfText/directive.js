@@ -11,7 +11,6 @@ angular.module('mohican.directives')
           qfChanged: '&',
           model: '=',
           field: '=',
-          focus: '=',
         },
         templateUrl: 'mohican/directives/mnQfText/template.html',
         controller: 'MnQfTextController',

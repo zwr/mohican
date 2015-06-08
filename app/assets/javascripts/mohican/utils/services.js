@@ -14,7 +14,7 @@
       // when it is completelly loaded, these two will be 0 and totalCount.
       service.bottomIndex = undefined;
       service.topIndex = undefined;
-      service.totalCount = undefined;
+      service.totfalCount = undefined;
       // Following is set to true when eager loading starts. Setting this to false
       // interupts eager loading, so that we can start it all over again. See
       // where it is set to false to understand why we would do it.
@@ -79,15 +79,24 @@
       collection = collection.filter(function(item) {
         var filtered = true;
         for (var key in filters) {
-          if (filters.hasOwnProperty(key) && !!item[key]) {
-            var filter = filters[key];
-            var value = item[key];
+          var filter = filters[key];
+          var value = item[key];
+          if(angular.isDefined(filter)) {
+            if(angular.isUndefined(value)) {
+              filtered = false;
+              break;
+            }
             var dataField = service._getDataField(dataFields, key);
             if(dataField && dataField.quickfilter === 'date-range') {
               filtered = filtered && (value >= filter.startDate && value <= filter.endDate);
             }
             else if(dataField && dataField.quickfilter === 'select') {
-              filtered = filtered && _.contains(filter, value);
+              if(filter.length === 0) {
+                filtered = filtered && true;
+              }
+              else {
+                filtered = filtered && _.contains(filter, value);
+              }
             }
             else {
               filtered = filtered &&
@@ -97,10 +106,6 @@
             if(!filtered) {
               break;
             }
-          }
-          else {
-            filtered = false;
-            break;
           }
         }
         return filtered;

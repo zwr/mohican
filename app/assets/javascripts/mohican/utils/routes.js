@@ -134,7 +134,9 @@
           }
         }
         else {
-          if(filters[key] !== '') {
+          if(angular.isDefined(filters[key]) &&
+                 filters[key] !== null
+                 && filters[key] !== '') {
             filterObjects.push(key + '$' + filters[key]);
           }
         }

@@ -1,61 +1,74 @@
 (function(MohicanUtils) {
   'use strict';
   trace_timestamp('Executing controller');
-  MohicanUtils.mnBaseController = {
-    stateMachine: {
-      page:             undefined,
-      layout:           undefined,
-      backendFilter:    undefined,
-      column:           undefined,
-      direction:        undefined,
-      quickFilterShown: undefined,
-      filters:          undefined,
+  var stateMachine = {
+    page:             undefined,
+    layout:           undefined,
+    backendFilter:    undefined,
+    column:           undefined,
+    direction:        undefined,
+    quickFilterShown: undefined,
+    filters:          undefined,
 
-      _stateMachineFromUrl: function($stateParams, resolve) {
-        if (!$stateParams.backendfilter) {
-          this.backendfilter = 'default';
-        }
-        if (!$stateParams.page) {
-          this.page = 1;
-        }
-        if (!$stateParams.layout) {
-          this.layout = 'default';
-        }
-        if (!$stateParams.direction) {
-          this.direction = 'asc';
-        }
+    stateMachineFromUrl: function($stateParams, resolve) {
+      if (!$stateParams.backendfilter) {
+        this.backendfilter = 'default';
+      }
+      if (!$stateParams.page) {
+        this.page = 1;
+      }
+      if (!$stateParams.layout) {
+        this.layout = 'default';
+      }
+      if (!$stateParams.direction) {
+        this.direction = 'asc';
+      }
 
-        //if we have qf or qs on, show first page from backend filter,
-        //but after loading data is finished, page will be set to $stateParams.page
-        //also check resolve.thePromise to see if user has changed page while eager loading
-        if(($stateParams.qf || $stateParams.column) && resolve.thePromise === null) {
-          this.page = 1;
-        }
-        else {
-          this.page = parseInt($stateParams.page);
-        }
-        this.layout = $stateParams.layout;
-        this.backendFilter = $stateParams.backendfilter;
-        this.column = $stateParams.column;
-        this.direction = $stateParams.direction;
+      //if we have qf or qs on, show first page from backend filter,
+      //but after loading data is finished, page will be set to $stateParams.page
+      //also check resolve.thePromise to see if user has changed page while eager loading
+      if(($stateParams.qf || $stateParams.column) && resolve.thePromise === null) {
+        this.page = 1;
+      }
+      else {
+        this.page = parseInt($stateParams.page);
+      }
+      this.layout = $stateParams.layout;
+      this.backendFilter = $stateParams.backendfilter;
+      this.column = $stateParams.column;
+      this.direction = $stateParams.direction;
 
-        //filters and qf show will be available after fullyLoaded
-        this.quickFilterShown = $stateParams.qf === 'true' ? true : false;
-        this.filters = undefined;
-      },
-
-      _stateMachineToUrl: function(fields) {
-        return MohicanUtils.escapeDefaultParameters({
-          page:          this.page,
-          layout:        this.layout,
-          backendFilter: this.backendFilter,
-          column:        this.column,
-          direction:     this.direction,
-          qf:            this.quickFilterShown,
-          filters:       MohicanUtils.jsonToUrlParam(this.filters, fields),
-        });
-      },
+      //filters and qf show will be available after fullyLoaded
+      this.quickFilterShown = $stateParams.qf === 'true' ? true : false;
+      this.filters = undefined;
     },
+
+    stateMachineToUrl: function(fields) {
+      // console.log(this.filters);
+      return MohicanUtils.escapeDefaultParameters({
+        page:          this.page,
+        layout:        this.layout,
+        backendFilter: this.backendFilter,
+        column:        this.column,
+        direction:     this.direction,
+        qf:            this.quickFilterShown,
+        filters:       MohicanUtils.jsonToUrlParam(this.filters, fields),
+      });
+    },
+  };
+  // Object.defineProperty(stateMachine, 'filters', {
+  //   get: function() {
+  //     return stateMachine.filters;
+  //   },
+  //   set: function(value) {
+  //     console.log(value);
+  //     stateMachine.filters = value;
+  //   },
+  //   enumerable:   true,
+  //   configurable: true,
+  // });
+  MohicanUtils.mnBaseController = {
+    stateMachine: stateMachine,
 
     backendFilters: undefined,
     layouts:        undefined,
@@ -77,7 +90,7 @@
       this.$stateParams = $stateParams;
       this.$state = $state;
 
-      this.stateMachine._stateMachineFromUrl($stateParams, resolve);
+      this.stateMachine.stateMachineFromUrl($stateParams, resolve);
 
       if(angular.isDefined($stateParams.column) ||
             angular.isDefined($stateParams.qf) ||
@@ -169,13 +182,13 @@
         this.stateMachine.filters = undefined;
 
         this.$state.go(this.$state.current.name,
-                       this.stateMachine._stateMachineToUrl(this.fields),
+                       this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: true });
       }
       else {
         this.stateMachine.page = parseInt(page);
         this.$state.go(this.$state.current.name,
-                       this.stateMachine._stateMachineToUrl(this.fields),
+                       this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false });
         this.resolve.getClientPage(this.stateMachine.page,
                                    this.stateMachine.column,
@@ -198,7 +211,7 @@
         }
       });
       this.$state.go(this.$state.current.name,
-                     this.stateMachine._stateMachineToUrl(this.fields),
+                     this.stateMachine.stateMachineToUrl(this.fields),
                      { notify: false });
     },
 
@@ -218,7 +231,7 @@
       }
 
       this.$state.go(this.$state.current.name,
-                     this.stateMachine._stateMachineToUrl(this.fields),
+                     this.stateMachine.stateMachineToUrl(this.fields),
                      { notify: false });
        var that = this;
        that.resolve.getClientPage(that.stateMachine.page,
@@ -239,7 +252,7 @@
       this.stateMachine.page = 1;//for all client side actions reset page to 1
 
       this.$state.go(this.$state.current.name,
-                     this.stateMachine._stateMachineToUrl(this.fields),
+                     this.stateMachine.stateMachineToUrl(this.fields),
                      { notify: true });
       //  var that = this;
       //  that.resolve.getClientPage(that.stateMachine.page,
@@ -262,7 +275,7 @@
       this.stateMachine.filters = undefined;
 
       this.$state.go(this.$state.current.name,
-                     this.stateMachine._stateMachineToUrl(this.fields),
+                     this.stateMachine.stateMachineToUrl(this.fields),
                      { notify: true });
     },
 
