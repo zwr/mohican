@@ -14,7 +14,7 @@
       // when it is completelly loaded, these two will be 0 and totalCount.
       service.bottomIndex = undefined;
       service.topIndex = undefined;
-      service.totfalCount = undefined;
+      service.totalCount = undefined;
       // Following is set to true when eager loading starts. Setting this to false
       // interupts eager loading, so that we can start it all over again. See
       // where it is set to false to understand why we would do it.
