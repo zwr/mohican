@@ -9,8 +9,11 @@ angular.module('mnOldDirectives', []).directive('mnNavbar', function() {
   var ret;
   return ret = {
     restrict: 'E',
+    scope: {
+      mnRef: '@?'
+    },
     transclude: true,
-    template: '<div class="mn-navbar-title navbar-header pull-left"><a class="navbar-brand" href="/#/"><span ng-transclude></span></a></div>'
+    template: '<div class="mn-navbar-title navbar-header pull-left"><a class="navbar-brand" href="{{mnRef || \'/#/\'}}"><span ng-transclude></span></a></div>'
   };
 }).directive('mnNavbarRight', function() {
   var ret;
