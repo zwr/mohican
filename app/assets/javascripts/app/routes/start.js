@@ -1,7 +1,6 @@
 //= require_self
 
-(function(mnUtil) {
+(function(MohicanUtils) {
   'use strict';
 
-  mnUtil.defineMohicanRoute({name: 'start', controller: function() {}});
 })(window.MohicanUtils);
