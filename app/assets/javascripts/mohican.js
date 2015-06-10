@@ -51,7 +51,26 @@
     'mohican.services',
     'mohican.directives',
     'mnOldDirectives',
-  ]).config(['$httpProvider', function($httpProvider) {
-    $httpProvider.interceptors.push(interceptor);
+  ]).config(['$httpProvider', '$provide', 'mnRouterProvider', '$urlRouterProvider', '$stateProvider',
+    function($httpProvider, $provide, mnRouter, $urlRouterProvider, $stateProvider) {
+      $httpProvider.interceptors.push(interceptor);
+
+      //mnRouter needs references to state and route providers only available
+      //from config phase
+      mnRouter.init($urlRouterProvider, $stateProvider);
+
+      //utility object which stores references to $provide's methods
+      //we need this for runtime creating services/factories
+      angular.module('mohican.services').register =
+            {
+                factory:  $provide.factory,
+                service:  $provide.service,
+                constant: $provide.constant
+            };
+    }
+  ]).run(['mnRouter', function(mnRouter) {
+    //in app run phase when we have all dependencies available for injecting
+    //router can creates all previously added resource routes
+    mnRouter.createAll();
   }]);
 })();

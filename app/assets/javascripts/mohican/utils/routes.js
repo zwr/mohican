@@ -8,19 +8,15 @@
 
   MohicanUtils._mohicanRoute = function(routeName, controller, $stateProvider) {
     MohicanUtils.routes.push(routeName);
-    // return function($stateProvider) {
-    console.log('creating route');
-      $stateProvider.state('base.' + routeName, {
-        url: '/' + MohicanUtils.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters',
-        templateUrl: 'app/routes/' + routeName + 'Grid.html',
-        controller: controller,
-        controllerAs: 'ctrl',
-      });
-    // };
+    $stateProvider.state('base.' + routeName, {
+      url: '/' + MohicanUtils.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters',
+      templateUrl: 'app/routes/' + routeName + 'Grid.html',
+      controller: controller,
+      controllerAs: 'ctrl',
+    });
   };
 
   MohicanUtils.defineMohicanRoute = function(definition, $stateProvider) {
-    console.log(definition);
     var i;
     if(definition.service) {
       if(definition.controller && Array.isArray(definition.controller)) {
@@ -31,10 +27,8 @@
         }
       }
 
-      angular.module('mohican.services').
+      angular.module('mohican.services').register.
           factory(definition.name + 'Service', definition.service);
-
-      console.log('service created');
     }
     MohicanUtils._mohicanRoute(definition.name, definition.controller, $stateProvider);
   };

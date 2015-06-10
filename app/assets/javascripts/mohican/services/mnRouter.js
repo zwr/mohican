@@ -20,18 +20,22 @@
         abstract: true,
         url:      '',
         views:    { '': { template: '<ui-view/>' } },
-        //util makes an array of default services resolvers for all routes
-        //which will be injected into specific route controllers
-        //resolve: window.MohicanUtils.makeDefaultServiceResolvers(),
       });
     };
+
+    provider.addResouceRoute = function(definition) {
+      provider.routes.push(definition);
+    };
+
     this.$get = [function() {
-      function addResouceRoute(route) {
-        MohicanUtils.defineMohicanRoute(route, $stateProviderRef);
+      function createAll() {
+        provider.routes.forEach(function(route) {
+          MohicanUtils.defineMohicanRoute(route, $stateProviderRef);
+        });
       }
 
       return {
-        addResouceRoute: addResouceRoute,
+        createAll: createAll,
       };
     }];
   }
