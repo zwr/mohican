@@ -1,10 +1,7 @@
 (function(MohicanUtils) {
   'use strict';
 
-  MohicanUtils.mnBaseFactory = function(docname, $http, $q) {
-    var service = {};
-    // We will activate the following later
-
+  MohicanUtils.extendBaseService = function(service, docname, $http, $q) {
     service.resetLoading = function() {
       service.buffer = null;
       service.bufferBackendFilter = null;

@@ -2,7 +2,25 @@
   'use strict';
   trace_timestamp('Executing controller');
   var stateMachine = MohicanUtils.stateMachine;
-  
+
+  MohicanUtils.extendBaseController = function(ctrl, resolve, $stateParams, $state, $scope) {
+    _.assign(ctrl, MohicanUtils.mnBaseController);
+    ctrl.initialize(resolve, $stateParams, $state, $scope);
+    ctrl.loadData();
+    ctrl.reportLocation = '/reports';
+    ctrl.attached = false;
+    ctrl.printMe = function(item) {
+      console.log(item);
+      angular.element('#printf').attr('src', '/id.pdf');
+      if(!ctrl.attached) {
+        ctrl.attached = true;
+        angular.element('#print-f').load(function() {
+          window.frames['print-f'].focus();
+          window.frames['print-f'].print();
+        });
+      }
+    };
+  }
   MohicanUtils.mnBaseController = {
     stateMachine: stateMachine,
 
