@@ -33,7 +33,7 @@
       provider.addResouceRoute(definition);
     };
 
-    this.$get = [function() {
+    this.$get = ['$stateParams', '$state', function($stateParams, $state) {
       function createAll() {
         provider.routes.forEach(function(route) {
           MohicanUtils.defineMohicanRoute(route, $stateProviderRef);
@@ -41,7 +41,9 @@
       }
 
       return {
-        createAll: createAll,
+        createAll:    createAll,
+        $stateParams: $stateParams,
+        $state:       $state,
       };
     }];
   }

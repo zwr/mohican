@@ -3,9 +3,9 @@
   trace_timestamp('Executing controller');
   var stateMachine = MohicanUtils.stateMachine;
 
-  MohicanUtils.extendBaseController = function(ctrl, resolve, $stateParams, $state, $scope, mnRouter) {
+  MohicanUtils.extendBaseController = function(ctrl, resolve, mnRouter) {
     _.assign(ctrl, MohicanUtils.mnBaseController);
-    ctrl.initialize(resolve, $stateParams, $state, $scope);
+    ctrl.initialize(resolve, mnRouter.$stateParams, mnRouter.$state);
     ctrl.loadData();
     ctrl.reportLocation = '/reports';
     ctrl.attached = false;

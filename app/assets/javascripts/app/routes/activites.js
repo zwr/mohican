@@ -7,9 +7,9 @@
             mnRouterProvider.addResouceRoute({
               name: 'activities',
 
-              controller: ['service', '$stateParams', '$state', '$scope', 'mnRouter',
-                function(resolve, $stateParams, $state, $scope, mnRouter) {
-                  MohicanUtils.extendBaseController(this, resolve, $stateParams, $state, $scope, mnRouter);
+              controller: ['service', 'mnRouter',
+                function(resolve, mnRouter) {
+                  MohicanUtils.extendBaseController(this, resolve, mnRouter);
                 }
               ],
 

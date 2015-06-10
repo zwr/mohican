@@ -4,7 +4,7 @@
   MohicanUtils.stateMachine = {
     page:             undefined,
     layout:           undefined,
-    backendFilter:    undefined,
+    backendfilter:    undefined,
     column:           undefined,
     direction:        undefined,
     quickFilterShown: undefined,
@@ -48,7 +48,7 @@
       return MohicanUtils.escapeDefaultParameters({
         page:          this.page,
         layout:        this.layout,
-        backendFilter: this.backendFilter,
+        backendfilter: this.backendFilter,
         column:        this.column,
         direction:     this.direction,
         qf:            this.quickFilterShown,
