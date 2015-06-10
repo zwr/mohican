@@ -3,8 +3,8 @@
 (function(MohicanUtils) {
   'use strict';
   angular.module('id5').
-          config(['mnRouterProvider', function(mnRouter) {
-            mnRouter.addSimpleRoute({
+          config(['mnRouterProvider', function(mnRouterProvider) {
+            mnRouterProvider.addSimpleRoute({
               name:       'start',
               default:    true,
               controller: function() {}

@@ -3,7 +3,7 @@
   trace_timestamp('Executing controller');
   var stateMachine = MohicanUtils.stateMachine;
 
-  MohicanUtils.extendBaseController = function(ctrl, resolve, $stateParams, $state, $scope) {
+  MohicanUtils.extendBaseController = function(ctrl, resolve, $stateParams, $state, $scope, mnRouter) {
     _.assign(ctrl, MohicanUtils.mnBaseController);
     ctrl.initialize(resolve, $stateParams, $state, $scope);
     ctrl.loadData();
@@ -20,7 +20,8 @@
         });
       }
     };
-  }
+  };
+
   MohicanUtils.mnBaseController = {
     stateMachine: stateMachine,
 
