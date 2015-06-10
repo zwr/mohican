@@ -7,7 +7,7 @@
             mnRouter.addResouceRoute({
               name: 'activities',
 
-              controller: ['activitiesService', '$stateParams', '$state', '$scope',
+              controller: ['service', '$stateParams', '$state', '$scope',
                 function(resolve, $stateParams, $state, $scope) {
                   _.assign(this, MohicanUtils.mnBaseController);
                   this.initialize(resolve, $stateParams, $state, $scope);
