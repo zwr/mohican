@@ -4,6 +4,10 @@
   'use strict';
   angular.module('id5').
           config(['mnRouterProvider', function(mnRouter) {
-            mnRouter.addResouceRoute({name: 'start', controller: function() {}});
+            mnRouter.addSimpleRoute({
+              name:       'start',
+              default:    true,
+              controller: function() {}
+            });
           }]);
 })(window.MohicanUtils);

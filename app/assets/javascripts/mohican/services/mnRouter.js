@@ -15,7 +15,6 @@
     provider.init = function($urlRouterProvider, $stateProvider) {
       $urlRouterProviderRef = $urlRouterProvider;
       $stateProviderRef = $stateProvider;
-      $urlRouterProvider.otherwise('/start');
       $stateProvider.state('base', {
         abstract: true,
         url:      '',
@@ -25,6 +24,13 @@
 
     provider.addResouceRoute = function(definition) {
       provider.routes.push(definition);
+      if(angular.isDefined(definition.default)) {
+        $urlRouterProviderRef.otherwise('/' + definition.name);
+      }
+    };
+
+    provider.addSimpleRoute = function(definition) {
+      provider.addResouceRoute(definition);
     };
 
     this.$get = [function() {
