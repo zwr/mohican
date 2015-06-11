@@ -37,7 +37,7 @@
           return null;
         }
         return $q.reject(rejection);
-      },
+      }
     };
   }];
 
@@ -50,7 +50,7 @@
     'mohican.routes',
     'mohican.services',
     'mohican.directives',
-    'mnOldDirectives',
+    'mnOldDirectives'
   ]).config(['$httpProvider', '$provide', 'mnRouterProvider', '$urlRouterProvider', '$stateProvider',
     function($httpProvider, $provide, mnRouter, $urlRouterProvider, $stateProvider) {
       $httpProvider.interceptors.push(interceptor);

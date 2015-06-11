@@ -9,14 +9,14 @@ angular.module('mohican.directives')
         scope: {
           qfChanged: '&',
           model:     '=',
-          field:     '=',
+          field:     '='
         },
         restrict:     'E',
         templateUrl:  'mohican/directives/mnQfText/template.html',
         controller:   'MnQfTextController',
         controllerAs: 'qfText',
 
-        bindToController: true,
+        bindToController: true
       };
-    },
+    }
   ]);

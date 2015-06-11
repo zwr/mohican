@@ -6,8 +6,8 @@
 angular.element(document).ready(function documentReady() {
   'use strict';
   angular.bootstrap(document.querySelector('[data-main-app]'), [
-    'id5',
+    'id5'
   ], {
-    strictDi: true,
+    strictDi: true
   });
 });

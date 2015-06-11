@@ -13,7 +13,7 @@
 
       templateUrl:  'app/routes/' + routeName + 'Grid.html',
       controller:   controller,
-      controllerAs: 'ctrl',
+      controllerAs: 'ctrl'
     });
   };
 
@@ -158,7 +158,7 @@
           var endDate = new Date(rangeParams[1].split('_').join(' '));
           filtersObject[keyValue[0]] = {
             startDate: startDate,
-            endDate:   endDate,
+            endDate:   endDate
           };
         }
         else if(field.quickfilter === 'select') {

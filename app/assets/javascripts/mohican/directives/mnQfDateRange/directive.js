@@ -10,14 +10,14 @@ angular.module('mohican.directives')
           qfChanged: '&',
           model:     '=',
           field:     '=',
-          focus:     '=',
+          focus:     '='
         },
         restrict:     'E',
         templateUrl:  'mohican/directives/mnQfDateRange/template.html',
         controller:   'MnQfDateRangeController',
         controllerAs: 'qfDateRange',
 
-        bindToController: true,
+        bindToController: true
       };
-    },
+    }
   ]);

@@ -8,7 +8,7 @@
     .directive('mnGridPager', [function() {
         return {
           scope: {
-            owner: '=?',
+            owner: '=?'
           },
           restrict:     'E',
           templateUrl:  'mohican/directives/mnGridPager/template.html',
@@ -19,8 +19,8 @@
 
           link: function(scope, element, attrs, ctrl) {
             ctrl.owner = scope.owner = mohican.scopeLookup(scope);
-          },
+          }
         };
-      },
+      }
     ]);
   }(window.mohican));

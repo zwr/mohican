@@ -18,7 +18,7 @@
       $stateProvider.state('base', {
         abstract: true,
         url:      '',
-        views:    { '': { template: '<ui-view/>' } },
+        views:    { '': { template: '<ui-view/>' } }
       });
     };
 
@@ -43,7 +43,7 @@
       return {
         createAll:    createAll,
         $stateParams: $stateParams,
-        $state:       $state,
+        $state:       $state
       };
     }];
   }

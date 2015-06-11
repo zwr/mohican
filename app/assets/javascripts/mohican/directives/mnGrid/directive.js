@@ -13,7 +13,7 @@
             mnId:         '@?',
             mnSelect:     '@?',
             mnSelectType: '@?',
-            mnOnSelect:   '&',
+            mnOnSelect:   '&'
           },
           restrict:     'E',
           transclude:   true,
@@ -30,9 +30,9 @@
                 itemElement.append(notLinkedClone);
               });
             };
-          },
+          }
         };
-      },
+      }
     ]);
 
   angular.module('mohican.directives')
@@ -42,7 +42,7 @@
         link:  function(scope, element) {
           scope.ctrl = scope.$parent.owner;
           scope.$parent.compileItForMe(scope, element);
-        },
+        }
       };
     }]);
 }(window.mohican));

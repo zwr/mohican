@@ -45,7 +45,7 @@
         vm.selectedItems.splice(index, 1);
       }
       vm.mnOnSelect({
-        selectedItems: vm.selectedItems,
+        selectedItems: vm.selectedItems
       });
     };
 

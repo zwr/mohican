@@ -10,14 +10,14 @@ angular.module('mohican.directives')
           qfChanged: '&',
           model:     '=',
           field:     '=',
-          focus:     '=',
+          focus:     '='
         },
         restrict:     'E',
         templateUrl:  'mohican/directives/mnQfSelect/template.html',
         controller:   'MnQfSelectController',
         controllerAs: 'qfSelect',
 
-        bindToController: true,
+        bindToController: true
       };
-    },
+    }
   ]);

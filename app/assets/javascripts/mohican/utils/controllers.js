@@ -58,7 +58,7 @@
             name:     layout.name,
             show:     'Layout: ' + layout.name,
             desc:     'Shows ' + layout.definition.length + ' fields',
-            selected: layout.name === that.stateMachine.layout,
+            selected: layout.name === that.stateMachine.layout
           });
           if(layout.name === that.stateMachine.layout) {
             that.fields = layout.definition;
@@ -72,7 +72,7 @@
             that.backendFilters.push({
               name:     backendFilter.name,
               show:     'Filter: ' + backendFilter.name,
-              selected: backendFilter.name === that.stateMachine.backendFilter,
+              selected: backendFilter.name === that.stateMachine.backendFilter
             });
           });
           mohican.validateBackendFilterParameter(that.stateMachine.backendFilter, that.backendFilters, that.$state, that.$stateParams);
@@ -221,6 +221,6 @@
 
     onItemSelect: function(selectedItems) {
       console.log(selectedItems);
-    },
+    }
   };
 }(window.mohican));

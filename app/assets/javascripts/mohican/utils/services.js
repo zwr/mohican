@@ -156,7 +156,7 @@
           (pageNumber - 1) * service.pageSize - service.bottomIndex,
           pageNumber * service.pageSize - service.bottomIndex
         ),
-        pageCount: viewpageCount,
+        pageCount: viewpageCount
       });
       service.bufferView = null;
       return res;

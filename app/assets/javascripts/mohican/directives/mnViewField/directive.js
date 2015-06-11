@@ -8,14 +8,14 @@ angular.module('mohican.directives')
       return {
         scope: {
           model: '=',
-          field: '=',
+          field: '='
         },
         restrict:     'E',
         templateUrl:  'mohican/directives/mnViewField/template.html',
         controller:   'mnViewFieldController',
         controllerAs: 'viewField',
 
-        bindToController: true,
+        bindToController: true
       };
-    },
+    }
   ]);

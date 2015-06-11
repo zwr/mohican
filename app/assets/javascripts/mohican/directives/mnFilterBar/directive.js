@@ -7,7 +7,7 @@
     .directive('mnFilterBar', [function() {
         return {
           scope: {
-            owner: '=?',
+            owner: '=?'
           },
           restrict:     'E',
           templateUrl:  'mohican/directives/mnFilterBar/template.html',
@@ -18,8 +18,8 @@
 
           link: function(scope, element, attrs, ctrl) {
             ctrl.owner = scope.owner = mohican.scopeLookup(scope);
-          },
+          }
         };
-      },
+      }
     ]);
 }(window.mohican));

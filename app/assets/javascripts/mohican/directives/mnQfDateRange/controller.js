@@ -13,13 +13,13 @@
     if(vm.model) {
       vm.dateRange = {
         startDate: vm.model.startDate,
-        endDate:   vm.model.endDate,
+        endDate:   vm.model.endDate
       };
     }
     else {
       vm.dateRange = {
         startDate: null,
-        endDate:   null,
+        endDate:   null
       };
     }
 
@@ -31,7 +31,7 @@
         else {
           vm.model = {
             startDate: newValue.startDate,
-            endDate:   newValue.endDate,
+            endDate:   newValue.endDate
           };
         }
         $timeout(function() {

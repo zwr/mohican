@@ -15,12 +15,12 @@
     vm.field.values.forEach(function(value) {
       vm.selectItems.push({
         name:     value,
-        selected: _.contains(vm.model, value),
+        selected: _.contains(vm.model, value)
       });
     });
 
     vm.labels = {
-      nothingSelected: 'All',
+      nothingSelected: 'All'
     };
 
     vm.inputChanged = function() {

@@ -52,8 +52,8 @@
         column:        this.column,
         direction:     this.direction,
         qf:            this.quickFilterShown,
-        filters:       mohican.jsonToUrlParam(this.filters, fields),
+        filters:       mohican.jsonToUrlParam(this.filters, fields)
       });
-    },
+    }
   };
 }(window.mohican));
