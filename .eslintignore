@@ -1,2 +1,5 @@
 # Ignore generated JS files.
 public/assets/**/*
+app/assets/javascripts/lib/**/*
+app/assets/javascripts/mohican/lib/**/*
+app/assets/javascripts/mohican/oldDirectives/**/*

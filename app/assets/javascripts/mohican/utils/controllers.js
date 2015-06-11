@@ -24,7 +24,6 @@
     clientViewLoadingNotification: undefined,
 
     initialize: function(service, $stateParams, $state) {
-      console.log('controller initialize');
       mohican.redirectDefaultParameters($stateParams, $state);
       mohican.injectDefaultParameters($stateParams);
 

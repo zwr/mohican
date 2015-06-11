@@ -10,8 +10,9 @@
     mohican.routes.push(routeName);
     $stateProvider.state('base.' + routeName, {
       url: '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters',
-      templateUrl: 'app/routes/' + routeName + 'Grid.html',
-      controller: controller,
+
+      templateUrl:  'app/routes/' + routeName + 'Grid.html',
+      controller:   controller,
       controllerAs: 'ctrl',
     });
   };
@@ -157,7 +158,7 @@
           var endDate = new Date(rangeParams[1].split('_').join(' '));
           filtersObject[keyValue[0]] = {
             startDate: startDate,
-            endDate: endDate,
+            endDate:   endDate,
           };
         }
         else if(field.quickfilter === 'select') {

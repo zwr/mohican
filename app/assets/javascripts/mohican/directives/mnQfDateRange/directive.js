@@ -6,16 +6,17 @@ angular.module('mohican.directives')
   .directive('mnQfDateRange', [function() {
       'use strict';
       return {
-        restrict: 'E',
         scope: {
           qfChanged: '&',
-          model: '=',
-          field: '=',
-          focus: '=',
+          model:     '=',
+          field:     '=',
+          focus:     '=',
         },
-        templateUrl: 'mohican/directives/mnQfDateRange/template.html',
-        controller: 'MnQfDateRangeController',
+        restrict:     'E',
+        templateUrl:  'mohican/directives/mnQfDateRange/template.html',
+        controller:   'MnQfDateRangeController',
         controllerAs: 'qfDateRange',
+
         bindToController: true,
       };
     },

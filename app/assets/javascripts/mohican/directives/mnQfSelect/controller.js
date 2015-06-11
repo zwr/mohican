@@ -14,7 +14,7 @@
 
     vm.field.values.forEach(function(value) {
       vm.selectItems.push({
-        name: value,
+        name:     value,
         selected: _.contains(vm.model, value),
       });
     });

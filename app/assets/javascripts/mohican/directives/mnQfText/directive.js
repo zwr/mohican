@@ -6,15 +6,16 @@ angular.module('mohican.directives')
   .directive('mnQfText', [function() {
       'use strict';
       return {
-        restrict: 'E',
         scope: {
           qfChanged: '&',
-          model: '=',
-          field: '=',
+          model:     '=',
+          field:     '=',
         },
-        templateUrl: 'mohican/directives/mnQfText/template.html',
-        controller: 'MnQfTextController',
+        restrict:     'E',
+        templateUrl:  'mohican/directives/mnQfText/template.html',
+        controller:   'MnQfTextController',
         controllerAs: 'qfText',
+
         bindToController: true,
       };
     },

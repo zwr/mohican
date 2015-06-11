@@ -6,14 +6,16 @@
   angular.module('mohican.directives')
     .directive('mnFilterBar', [function() {
         return {
-          restrict: 'E',
           scope: {
             owner: '=?',
           },
-          templateUrl: 'mohican/directives/mnFilterBar/template.html',
-          controller: 'MnFilterBarController',
+          restrict:     'E',
+          templateUrl:  'mohican/directives/mnFilterBar/template.html',
+          controller:   'MnFilterBarController',
           controllerAs: 'filterBar',
+
           bindToController: true,
+
           link: function(scope, element, attrs, ctrl) {
             ctrl.owner = scope.owner = mohican.scopeLookup(scope);
           },

@@ -18,10 +18,7 @@
         }
         if(angular.isUndefined(selectedItems)) {
           selectedItems = [];
-          grids.push({
-            id: gridId,
-            selectedItems: selectedItems,
-          });
+          grids.push({ id: gridId, selectedItems: selectedItems });
         }
         return selectedItems;
       }
