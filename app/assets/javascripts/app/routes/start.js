@@ -1,13 +1,10 @@
 //= require_self
 
-(function(MohicanUtils) {
+angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
-  angular.module('id5').
-          config(['mnRouterProvider', function(mnRouterProvider) {
-            mnRouterProvider.addSimpleRoute({
-              name:       'start',
-              default:    true,
-              controller: function() {}
-            });
-          }]);
-})(window.MohicanUtils);
+  mnRouterProvider.addSimpleRoute({
+    name:       'start',
+    default:    true,
+    controller: function() {}
+  });
+}]);

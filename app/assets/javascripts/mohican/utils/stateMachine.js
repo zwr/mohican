@@ -1,7 +1,7 @@
-(function(MohicanUtils) {
+(function(mohican) {
   'use strict';
 
-  MohicanUtils.stateMachine = {
+  mohican.stateMachine = {
     page:             undefined,
     layout:           undefined,
     backendfilter:    undefined,
@@ -45,15 +45,15 @@
 
     stateMachineToUrl: function(fields) {
       // console.log(this.filters);
-      return MohicanUtils.escapeDefaultParameters({
+      return mohican.escapeDefaultParameters({
         page:          this.page,
         layout:        this.layout,
         backendfilter: this.backendFilter,
         column:        this.column,
         direction:     this.direction,
         qf:            this.quickFilterShown,
-        filters:       MohicanUtils.jsonToUrlParam(this.filters, fields),
+        filters:       mohican.jsonToUrlParam(this.filters, fields),
       });
     },
   };
-}(window.MohicanUtils));
+}(window.mohican));

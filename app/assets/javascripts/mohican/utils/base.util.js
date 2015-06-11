@@ -2,4 +2,4 @@
 //= require ./stateMachine
 //= require_tree .
 
-window.MohicanUtils = {};
+window.mohican = {};

@@ -1,15 +1,15 @@
-(function(MohicanUtils) {
+(function(mohican) {
   'use strict';
   trace_timestamp('Executing controller');
-  var stateMachine = MohicanUtils.stateMachine;
+  var stateMachine = mohican.stateMachine;
 
-  MohicanUtils.extendBaseController = function(ctrl, service, mnRouter) {
-    _.assign(ctrl, MohicanUtils.mnBaseController);
+  mohican.extendBaseController = function(ctrl, service, mnRouter) {
+    _.assign(ctrl, mohican.mnBaseController);
     ctrl.initialize(service, mnRouter.$stateParams, mnRouter.$state);
     ctrl.loadData();
   };
 
-  MohicanUtils.mnBaseController = {
+  mohican.mnBaseController = {
     stateMachine: stateMachine,
 
     backendFilters: undefined,
@@ -25,8 +25,8 @@
 
     initialize: function(service, $stateParams, $state) {
       console.log('controller initialize');
-      MohicanUtils.redirectDefaultParameters($stateParams, $state);
-      MohicanUtils.injectDefaultParameters($stateParams);
+      mohican.redirectDefaultParameters($stateParams, $state);
+      mohican.injectDefaultParameters($stateParams);
 
       this.$stateParams = $stateParams;
       this.$state = $state;
@@ -67,7 +67,7 @@
         });
       }).
       then(function() {
-        MohicanUtils.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.$state, that.$stateParams);
+        mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.$state, that.$stateParams);
         that.service.getBackendFilters().then(function(backendFilters) {
           backendFilters.forEach(function(backendFilter) {
             that.backendFilters.push({
@@ -76,15 +76,15 @@
               selected: backendFilter.name === that.stateMachine.backendFilter,
             });
           });
-          MohicanUtils.validateBackendFilterParameter(that.stateMachine.backendFilter, that.backendFilters, that.$state, that.$stateParams);
+          mohican.validateBackendFilterParameter(that.stateMachine.backendFilter, that.backendFilters, that.$state, that.$stateParams);
         });
-        that.stateMachine.filters = MohicanUtils.urlParamToJson(that.$stateParams.filters, that.fields);
+        that.stateMachine.filters = mohican.urlParamToJson(that.$stateParams.filters, that.fields);
 
         that.fullyLoaded = false;
 
         that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.backendFilter).then(function(pageCount) {
           that.pageCount = pageCount;
-          if(MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams)) {
+          if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams)) {
             that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
               that.items = items;
               // We want to be careful to call waitFullyLoaded only when the
@@ -102,7 +102,7 @@
                                              that.fields).then(function(data) {
                     that.items = data.items;
                     that.pageCount = data.pageCount;
-                    MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+                    mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
                   });
                 }
               });
@@ -138,7 +138,7 @@
                                    this.fields).then(function(data) {
           that.items = data.items;
           that.pageCount = data.pageCount;
-          MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+          mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
         });
       }
     },
@@ -159,7 +159,7 @@
     getBackendFilters: function(backendFilter) {
       var newRouteParams = _.clone(this.$stateParams);
       newRouteParams.backendfilter = backendFilter;
-      this.$state.go(this.$state.current.name, MohicanUtils.escapeDefaultParameters(newRouteParams));
+      this.$state.go(this.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
     },
 
     clientViewChanged: function(column, direction) {
@@ -182,7 +182,7 @@
                                   that.fields).then(function(data) {
          that.items = data.items;
          that.pageCount = data.pageCount;
-         MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+         mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
        });
     },
 
@@ -203,7 +203,7 @@
       //                             that.fields).then(function(data) {
       //    that.items = data.items;
       //    that.pageCount = data.pageCount;
-      //    MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+      //    mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
       //  });
     },
 
@@ -224,4 +224,4 @@
       console.log(selectedItems);
     },
   };
-}(window.MohicanUtils));
+}(window.mohican));

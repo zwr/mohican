@@ -2,7 +2,7 @@
 //= require ./controller
 //= require_self
 
-(function(MohicanUtils) {
+(function(mohican) {
   'use strict';
 
   angular.module('mohican.directives')
@@ -22,7 +22,7 @@
           controllerAs: 'grid',
           bindToController: true,
           link: function(scope, element, attrs, ctrl, $transcludeFn) {
-            ctrl.owner = scope.owner = MohicanUtils.scopeLookup(scope);
+            ctrl.owner = scope.owner = mohican.scopeLookup(scope);
             scope.compileItForMe = function(itemScope, itemElement) {
               $transcludeFn(itemScope, function(notLinkedClone) {
                 itemElement.append(notLinkedClone);
@@ -43,4 +43,4 @@
         },
       };
     }]);
-}(window.MohicanUtils));
+}(window.mohican));

@@ -1,4 +1,4 @@
-(function(MohicanUtils) {
+(function(mohican) {
   'use strict';
 
   angular
@@ -36,7 +36,7 @@
     this.$get = ['$stateParams', '$state', function($stateParams, $state) {
       function createAll() {
         provider.routes.forEach(function(route) {
-          MohicanUtils.defineMohicanRoute(route, $stateProviderRef);
+          mohican.defineMohicanRoute(route, $stateProviderRef);
         });
       }
 
@@ -48,4 +48,4 @@
     }];
   }
 
-})(window.MohicanUtils);
+})(window.mohican);

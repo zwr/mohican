@@ -1,7 +1,7 @@
-(function(MohicanUtils) {
+(function(mohican) {
   'use strict';
 
-  MohicanUtils.extendBaseService = function(service, docname, $http, $q) {
+  mohican.extendBaseService = function(service, docname, $http, $q) {
     service.resetLoading = function() {
       service.buffer = null;
       service.bufferBackendFilter = null;
@@ -370,4 +370,4 @@
 
     return service;
   };
-}(window.MohicanUtils));
+}(window.mohican));

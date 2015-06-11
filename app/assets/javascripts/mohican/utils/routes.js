@@ -1,22 +1,22 @@
-(function(MohicanUtils) {
+(function(mohican) {
   'use strict';
 
   angular
       .module('mohican.routes', []);
 
-  MohicanUtils.routes = [];
+  mohican.routes = [];
 
-  MohicanUtils._mohicanRoute = function(routeName, controller, $stateProvider) {
-    MohicanUtils.routes.push(routeName);
+  mohican._mohicanRoute = function(routeName, controller, $stateProvider) {
+    mohican.routes.push(routeName);
     $stateProvider.state('base.' + routeName, {
-      url: '/' + MohicanUtils.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters',
+      url: '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters',
       templateUrl: 'app/routes/' + routeName + 'Grid.html',
       controller: controller,
       controllerAs: 'ctrl',
     });
   };
 
-  MohicanUtils.defineMohicanRoute = function(definition, $stateProvider) {
+  mohican.defineMohicanRoute = function(definition, $stateProvider) {
     var i;
     if(definition.service) {
       if(definition.controller && Array.isArray(definition.controller)) {
@@ -30,7 +30,7 @@
       angular.module('mohican.services').register.
           factory(definition.name + 'Service', definition.service);
     }
-    MohicanUtils._mohicanRoute(definition.name, definition.controller, $stateProvider);
+    mohican._mohicanRoute(definition.name, definition.controller, $stateProvider);
   };
 
   var _checkDefaultParams = function(params) {
@@ -60,12 +60,12 @@
     return {dirty: dirty, newParams: newParams};
   };
 
-  MohicanUtils.escapeDefaultParameters = function(params) {
+  mohican.escapeDefaultParameters = function(params) {
     var checkResult = _checkDefaultParams(params);
     return checkResult.newParams;
   };
 
-  MohicanUtils.redirectDefaultParameters = function(params, state) {
+  mohican.redirectDefaultParameters = function(params, state) {
     var checkResult = _checkDefaultParams(params);
 
     if(checkResult.dirty && state) {
@@ -73,7 +73,7 @@
     }
   };
 
-  MohicanUtils.injectDefaultParameters = function(params) {
+  mohican.injectDefaultParameters = function(params) {
     if (!params.backendfilter) {
       params.backendfilter = 'default';
     }
@@ -91,30 +91,30 @@
   };
 
   //HelloWorld -> hello-world
-  MohicanUtils.toHyphen = function(string) {
+  mohican.toHyphen = function(string) {
     return _.kebabCase(string);
   };
 
   //hello-world -> helloWorld
-  MohicanUtils.toCamel = function(string) {
+  mohican.toCamel = function(string) {
     return _.camelCase(string);
   };
 
   //hello-world -> HelloWorld
-  MohicanUtils.toCapitalCamel = function(string) {
+  mohican.toCapitalCamel = function(string) {
     return _.chain(string).camelCase().capitalize().value();
   };
 
   //HelloWorld -> hello_world
-  MohicanUtils.toSnake = function(string) {
+  mohican.toSnake = function(string) {
     return _.snakeCase(string);
   };
 
-  MohicanUtils.jsonToUrlParam = function(filters, dataFields) {
+  mohican.jsonToUrlParam = function(filters, dataFields) {
     var filterObjects = [];
     for (var key in filters) {
       if (filters.hasOwnProperty(key)) {
-        var field = MohicanUtils._getDataField(dataFields, key);
+        var field = mohican._getDataField(dataFields, key);
         if(field.quickfilter === 'date-range') {
           if(filters[key] instanceof Object &&
              filters[key].startDate !== null &&
@@ -142,7 +142,7 @@
     return filterObjects.join('$$');
   };
 
-  MohicanUtils.urlParamToJson = function(urlParamString, dataFields) {
+  mohican.urlParamToJson = function(urlParamString, dataFields) {
     var filtersObject;
 
     if(urlParamString && urlParamString !== '') {
@@ -150,7 +150,7 @@
       var urlFilters = urlParamString.split('$$');
       urlFilters.forEach(function(urlFilter) {
         var keyValue = urlFilter.split('$');
-        var field = MohicanUtils._getDataField(dataFields, keyValue[0]);
+        var field = mohican._getDataField(dataFields, keyValue[0]);
         if(field.quickfilter === 'date-range') {
           var rangeParams = keyValue[1].split('---');
           var startDate = new Date(rangeParams[0].split('_').join(' '));
@@ -173,7 +173,7 @@
     return filtersObject;
   };
 
-  MohicanUtils._getDataField = function(dataFields, name) {
+  mohican._getDataField = function(dataFields, name) {
     var field;
     dataFields.forEach(function(dField) {
       if(dField.name === name) {
@@ -184,4 +184,4 @@
     return field;
   };
 
-}(window.MohicanUtils));
+}(window.mohican));

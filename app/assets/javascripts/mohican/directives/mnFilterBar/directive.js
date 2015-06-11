@@ -1,7 +1,7 @@
 //= require ./template
 //= require ./controller
 //= require_self
-(function(MohicanUtils) {
+(function(mohican) {
   'use strict';
   angular.module('mohican.directives')
     .directive('mnFilterBar', [function() {
@@ -15,9 +15,9 @@
           controllerAs: 'filterBar',
           bindToController: true,
           link: function(scope, element, attrs, ctrl) {
-            ctrl.owner = scope.owner = MohicanUtils.scopeLookup(scope);
+            ctrl.owner = scope.owner = mohican.scopeLookup(scope);
           },
         };
       },
     ]);
-}(window.MohicanUtils));
+}(window.mohican));
