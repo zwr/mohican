@@ -17,10 +17,11 @@
     });
   };
 
+  var isArray = function(obj) { return Object.prototype.toString.call(obj) === '[object Array]'; };
   mohican.defineMohicanRoute = function(definition, $stateProvider) {
     var i;
     if(definition.service) {
-      if(definition.controller && Array.isArray(definition.controller)) {
+      if(definition.controller && isArray(definition.controller)) {
         for(i = 0; i < definition.controller.length; i++) {
           if(definition.controller[i] === 'service') {
             definition.controller[i] = definition.name + 'Service';
