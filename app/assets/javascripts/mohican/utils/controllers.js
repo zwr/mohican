@@ -3,9 +3,9 @@
   trace_timestamp('Executing controller');
   var stateMachine = MohicanUtils.stateMachine;
 
-  MohicanUtils.extendBaseController = function(ctrl, resolve, mnRouter) {
+  MohicanUtils.extendBaseController = function(ctrl, service, mnRouter) {
     _.assign(ctrl, MohicanUtils.mnBaseController);
-    ctrl.initialize(resolve, mnRouter.$stateParams, mnRouter.$state);
+    ctrl.initialize(service, mnRouter.$stateParams, mnRouter.$state);
     ctrl.loadData();
   };
 
@@ -15,7 +15,7 @@
     backendFilters: undefined,
     layouts:        undefined,
     layoutDefs:     undefined,
-    resolve:        undefined,
+    service:        undefined,
     $stateParams:   undefined,
     $state:         undefined,
     fields:         undefined,
@@ -23,16 +23,15 @@
 
     clientViewLoadingNotification: undefined,
 
-    initialize: function(resolve, $stateParams, $state) {
+    initialize: function(service, $stateParams, $state) {
       console.log('controller initialize');
-      trace('Controller initialized');
       MohicanUtils.redirectDefaultParameters($stateParams, $state);
       MohicanUtils.injectDefaultParameters($stateParams);
 
       this.$stateParams = $stateParams;
       this.$state = $state;
 
-      this.stateMachine.stateMachineFromUrl($stateParams, resolve);
+      this.stateMachine.stateMachineFromUrl($stateParams, service);
 
       if(angular.isDefined($stateParams.column) ||
             angular.isDefined($stateParams.qf) ||
@@ -46,13 +45,13 @@
       this.layouts = [];
       this.layoutDefs = [];
       this.backendFilters = [];
-      this.resolve = resolve;
+      this.service = service;
     },
 
     loadData: function() {
       var that = this;
 
-      that.resolve.getPreviewDefinitions().
+      that.service.getPreviewDefinitions().
       then(function(definition) {
         that.layoutDefs = definition.layouts;
         that.layoutDefs.forEach(function(layout) {
@@ -69,7 +68,7 @@
       }).
       then(function() {
         MohicanUtils.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.$state, that.$stateParams);
-        that.resolve.getBackendFilters().then(function(backendFilters) {
+        that.service.getBackendFilters().then(function(backendFilters) {
           backendFilters.forEach(function(backendFilter) {
             that.backendFilters.push({
               name:     backendFilter.name,
@@ -83,20 +82,20 @@
 
         that.fullyLoaded = false;
 
-        that.resolve.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.backendFilter).then(function(pageCount) {
+        that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.backendFilter).then(function(pageCount) {
           that.pageCount = pageCount;
           if(MohicanUtils.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams)) {
-            that.resolve.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
+            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
               that.items = items;
               // We want to be careful to call waitFullyLoaded only when the
               // initial promise has returned! Now we are sure the eager loading
               // is ongoing.
-              that.resolve.waitFullyLoaded().then(function() {
+              that.service.waitFullyLoaded().then(function() {
                 that.fullyLoaded = true;
                 if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
                   that.stateMachine.page = parseInt(angular.isUndefined(that.$state.params.page) ? 1 : parseInt(that.$state.params.page));
 
-                  that.resolve.getClientPage(that.stateMachine.page,
+                  that.service.getClientPage(that.stateMachine.page,
                                              that.stateMachine.column,
                                              that.stateMachine.direction,
                                              that.stateMachine.filters,
@@ -115,7 +114,7 @@
 
     pageChanged: function(page) {
       var that = this;
-      if(this.resolve.thePromise !== null) {
+      if(this.service.thePromise !== null) {
         this.stateMachine.page = parseInt(page);
         // this.stateMachine.layout = undefined;
         this.stateMachine.column = undefined;
@@ -132,7 +131,7 @@
         this.$state.go(this.$state.current.name,
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false });
-        this.resolve.getClientPage(this.stateMachine.page,
+        this.service.getClientPage(this.stateMachine.page,
                                    this.stateMachine.column,
                                    this.stateMachine.direction,
                                    this.stateMachine.filters,
@@ -176,7 +175,7 @@
                      this.stateMachine.stateMachineToUrl(this.fields),
                      { notify: false });
        var that = this;
-       that.resolve.getClientPage(that.stateMachine.page,
+       that.service.getClientPage(that.stateMachine.page,
                                   that.stateMachine.column,
                                   that.stateMachine.direction,
                                   that.stateMachine.filters,
@@ -197,7 +196,7 @@
                      this.stateMachine.stateMachineToUrl(this.fields),
                      { notify: true });
       //  var that = this;
-      //  that.resolve.getClientPage(that.stateMachine.page,
+      //  that.service.getClientPage(that.stateMachine.page,
       //                             that.stateMachine.column,
       //                             that.stateMachine.direction,
       //                             that.stateMachine.filters,

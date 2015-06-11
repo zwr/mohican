@@ -8,8 +8,8 @@
               name: 'activities',
 
               controller: ['service', 'mnRouter',
-                function(resolve, mnRouter) {
-                  MohicanUtils.extendBaseController(this, resolve, mnRouter);
+                function(service, mnRouter) {
+                  MohicanUtils.extendBaseController(this, service, mnRouter);
                   var ctrl = this;
                   ctrl.reportLocation = '/reports';
                   ctrl.attached = false;

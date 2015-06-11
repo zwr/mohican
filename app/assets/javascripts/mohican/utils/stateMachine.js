@@ -10,7 +10,7 @@
     quickFilterShown: undefined,
     filters:          undefined,
 
-    stateMachineFromUrl: function($stateParams, resolve) {
+    stateMachineFromUrl: function($stateParams, service) {
       if (!$stateParams.backendfilter) {
         this.backendfilter = 'default';
       }
@@ -26,8 +26,8 @@
 
       //if we have qf or qs on, show first page from backend filter,
       //but after loading data is finished, page will be set to $stateParams.page
-      //also check resolve.thePromise to see if user has changed page while eager loading
-      if(($stateParams.qf || $stateParams.column) && resolve.thePromise === null) {
+      //also check service.thePromise to see if user has changed page while eager loading
+      if(($stateParams.qf || $stateParams.column) && service.thePromise === null) {
         this.page = 1;
       }
       else {
