@@ -91,3 +91,12 @@
 </div>
 <mn-grid-pager ng-hide="grid.onlySelectedItemsShown">
 </mn-grid-pager>
+<div>
+  backend filtered documents count: {{grid.owner.service.buffer.length}}/{{grid.owner.service.totalCount}}
+</div>
+<div>
+  quick filtered documents count: {{grid.owner.totalQfCount}}
+</div>
+<div>
+  selected documents count: {{grid.selectedItems.length}}
+</div>

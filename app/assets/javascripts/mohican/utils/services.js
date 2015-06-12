@@ -156,7 +156,8 @@
           (pageNumber - 1) * service.pageSize - service.bottomIndex,
           pageNumber * service.pageSize - service.bottomIndex
         ),
-        pageCount: viewpageCount
+        pageCount:    viewpageCount,
+        totalQfCount: service.bufferView.length
       });
       service.bufferView = null;
       return res;

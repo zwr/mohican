@@ -20,6 +20,7 @@
     $state:         undefined,
     fields:         undefined,
     pageCount:      undefined,
+    totalQfCount:   undefined,
 
     clientViewLoadingNotification: undefined,
 
@@ -101,6 +102,7 @@
                                              that.fields).then(function(data) {
                     that.items = data.items;
                     that.pageCount = data.pageCount;
+                    that.totalQfCount = data.totalQfCount;
                     mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
                   });
                 }
@@ -137,6 +139,7 @@
                                    this.fields).then(function(data) {
           that.items = data.items;
           that.pageCount = data.pageCount;
+          that.totalQfCount = data.totalQfCount;
           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
         });
       }
@@ -181,6 +184,7 @@
                                   that.fields).then(function(data) {
          that.items = data.items;
          that.pageCount = data.pageCount;
+         that.totalQfCount = data.totalQfCount;
          mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
        });
     },
@@ -202,6 +206,7 @@
       //                             that.fields).then(function(data) {
       //    that.items = data.items;
       //    that.pageCount = data.pageCount;
+      //    that.totalQfCount = data.totalQfCount;
       //    mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
       //  });
     },
