@@ -7,10 +7,11 @@ angular.module('mohican.directives')
       'use strict';
       return {
         scope: {
-          qfChanged: '&',
-          model:     '=',
-          field:     '=',
-          focus:     '='
+          qfChanged:  '&',
+          qfDisabled: '=',
+          model:      '=',
+          field:      '=',
+          focus:      '='
         },
         restrict:     'E',
         templateUrl:  'mohican/directives/mnQfDateRange/template.html',

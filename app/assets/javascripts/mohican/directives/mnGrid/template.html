@@ -5,7 +5,11 @@
         <col ng-show="grid.showSelectColumn" style="width: 20px;">
         <col ng-repeat="field in grid.owner.fields" ng-style="{width: field.width + 'px'}"/>
         <col style="width: 64px;">
-        <th ng-show="grid.showSelectColumn"></th>
+        <th ng-show="grid.showSelectColumn">
+          <input type="checkbox"
+                 ng-model="grid.onlySelectedItemsShown"
+                 ng-click="grid.selectionChanged(item)">
+        </th>
         <th ng-repeat="field in grid.owner.fields"
             ng-class="{'mn-sortable': grid.owner.fullyLoaded}"
             ng-click="grid.orderBy(field)"
@@ -25,16 +29,19 @@
         <th ng-show="grid.showSelectColumn"></th>
         <th ng-repeat="field in grid.owner.fields">
           <mn-qf-text
+                qf-disabled="grid.onlySelectedItemsShown"
                 ng-if="field.quickfilter === 'text'"
                 model="grid.owner.stateMachine.filters[field.name]"
                 qf-changed="grid.filterBy(fieldName)"
                 field="field"></mn-qf-text>
           <mn-qf-date-range
+                qf-disabled="grid.onlySelectedItemsShown"
                 ng-if="field.quickfilter === 'date-range'"
                 model="grid.owner.stateMachine.filters[field.name]"
                 qf-changed="grid.filterBy(fieldName)"
                 field="field"></mn-qf-date-range>
           <mn-qf-select
+                qf-disabled="grid.onlySelectedItemsShown"
                 ng-if="field.quickfilter === 'select'"
                 model="grid.owner.stateMachine.filters[field.name]"
                 qf-changed="grid.filterBy(fieldName)"

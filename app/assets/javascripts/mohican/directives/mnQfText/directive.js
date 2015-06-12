@@ -7,9 +7,10 @@ angular.module('mohican.directives')
       'use strict';
       return {
         scope: {
-          qfChanged: '&',
-          model:     '=',
-          field:     '='
+          qfChanged:  '&',
+          qfDisabled: '=',
+          model:      '=',
+          field:      '='
         },
         restrict:     'E',
         templateUrl:  'mohican/directives/mnQfText/template.html',

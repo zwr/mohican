@@ -1,11 +1,12 @@
-<span isteven-multi-select
-     class="inline-multi-select mn-select-filter"
-     translation="qfSelect.labels"
-     input-model="qfSelect.selectItems"
-     on-item-click="qfSelect.inputChanged(data.name)"
-     output-model="qfSelect.selectedValues"
-     button-label="name"
-     item-label="name"
-     tick-property="selected"
-     helper-elements="">
+<span is-disabled="qfSelect.qfDisabled"
+      isteven-multi-select
+      class="inline-multi-select mn-select-filter"
+      translation="qfSelect.labels"
+      input-model="qfSelect.selectItems"
+      on-item-click="qfSelect.inputChanged(data.name)"
+      output-model="qfSelect.selectedValues"
+      button-label="name"
+      item-label="name"
+      tick-property="selected"
+      helper-elements="">
 </span>
