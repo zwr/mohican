@@ -59,6 +59,10 @@
       }
     };
 
+    vm.unselectAll = function() {
+      vm.selectedItems = [];
+    };
+
     vm.orderBy = function(field) {
       if(field.quicksort === true && vm.owner.fullyLoaded && !vm.onlySelectedItemsShown) {
         trace_timestamp('Clicked header, starting sorting. ******************************');

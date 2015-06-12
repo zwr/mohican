@@ -99,4 +99,5 @@
 </div>
 <div>
   selected documents count: {{grid.selectedItems.length}}
+  <a ng-show="grid.selectedItems.length > 0" ng-click="grid.unselectAll()">unselect all</a>
 </div>
