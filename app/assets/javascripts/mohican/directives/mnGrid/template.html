@@ -10,14 +10,14 @@
                  ng-model="grid.onlySelectedItemsShown">
         </th>
         <th ng-repeat="field in grid.owner.fields"
-            ng-class="{'mn-sortable': grid.owner.fullyLoaded}"
+            ng-class="{'mn-sortable': grid.owner.fullyLoaded && !grid.onlySelectedItemsShown}"
             ng-click="grid.orderBy(field)"
             class="grid-header-container">
           <span class="grid-header-field-name"
                 ng-style="{width: (field.width - 18) + 'px'}">
             {{field.header}}
           </span>
-          <span ng-show="grid.owner.stateMachine.column === field.name && grid.owner.fullyLoaded"
+          <span ng-show="grid.owner.stateMachine.column === field.name && grid.owner.fullyLoaded && !grid.onlySelectedItemsShown"
                 class="pull-right grid-header-field-dir "
                 ng-class="grid.owner.stateMachine.direction === 'desc' ? 'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'"
                 aria-hidden="true"></span>

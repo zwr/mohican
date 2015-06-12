@@ -10,7 +10,6 @@
         return {
           scope: {
             owner:        '=?',
-            mnId:         '@?',
             mnSelect:     '@?',
             mnSelectType: '@?',
             mnOnSelect:   '&'

@@ -5,12 +5,12 @@
 
   angular
       .module('mohican.directives')
-      .controller('MnGridController', ['mnGridSelectedItemsService', MnGridController]);
+      .controller('MnGridController', [MnGridController]);
 
-  function MnGridController(mnGridSelectedItemsService) {
+  function MnGridController() {
     var vm = this;
 
-    vm.selectedItems = mnGridSelectedItemsService.getSelectedItems(vm.mnId);
+    vm.selectedItems = [];
 
     if(angular.isUndefined(vm.mnSelect)) { vm.mnSelect = 'none'; }
     else {
@@ -60,7 +60,7 @@
     };
 
     vm.orderBy = function(field) {
-      if(field.quicksort === true && vm.owner.fullyLoaded) {
+      if(field.quicksort === true && vm.owner.fullyLoaded && !vm.onlySelectedItemsShown) {
         trace_timestamp('Clicked header, starting sorting. ******************************');
         vm.owner.clientViewChanged(
           field.name,
