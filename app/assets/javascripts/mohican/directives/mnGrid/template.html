@@ -8,7 +8,7 @@
         <th ng-show="grid.showSelectColumn">
           <input type="checkbox"
                  ng-model="grid.onlySelectedItemsShown"
-                 ng-click="grid.selectionChanged(item)">
+                 ng-click="grid.onlySelectedItemsShownChanged(item)">
         </th>
         <th ng-repeat="field in grid.owner.fields"
             ng-class="{'mn-sortable': grid.owner.fullyLoaded}"
@@ -50,8 +50,27 @@
         <th></th>
       </tr>
     </thead>
-    <tbody>
+    <tbody ng-hide="grid.onlySelectedItemsShown">
       <tr ng-repeat="item in grid.owner.items">
+        <td ng-show="grid.showSelectColumn">
+          <input type="checkbox"
+                 ng-checked="grid.isItemSelected(item)"
+                 ng-click="grid.selectionChanged(item)">
+        </td>
+        <td ng-repeat="field in grid.owner.fields" style="overflow: hidden;">
+          <div>
+            <span>
+              {{item[field.name + '_formatted']}}
+            </span>
+          </div>
+        </td>
+        <td style="overflow: hidden;">
+          <mn-grid-actions />
+        <td>
+      </tr>
+    </tbody>
+    <tbody ng-show="grid.onlySelectedItemsShown">
+      <tr ng-repeat="item in grid.selectedItems">
         <td ng-show="grid.showSelectColumn">
           <input type="checkbox"
                  ng-checked="grid.isItemSelected(item)"
