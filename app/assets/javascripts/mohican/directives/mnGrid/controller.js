@@ -49,10 +49,6 @@
       });
     };
 
-    vm.onlySelectedItemsShownChanged = function() {
-      console.log('onlySelectedItemsShownChanged');
-    };
-
     vm.isItemSelected = function(item) {
       var index = vm.selectedItems.indexOf(item);
       if(index === -1) {

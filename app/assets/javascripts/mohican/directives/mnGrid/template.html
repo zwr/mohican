@@ -7,8 +7,7 @@
         <col style="width: 64px;">
         <th ng-show="grid.showSelectColumn">
           <input type="checkbox"
-                 ng-model="grid.onlySelectedItemsShown"
-                 ng-click="grid.onlySelectedItemsShownChanged(item)">
+                 ng-model="grid.onlySelectedItemsShown">
         </th>
         <th ng-repeat="field in grid.owner.fields"
             ng-class="{'mn-sortable': grid.owner.fullyLoaded}"
