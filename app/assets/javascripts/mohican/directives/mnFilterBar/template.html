@@ -1,8 +1,8 @@
-<div class="row">
-  <div class="col-xs-12">
+<div class="row filterBar">
+  <div class="col-xs-12 vmiddle">
     <div class="filter-bar-item" ng-show="filterBar.owner.layouts.length > 1">
       <div isteven-multi-select
-            class="inline-multi-select"
+            class="inline-multi-select filter-bar-dropDown"
             input-model="filterBar.owner.layouts"
             on-item-click="filterBar.owner.clientLayoutChanged(data.name)"
             output-model="filterBar.outputBrowsers"
@@ -16,7 +16,7 @@
     </div>
     <div class="filter-bar-item" ng-show="filterBar.owner.backendFilters.length > 1">
       <div isteven-multi-select
-            class="inline-multi-select"
+            class="inline-multi-select filter-bar-dropDown"
             input-model="filterBar.owner.backendFilters"
             on-item-click="filterBar.owner.getBackendFilters(data.name)"
             output-model="filterBar.outputBrowsers"
@@ -30,7 +30,7 @@
     </div>
     <div class="filter-bar-item">
       <button type="button"
-              class="btn filter-bar-button"
+              class="btn filter-bar-button filter-bar-button"
               ng-model="filterBar.owner.stateMachine.quickFilterShown"
               ng-change="filterBar.owner.toggleQuickFilter()"
               btn-checkbox

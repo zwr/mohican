@@ -10,6 +10,7 @@
 //= require ./mohican/lib/daterangepicker
 //= require ./mohican/lib/angular-daterangepicker
 //= require ./mohican/lib/angular-multi-select
+//= require ./mohican/lib/angular-animate
 
 //= require ./mohican/utils/base.util
 //= require ./mohican/services/base.service
@@ -48,6 +49,7 @@
     'ngDialog',
     'isteven-multi-select',
     'daterangepicker',
+    'ngAnimate',
     'mohican.routes',
     'mohican.services',
     'mohican.directives',

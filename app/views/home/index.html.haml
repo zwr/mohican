@@ -33,7 +33,7 @@
   %body(data-main-app ng-cloak role="document")
     %div.full_height.container-fluid(mn-full-height)
       .header-wrapper(ng-include="'app/menu.html'")
-      %div.full_height(ui-view)
+      %div(ui-view)
     = javascript_include_tag 'config'
     = javascript_include_tag 'mohican'
     = javascript_include_tag 'app'

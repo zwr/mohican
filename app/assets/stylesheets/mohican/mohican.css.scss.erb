@@ -9,6 +9,7 @@
 @import "includes/css-spinner";
 @import "includes/ng-dialog";
 @import "includes/ng-dialog-theme-default";
+@import "includes/animate";
 
 @media(max-width: $grid-float-breakpoint - 1 /*767px*/) {
   .navbar-text {
@@ -22,17 +23,53 @@
     margin-bottom: 0px;
   }
 }
+
 .mn-navbar-title {
   height: 50px;
   display: inline;
 }
+
+.navbar-brand {
+  padding-top: 2px;
+}
+
 @media(max-width: $app-hide-title) {
-  .mn-navbar-title > a{
+  .mn-navbar-title > a {
     width: 5px;
     img {
       display: none;
     }
   }
+}
+
+.filterRowAnimWrap.ng-hide-add,
+.filterRowAnimWrap.ng-hide-remove {
+  transition:1.0s linear all;
+  display:block !important;
+  opacity:1;
+  transform: scale(1);
+}
+
+.filterRowAnimWrap.ng-hide {
+  opacity:0;
+  transform: scale(0.2);
+}
+
+.filterRowAnimWrap input[type="text"] {
+    background-color: transparent;
+    border-bottom: 2px solid #004d40;
+    border-right: 0;
+    border-left:0;
+    border-top:0;
+    border-radius: 0px !important;
+    outline: none;
+    -webkit-box-shadow: none;
+    -moz-box-shadow: none;
+    box-shadow: none;
+    cursor:default;
+    -webkit-appearance:none;
+    -moz-appearance:none;
+    appearance:none;
 }
 
 .mn-select-filter button {
@@ -42,6 +79,30 @@
   height: 34px;
   display: block;
   overflow: hidden;
+}
+
+.filter-bar-dropDown button, .QfRow button {
+  background: #039be5;
+  border-radius: 3px;
+  border:0;
+  box-shadow: 2px 2px #006064;
+  -webkit-box-shadow: 2px 2px #006064;
+  -moz-box-shadow: 2px 2px #006064;
+}
+
+.filter-bar-dropDown button {
+  color: #b3e5fc;
+}
+
+.QfRow button {
+  background: #a5d6a7;
+  padding: 3px 1px 2px 3px !important;
+  height:auto !important;
+}
+
+.multiSelect .buttonLabel {
+  padding: $mn-button-label-pad !important;
+  font-weight: 400;
 }
 
 mn-grid th {
@@ -57,38 +118,76 @@ mn-grid th.mn-sortable {
   border-color: black !important;
   color: #444 !important;
 }
-.mn-grid-layout-row { margin-top: $mn-grid-layout-row; }
+
+.mn-grid-layout-row { margin-top: 0; }
 
 [mn-full-height] {
-  //background: #F6F6F6 url($mn-mn-full-height-backbround-image) repeat-x;
+  background: #e6e6e6 url($mn-mn-full-height-backbround-image) repeat-x;
 }
+
 mn-menu-item-route > a > span {
   color: $mn-menu-item-route-color;
   text-decoration: none;
+}
+
+.filterBar {
+  background: $mn-content-header-background;
+  background: -webkit-$mn-content-header-background;
+  background:
+    $mn-content-header-background bottom right,
+    linear-gradient(135deg, transparent 10px, #36B7FF 0) top left;
+  background-size: 100% 72%;
+  background-repeat: no-repeat;
+  padding: 7px;
 }
 
 .filter-bar-item {
   display: inline;
   float: left;
   clear: none;
-  margin: 0px 4px 0px 0px;
+  margin: 0px 7px 0px 7px;
+  vertical-align: middle;
 }
 
 .filter-bar-alert {
   padding: 4px 4px 4px 4px;
 }
 
-.filter-bar-button {
-  height: 36px;
+.filter-bar-button.active {
+  background: $mn-grid-header-container-bg;
+  border: 2px solid $mn-filter-bar-button-brdr-color;
+  color: $mn-filter-bar-button-active-text-color;
+  font-weight: 500;
 }
 
-.filter-bar-button.active {
-  background-color: $mn-filter-bar-button-active-bg-color;
-  color: $mn-filter-bar-button-active-text-color;
+.filter-bar-button.active, .filter-bar-button:focus {
+  outline:none !important;
+  box-shadow:none;
+  cursor:default;
 }
 
 .filter-bar-item span.multiSelect > button {
   width: 140px;
+}
+
+.filter-bar-dropDown button .buttonLabel span.caret {
+  position: relative;
+}
+
+.filter-bar-dropDown button .buttonLabel span.caret::after {
+  content: ' ';
+  position: absolute;
+  left: -5px;
+  top:-5px;
+  border: 6px solid transparent;
+  border-top: 6px solid #fff;
+}
+
+.QfRow, .table > thead > tr th.QfRow {
+  background: $mn-qfilter-subheader-background;
+  padding: 5px !important;
+  border: 0 !important;
+  vertical-align: middle;
 }
 
 mn-menu-item-route > a:not(.mn-menu-item-route-active) > span:hover,
@@ -185,6 +284,14 @@ mn-menu-group > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open >
   color: white;
 }
 
+mn-item-reports > div {
+  display: block !important;
+}
+
+.icoNormal {
+  color: #455a64 !important;
+}
+
 .collapse.in mn-menu-group, .collapse.in mn-menu-item,
 .collapsing mn-menu-group, .collapsing mn-menu-item {
   clear: both;
@@ -209,25 +316,62 @@ mn-menu-group > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open >
   border-width: 1px;
 }
 
-.table > thead > tr > th, .table > thead > tr > td,
-.table > tbody > tr > th, .table > tbody > tr > td,
-.table > tfoot > tr > th, .table > tfoot > tr > td {
-  padding: 4px 0px;
-}
-
-.grid-header-container {
-
+.grid-header-container  {
+  padding: 4px;
+  border-bottom: 0 ;
+  border-right: 0 ;
+  background: linear-gradient(#AEF6BF,#96D098);
+  vertical-align: middle !important;
 }
 
 .grid-header-field-name {
   padding-left: 2px;
-  display: block;
-  overflow: hidden;
+  display: inline !important;
   float: left;
 }
 
 .grid-header-field-dir {
   margin-right: 0px;
+  display: inline !important;
+  float: left;
+}
+
+//generic container styles
+
+.scrollableHframe {
+  border:1px solid LightGray;
+  box-shadow: 0px 0px 14px LightGray inset;
+  -webkit-box-shadow: 0px 0px 14px LightGray inset;
+  -moz-box-shadow: 0px 0px 14px LightGray inset;
+  overflow:auto;
+}
+
+//generic modifier styles
+
+// fix for inset shadow bug of the table-containing div, to be uniform on striped rows, because shadow is not visible on opaque background
+.table-striped > tbody > tr:nth-child(odd) > td {
+  background-color: rgba(#999, .1);
+}
+
+.table > thead > tr > th, .table > thead > tr > td,
+.table > tbody > tr > th, .table > tbody > tr > td,
+.table > tfoot > tr > th, .table > tfoot > tr > td {
+  padding: 4px 4px;
+}
+
+.table > thead > tr > th {
+  font-weight: 500 !important;
+  font-size:$font-size-base - 1;
+  border-color: #ACF3BC !important;
+  border-top: 1px solid #fff !important;
+}
+
+.noPad {
+  padding:0 !important;
+}
+
+.vmiddle {
+  vertical-align: middle !important;
 }
 
 .mn-context-menu {
