@@ -119,10 +119,15 @@ mn-grid th.mn-sortable {
   color: #444 !important;
 }
 
-.mn-grid-layout-row { margin-top: 0; }
+.mn-grid-layout-row { margin-top: $mn-grid-layout-row; }
 
 [mn-full-height] {
   background: #e6e6e6 url($mn-mn-full-height-backbround-image) repeat-x;
+}
+
+[ui-view] {
+  margin-left: 15px;
+  margin-right: 15px;
 }
 
 mn-menu-item-route > a > span {
@@ -289,7 +294,24 @@ mn-item-reports > div {
 }
 
 .icoNormal {
-  color: #455a64 !important;
+  color: $mn-filter-bar-button-active-text-color !important;
+  padding: 0px 1px 0px 1px;
+}
+
+.icoNormal:hover, .icoNormal:active {
+  color: #999 !important;
+}
+
+.hvRed:hover, .hvRed:active {
+  color: #e53935 !important;
+}
+
+.hvGreen:hover, .hvGreen:active {
+  color: #2e7d32 !important;
+}
+
+.hvBlue:hover, .hvBlue:active {
+  color: #0089E2 !important;
 }
 
 .collapse.in mn-menu-group, .collapse.in mn-menu-item,
@@ -328,6 +350,7 @@ mn-item-reports > div {
   padding-left: 2px;
   display: inline !important;
   float: left;
+  overflow: hidden;
 }
 
 .grid-header-field-dir {
@@ -339,6 +362,7 @@ mn-item-reports > div {
 //generic container styles
 
 .scrollableHframe {
+  background-color: $mn-content-container-bg-color;
   border:1px solid LightGray;
   box-shadow: 0px 0px 14px LightGray inset;
   -webkit-box-shadow: 0px 0px 14px LightGray inset;
@@ -364,6 +388,10 @@ mn-item-reports > div {
   font-size:$font-size-base - 1;
   border-color: #ACF3BC !important;
   border-top: 1px solid #fff !important;
+}
+
+.baseFont3x {
+  font-size:$font-size-base * 3;
 }
 
 .noPad {

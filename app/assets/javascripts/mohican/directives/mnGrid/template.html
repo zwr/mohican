@@ -1,20 +1,21 @@
-<div mn-fill-height style="width: 100%; overflow:auto;">
+<div mn-fill-height class="scrollableHframe noPad" style="">
   <table class="table table-striped" style="table-layout:fixed;">
+    <colgroup>
+      <col ng-show="grid.showSelectColumn" class="vmiddle" style="width: 30px; margin:0 auto;">
+      <col ng-repeat="field in grid.owner.fields" ng-style="{width: field.width + 'px'}"/>
+      <col style="width: 132px;">
+    </colgroup>
     <thead>
       <tr>
-        <col ng-show="grid.showSelectColumn" style="width: 20px;">
-        <col ng-repeat="field in grid.owner.fields" ng-style="{width: field.width + 'px'}"/>
-        <col style="width: 64px;">
-        <th ng-show="grid.showSelectColumn">
-          <input type="checkbox"
+        <th ng-show="grid.showSelectColumn" class="grid-header-container">
+          <input type="checkbox" class="baseFont3x"
                  ng-model="grid.onlySelectedItemsShown">
         </th>
         <th ng-repeat="field in grid.owner.fields"
             ng-class="{'mn-sortable': grid.owner.fullyLoaded && !grid.onlySelectedItemsShown}"
             ng-click="grid.orderBy(field)"
             class="grid-header-container">
-          <span class="grid-header-field-name"
-                ng-style="{width: (field.width - 18) + 'px'}">
+          <span class="grid-header-field-name" ng-style="{width: (field.width - 18) + 'px'}">
             {{field.header}}
           </span>
           <span ng-show="grid.owner.stateMachine.column === field.name && grid.owner.fullyLoaded && !grid.onlySelectedItemsShown"
@@ -22,37 +23,45 @@
                 ng-class="grid.owner.stateMachine.direction === 'desc' ? 'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'"
                 aria-hidden="true"></span>
         </th>
-        <th></th>
+        <th class="grid-header-container"></th>
       </tr>
-      <tr ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
-        <th ng-show="grid.showSelectColumn"></th>
-        <th ng-repeat="field in grid.owner.fields">
-          <mn-qf-text
-                qf-disabled="grid.onlySelectedItemsShown"
-                ng-if="field.quickfilter === 'text'"
-                model="grid.owner.stateMachine.filters[field.name]"
-                qf-changed="grid.filterBy(fieldName)"
-                field="field"></mn-qf-text>
-          <mn-qf-date-range
-                qf-disabled="grid.onlySelectedItemsShown"
-                ng-if="field.quickfilter === 'date-range'"
-                model="grid.owner.stateMachine.filters[field.name]"
-                qf-changed="grid.filterBy(fieldName)"
-                field="field"></mn-qf-date-range>
-          <mn-qf-select
-                qf-disabled="grid.onlySelectedItemsShown"
-                ng-if="field.quickfilter === 'select'"
-                model="grid.owner.stateMachine.filters[field.name]"
-                qf-changed="grid.filterBy(fieldName)"
-                field="field"></mn-qf-select>
+      <tr>
+        <th ng-show="grid.showSelectColumn" class="QfRow">
+          <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
+          </div>
         </th>
-        <th></th>
+        <th ng-repeat="field in grid.owner.fields" class="QfRow">
+          <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
+            <mn-qf-text
+                  qf-disabled="grid.onlySelectedItemsShown"
+                  ng-if="field.quickfilter === 'text'"
+                  model="grid.owner.stateMachine.filters[field.name]"
+                  qf-changed="grid.filterBy(fieldName)"
+                  field="field"></mn-qf-text>
+            <mn-qf-date-range
+                  qf-disabled="grid.onlySelectedItemsShown"
+                  ng-if="field.quickfilter === 'date-range'"
+                  model="grid.owner.stateMachine.filters[field.name]"
+                  qf-changed="grid.filterBy(fieldName)"
+                  field="field"></mn-qf-date-range>
+            <mn-qf-select
+                  qf-disabled="grid.onlySelectedItemsShown"
+                  ng-if="field.quickfilter === 'select'"
+                  model="grid.owner.stateMachine.filters[field.name]"
+                  qf-changed="grid.filterBy(fieldName)"
+                  field="field"></mn-qf-select>
+          </div>
+        </th>
+        <th class="QfRow">
+          <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
+          </div> 
+        </th>
       </tr>
     </thead>
     <tbody ng-hide="grid.onlySelectedItemsShown">
       <tr ng-repeat="item in grid.owner.items" mn-right-click="grid.rightClick(item, $event)">
         <td ng-show="grid.showSelectColumn">
-          <input type="checkbox"
+          <input type="checkbox" class="baseFont3x"
                  ng-checked="grid.isItemSelected(item)"
                  ng-click="grid.selectionChanged(item)">
         </td>
@@ -63,7 +72,7 @@
             </span>
           </div>
         </td>
-        <td style="overflow: hidden;">
+        <td>
           <mn-grid-actions />
         <td>
       </tr>
@@ -75,14 +84,14 @@
                  ng-checked="grid.isItemSelected(item)"
                  ng-click="grid.selectionChanged(item)">
         </td>
-        <td ng-repeat="field in grid.owner.fields" style="overflow: hidden;">
+        <td ng-repeat="field in grid.owner.fields" style="overflow: auto;">
           <div>
             <span>
               {{item[field.name + '_formatted']}}
             </span>
           </div>
         </td>
-        <td style="overflow: hidden;">
+        <td>
           <mn-grid-actions />
         <td>
       </tr>

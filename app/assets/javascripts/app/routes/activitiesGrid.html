@@ -11,16 +11,16 @@
                mn-on-select="ctrl.onItemSelect(selectedItems)"
                mn-popup="ctrl.popup(items)">
         <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.pdf">
-          <i class="fa fa-file-pdf-o"></i>
+          <i class="fa fa-file-pdf-o fa-2x icoNormal hvRed"></i>
         </a>
         <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.xls">
-          <i class="fa fa-file-excel-o"></i>
+          <i class="fa fa-file-excel-o fa-2x icoNormal hvGreen"></i>
         </a>
         <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.xml">
-          <i class="fa fa-file-code-o"></i>
+          <i class="fa fa-file-code-o fa-2x icoNormal hvBlue"></i>
         </a>
         <a target="_blank" ng-click="ctrl.printMe(item)">
-          <i class="fa fa-print"></i>
+          <i class="fa fa-print fa-2x icoNormal"></i>
         </a>
         <a target="_blank" ng-click="ctrl.editItem(item)">
           <i class="fa fa-pencil-square-o"></i>
