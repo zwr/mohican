@@ -23,6 +23,15 @@
       };
     }
 
+    $scope.$watch(function() { return vm.model; }, function (newValue) {
+      if(angular.isUndefined(newValue)) {
+        vm.dateRange = {
+          startDate: null,
+          endDate:   null
+        };
+      }
+    });
+
     $scope.$watch(function() { return vm.dateRange; }, function (newValue, oldValue) {
       if(newValue !== oldValue) {
         if(newValue.startDate === null || newValue.endDate === null) {

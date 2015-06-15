@@ -28,6 +28,8 @@
       mohican.redirectDefaultParameters($stateParams, $state);
       mohican.injectDefaultParameters($stateParams);
 
+      console.log('controller initialize');
+
       this.$stateParams = $stateParams;
       this.$state = $state;
 
@@ -197,18 +199,18 @@
 
       this.$state.go(this.$state.current.name,
                      this.stateMachine.stateMachineToUrl(this.fields),
-                     { notify: true });
-      //  var that = this;
-      //  that.service.getClientPage(that.stateMachine.page,
-      //                             that.stateMachine.column,
-      //                             that.stateMachine.direction,
-      //                             that.stateMachine.filters,
-      //                             that.fields).then(function(data) {
-      //    that.items = data.items;
-      //    that.pageCount = data.pageCount;
-      //    that.totalQfCount = data.totalQfCount;
-      //    mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
-      //  });
+                     { notify: false });
+       var that = this;
+       that.service.getClientPage(that.stateMachine.page,
+                                  that.stateMachine.column,
+                                  that.stateMachine.direction,
+                                  that.stateMachine.filters,
+                                  that.fields).then(function(data) {
+         that.items = data.items;
+         that.pageCount = data.pageCount;
+         that.totalQfCount = data.totalQfCount;
+         mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+       });
     },
 
     clearClientSortAndFilter: function() {

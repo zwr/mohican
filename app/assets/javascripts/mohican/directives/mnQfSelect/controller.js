@@ -34,5 +34,18 @@
         }
       });
     };
+
+    $scope.$watch(function() { return vm.model; }, function (newValue) {
+      if(angular.isUndefined(newValue)) {
+        vm.selectItems = [];
+
+        vm.field.values.forEach(function(value) {
+          vm.selectItems.push({
+            name:     value,
+            selected: _.contains(vm.model, value)
+          });
+        });
+      }
+    });
   }
 })();
