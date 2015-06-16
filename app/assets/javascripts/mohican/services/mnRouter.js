@@ -53,7 +53,7 @@
       }
 
       function redirectTo(routeName) {
-        $state.go(routeName);
+        $state.go('base.' + routeName, $stateParams, {location: 'replace'});
       }
 
       return {
