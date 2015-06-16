@@ -33,6 +33,13 @@
       provider.addResouceRoute(definition);
     };
 
+    provider.addRedirecRoute = function(definition) {
+      provider.routes.push({
+        name:       definition.name,
+        redirectTo: definition.redirectTo
+      });
+    };
+
     this.$get = ['$stateParams', '$state', function($stateParams, $state) {
       function createAll() {
         provider.routes.forEach(function(route) {
@@ -40,8 +47,13 @@
         });
       }
 
+      function redirectTo(routeName) {
+        $state.go(routeName);
+      }
+
       return {
         createAll:    createAll,
+        redirectTo:   redirectTo,
         $stateParams: $stateParams,
         $state:       $state
       };

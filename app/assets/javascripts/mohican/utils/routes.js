@@ -6,12 +6,26 @@
 
   mohican.routes = [];
 
-  mohican._mohicanRoute = function(routeName, controller, $stateProvider) {
+  mohican._mohicanRoute = function(routeName, controller, $stateProvider, redirectTo) {
     mohican.routes.push(routeName);
-    $stateProvider.state('base.' + routeName, {
-      url: '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters',
 
-      templateUrl:  'app/routes/' + routeName + 'Grid.html',
+    var url, templateUrl;
+
+    if(redirectTo) {
+      url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
+      templateUrl = 'app/routes/' + redirectTo + 'Grid.html';
+      controller = ['$state', '$stateParams', function($state, $stateParams) {
+        $state.go('base.' + redirectTo, $stateParams, {location: 'replace'});
+      }];
+    }
+    else {
+      url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
+      templateUrl = 'app/routes/' + routeName + 'Grid.html';
+    }
+
+    $stateProvider.state('base.' + routeName, {
+      url:          url,
+      templateUrl:  templateUrl,
       controller:   controller,
       controllerAs: 'ctrl'
     });
@@ -32,7 +46,7 @@
       angular.module('mohican.services').register.
           factory(definition.name + 'Service', definition.service);
     }
-    mohican._mohicanRoute(definition.name, definition.controller, $stateProvider);
+    mohican._mohicanRoute(definition.name, definition.controller, $stateProvider, definition.redirectTo);
   };
 
   var _checkDefaultParams = function(params) {
