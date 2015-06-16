@@ -228,6 +228,24 @@
 
     onItemSelect: function(selectedItems) {
       console.log(selectedItems);
+    },
+
+    popup: function(items) {
+      console.log(items);
+      return [
+        {
+          text:   'first action',
+          action: function() {
+            console.log('first action exec');
+          }
+        },
+        {
+          text:   'second action',
+          action: function() {
+            console.log('second action exec');
+          }
+        }
+      ];
     }
   };
 }(window.mohican));

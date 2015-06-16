@@ -8,7 +8,8 @@
     <div class="col-xs-12">
       <mn-grid mn-select="single"
                mn-select-type="check"
-               mn-on-select="ctrl.onItemSelect(selectedItems)">
+               mn-on-select="ctrl.onItemSelect(selectedItems)"
+               mn-popup="ctrl.popup(items)">
         <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.pdf">
           <i class="fa fa-file-pdf-o"></i>
         </a>

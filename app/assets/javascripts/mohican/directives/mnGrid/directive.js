@@ -12,7 +12,8 @@
             owner:        '=?',
             mnSelect:     '@?',
             mnSelectType: '@?',
-            mnOnSelect:   '&'
+            mnOnSelect:   '&',
+            mnPopup:      '&'
           },
           restrict:     'E',
           transclude:   true,

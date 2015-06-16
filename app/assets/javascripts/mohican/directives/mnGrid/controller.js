@@ -81,5 +81,9 @@
         vm.owner.stateMachine.filters
       );
     };
+
+    vm.rightClick = function(item) {
+      vm.mnPopup({items: [item]});
+    };
   }
 })();
