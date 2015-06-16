@@ -34,10 +34,15 @@
     };
 
     provider.addRedirecRoute = function(definition) {
-      provider.routes.push({
-        name:       definition.name,
-        redirectTo: definition.redirectTo
-      });
+      if(definition.name === null || definition.name === '') {
+        $urlRouterProviderRef.otherwise('/' + definition.redirectTo);
+      }
+      else {
+        provider.routes.push({
+          name:       definition.name,
+          redirectTo: definition.redirectTo
+        });
+      }
     };
 
     this.$get = ['$stateParams', '$state', function($stateParams, $state) {
