@@ -24,15 +24,6 @@
   }
 }
 
-.mn-navbar-title {
-  height: 50px;
-  display: inline;
-}
-
-.navbar-brand {
-  padding-top: 2px;
-}
-
 @media(max-width: $app-hide-title) {
   .mn-navbar-title > a {
     width: 5px;
@@ -40,6 +31,32 @@
       display: none;
     }
   }
+}
+
+.mn-navbar-title {
+  height: 50px;
+  display: inline;
+  padding-left: 15px;
+}
+
+a.navbar-brand {
+  margin-top: 4px;
+  width:$mn-brand-width;
+  height:$mn-brand-height;
+  background:$mn-brand-bg;
+  background-size: contain;
+}
+
+a.navbar-brand.active, a.navbar-brand:focus {
+  outline:none !important;
+  box-shadow:none;
+  cursor:default;
+}
+
+.navbar-static-top {
+  box-shadow: -1px 0px 14px Black;
+  -webkit-box-shadow: -1px 0px 14px Black;
+  -moz-box-shadow: -1px 0px 14px Black;
 }
 
 .filterRowAnimWrap.ng-hide-add,
@@ -120,10 +137,6 @@ mn-grid th.mn-sortable {
 }
 
 .mn-grid-layout-row { margin-top: $mn-grid-layout-row; }
-
-[mn-full-height] {
-  background: #e6e6e6 url($mn-mn-full-height-backbround-image) repeat-x;
-}
 
 [ui-view] {
   margin-left: 15px;
