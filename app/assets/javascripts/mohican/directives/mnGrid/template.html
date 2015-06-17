@@ -50,7 +50,7 @@
       </tr>
     </thead>
     <tbody ng-hide="grid.onlySelectedItemsShown">
-      <tr ng-repeat="item in grid.owner.items" mn-right-click="grid.rightClick(item)">
+      <tr ng-repeat="item in grid.owner.items" mn-right-click="grid.rightClick(item, $event)">
         <td ng-show="grid.showSelectColumn">
           <input type="checkbox"
                  ng-checked="grid.isItemSelected(item)"
@@ -69,7 +69,7 @@
       </tr>
     </tbody>
     <tbody ng-show="grid.onlySelectedItemsShown">
-      <tr ng-repeat="item in grid.selectedItems" mn-right-click="grid.rightClick(item)">
+      <tr ng-repeat="item in grid.selectedItems" mn-right-click="grid.rightClick(item, $event)">
         <td ng-show="grid.showSelectColumn">
           <input type="checkbox"
                  ng-checked="grid.isItemSelected(item)"
@@ -101,6 +101,9 @@
   selected documents count: {{grid.selectedItems.length}}
   <a ng-show="grid.selectedItems.length > 0" ng-click="grid.unselectAll()">unselect all</a>
 </div>
-<div class="btn-group-vertical" role="group" ng-show="grid.contextMenuVisible">
+<div class="btn-group-vertical"
+     role="group"
+     ng-show="grid.contextMenuVisible"
+     style="position: absolute; left: {{grid.contextMenuPosition.x}}px; top: {{grid.contextMenuPosition.y}}px;">
   <button ng-repeat="item in grid.contextMenuItems" ng-click="grid.contextMenuAction(item)" type="button" class="btn btn-default">{{item.text}}</button>
 </div>
