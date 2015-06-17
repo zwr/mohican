@@ -83,7 +83,8 @@
     };
 
     vm.rightClick = function(item) {
-      vm.mnPopup({items: [item]});
+      var menuItems = vm.mnPopup({items: [item]});
+      console.log(menuItems);
     };
   }
 })();
