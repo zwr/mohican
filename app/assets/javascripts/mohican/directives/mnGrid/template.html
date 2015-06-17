@@ -101,3 +101,6 @@
   selected documents count: {{grid.selectedItems.length}}
   <a ng-show="grid.selectedItems.length > 0" ng-click="grid.unselectAll()">unselect all</a>
 </div>
+<div class="btn-group-vertical" role="group" ng-show="grid.contextMenuVisible">
+  <button ng-repeat="item in grid.contextMenuItems" ng-click="grid.contextMenuAction(item)" type="button" class="btn btn-default">{{item.text}}</button>
+</div>
