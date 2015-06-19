@@ -43,9 +43,9 @@
                   if(popupElem.offsetTop + popupElem.offsetHeight >= element[0].getBoundingClientRect().bottom -50) {
                     ctrl.menuPosition.top = popupElem.offsetTop - popupElem.offsetHeight;
                   }
-                if(popupElem.offsetLeft + popupElem.offsetWidth >= element[0].getBoundingClientRect().right -50) {
-                  ctrl.menuPosition.left = popupElem.offsetLeft - popupElem.offsetWidth;
-                }
+                  if(popupElem.offsetLeft + popupElem.offsetWidth >= element[0].getBoundingClientRect().right -50) {
+                    ctrl.menuPosition.left = popupElem.offsetLeft - popupElem.offsetWidth;
+                  }
                 }
               },
               true
