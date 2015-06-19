@@ -45,6 +45,7 @@
     'ui.bootstrap',
     'templates',
     'ui.router',
+    'ngDialog',
     'isteven-multi-select',
     'daterangepicker',
     'mohican.routes',

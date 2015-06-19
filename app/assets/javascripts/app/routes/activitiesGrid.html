@@ -22,8 +22,14 @@
         <a target="_blank" ng-click="ctrl.printMe(item)">
           <i class="fa fa-print"></i>
         </a>
+        <a target="_blank" ng-click="ctrl.editItem(item)">
+          <i class="fa fa-pencil-square-o"></i>
+        </a>
       </mn-grid>
     </div>
   </div>
   <iframe id="print-f" name="print-f" src="" style="display:none;"></iframe>
 </div>
+<script type="text/ng-template" id="editItem">
+  Order_ID:{{item.Order_ID}}
+</script>

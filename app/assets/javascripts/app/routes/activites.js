@@ -5,8 +5,8 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   mnRouterProvider.addResouceRoute({
     name: 'activities',
 
-    controller: ['service', 'mnRouter',
-      function(service, mnRouter) {
+    controller: ['service', 'mnRouter', 'ngDialog',
+      function(service, mnRouter, ngDialog) {
         mohican.extendBaseController(this, service, mnRouter);
         var ctrl = this;
         ctrl.reportLocation = '/reports';
@@ -21,6 +21,16 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               window.frames['print-f'].print();
             });
           }
+        };
+        ctrl.editItem = function (item) {
+          console.log(item);
+          ngDialog.open({
+            template:        'editItem',
+            closeByDocument: false,
+            controller:      ['$scope', function($scope) {
+              $scope.item = item;
+            }]
+          });
         };
       }
     ],
