@@ -30,6 +30,26 @@
                 itemElement.append(notLinkedClone);
               });
             };
+            var popupElem = element[0].querySelector('.mn-context-menu');
+            scope.$watch(
+              function () {
+                return {
+                  top: popupElem.clientTop,
+                  height: popupElem.clientHeight,
+                }
+              },
+              function () {
+                if(ctrl.menuPosition) {
+                  if(popupElem.offsetTop + popupElem.offsetHeight >= element[0].getBoundingClientRect().bottom -50) {
+                    ctrl.menuPosition.top = popupElem.offsetTop - popupElem.offsetHeight;
+                  }
+                if(popupElem.offsetLeft + popupElem.offsetWidth >= element[0].getBoundingClientRect().right -50) {
+                  ctrl.menuPosition.left = popupElem.offsetLeft - popupElem.offsetWidth;
+                }
+                }
+              },
+              true
+            );
           }
         };
       }

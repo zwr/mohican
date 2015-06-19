@@ -232,7 +232,7 @@
 
     popup: function(items) {
       console.log(items);
-      return [
+      var ret_array = [
         {
           text:   'first action',
           action: function() {
@@ -246,6 +246,16 @@
           }
         }
       ];
+
+      for(var i = 0;i < Math.floor(Math.random() * 10); i++) {
+        ret_array.push({
+          text:   'action' + i,
+          action: function() {
+            console.log('first action exec' + i);
+          }
+        });
+      }
+      return ret_array;
     }
   };
 }(window.mohican));
