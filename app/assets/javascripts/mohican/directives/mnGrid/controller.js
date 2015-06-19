@@ -85,8 +85,11 @@
     vm.rightClick = function(item, $event) {
       console.log($event);
       vm.contextMenuItems = vm.mnPopup({items: [item]});
-      vm.contextMenuPosition = {x: $event.screenX, y: $event.screenY};
       vm.contextMenuVisible = true;
+      vm.menuPosition = {
+        left: $event.pageX + "px",
+        top: $event.pageY + "px"
+      };
     };
 
     vm.contextMenuAction = function(item) {

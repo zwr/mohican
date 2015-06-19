@@ -104,7 +104,7 @@
 <div class="btn-group-vertical mn-context-menu"
      role="group"
      ng-show="grid.contextMenuVisible"
-     style="left: {{grid.contextMenuPosition.x}}px; top: {{grid.contextMenuPosition.y}}px;">
+     ng-style="grid.menuPosition">
   <button ng-repeat="item in grid.contextMenuItems" ng-click="grid.contextMenuAction(item)" type="button" class="btn btn-default">{{item.text}}</button>
 </div>
 <div class="mn-context-menu-cover" ng-click="grid.contextMenuVisible=false" ng-if="grid.contextMenuVisible">
