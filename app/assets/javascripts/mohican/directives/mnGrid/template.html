@@ -3,7 +3,7 @@
     <colgroup>
       <col ng-show="grid.showSelectColumn" class="vmiddle" style="width: 30px; margin:0 auto;">
       <col ng-repeat="field in grid.owner.fields" ng-style="{width: field.width + 'px'}"/>
-      <col style="width: 132px;">
+      <col style="width: 166px;">
     </colgroup>
     <thead>
       <tr>
@@ -54,7 +54,7 @@
         </th>
         <th class="QfRow">
           <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
-          </div> 
+          </div>
         </th>
       </tr>
     </thead>
@@ -100,9 +100,9 @@
 </div>
 <mn-grid-pager ng-hide="grid.onlySelectedItemsShown">
 </mn-grid-pager>
-<div>
+<!-- <div>
   backend filtered documents count: {{grid.owner.service.buffer.length}}/{{grid.owner.service.totalCount}}
-</div>
+</div> -->
 <div>
   quick filtered documents count: {{grid.owner.totalQfCount}}
 </div>

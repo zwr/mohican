@@ -149,8 +149,6 @@ mn-menu-item-route > a > span {
 }
 
 .filterBar {
-  background: $mn-content-header-background;
-  background: -webkit-$mn-content-header-background;
   background:
     $mn-content-header-background bottom right,
     linear-gradient(135deg, transparent 10px, #36B7FF 0) top left;
@@ -178,7 +176,8 @@ mn-menu-item-route > a > span {
   font-weight: 500;
 }
 
-.filter-bar-button.active, .filter-bar-button:focus {
+.filter-bar-button.active, .filter-bar-button:focus, .QfRow button.active, .QfRow button:focus {
+// removing webkit active & focus markup
   outline:none !important;
   box-shadow:none;
   cursor:default;
@@ -228,7 +227,6 @@ a.mn-menu-item-route-active:focus {
 }
 
 .nav,
-.pagination,
 .carousel,
 .panel-title a,
 .pointer,
@@ -236,6 +234,10 @@ a.mn-menu-item-route-active:focus {
 [data-ng-click],
 [x-ng-click] {
     cursor: pointer;
+}
+
+.pagination {
+  z-index: 6;
 }
 
 mn-menu-group > li {
@@ -341,8 +343,57 @@ mn-item-reports > div {
   padding-bottom: 15px;
 }
 
-.pager-row {
-  padding-top: 12px;
+.mn-context-menu {
+  position: absolute;
+  z-index:999999;
+}
+
+.mn-context-menu-cover {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0);
+  z-index:999998;
+  cursor:default;
+}
+
+.mn-context-menu > .btn-default {
+  color: $mn-popup-menu-color;
+  background-color: $mn-popup-menu-background-color;
+  border-color: $mn-popup-menu-border-color;
+}
+
+.mn-context-menu > .btn-default:hover {
+  color: $mn-popup-menu-color-hover;
+  background-color: $mn-popup-menu-background-color-hover;
+  border-color: $mn-popup-menu-border-color-hover;
+}
+
+.mn-pager-row {
+  padding-top: 7px;
+  padding-bottom: 5px;
+  margin: 0 !important;
+  overflow: hidden;
+  background:
+    $mn-content-footer-background top left,
+    linear-gradient(315deg, transparent 10px, $mn-colorscheme-1L 0) bottom right;
+  background-size: 100% 68%;
+  background-repeat: no-repeat;
+  position:relative;
+}
+
+.mn-content-footer-status-msg {
+  position:absolute;
+  right:42px;
+  bottom:-18px;
+  color:$mn-colorscheme-1P;
+  padding:0;
+  margin:0;
+  font-size:48px;
+  font-weight:bolder;
+  z-index: 5;
 }
 
 .client-pager {
@@ -413,31 +464,4 @@ mn-item-reports > div {
 
 .vmiddle {
   vertical-align: middle !important;
-}
-
-.mn-context-menu {
-  position: absolute;
-  z-index:999999;
-}
-
-.mn-context-menu-cover {
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0);
-  z-index:999998;
-  cursor:default;
-}
-
-.mn-context-menu > .btn-default {
-  color: $mn-popup-menu-color;
-  background-color: $mn-popup-menu-background-color;
-  border-color: $mn-popup-menu-border-color;
-}
-.mn-context-menu > .btn-default:hover {
-  color: $mn-popup-menu-color-hover;
-  background-color: $mn-popup-menu-background-color-hover;
-  border-color: $mn-popup-menu-border-color-hover;
 }
