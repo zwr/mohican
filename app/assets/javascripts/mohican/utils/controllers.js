@@ -230,19 +230,22 @@
       console.log(selectedItems);
     },
 
+    // Following must be changed to
+    //     popup: function(clicked_item, selected_items)
+    // and it should be moved 
     popup: function(items) {
       console.log(items);
       var ret_array = [
         {
           text:   'first action',
           action: function() {
-            console.log('first action exec');
+            console.log('first action exec on object ' + items[0].WorkOrder_ID);
           }
         },
         {
           text:   'second action',
           action: function() {
-            console.log('second action exec');
+            console.log('second action exec on object ' + items[0].WorkOrder_ID);
           }
         }
       ];
@@ -251,7 +254,7 @@
         ret_array.push({
           text:   'action' + i,
           action: function() {
-            console.log('first action exec' + i);
+            console.log('first action exec' + i + ' on object ' + items[0].WorkOrder_ID);
           }
         });
       }
