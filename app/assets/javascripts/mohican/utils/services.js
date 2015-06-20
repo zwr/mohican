@@ -1,7 +1,7 @@
 (function(mohican) {
   'use strict';
 
-  mohican.constructBaseService(docname, $http, $q) {
+  mohican.constructBaseService = function(docname, $http, $q) {
     var service = {};
     mohican.extendBaseService(service, 'activities', $http, $q);
     return service;
