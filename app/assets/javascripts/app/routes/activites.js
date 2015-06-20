@@ -36,8 +36,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
     ],
 
     service: ['$http', '$q', function ($http, $q) {
-      var service = {};
-      mohican.extendBaseService(service, 'activities', $http, $q);
+      var service = constructBaseService('activities', $http, $q);
       // do a lot of stuff
       return service;
     }]
