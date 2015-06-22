@@ -32,6 +32,9 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             }]
           });
         };
+        ctrl.onItemSelect = function(selectedItems) {
+          console.log(selectedItems);
+        };
         ctrl.popup = function(clickedItem, selectedItems) {
           console.log('Clicked Item: ', clickedItem);
           console.log('Selected Items: ', selectedItems);

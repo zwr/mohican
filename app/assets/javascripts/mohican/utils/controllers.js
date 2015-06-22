@@ -224,10 +224,6 @@
       this.$state.go(this.$state.current.name,
                      this.stateMachine.stateMachineToUrl(this.fields),
                      { notify: true });
-    },
-
-    onItemSelect: function(selectedItems) {
-      console.log(selectedItems);
     }
   };
 }(window.mohican));
