@@ -228,37 +228,6 @@
 
     onItemSelect: function(selectedItems) {
       console.log(selectedItems);
-    },
-
-    // Following must be changed to
-    //     popup: function(clicked_item, selected_items)
-    // and it should be moved
-    popup: function(items) {
-      console.log(items);
-      var retArray = [
-        {
-          text:   'first action',
-          action: function() {
-            console.log('first action exec on object ' + items[0].WorkOrder_ID);
-          }
-        },
-        {
-          text:   'second action',
-          action: function() {
-            console.log('second action exec on object ' + items[0].WorkOrder_ID);
-          }
-        }
-      ];
-
-      for(var i = 0; i < Math.floor(Math.random() * 10); i++) {
-        retArray.push({
-          text:   'action' + i,
-          action: function() {
-            console.log('first action exec' + i + ' on object ' + items[0].WorkOrder_ID);
-          }
-        });
-      }
-      return retArray;
     }
   };
 }(window.mohican));

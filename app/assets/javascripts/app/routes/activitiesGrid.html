@@ -9,7 +9,7 @@
       <mn-grid mn-select="single"
                mn-select-type="check"
                mn-on-select="ctrl.onItemSelect(selectedItems)"
-               mn-popup="ctrl.popup(items)">
+               mn-popup="ctrl.popup(clickedItem, selectedItems)">
         <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.pdf">
           <i class="fa fa-file-pdf-o fa-2x icoNormal hvRed"></i>
         </a>

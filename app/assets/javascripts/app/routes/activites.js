@@ -32,6 +32,34 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             }]
           });
         };
+        ctrl.popup = function(clickedItem, selectedItems) {
+          console.log('Clicked Item: ', clickedItem);
+          console.log('Selected Items: ', selectedItems);
+          var retArray = [
+            {
+              text:   'first action',
+              action: function() {
+                console.log('first action exec on object ' + clickedItem.WorkOrder_ID);
+              }
+            },
+            {
+              text:   'second action',
+              action: function() {
+                console.log('second action exec on object ' + clickedItem.WorkOrder_ID);
+              }
+            }
+          ];
+
+          for(var i = 0; i < Math.floor(Math.random() * 10); i++) {
+            retArray.push({
+              text:   'action' + i,
+              action: function() {
+                console.log('first action exec' + i + ' on object ' + clickedItem.WorkOrder_ID);
+              }
+            });
+          }
+          return retArray;
+        };
       }
     ],
 

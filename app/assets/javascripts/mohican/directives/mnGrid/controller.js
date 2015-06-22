@@ -83,13 +83,14 @@
     };
 
     vm.rightClick = function(item, $event) {
-      console.log($event);
-      vm.contextMenuItems = vm.mnPopup({items: [item]});
-      vm.contextMenuVisible = true;
-      vm.menuPosition = {
-        left: $event.pageX + "px",
-        top: $event.pageY + "px"
-      };
+      if(vm.mnPopup) {
+        vm.contextMenuItems = vm.mnPopup({clickedItem: item, selectedItems: vm.selectedItems});
+        vm.contextMenuVisible = true;
+        vm.menuPosition = {
+          left: $event.pageX + 'px',
+          top:  $event.pageY + 'px'
+        };
+      }
     };
 
     vm.contextMenuAction = function(item) {
