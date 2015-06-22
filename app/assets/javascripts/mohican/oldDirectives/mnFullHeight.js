@@ -9,7 +9,9 @@ angular.module('mnOldDirectives').
               return element.attr('style', 'min-height: ' + h + 'px;');
             };
             angular.element($window).bind('resize', function(e) {
-              return scope.setHeight(elem, e.srcElement.innerHeight);
+              if(e.srcElement) {
+                return scope.setHeight(elem, e.srcElement.innerHeight);
+              }
             });
             return scope.setHeight(elem, $window.innerHeight);
           },
