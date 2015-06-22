@@ -233,7 +233,7 @@
     },
 
     closeDialog: function() {
-      alert('closing');
+      this.mnDialogVisible = false;
     }
   };
 }(window.mohican));
