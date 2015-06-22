@@ -42,6 +42,14 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           console.log('Selected Items: ', selectedItems);
           var retArray = [
             {
+              text:   'pop me up',
+              action: function() {
+                ctrl.clickedItem = clickedItem;
+                ctrl.selectedItems = selectedItems;
+                ctrl.popDialog('app/routes/activitiesExampleDialog.html');
+              }
+            },
+            {
               text:   'first action',
               action: function() {
                 console.log('first action exec on object ' + clickedItem.WorkOrder_ID);

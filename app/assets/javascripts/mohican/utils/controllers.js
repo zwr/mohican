@@ -222,6 +222,18 @@
       this.$state.go(this.$state.current.name,
                      this.stateMachine.stateMachineToUrl(this.fields),
                      { notify: true });
+    },
+
+    mnDialogVisible: false,
+
+    popDialog: function(templateUrl) {
+      this.mnDialogVisible = true;
+      this.mnDialogActiveTemplate = templateUrl;
+
+    },
+
+    closeDialog: function() {
+      alert('closing');
     }
   };
 }(window.mohican));

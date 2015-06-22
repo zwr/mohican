@@ -483,3 +483,51 @@ mn-item-reports > div {
 .accent0 {
   color:$mn-colorscheme-0A !important;
 }
+
+.mn-context-menu-cover, .mn-dialog-frame-cover {
+  position:fixed;
+  top:0;
+  left:0;
+  width:100%;
+  height:100%;
+  background:rgba(0,0,0,0);
+  z-index:999998;
+  cursor:default;
+}
+
+.mn-dialog-frame-cover {
+  background:rgba(0,0,0,0.2);
+}
+
+.mn-dialog-frame {
+  position:fixed;
+  top:200px;
+  left:200px;
+  width:500px;
+  height:500px;
+  z-index:999999;
+  background-color: green;
+  padding: 20px;
+}
+
+.mn-dialog-close-button {
+  position:absolute;
+  top:0px;
+  right:0px;
+  width:30px;
+  height:30px;
+  background-color: red;
+  z-index:1999999;
+}
+
+.mn-context-menu > .btn-default {
+  color: $mn-popup-menu-color;
+  background-color: $mn-popup-menu-background-color;
+  border-color: $mn-popup-menu-border-color;
+}
+
+.mn-context-menu > .btn-default:hover {
+  color: $mn-popup-menu-color-hover;
+  background-color: $mn-popup-menu-background-color-hover;
+  border-color: $mn-popup-menu-border-color-hover;
+}
