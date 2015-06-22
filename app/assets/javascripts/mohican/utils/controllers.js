@@ -28,8 +28,6 @@
       mohican.redirectDefaultParameters($stateParams, $state);
       mohican.injectDefaultParameters($stateParams);
 
-      console.log('controller initialize');
-
       this.$stateParams = $stateParams;
       this.$state = $state;
 
