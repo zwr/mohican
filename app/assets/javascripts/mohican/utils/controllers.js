@@ -232,10 +232,10 @@
 
     // Following must be changed to
     //     popup: function(clicked_item, selected_items)
-    // and it should be moved 
+    // and it should be moved
     popup: function(items) {
       console.log(items);
-      var ret_array = [
+      var retArray = [
         {
           text:   'first action',
           action: function() {
@@ -250,15 +250,15 @@
         }
       ];
 
-      for(var i = 0;i < Math.floor(Math.random() * 10); i++) {
-        ret_array.push({
+      for(var i = 0; i < Math.floor(Math.random() * 10); i++) {
+        retArray.push({
           text:   'action' + i,
           action: function() {
             console.log('first action exec' + i + ' on object ' + items[0].WorkOrder_ID);
           }
         });
       }
-      return ret_array;
+      return retArray;
     }
   };
 }(window.mohican));
