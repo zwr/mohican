@@ -1,4 +1,4 @@
-<div class="mn-dialog-frame" ng-if="ctrl.mnDialogVisible" >
+<div class="mn-dialog-frame" ng-if="ctrl.mnDialogVisible" ng-style="mnDialogPosition">
   <ng-include src="ctrl.mnDialogActiveTemplate"></ng-include>
   <div class="mn-dialog-close-button" ng-click="ctrl.closeDialog()"></div>
 </div>

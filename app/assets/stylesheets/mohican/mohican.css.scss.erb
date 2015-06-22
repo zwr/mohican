@@ -484,6 +484,11 @@ mn-item-reports > div {
   color:$mn-colorscheme-0A !important;
 }
 
+.mn-context-menu {
+  position: absolute;
+  z-index:1999;
+}
+
 .mn-context-menu-cover, .mn-dialog-frame-cover {
   position:fixed;
   top:0;
@@ -491,23 +496,24 @@ mn-item-reports > div {
   width:100%;
   height:100%;
   background:rgba(0,0,0,0);
-  z-index:999998;
+  z-index:1998;
   cursor:default;
 }
 
 .mn-dialog-frame-cover {
-  background:rgba(0,0,0,0.2);
+  background:rgba(0,0,0,0.8);
 }
 
 .mn-dialog-frame {
   position:fixed;
-  top:200px;
-  left:200px;
-  width:500px;
-  height:500px;
-  z-index:999999;
+  z-index:1999;
   background-color: green;
-  padding: 20px;
+  padding: 30px 45px;
+  //margin: 30px;
+  * {
+    z-index:9999;
+    position:relative;
+  }
 }
 
 .mn-dialog-close-button {
@@ -517,7 +523,7 @@ mn-item-reports > div {
   width:30px;
   height:30px;
   background-color: red;
-  z-index:1999999;
+  z-index:2999;
 }
 
 .mn-context-menu > .btn-default {
