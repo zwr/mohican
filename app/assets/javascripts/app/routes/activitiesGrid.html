@@ -10,6 +10,9 @@
                mn-select-type="check"
                mn-on-select="ctrl.onItemSelect(selectedItems)"
                mn-popup="ctrl.popup(clickedItem, selectedItems)">
+        <a target="_blank" ng-click="ctrl.editItem(item)">
+          <i class="fa fa-pencil-square-o fa-2x icoNormal"></i>
+        </a>
         <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.pdf">
           <i class="fa fa-file-pdf-o fa-2x icoNormal hvRed"></i>
         </a>
@@ -21,9 +24,6 @@
         </a>
         <a target="_blank" ng-click="ctrl.printMe(item)">
           <i class="fa fa-print fa-2x icoNormal"></i>
-        </a>
-        <a target="_blank" ng-click="ctrl.editItem(item)">
-          <i class="fa fa-pencil-square-o fa-2x icoNormal"></i>
         </a>
       </mn-grid>
     </div>
