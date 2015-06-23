@@ -23,16 +23,8 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         };
         ctrl.editItem = function (item) {
-          console.log(item);
-          ngDialog.open({
-            template:        'editItemForm',
-            closeByDocument: false,
-            controller:      [function() {
-              var vm = this;
-              vm.item = item;
-            }],
-            controllerAs: 'editItem'
-          });
+          ctrl.editItemObject = item;
+          ctrl.popDialog('app/routes/activitiesEditItemDialog.html');
         };
         ctrl.onItemSelect = function(selectedItems) {
           console.log(selectedItems);
