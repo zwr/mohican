@@ -5,8 +5,8 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   mnRouterProvider.addResouceRoute({
     name: 'activities',
 
-    controller: ['service', 'mnRouter', 'ngDialog',
-      function(service, mnRouter, ngDialog) {
+    controller: ['service', 'mnRouter',
+      function(service, mnRouter) {
         mohican.extendBaseController(this, service, mnRouter);
         var ctrl = this;
         ctrl.reportLocation = '/reports';
