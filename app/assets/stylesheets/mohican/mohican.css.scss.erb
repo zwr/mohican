@@ -54,10 +54,15 @@ a.navbar-brand.active, a.navbar-brand:focus {
 }
 
 .navbar-static-top {
-  box-shadow: -1px 0px 14px Black;
-  -webkit-box-shadow: -1px 0px 14px Black;
-  -moz-box-shadow: -1px 0px 14px Black;
+  box-shadow: -1px 0px 19px #0A1D42;
+  -webkit-box-shadow: -1px 0px 19px #0A1D42;
+  -moz-box-shadow: -1px 0px 19px #0A1D42;
 }
+
+.navbar-inverse {
+  background-color:#0A1D42;
+}
+
 
 .filterRowAnimWrap.ng-hide-add,
 .filterRowAnimWrap.ng-hide-remove {
@@ -111,6 +116,16 @@ a.navbar-brand.active, a.navbar-brand:focus {
   color: #b3e5fc;
 }
 
+.filter-bar-dropDown .multiSelect .multiSelectItem.selected:not(.multiSelectGroup), .filter-bar-dropDown .multiSelect .multiSelectItem:hover, .filter-bar-dropDown .multiSelect .multiSelectGroup:hover {
+  background-image: linear-gradient($mn-colorscheme-1L, $mn-colorscheme-1P);
+  color: #666;
+  border: 0 !important;
+}
+
+.filter-bar-dropDown .multiSelect .multiSelectItem:hover, .filter-bar-dropDown .multiSelect .multiSelectGroup:hover {
+  background-image: linear-gradient($mn-colorscheme-1D, $mn-colorscheme-1M) !important;
+}
+
 .QfRow button {
   background: #a5d6a7;
   padding: 3px 1px 2px 3px !important;
@@ -137,11 +152,6 @@ mn-grid th.mn-sortable {
 }
 
 .mn-grid-layout-row { margin-top: $mn-grid-layout-row; }
-
-[ui-view] {
-  margin-left: 15px;
-  margin-right: 15px;
-}
 
 mn-menu-item-route > a > span {
   color: $mn-menu-item-route-color;
@@ -387,13 +397,17 @@ mn-item-reports > div {
 .mn-content-footer-status-msg {
   position:absolute;
   right:42px;
-  bottom:-18px;
+  bottom:-9px;
   color:$mn-colorscheme-1P;
   padding:0;
   margin:0;
-  font-size:48px;
+  font-size:24px;
   font-weight:bolder;
   z-index: 5;
+}
+
+.mn-content-footer-status-msg-invert {
+  color:$mn-colorscheme-1D;
 }
 
 .client-pager {
