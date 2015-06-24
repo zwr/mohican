@@ -24,7 +24,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         };
         ctrl.editItem = function (item) {
           ctrl.editItemObject = item;
-          ctrl.popDialog('app/routes/activitiesEditItemDialog.html');
+          ctrl.popDialog('Edit Order', 'app/routes/activitiesEditItemDialog.html');
         };
         ctrl.onItemSelect = function(selectedItems) {
           console.log(selectedItems);
@@ -38,7 +38,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               action: function() {
                 ctrl.clickedItem = clickedItem;
                 ctrl.selectedItems = selectedItems;
-                ctrl.popDialog('app/routes/activitiesExampleDialog.html');
+                ctrl.popDialog('Selected Orders', 'app/routes/activitiesExampleDialog.html');
               }
             },
             {

@@ -1,5 +1,15 @@
-<div class="mn-dialog-frame" ng-if="ctrl.mnDialogVisible" ng-style="mnDialogPosition">
-  <ng-include src="ctrl.mnDialogActiveTemplate"></ng-include>
-  <div class="mn-dialog-close-button" ng-click="ctrl.closeDialog()"></div>
+<div class="mn-dialog-frame modal-content" ng-if="ctrl.mnDialogVisible" ng-style="mnDialogPosition">
+  <div class="modal-header">
+    <a class="mn-dialog-close-button btn" ng-click="ctrl.closeDialog()">
+      ×
+    </a>
+    <!-- <div class="mn-dialog-close-button" ng-click="ctrl.closeDialog()"></div> -->
+    <h4 class="modal-title" id="myModalLabel">
+      {{ctrl.mnDialogActiveTitle}}
+    </h4>
+  </div>
+  <div class="mn-dialog-content">
+    <ng-include src="ctrl.mnDialogActiveTemplate"></ng-include>
+  </div>
 </div>
 <div class="mn-dialog-frame-cover" ng-if="ctrl.mnDialogVisible"></div>

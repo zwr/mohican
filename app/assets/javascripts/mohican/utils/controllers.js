@@ -226,7 +226,8 @@
 
     mnDialogVisible: false,
 
-    popDialog: function(templateUrl) {
+    popDialog: function(title, templateUrl) {
+      this.mnDialogActiveTitle = title;
       this.mnDialogVisible = true;
       this.mnDialogActiveTemplate = templateUrl;
 
