@@ -383,27 +383,21 @@ mn-item-reports > div {
 
 .mn-pager-row {
   padding-top: 7px;
-  padding-bottom: 5px;
   margin: 0 !important;
-  overflow: hidden;
   background:
     $mn-content-footer-background top left,
     linear-gradient(315deg, transparent 10px, $mn-colorscheme-1L 0) bottom right;
   background-size: 100% 68%;
   background-repeat: no-repeat;
-  position:relative;
 }
 
 .mn-content-footer-status-msg {
-  position:absolute;
-  right:42px;
-  bottom:-9px;
+  padding-right:42px;
   color:$mn-colorscheme-1P;
-  padding:0;
-  margin:0;
   font-size:24px;
   font-weight:bolder;
-  z-index: 5;
+  vertical-align: bottom;
+  text-align: right;
 }
 
 .mn-content-footer-status-msg-invert {
@@ -478,4 +472,8 @@ mn-item-reports > div {
 
 .vmiddle {
   vertical-align: middle !important;
+}
+
+.accent {
+  color:$mn-colorscheme-1A !important;
 }

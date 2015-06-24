@@ -98,14 +98,15 @@
     </tbody>
   </table>
 </div>
+
 <mn-grid-pager ng-hide="grid.onlySelectedItemsShown">
 </mn-grid-pager>
 <!-- <div>
   backend filtered documents count: {{grid.owner.service.buffer.length}}/{{grid.owner.service.totalCount}}
 </div> -->
-<div>
+<!-- <div>
   quick filtered documents count: {{grid.owner.totalQfCount}}
-</div>
+</div> -->
 <div>
   selected documents count: {{grid.selectedItems.length}}
   <a ng-show="grid.selectedItems.length > 0" ng-click="grid.unselectAll()">unselect all</a>
