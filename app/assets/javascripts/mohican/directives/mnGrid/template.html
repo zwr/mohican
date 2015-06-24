@@ -98,19 +98,28 @@
     </tbody>
   </table>
 </div>
-
-<mn-grid-pager ng-hide="grid.onlySelectedItemsShown">
-</mn-grid-pager>
-<!-- <div>
-  backend filtered documents count: {{grid.owner.service.buffer.length}}/{{grid.owner.service.totalCount}}
-</div> -->
-<!-- <div>
-  quick filtered documents count: {{grid.owner.totalQfCount}}
-</div> -->
-<div>
-  selected documents count: {{grid.selectedItems.length}}
-  <a ng-show="grid.selectedItems.length > 0" ng-click="grid.unselectAll()">unselect all</a>
+<div class="row mn-pager-row" >
+  <div class="col-xs-12 col-sm-5">
+    <mn-grid-pager ng-hide="grid.onlySelectedItemsShown">
+    </mn-grid-pager>
+  </div>
+  <div class="col-sm-7 hidden-xs mn-content-footer-status-msg">
+    <span ng-show="grid.selectedItems.length > 0">
+      <span class="accent0">{{grid.selectedItems.length}}</span> selected of
+    </span>
+    <span ng-if="grid.owner.totalQfCount < grid.owner.service.totalCount">
+      <span class="mn-content-footer-status-msg-invert">{{grid.owner.totalQfCount}}</span> documents quick filtered, of
+    </span>
+    <span ng-if="grid.owner.service.buffer.length < grid.owner.service.totalCount">
+      <span class="mn-content-footer-status-msg-invert">{{grid.owner.service.buffer.length}}</span> of
+    </span>
+      {{grid.owner.service.totalCount}} loaded
+  </div>
 </div>
+<!-- <div>
+  selected documents count: {{}}
+  <a ng-show="grid.selectedItems.length > 0" ng-click="grid.unselectAll()">unselect all</a>
+</div> -->
 <div class="btn-group-vertical mn-context-menu"
      role="group"
      ng-show="grid.contextMenuVisible"

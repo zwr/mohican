@@ -1,6 +1,4 @@
-<div class="row mn-pager-row" ng-class="{hidden: !gridPager.owner.pageCount}">
-  <div class="col-xs-12 col-sm-7">
-    <nav class="pointer">
+    <nav class="pointer" ng-class="{hidden: !gridPager.owner.pageCount}">
       <ul class="pointer pagination pagination-sm"
           style="margin: 0px 30px;"
           ng-class="{'client-pager': !!gridPager.owner.stateMachine.filters && gridPager.owner.fullyLoaded}">
@@ -33,14 +31,3 @@
         </li>
       </ul>
     </nav>
-  </div>
-  <div class="col-sm-5 hidden-xs mn-content-footer-status-msg">
-    <span ng-if="$parent.owner.totalQfCount < $parent.owner.service.totalCount">
-      <span class="mn-content-footer-status-msg-invert">{{$parent.owner.totalQfCount}}</span> documents quick filtered, of
-    </span>
-    <span ng-if="$parent.owner.service.buffer.length < $parent.owner.service.totalCount">
-      <span class="mn-content-footer-status-msg-invert">{{$parent.owner.service.buffer.length}}</span> of
-    </span>
-    {{$parent.owner.service.totalCount}} loaded
-  </div>
-</div>
