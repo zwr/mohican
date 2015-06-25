@@ -1,9 +1,6 @@
 (function(mohican) {
   'use strict';
 
-  angular
-      .module('mohican.routes', []);
-
   mohican.routes = [];
 
   mohican._mohicanRoute = function(routeName, controller, $stateProvider, redirectTo, template) {

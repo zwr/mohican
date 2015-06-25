@@ -12,7 +12,7 @@
 //= require ./mohican/lib/angular-multi-select
 //= require ./mohican/lib/angular-animate
 
-//= require ./mohican/utils/base.util
+//= require ./mohican/globals/base.globals
 //= require ./mohican/services/base.service
 //= require ./mohican/directives/base.directive
 //= require_tree ./mohican/oldDirectives
@@ -49,7 +49,6 @@
     'isteven-multi-select',
     'daterangepicker',
     'ngAnimate',
-    'mohican.routes',
     'mohican.services',
     'mohican.directives',
     'mnOldDirectives'
