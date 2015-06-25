@@ -5,7 +5,7 @@
     var service = {};
     mohican.extendBaseService(service, 'activities', $http, $q);
     return service;
-  }
+  };
 
   mohican.extendBaseService = function(service, docname, $http, $q) {
     service.resetLoading = function() {

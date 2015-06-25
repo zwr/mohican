@@ -1,18 +1,18 @@
 //= require ./template
 //= require_self
-(function(mohican) {
+(function() {
   'use strict';
   angular.module('mohican.directives')
     .directive('mnDialogSorcerer', ['$timeout', function($timeout) {
         return {
-          restrict:     'E',
-          templateUrl:  'mohican/directives/mnDialogSorcerer/template.html',
-          link: function(scope, element, attrs, ctrl) {
+          restrict:    'E',
+          templateUrl: 'mohican/directives/mnDialogSorcerer/template.html',
+          link:        function(scope, element) {
             //  top:200px;left:200px;
             //scope.mnDialogPosition
             scope.mnDialogPosition = {
               left: 200,
-              top: 200
+              top:  200
             };
             var dialogElem;
             scope.doCountHeight = true;
@@ -21,11 +21,11 @@
                 dialogElem = element[0].querySelector('.mn-dialog-frame');
                 if(dialogElem && scope.doCountHeight) {
                   return {
-                    height: dialogElem.clientHeight,
-                    width: dialogElem.clientWidth,
+                    height:       dialogElem.clientHeight,
+                    width:        dialogElem.clientWidth,
                     windowHeight: window.innerWidth,
-                    windowWidth: window.innerHeight,
-                  }
+                    windowWidth:  window.innerHeight
+                  };
                 }
               },
               function () {
@@ -50,4 +50,4 @@
         };
       }
     ]);
-}(window.mohican));
+}());

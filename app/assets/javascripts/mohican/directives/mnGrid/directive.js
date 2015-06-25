@@ -34,16 +34,16 @@
             scope.$watch(
               function () {
                 return {
-                  top: popupElem.clientTop,
-                  height: popupElem.clientHeight,
-                }
+                  top:    popupElem.clientTop,
+                  height: popupElem.clientHeight
+                };
               },
               function () {
                 if(ctrl.menuPosition) {
-                  if(popupElem.offsetTop + popupElem.offsetHeight >= element[0].getBoundingClientRect().bottom -50) {
+                  if(popupElem.offsetTop + popupElem.offsetHeight >= element[0].getBoundingClientRect().bottom - 50) {
                     ctrl.menuPosition.top = popupElem.offsetTop - popupElem.offsetHeight;
                   }
-                  if(popupElem.offsetLeft + popupElem.offsetWidth >= element[0].getBoundingClientRect().right -50) {
+                  if(popupElem.offsetLeft + popupElem.offsetWidth >= element[0].getBoundingClientRect().right - 50) {
                     ctrl.menuPosition.left = popupElem.offsetLeft - popupElem.offsetWidth;
                   }
                 }
