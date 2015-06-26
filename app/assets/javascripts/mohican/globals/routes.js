@@ -6,28 +6,17 @@
   mohican._mohicanRoute = function(routeName, controller, $stateProvider, redirectTo, template) {
     mohican.routes.push(routeName);
 
-    var url, templateUrl;
+    var url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
+    var templateUrl = 'app/routes/' + routeName + 'Grid.html';
+
+    if(redirectTo && angular.isUndefined(template) || template === null) {
+      templateUrl = undefined;
+    }
 
     if(redirectTo) {
-      url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
-      if(template === null) {
-        templateUrl = undefined;
-      }
-      else {
-        templateUrl = 'app/routes/' + redirectTo + 'Grid.html';
-      }
       controller = ['$state', '$stateParams', function($state, $stateParams) {
         $state.go('base.' + redirectTo, $stateParams, {location: 'replace'});
       }];
-    }
-    else {
-      url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
-      if(template === null) {
-        templateUrl = undefined;
-      }
-      else {
-        templateUrl = 'app/routes/' + routeName + 'Grid.html';
-      }
     }
 
     $stateProvider.state('base.' + routeName, {
