@@ -1,12 +1,7 @@
 (function(mohican) {
   'use strict';
 
-  // mohican.routes = [];
-
   mohican._mohicanRoute = function(routeName, controller, $stateProvider, redirectTo, template) {
-    // mohican.routes.push(routeName);
-    // mohican.routes.push(routeName + 'FormView');
-
     var url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
     var urlFormView = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}';
     var templateUrl = 'app/routes/' + routeName + 'Grid.html';
