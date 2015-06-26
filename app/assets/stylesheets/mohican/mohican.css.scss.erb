@@ -97,7 +97,7 @@ a.navbar-brand.active, a.navbar-brand:focus {
 .mn-select-filter button {
   max-height: 34px !important;
   max-width: 100px;
-  width: 100px;
+  width: 92px;
   height: 34px;
   display: block;
   overflow: hidden;
@@ -116,7 +116,7 @@ a.navbar-brand.active, a.navbar-brand:focus {
   color: #b3e5fc;
 }
 
-.filter-bar-dropDown .multiSelect .multiSelectItem.selected:not(.multiSelectGroup), .filter-bar-dropDown .multiSelect .multiSelectItem:hover, .filter-bar-dropDown .multiSelect .multiSelectGroup:hover {
+.filter-bar-dropDown .multiSelect .multiSelectItem.selected:not(.multiSelectGroup) {
   background-image: linear-gradient($mn-colorscheme-1L, $mn-colorscheme-1P);
   color: #666;
   border: 0 !important;
@@ -124,12 +124,23 @@ a.navbar-brand.active, a.navbar-brand:focus {
 
 .filter-bar-dropDown .multiSelect .multiSelectItem:hover, .filter-bar-dropDown .multiSelect .multiSelectGroup:hover {
   background-image: linear-gradient($mn-colorscheme-1D, $mn-colorscheme-1M) !important;
+  border: 0 !important;
 }
 
 .QfRow button {
   background: $mn-colorscheme-2L;
   padding: 3px 1px 2px 3px !important;
   height:auto !important;
+}
+
+.QfRow .multiSelect .multiSelectItem.selected:not(.multiSelectGroup) {
+  background-image: linear-gradient($mn-colorscheme-2M, $mn-colorscheme-2L) !important;
+  border: 0 !important;
+}
+
+.QfRow .multiSelect .multiSelectItem:hover, .QfRow .multiSelect .multiSelectGroup:hover {
+  background-image: linear-gradient($mn-colorscheme-2V, $mn-colorscheme-2D) !important;
+  border: 0 !important;
 }
 
 .multiSelect .buttonLabel {
