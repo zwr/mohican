@@ -1,13 +1,16 @@
 (function(mohican) {
   'use strict';
 
-  mohican.routes = [];
+  // mohican.routes = [];
 
   mohican._mohicanRoute = function(routeName, controller, $stateProvider, redirectTo, template) {
-    mohican.routes.push(routeName);
+    // mohican.routes.push(routeName);
+    // mohican.routes.push(routeName + 'FormView');
 
     var url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
+    var urlFormView = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}';
     var templateUrl = 'app/routes/' + routeName + 'Grid.html';
+    var templateUrlFormView = 'app/routes/' + routeName + 'FormView.html';
 
     if(redirectTo && angular.isUndefined(template) || template === null) {
       templateUrl = undefined;
@@ -22,6 +25,13 @@
     $stateProvider.state('base.' + routeName, {
       url:          url,
       templateUrl:  templateUrl,
+      controller:   controller,
+      controllerAs: 'ctrl'
+    });
+
+    $stateProvider.state('base.' + routeName + 'FormView', {
+      url:          urlFormView,
+      templateUrl:  templateUrlFormView,
       controller:   controller,
       controllerAs: 'ctrl'
     });

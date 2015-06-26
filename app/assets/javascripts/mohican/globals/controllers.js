@@ -21,6 +21,8 @@
     fields:         undefined,
     pageCount:      undefined,
     totalQfCount:   undefined,
+    primaryKeyName: undefined,
+    itemFormView:   undefined,
 
     clientViewLoadingNotification: undefined,
 
@@ -53,6 +55,7 @@
 
       that.service.getPreviewDefinitions().
       then(function(definition) {
+        that.primaryKeyName = definition.primaryKeyName;
         that.layoutDefs = definition.layouts;
         that.layoutDefs.forEach(function(layout) {
           that.layouts.push({
@@ -92,6 +95,10 @@
               // is ongoing.
               that.service.waitFullyLoaded().then(function() {
                 that.fullyLoaded = true;
+                if(that.stateMachine.itemPrimaryKeyId) {
+                  var itemPrimaryKeyId = that.stateMachine.itemPrimaryKeyId;
+                  that.itemFormView = that.service.findBy(that.primaryKeyName, itemPrimaryKeyId)[0];
+                }
                 if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
                   that.stateMachine.page = parseInt(angular.isUndefined(that.$state.params.page) ? 1 : parseInt(that.$state.params.page));
 

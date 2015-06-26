@@ -375,6 +375,12 @@
       }
     };
 
+    service.findBy = function(key, value) {
+      return service.buffer.filter(function(item) {
+        return item[key] == value;
+      });
+    };
+
     return service;
   };
 }(window.mohican));

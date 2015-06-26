@@ -1,8 +1,8 @@
 {
+  "primaryKeyName": "Order_ID",
   "layouts": [
     {
       "name": "default",
-      "primaryKeyName": "Order_ID",
       "definition": [
         {
           "CustomColumn_ID": 42978,

@@ -9,6 +9,7 @@
     direction:        undefined,
     quickFilterShown: undefined,
     filters:          undefined,
+    itemPrimaryKeyId: undefined,
 
     stateMachineFromUrl: function($stateParams, service) {
       if (!$stateParams.backendfilter) {
@@ -37,6 +38,7 @@
       this.backendFilter = $stateParams.backendfilter;
       this.column = $stateParams.column;
       this.direction = $stateParams.direction;
+      this.itemPrimaryKeyId = $stateParams.itemPrimaryKeyId;
 
       //filters and qf show will be available after fullyLoaded
       this.quickFilterShown = $stateParams.qf === 'true' ? true : false;
@@ -46,13 +48,14 @@
     stateMachineToUrl: function(fields) {
       // console.log(this.filters);
       return mohican.escapeDefaultParameters({
-        page:          this.page,
-        layout:        this.layout,
-        backendfilter: this.backendFilter,
-        column:        this.column,
-        direction:     this.direction,
-        qf:            this.quickFilterShown,
-        filters:       mohican.jsonToUrlParam(this.filters, fields)
+        page:             this.page,
+        layout:           this.layout,
+        backendfilter:    this.backendFilter,
+        column:           this.column,
+        direction:        this.direction,
+        qf:               this.quickFilterShown,
+        filters:          mohican.jsonToUrlParam(this.filters, fields),
+        itemPrimaryKeyId: this.itemPrimaryKeyId
       });
     }
   };
