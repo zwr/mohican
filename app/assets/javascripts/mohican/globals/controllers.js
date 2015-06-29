@@ -22,7 +22,7 @@
     pageCount:      undefined,
     totalQfCount:   undefined,
     primaryKeyName: undefined,
-    itemFormView:   undefined,
+    itemForm:   undefined,
 
     clientViewLoadingNotification: undefined,
 
@@ -104,7 +104,7 @@
                 that.fullyLoaded = true;
                 if(that.stateMachine.itemPrimaryKeyId) {
                   var itemPrimaryKeyId = that.stateMachine.itemPrimaryKeyId;
-                  that.itemFormView = that.service.findBy(that.primaryKeyName, itemPrimaryKeyId)[0];
+                  that.itemForm = that.service.findBy(that.primaryKeyName, itemPrimaryKeyId)[0];
                 }
                 if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
                   that.stateMachine.page = parseInt(angular.isUndefined(that.$state.params.page) ? 1 : parseInt(that.$state.params.page));
