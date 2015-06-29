@@ -354,12 +354,12 @@
 
     // backendFilters getting is completelly independent
     service.backendFilters = null;
-    service.theBackendFiltersPromise = null;
+    service.getBackendFilterPromise = null;
     service.getBackendFilters = function() {
       if(service.backendFilters) {
         return $q.when(service.backendFilters);
-      } else if(service.theBackendFiltersPromise) {
-        return service.theBackendFiltersPromise.then(function() {
+      } else if(service.getBackendFilterPromise) {
+        return service.getBackendFilterPromise.then(function() {
           service.getBackendFilters();
         });
       } else {
