@@ -22,7 +22,7 @@
     pageCount:      undefined,
     totalQfCount:   undefined,
     primaryKeyName: undefined,
-    itemForm:   undefined,
+    itemForm:       undefined,
 
     clientViewLoadingNotification: undefined,
 
