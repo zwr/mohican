@@ -88,6 +88,12 @@
     if(checkResult.dirty && state) {
       state.go(state.current.name, checkResult.newParams);
     }
+    else {
+      //redirect to index resource route if FormView have no id passed
+      if(_.endsWith(state.current.name, 'FormView') && !params.itemPrimaryKeyId) {
+        state.go(_.trimRight(state.current.name, 'FormView'), {});
+      }
+    }
   };
 
   mohican.injectDefaultParameters = function(params) {
