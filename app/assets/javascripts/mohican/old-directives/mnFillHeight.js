@@ -8,7 +8,7 @@ angular.module('mnOldDirectives').
             scope.setHeight = function(element, h) {
               var currentStyle;
               currentStyle = element.attr('style').replace(/height: \d*px; */, '');
-              return element.attr('style', 'height: ' + (h - 180) + 'px; ' + currentStyle);
+              return element.attr('style', 'height: ' + (h - 165) + 'px; ' + currentStyle);
             };
             var timeoutId;
             timeoutId = $interval(function() {

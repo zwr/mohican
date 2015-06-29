@@ -32,6 +32,10 @@
   }
 }
 
+body {
+  background: $mn-body-bg !important;
+}
+
 .mn-navbar-title {
   height: 50px;
   display: inline;
@@ -39,7 +43,7 @@
 }
 
 a.navbar-brand {
-  margin-top: 4px;
+  margin-top: $mn-brand-mgTop;
   width:$mn-brand-width;
   height:$mn-brand-height;
   background:$mn-brand-bg;
@@ -52,17 +56,16 @@ a.navbar-brand.active, a.navbar-brand:focus {
   cursor:default;
 }
 
-.navbar-static-top {
-  box-shadow: -1px 0px 19px #0A1D42;
+.navbar-static-top, .navbar-inverse {
+  background: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,.3)) !important;
   -webkit-box-shadow: -1px 0px 19px #0A1D42;
   -moz-box-shadow: -1px 0px 19px #0A1D42;
+  box-shadow: -1px 0px 19px #0A1D42;
 }
 
 .navbar-inverse {
-  background:$mn-navbar-inverse-bg;
   border:0 !important;
 }
-
 
 .filterRowAnimWrap.ng-hide-add,
 .filterRowAnimWrap.ng-hide-remove {
@@ -257,10 +260,6 @@ a.mn-menu-item-route-active:focus {
     cursor: pointer;
 }
 
-.pagination {
-  z-index: 6;
-}
-
 mn-menu-group > li {
   float: left;
 }
@@ -312,6 +311,21 @@ mn-navbar-right mn-menu-group li.navbar-text{
   margin-right: 0px;
   padding-left: 15px;
   padding-right: 15px;
+}
+
+.navbar-nav {
+  margin-left: 20px;
+  padding-left: 10px;
+  // border: #666 1px solid;
+  // background: rgba(#000,.3);
+  // background:
+  //       linear-gradient(45deg, transparent 10px, rgba(#000,.3) 10px),
+  //       linear-gradient(315deg, transparent 10px, rgba(#000,.3) 10px);
+  // background-position: bottom left, bottom right;
+  //   -moz-background-size: 50% 50%;
+  //   -webkit-background-size: 50% 50%;
+  //   background-size: 50% 50%;
+  //   background-repeat: no-repeat;
 }
 
 mn-menu-group-item > li:hover, mn-menu-group-item > li:focus {
@@ -382,7 +396,6 @@ mn-item-reports > div {
 
 .mn-context-menu > .btn-default {
   color: $mn-popup-menu-color;
-  background-color: $mn-popup-menu-background-color;
   border-color: $mn-popup-menu-border-color;
 }
 
@@ -442,57 +455,6 @@ mn-item-reports > div {
   float: left;
 }
 
-//generic container styles
-
-.scrollableHframe {
-  background-color: $mn-content-container-bg-color;
-  border:1px solid LightGray;
-  box-shadow: 0px 0px 14px LightGray inset;
-  -webkit-box-shadow: 0px 0px 14px LightGray inset;
-  -moz-box-shadow: 0px 0px 14px LightGray inset;
-  overflow:auto;
-}
-
-//generic modifier styles
-
-// fix for inset shadow bug of the table-containing div, to be uniform on striped rows, because shadow is not visible on opaque background
-.table-striped > tbody > tr:nth-child(odd) > td {
-  background-color: rgba(#999, .1);
-}
-
-.table > thead > tr > th, .table > thead > tr > td,
-.table > tbody > tr > th, .table > tbody > tr > td,
-.table > tfoot > tr > th, .table > tfoot > tr > td {
-  padding: 4px 4px;
-}
-
-.table > thead > tr > th {
-  font-weight: 500 !important;
-  font-size:$font-size-base - 1;
-  border-color: #ACF3BC !important;
-  border-top: 1px solid #fff !important;
-}
-
-.baseFont3x {
-  font-size:$font-size-base * 3;
-}
-
-.noPad {
-  padding:0 !important;
-}
-
-.vmiddle {
-  vertical-align: middle !important;
-}
-
-.accent {
-  color:$mn-colorscheme-1A !important;
-}
-
-.accent0 {
-  color:$mn-colorscheme-0A !important;
-}
-
 .mn-context-menu {
   position: absolute;
   z-index:1999;
@@ -550,4 +512,55 @@ mn-item-reports > div {
   color: $mn-popup-menu-color-hover;
   background-color: $mn-popup-menu-background-color-hover;
   border-color: $mn-popup-menu-border-color-hover;
+}
+
+//generic container styles
+
+.scrollableHframe {
+  background-color: $mn-content-container-bg-color;
+  border:1px solid LightGray;
+  box-shadow: 0px 0px 14px LightGray inset;
+  -webkit-box-shadow: 0px 0px 14px LightGray inset;
+  -moz-box-shadow: 0px 0px 14px LightGray inset;
+  overflow:auto;
+}
+
+//generic modifier styles
+
+// fix for inset shadow bug of the table-containing div, to be uniform on striped rows, because shadow is not visible on opaque background
+.table-striped > tbody > tr:nth-child(odd) > td {
+  background-color: rgba(#999, .1);
+}
+
+.table > thead > tr > th, .table > thead > tr > td,
+.table > tbody > tr > th, .table > tbody > tr > td,
+.table > tfoot > tr > th, .table > tfoot > tr > td {
+  padding: 4px 4px;
+}
+
+.table > thead > tr > th {
+  font-weight: 500 !important;
+  font-size:$font-size-base - 1;
+  border-color: #ACF3BC !important;
+  border-top: 1px solid #fff !important;
+}
+
+.baseFont3x {
+  font-size:$font-size-base * 3;
+}
+
+.noPad {
+  padding:0 !important;
+}
+
+.vmiddle {
+  vertical-align: middle !important;
+}
+
+.accent {
+  color:$mn-colorscheme-1A !important;
+}
+
+.accent0 {
+  color:$mn-colorscheme-0A !important;
 }
