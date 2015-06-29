@@ -70,6 +70,13 @@
         });
       }).
       then(function() {
+        if(that.stateMachine.itemPrimaryKeyId) {
+          that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields, that.primaryKeyName)
+          .then(function(items) {
+            that.itemFormView = items[0];
+          })
+          return;
+        }
         mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.$state, that.$stateParams);
         that.service.getBackendFilters().then(function(backendFilters) {
           backendFilters.forEach(function(backendFilter) {

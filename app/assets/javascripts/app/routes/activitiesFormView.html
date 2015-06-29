@@ -1,9 +1,9 @@
 <div class="container-fluid">
   <div class="row">
-    <div class="col-xs-12" ng-if="!ctrl.fullyLoaded">
+    <div class="col-xs-12" ng-if="!ctrl.itemFormView">
       <span class="loader"  style="float: left; margin: 0px 0px 0px 8px;">Loading...</span>
     </div>
-    <div class="col-xs-12" ng-if="ctrl.fullyLoaded">
+    <div class="col-xs-12" ng-if="ctrl.itemFormView">
       <div>
         <strong>Order ID:</strong>
         <span>{{ctrl.itemFormView.Order_ID}}</span>

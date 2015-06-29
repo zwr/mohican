@@ -375,7 +375,66 @@
       }
     };
 
+    service.getDocument = function(id, dataFields, primaryKeyField) {
+      var found_document = service.findBy(primaryKeyField, id);
+      if(found_document) {
+        return $q.when(found_document);
+      } else {
+        // This is the complicated part. If the document is already there,
+        // fine, we return it. But if it is not, we reset whatever is
+        // loading/loaded!
+        // Following is here to stop any ongoing eager loading
+        // We use some unique but ad-hoc 'back end filter'
+        // because it is a back end filter
+        // The logic behind this code is the following:
+        //     service.bufferBackendFilter  shows us what is currently in
+        //     the buffer, and this id IS what will be there, so we write
+        //     that if we are about to put it there.
+        if(service.bufferBackendFilter !== "single-id-" + id) {
+          service.resetLoading();
+          service.bufferBackendFilter = "single-id-" + id;
+        }
+
+        // Following is pretty much copy-pasted from the getPage logic, but
+        // sine we are loading only one document, there is not eager loading call.
+        if(this.promise) {
+          return this.thePromise.then(function() {
+            return service.getDocument(id);
+          });
+        } else {
+          service.thePromise = $http.get(window.MN_BASE + '/' + docname +
+            '/' + id)
+          .then(function(resp) {
+            service.thePromise = null;
+            if(service.bufferBackendFilter === "single-id-" + id) {
+              // check if it is really resp.data or something similar
+              service.buffer = [resp.data];
+              // I am not sure what the next one does, but it should do
+              // it just the same. And make sure you have layout before
+              // all this.
+              service._parseFieldTypes(service.buffer, dataFields);
+              // now write this data honestly, as it is: back end count is
+              // 1, because we only fetched one document, and there is no
+              // offset, as that would make no sense.
+              service.totalCount = 1;
+              service.bottomIndex = 0;
+              service.topIndex = 0;
+              // Note that this is returning an array, to be consistent with
+              // all other document getters!
+              return service.buffer;
+            } else {
+              return null;
+            }
+          });
+          return service.thePromise;
+        }
+      }
+    }
+
     service.findBy = function(key, value) {
+      if(!service.buffer) {
+        return;
+      }
       return service.buffer.filter(function(item) {
         return item[key] == value;
       });
