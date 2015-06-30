@@ -186,8 +186,8 @@
           pageNumber * service.pageSize - service.bottomIndex
         ));
       } else {
-        if(this.thePromise) {
-          return this.thePromise.then(function() {
+        if(service.thePromise) {
+          return service.thePromise.then(function() {
             return service.getBackendPage(pageNumber, dataFields, backendFilter);
           });
         } else {
@@ -397,8 +397,8 @@
 
         // Following is pretty much copy-pasted from the getPage logic, but
         // sine we are loading only one document, there is not eager loading call.
-        if(this.promise) {
-          return this.thePromise.then(function() {
+        if(service.thePromise) {
+          return service.thePromise.then(function() {
             return service.getDocument(id);
           });
         } else {
