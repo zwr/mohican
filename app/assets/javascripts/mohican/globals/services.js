@@ -3,7 +3,7 @@
 
   mohican.constructBaseService = function(docname, $http, $q) {
     var service = {};
-    mohican.extendBaseService(service, 'activities', $http, $q);
+    mohican.extendBaseService(service, docname, $http, $q);
     return service;
   };
 
@@ -376,9 +376,9 @@
     };
 
     service.getDocument = function(id, dataFields, primaryKeyField) {
-      var found_document = service.findBy(primaryKeyField, id);
-      if(found_document) {
-        return $q.when(found_document);
+      var foundDocument = service.findBy(primaryKeyField, id);
+      if(foundDocument) {
+        return $q.when(foundDocument);
       } else {
         // This is the complicated part. If the document is already there,
         // fine, we return it. But if it is not, we reset whatever is
@@ -390,9 +390,9 @@
         //     service.bufferBackendFilter  shows us what is currently in
         //     the buffer, and this id IS what will be there, so we write
         //     that if we are about to put it there.
-        if(service.bufferBackendFilter !== "single-id-" + id) {
+        if(service.bufferBackendFilter !== 'single-id-' + id) {
           service.resetLoading();
-          service.bufferBackendFilter = "single-id-" + id;
+          service.bufferBackendFilter = 'single-id-' + id;
         }
 
         // Following is pretty much copy-pasted from the getPage logic, but
@@ -406,7 +406,7 @@
             '/' + id)
           .then(function(resp) {
             service.thePromise = null;
-            if(service.bufferBackendFilter === "single-id-" + id) {
+            if(service.bufferBackendFilter === 'single-id-' + id) {
               // check if it is really resp.data or something similar
               service.buffer = [resp.data];
               // I am not sure what the next one does, but it should do
@@ -429,11 +429,11 @@
           return service.thePromise;
         }
       }
-    }
+    };
 
     service.findBy = function(key, value) {
       if(!service.buffer) {
-        return;
+        return undefined;
       }
       return service.buffer.filter(function(item) {
         return item[key] == value;

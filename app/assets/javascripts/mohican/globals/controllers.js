@@ -73,8 +73,9 @@
         if(that.stateMachine.itemPrimaryKeyId) {
           that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields, that.primaryKeyName)
           .then(function(items) {
-            that.itemFormView = items[0];
-          })
+            that.itemForm = items[0];
+            console.log(that.itemForm);
+          });
           return;
         }
         mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.$state, that.$stateParams);
@@ -102,10 +103,6 @@
               // is ongoing.
               that.service.waitFullyLoaded().then(function() {
                 that.fullyLoaded = true;
-                if(that.stateMachine.itemPrimaryKeyId) {
-                  var itemPrimaryKeyId = that.stateMachine.itemPrimaryKeyId;
-                  that.itemForm = that.service.findBy(that.primaryKeyName, itemPrimaryKeyId);
-                }
                 if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
                   that.stateMachine.page = parseInt(angular.isUndefined(that.$state.params.page) ? 1 : parseInt(that.$state.params.page));
 
