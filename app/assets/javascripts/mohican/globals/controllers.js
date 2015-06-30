@@ -74,7 +74,6 @@
           that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields, that.primaryKeyName)
           .then(function(items) {
             that.itemForm = items[0];
-            console.log(that.itemForm);
           });
           return;
         }
