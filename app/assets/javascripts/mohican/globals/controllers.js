@@ -168,7 +168,7 @@
                      { notify: false });
     },
 
-    getBackendFilters: function(backendFilter) {
+    getBackendFilter: function(backendFilter) {
       var newRouteParams = _.clone(this.$stateParams);
       newRouteParams.backendfilter = backendFilter;
       this.$state.go(this.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
