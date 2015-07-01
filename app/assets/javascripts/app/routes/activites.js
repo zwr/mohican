@@ -22,6 +22,41 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             });
           }
         };
+        ctrl.CurrentItemProductsController = {};
+        // mohican.extendBaseController(ctrl.CurrentItemProductsController, undefined, mnRouter);
+        ctrl.CurrentItemProductsController.fields = [
+          {
+            header:      'EAN',
+            name:        'ean',
+            quickfilter: null,
+            quicksort:   true,
+            view:        'text',
+            width:       150
+          },
+          {
+            header:      'Name',
+            name:        'name',
+            quickfilter: null,
+            quicksort:   true,
+            view:        'text',
+            width:       600
+          }
+        ];
+        ctrl.CurrentItemProductsController.fullyLoaded = false;
+        ctrl.CurrentItemProductsController.orderBy = function() {};
+
+        ctrl.currentItemChanged = function(newCurrentItem) {
+          console.log(newCurrentItem);
+          ctrl.CurrentItemProductsController.items = newCurrentItem.products;
+          ctrl.CurrentItemProductsController.items.forEach(function(item) {
+            for(var key in item) {
+              item[key + '_formatted'] = item[key];
+            }
+          });
+          console.log(ctrl.CurrentItemProductsController.items);
+          ctrl.CurrentItemProductsController.fullyLoaded = true;
+        };
+
         ctrl.editItem = function (item) {
           ctrl.editItemObject = item;
           ctrl.popDialog('Edit Order', 'app/routes/activitiesEditItemDialog.html');

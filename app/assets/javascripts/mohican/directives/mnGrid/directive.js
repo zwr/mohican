@@ -24,7 +24,10 @@
           bindToController: true,
 
           link: function(scope, element, attrs, ctrl, $transcludeFn) {
-            ctrl.owner = scope.owner = mohican.scopeLookup(scope);
+            if(!ctrl.owner) {
+              ctrl.owner = scope.owner = mohican.scopeLookup(scope);
+              console.log(ctrl.owner);
+            }
             scope.compileItForMe = function(itemScope, itemElement) {
               $transcludeFn(itemScope, function(notLinkedClone) {
                 itemElement.append(notLinkedClone);

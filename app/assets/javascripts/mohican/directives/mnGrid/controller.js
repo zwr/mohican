@@ -12,6 +12,8 @@
 
     vm.selectedItems = [];
 
+    console.log(vm.owner);
+
     if(angular.isUndefined(vm.mnSelect)) { vm.mnSelect = 'none'; }
     else {
       if(vm.mnSelect !== 'none' &&
