@@ -28,16 +28,16 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           {
             header:      'EAN',
             name:        'ean',
-            quickfilter: 'text',
-            quicksort:   true,
+            quickfilter: null,
+            quicksort:   false,
             view:        'text',
             width:       150
           },
           {
             header:      'Name',
             name:        'name',
-            quickfilter: 'text',
-            quicksort:   true,
+            quickfilter: null,
+            quicksort:   false,
             view:        'text',
             width:       600
           }
@@ -48,16 +48,14 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         ctrl.CurrentItemProductsController.stateMachine.quickFilterShown = false;
 
         ctrl.currentItemChanged = function(newCurrentItem) {
-          console.log(newCurrentItem);
           ctrl.CurrentItemProductsController.items = newCurrentItem.products;
           ctrl.CurrentItemProductsController.items.forEach(function(item) {
             for(var key in item) {
               item[key + '_formatted'] = item[key];
             }
           });
-          console.log(ctrl.CurrentItemProductsController.items);
           ctrl.CurrentItemProductsController.fullyLoaded = true;
-          ctrl.CurrentItemProductsController.stateMachine.quickFilterShown = true;
+          ctrl.CurrentItemProductsController.stateMachine.quickFilterShown = false;
         };
 
         ctrl.editItem = function (item) {

@@ -26,7 +26,6 @@
           link: function(scope, element, attrs, ctrl, $transcludeFn) {
             if(!ctrl.owner) {
               ctrl.owner = scope.owner = mohican.scopeLookup(scope);
-              console.log(ctrl.owner);
             }
             scope.compileItForMe = function(itemScope, itemElement) {
               $transcludeFn(itemScope, function(notLinkedClone) {
