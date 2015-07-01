@@ -24,6 +24,8 @@
     primaryKeyName: undefined,
     itemForm:       undefined,
 
+    currentItemChanged: function() {},
+
     clientViewLoadingNotification: undefined,
 
     initialize: function(service, $stateParams, $state) {
