@@ -7,7 +7,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
 
     controller: ['service', 'mnRouter',
       function(service, mnRouter) {
-        mohican.extendBaseController(this, service, mnRouter);
+        mohican.extendResourceController(this, service, mnRouter);
         var ctrl = this;
         ctrl.reportLocation = '/reports';
         ctrl.attached = false;
@@ -23,7 +23,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         };
         ctrl.CurrentItemProductsController = {};
-        // mohican.extendBaseController(ctrl.CurrentItemProductsController, undefined, mnRouter);
+        // mohican.extendResourceController(ctrl.CurrentItemProductsController, undefined, mnRouter);
         ctrl.CurrentItemProductsController.fields = [
           {
             header:      'EAN',
