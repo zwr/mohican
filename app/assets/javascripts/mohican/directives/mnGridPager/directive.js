@@ -18,7 +18,9 @@
           bindToController: true,
 
           link: function(scope, element, attrs, ctrl) {
-            ctrl.owner = scope.owner = mohican.scopeLookup(scope);
+            if(!ctrl.owner) {
+              ctrl.owner = scope.owner = mohican.scopeLookup(scope);
+            }
           }
         };
       }

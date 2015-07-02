@@ -23,7 +23,6 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         };
         ctrl.CurrentItemProductsController = {};
-        // mohican.extendResourceController(ctrl.CurrentItemProductsController, undefined, mnRouter);
         ctrl.CurrentItemProductsController.fields = [
           {
             header:      'EAN',
@@ -80,6 +79,8 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             {
               text:   'link to activity',
               action: function() {
+                ctrl.linkToActivityController = {};
+                mohican.extendBasicController(ctrl.linkToActivityController, service);
                 ctrl.popDialog('Selected Orders', 'app/routes/activitiesLinkToActivityDialog.html');
               }
             },

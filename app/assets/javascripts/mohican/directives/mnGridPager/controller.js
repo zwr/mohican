@@ -1,15 +1,14 @@
 //= require_self
 
-(function(mohican) {
+(function() {
   'use strict';
 
   angular
       .module('mohican.directives')
       .controller('MnGridPagerController', ['$scope', MnGridPagerController]);
 
-  function MnGridPagerController($scope) {
+  function MnGridPagerController() {
     var vm = this;
-    vm.owner = mohican.scopeLookup($scope);
 
     vm.nextPage = function() {
       return vm.owner.stateMachine.page >= vm.owner.pageCount ? vm.owner.pageCount : (parseInt(vm.owner.stateMachine.page) + 1);
@@ -65,4 +64,4 @@
       }
     };
   }
-})(window.mohican);
+})();
