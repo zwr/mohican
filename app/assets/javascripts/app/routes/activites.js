@@ -78,9 +78,9 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               }
             },
             {
-              text:   'first action',
+              text:   'link to activity',
               action: function() {
-                console.log('first action exec on object ' + clickedItem.WorkOrder_ID);
+                ctrl.popDialog('Selected Orders', 'app/routes/activitiesLinkToActivityDialog.html');
               }
             },
             {
@@ -90,15 +90,6 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               }
             }
           ];
-
-          for(var i = 0; i < Math.floor(Math.random() * 10); i++) {
-            retArray.push({
-              text:   'action' + i,
-              action: function() {
-                console.log('first action exec' + i + ' on object ' + clickedItem.WorkOrder_ID);
-              }
-            });
-          }
           return retArray;
         };
       }
