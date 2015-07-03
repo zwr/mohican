@@ -17,7 +17,7 @@
           },
           restrict:     'E',
           transclude:   true,
-          templateUrl:  'mohican/directives/mnGrid/template.html',
+          templateUrl:  'mohican/directives/mn-grid/template.html',
           controller:   'MnGridController',
           controllerAs: 'grid',
 

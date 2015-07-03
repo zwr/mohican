@@ -10,7 +10,7 @@
             owner: '=?'
           },
           restrict:     'E',
-          templateUrl:  'mohican/directives/mnFilterBar/template.html',
+          templateUrl:  'mohican/directives/mn-filter-bar/template.html',
           controller:   'MnFilterBarController',
           controllerAs: 'filterBar',
 

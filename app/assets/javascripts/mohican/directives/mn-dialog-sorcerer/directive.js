@@ -6,7 +6,7 @@
     .directive('mnDialogSorcerer', ['$timeout', function($timeout) {
         return {
           restrict:    'E',
-          templateUrl: 'mohican/directives/mnDialogSorcerer/template.html',
+          templateUrl: 'mohican/directives/mn-dialog-sorcerer/template.html',
           link:        function(scope, element) {
             //  top:200px;left:200px;
             //scope.mnDialogPosition

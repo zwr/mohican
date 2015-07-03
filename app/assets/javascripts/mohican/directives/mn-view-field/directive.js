@@ -11,7 +11,7 @@ angular.module('mohican.directives')
           field: '='
         },
         restrict:     'E',
-        templateUrl:  'mohican/directives/mnViewField/template.html',
+        templateUrl:  'mohican/directives/mn-view-field/template.html',
         controller:   'mnViewFieldController',
         controllerAs: 'viewField',
 

@@ -9,7 +9,7 @@ angular.module('mohican.directives')
         scope:        {},
         restrict:     'E',
         transclude:   true,
-        templateUrl:  'mohican/directives/mnTabs/template.html',
+        templateUrl:  'mohican/directives/mn-tabs/template.html',
         controller:   'MnTabsController',
         controllerAs: 'mnTabs',
 

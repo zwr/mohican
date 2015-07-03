@@ -3,19 +3,20 @@
 //= require_self
 
 angular.module('mohican.directives')
-  .directive('mnQfText', [function() {
+  .directive('mnQfDateRange', [function() {
       'use strict';
       return {
         scope: {
           qfChanged:  '&',
           qfDisabled: '=',
           model:      '=',
-          field:      '='
+          field:      '=',
+          focus:      '='
         },
         restrict:     'E',
-        templateUrl:  'mohican/directives/mnQfText/template.html',
-        controller:   'MnQfTextController',
-        controllerAs: 'qfText',
+        templateUrl:  'mohican/directives/mn-qf-date-range/template.html',
+        controller:   'MnQfDateRangeController',
+        controllerAs: 'qfDateRange',
 
         bindToController: true
       };

@@ -11,7 +11,7 @@
             owner: '=?'
           },
           restrict:     'E',
-          templateUrl:  'mohican/directives/mnGridPager/template.html',
+          templateUrl:  'mohican/directives/mn-grid-pager/template.html',
           controller:   'MnGridPagerController',
           controllerAs: 'gridPager',
 

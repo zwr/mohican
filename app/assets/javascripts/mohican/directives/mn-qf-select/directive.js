@@ -14,7 +14,7 @@ angular.module('mohican.directives')
           focus:      '='
         },
         restrict:     'E',
-        templateUrl:  'mohican/directives/mnQfSelect/template.html',
+        templateUrl:  'mohican/directives/mn-qf-select/template.html',
         controller:   'MnQfSelectController',
         controllerAs: 'qfSelect',
 

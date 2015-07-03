@@ -11,7 +11,7 @@ angular.module('mohican.directives')
         restrict:     'E',
         transclude:   true,
         require:      '^mnTabs',
-        templateUrl:  'mohican/directives/mnTab/template.html',
+        templateUrl:  'mohican/directives/mn-tab/template.html',
 
         link: function(scope, elem, attr, mnTabsCtrl) {
           scope.active = false;
