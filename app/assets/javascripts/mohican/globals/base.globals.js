@@ -1,6 +1,6 @@
 //= require_self
-//= require ./stateMachine
-//= require ./baseController
+//= require ./state-machine
+//= require ./base-controller
 //= require_tree .
 
 window.mohican = {};

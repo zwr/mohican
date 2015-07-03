@@ -15,7 +15,7 @@
 //= require ./mohican/globals/base.globals
 //= require ./mohican/services/base.service
 //= require ./mohican/directives/base.directive
-//= require_tree ./mohican/oldDirectives
+//= require_tree ./mohican/old-directives
 //= require_tree ./mohican
 //= require_self
 

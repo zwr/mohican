@@ -25,7 +25,7 @@
     provider.addResouceRoute = function(definition) {
       provider.routes.push(definition);
       if(angular.isDefined(definition.default)) {
-        $urlRouterProviderRef.otherwise('/' + definition.name);
+        $urlRouterProviderRef.otherwise('/' + mohican.toHyphen(definition.name));
       }
     };
 
@@ -35,7 +35,7 @@
 
     provider.addRedirecRoute = function(definition) {
       if(definition.name === null || definition.name === '') {
-        $urlRouterProviderRef.otherwise('/' + definition.redirectTo);
+        $urlRouterProviderRef.otherwise('/' + mohican.toHyphen(definition.redirectTo));
       }
       else {
         provider.routes.push({

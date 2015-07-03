@@ -4,8 +4,8 @@
   mohican._mohicanRoute = function(routeName, controller, $stateProvider, redirectTo, template) {
     var url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
     var urlForm = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}';
-    var templateUrl = 'app/routes/' + routeName + 'Grid.html';
-    var templateUrlForm = 'app/routes/' + routeName + 'Form.html';
+    var templateUrl = 'app/routes/' + mohican.toHyphen(routeName) + '-grid.html';
+    var templateUrlForm = 'app/routes/' + mohican.toHyphen(routeName) + '-form.html';
 
     if(redirectTo && angular.isUndefined(template) || template === null) {
       templateUrl = undefined;
@@ -17,14 +17,14 @@
       }];
     }
 
-    $stateProvider.state('base.' + routeName, {
+    $stateProvider.state('base.' + mohican.toHyphen(routeName), {
       url:          url,
       templateUrl:  templateUrl,
       controller:   controller,
       controllerAs: 'ctrl'
     });
 
-    $stateProvider.state('base.' + routeName + 'Form', {
+    $stateProvider.state('base.' + mohican.toHyphen(routeName) + '-form', {
       url:          urlForm,
       templateUrl:  templateUrlForm,
       controller:   controller,
@@ -89,9 +89,9 @@
       state.go(state.current.name, checkResult.newParams);
     }
     else {
-      //redirect to index resource route if Form have no id passed
-      if(_.endsWith(state.current.name, 'Form') && !params.itemPrimaryKeyId) {
-        state.go(_.trimRight(state.current.name, 'Form'), {});
+      //redirect to index resource route if form have no id passed
+      if(_.endsWith(state.current.name, '-form') && !params.itemPrimaryKeyId) {
+        state.go(_.trimRight(state.current.name, '-form'), {});
       }
     }
   };

@@ -47,20 +47,19 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         ctrl.CurrentItemProductsController.stateMachine.quickFilterShown = false;
 
         ctrl.currentItemChanged = function(newCurrentItem) {
-          ctrl.CurrentItemProductsController.items = newCurrentItem.products;
-          ctrl.CurrentItemProductsController.items.forEach(function(item) {
-            for(var key in item) {
-              item[key + '_formatted'] = item[key];
-            }
-          });
+          ctrl.CurrentItemProductsController.items = [];
+          if(newCurrentItem.products) {
+            ctrl.CurrentItemProductsController.items = newCurrentItem.products;
+            ctrl.CurrentItemProductsController.items.forEach(function(item) {
+              for(var key in item) {
+                item[key + '_formatted'] = item[key];
+              }
+            });
+          }
           ctrl.CurrentItemProductsController.fullyLoaded = true;
           ctrl.CurrentItemProductsController.stateMachine.quickFilterShown = false;
         };
 
-        ctrl.editItem = function (item) {
-          ctrl.editItemObject = item;
-          ctrl.popDialog('Edit Order', 'app/routes/activitiesEditItemDialog.html');
-        };
         ctrl.onItemSelect = function(selectedItems) {
           console.log(selectedItems);
         };
@@ -73,7 +72,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               action: function() {
                 ctrl.clickedItem = clickedItem;
                 ctrl.selectedItems = selectedItems;
-                ctrl.popDialog('Selected Orders', 'app/routes/activitiesExampleDialog.html');
+                ctrl.popDialog('Selected Orders', 'app/routes/activities-example-dialog.html');
               }
             },
             {
@@ -81,7 +80,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               action: function() {
                 ctrl.linkToActivityController = {};
                 mohican.extendBasicController(ctrl.linkToActivityController, service);
-                ctrl.popDialog('Selected Orders', 'app/routes/activitiesLinkToActivityDialog.html');
+                ctrl.popDialog('Selected Orders', 'app/routes/activities-link-to-activity-dialog.html');
               }
             },
             {

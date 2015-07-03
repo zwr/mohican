@@ -20,7 +20,7 @@ angular.module('mnOldDirectives', []).directive('mnNavbar', function() {
   return ret = {
     restrict: 'E',
     transclude: true,
-    templateUrl: "mohican/oldDirectives/templates/mnNavbarRight.html"
+    templateUrl: "mohican/old-directives/templates/mnNavbarRight.html"
   };
 }).directive('mnNavbarCollapsible', ['$window', function($window) {
   var ret;
