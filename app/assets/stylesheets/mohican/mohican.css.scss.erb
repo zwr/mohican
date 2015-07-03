@@ -339,7 +339,7 @@ mn-menu-group > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open >
   color: white;
 }
 
-mn-item-reports > div {
+mn-item-reports > div, .block {
   display: block !important;
 }
 
@@ -525,6 +525,15 @@ mn-item-reports > div {
   overflow:auto;
 }
 
+.mn-content-panel {
+  background:
+    linear-gradient(135deg, transparent 10px, $mn-content-panel-bg-color 0) top left,
+    linear-gradient(315deg, transparent 10px, $mn-content-panel-bg-color 0) bottom right;
+  background-size: 100% 72%;
+  background-repeat: no-repeat;
+  padding: 17px;
+}
+
 //generic modifier styles
 
 // fix for inset shadow bug of the table-containing div, to be uniform on striped rows, because shadow is not visible on opaque background
@@ -543,6 +552,14 @@ mn-item-reports > div {
   font-size:$font-size-base - 1;
   border-color: #ACF3BC !important;
   border-top: 1px solid #fff !important;
+}
+
+.thirdWidth {
+  width: 33%;
+}
+
+.spacerT15 {
+  margin-top: 15px;
 }
 
 .baseFont3x {
