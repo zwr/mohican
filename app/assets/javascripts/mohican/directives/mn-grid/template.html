@@ -1,9 +1,10 @@
 <div mn-fill-height class="scrollableHframe noPad" style="">
   <table class="table table-striped" style="table-layout:fixed;">
     <colgroup>
-      <col ng-show="grid.showSelectColumn" class="vmiddle" style="width: 30px; margin:0 auto;">
-      <col ng-repeat="field in grid.owner.fields" ng-style="{width: field.width + 'px'}"/>
-      <col style="width: 160px;">
+      <col ng-show="grid.showSelectColumn" class="vmiddle" style="width: 30px; margin:0 auto;" />
+      <col ng-repeat="field in grid.owner.fields" ng-style="{width: field.width + 'px'}" />
+      <col style="width:160px;" />
+      <col style="width:auto;"/>
     </colgroup>
     <thead>
       <tr>
@@ -23,6 +24,7 @@
                 ng-class="grid.owner.stateMachine.direction === 'desc' ? 'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'"
                 aria-hidden="true"></span>
         </th>
+        <th class="grid-header-container"></th>
         <th class="grid-header-container"></th>
       </tr>
       <tr>
@@ -56,6 +58,10 @@
           <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
           </div>
         </th>
+        <th class="QfRow">
+          <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
+          </div>
+        </th>
       </tr>
     </thead>
     <tbody ng-hide="grid.onlySelectedItemsShown">
@@ -75,6 +81,7 @@
         <td>
           <mn-grid-actions />
         <td>
+        <td></td>
       </tr>
     </tbody>
     <tbody ng-show="grid.onlySelectedItemsShown">
@@ -94,6 +101,7 @@
         <td>
           <mn-grid-actions />
         <td>
+        <td></td>
       </tr>
     </tbody>
   </table>
@@ -105,19 +113,22 @@
   </div>
   <div class="col-sm-7 hidden-xs mn-content-footer-status-msg">
     <span ng-show="grid.selectedItems.length > 0">
-      <span class="accent0">{{grid.selectedItems.length}}</span> selected of
+      <span class="accent0">{{grid.selectedItems.length}} selected</span>,
     </span>
     <span ng-if="grid.owner.totalQfCount < grid.owner.service.totalCount">
-      <span class="mn-content-footer-status-msg-invert">{{grid.owner.totalQfCount}}</span> documents quick filtered, of
+      <span class="mn-content-footer-status-msg-invert"> {{grid.owner.totalQfCount}}</span> quick filtered, of
     </span>
-    <span ng-if="grid.owner.service.buffer.length < grid.owner.service.totalCount">
-      <span class="mn-content-footer-status-msg-invert">{{grid.owner.service.buffer.length}}</span> of
+    <span ng-if="grid.owner.service.totalCount">
+      <span ng-if="grid.owner.service.buffer.length < grid.owner.service.totalCount">
+        <span class="mn-content-footer-status-msg-invert">{{grid.owner.service.buffer.length}}</span> out of
+      </span> {{grid.owner.service.totalCount}} loaded
     </span>
-      {{grid.owner.service.totalCount}} loaded
+    <span ng-if="!grid.owner.service.totalCount">
+       {{grid.owner.items.length}} loaded {{isObject(grid.owner.service.totalCount)}}
+    </span>
   </div>
 </div>
 <!-- <div>
-  selected documents count: {{}}
   <a ng-show="grid.selectedItems.length > 0" ng-click="grid.unselectAll()">unselect all</a>
 </div> -->
 <div class="btn-group-vertical mn-context-menu"
