@@ -22,6 +22,37 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             });
           }
         };
+
+        ctrl.CurrentItemHandlersController = {};
+        var handlersGridFields = [
+          {
+            header: 'Name',
+            name:   'name',
+            view:   'text',
+            width:  150
+          },
+          {
+            header: 'Address',
+            name:   'address',
+            view:   'text',
+            width:  200
+          },
+          {
+            header: 'Post Number',
+            name:   'postno',
+            view:   'text',
+            width:  100
+          },
+          {
+            header: 'City',
+            name:   'city',
+            view:   'text',
+            width:  100
+          }
+        ];
+        var onCurrItemHandlersCalback = mohican.extendBasicDriver(ctrl.CurrentItemHandlersController, 'handlers', handlersGridFields);
+        ctrl.onCurrentItemChanged.push(onCurrItemHandlersCalback);
+
         ctrl.CurrentItemProductsController = {};
         var productsGridFields = [
           {
@@ -37,8 +68,8 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             width:  600
           }
         ];
-        var onCurrItemCalback = mohican.extendBasicDriver(ctrl.CurrentItemProductsController, 'products', productsGridFields);
-        ctrl.onCurrentItemChanged.push(onCurrItemCalback);
+        var onCurrItemProductsCalback = mohican.extendBasicDriver(ctrl.CurrentItemProductsController, 'products', productsGridFields);
+        ctrl.onCurrentItemChanged.push(onCurrItemProductsCalback);
 
         ctrl.onItemSelect = function(selectedItems) {
           console.log(selectedItems);
