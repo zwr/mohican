@@ -1,12 +1,58 @@
 (function(mohican) {
   'use strict';
 
-  mohican.extendBasicDriver = function(ctrl, collectionName, fields) {
-    _.assign(ctrl, mohican.createBaseDriver());
-    ctrl.collectionName = collectionName;
-    ctrl.fields = [];
-    fields.forEach(function(field) {
-      ctrl.fields.push(
+  mohican.metaData = {
+    defaultFields: {
+      handlers: [
+        {
+          header: 'Name',
+          name:   'name',
+          view:   'text',
+          width:  150
+        },
+        {
+          header: 'Address',
+          name:   'address',
+          view:   'text',
+          width:  200
+        },
+        {
+          header: 'Post Number',
+          name:   'postno',
+          view:   'text',
+          width:  100
+        },
+        {
+          header: 'City',
+          name:   'city',
+          view:   'text',
+          width:  100
+        }
+      ],
+      products: [
+        {
+          header: 'EAN',
+          name:   'ean',
+          view:   'text',
+          width:  150
+        },
+        {
+          header: 'Name',
+          name:   'name',
+          view:   'text',
+          width:  600
+        }
+      ]
+    }
+  };
+
+  mohican.createBasicDriver = function(ctrl, collectionName) {
+    var basicDriver = ctrl['CurrentItem' + _.capitalize(collectionName) + 'Controller'] = {};
+    _.assign(basicDriver, mohican.createBaseDriver());
+    basicDriver.collectionName = collectionName;
+    basicDriver.fields = [];
+    mohican.metaData.defaultFields[collectionName].forEach(function(field) {
+      basicDriver.fields.push(
         {
           header:      field.header,
           name:        field.name,
@@ -18,16 +64,16 @@
       );
     });
 
-    return function(newCurrentItem) {
-      ctrl.items = [];
-      if(newCurrentItem[ctrl.collectionName]) {
-        ctrl.items = newCurrentItem[ctrl.collectionName];
-        ctrl.items.forEach(function(item) {
+    ctrl.onCurrentItemChanged.push(function(newCurrentItem) {
+      basicDriver.items = [];
+      if(newCurrentItem[basicDriver.collectionName]) {
+        basicDriver.items = newCurrentItem[basicDriver.collectionName];
+        basicDriver.items.forEach(function(item) {
           for(var key in item) {
             item[key + '_formatted'] = item[key];
           }
         });
       }
-    };
+    });
   };
 }(window.mohican));
