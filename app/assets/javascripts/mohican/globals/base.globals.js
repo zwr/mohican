@@ -1,6 +1,6 @@
 //= require_self
 //= require ./state-machine
-//= require ./base-controller
+//= require ./base-driver
 //= require_tree .
 
 window.mohican = {};

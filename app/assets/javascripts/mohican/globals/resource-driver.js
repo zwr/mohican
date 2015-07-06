@@ -1,9 +1,9 @@
 (function(mohican) {
   'use strict';
 
-  mohican.extendBasicController = function(ctrl, service) {
-    _.assign(ctrl, mohican.createBaseController());
-    _.assign(ctrl, mohican.createBasicController());
+  mohican.extendResourceDriver = function(ctrl, service) {
+    _.assign(ctrl, mohican.createBaseDriver());
+    _.assign(ctrl, mohican.createResourceDriver());
 
     ctrl.stateMachine.quickFilterShown = true;
     ctrl.stateMachine.page = 1;
@@ -14,7 +14,7 @@
     ctrl.loadData();
   };
 
-  mohican.createBasicController = function() {
+  mohican.createResourceDriver = function() {
     return {
       backendFilters: undefined,
       layouts:        undefined,
@@ -25,8 +25,6 @@
       totalQfCount:   undefined,
       primaryKeyName: undefined,
       itemForm:       undefined,
-
-      currentItemChanged: function() {},
 
       clientViewLoadingNotification: undefined,
 

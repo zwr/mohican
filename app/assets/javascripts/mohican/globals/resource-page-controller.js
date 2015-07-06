@@ -1,14 +1,14 @@
 (function(mohican) {
   'use strict';
 
-  mohican.extendResourceController = function(ctrl, service, mnRouter) {
-    _.assign(ctrl, mohican.createBaseController());
-    _.assign(ctrl, mohican.createResourceController());
+  mohican.extendResourcePageController = function(ctrl, service, mnRouter) {
+    _.assign(ctrl, mohican.createBaseDriver());
+    _.assign(ctrl, mohican.createResourcePageController());
     ctrl.initialize(service, mnRouter.$stateParams, mnRouter.$state);
     ctrl.loadData();
   };
 
-  mohican.createResourceController = function() {
+  mohican.createResourcePageController = function() {
     return {
       backendFilters: undefined,
       layouts:        undefined,
@@ -22,7 +22,7 @@
       primaryKeyName: undefined,
       itemForm:       undefined,
 
-      currentItemChanged: function() {},
+      onCurrentItemChanged: undefined,
 
       clientViewLoadingNotification: undefined,
 
@@ -48,6 +48,7 @@
         this.layoutDefs = [];
         this.backendFilters = [];
         this.service = service;
+        this.onCurrentItemChanged = [];
       },
 
       loadData: function() {
@@ -74,7 +75,9 @@
             that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields, that.primaryKeyName)
             .then(function(items) {
               that.itemForm = items[0];
-              that.currentItemChanged(that.itemForm);
+              that.onCurrentItemChanged.forEach(function(callback) {
+                callback(that.itemForm);
+              });
             });
             return;
           }

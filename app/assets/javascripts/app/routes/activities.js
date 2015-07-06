@@ -7,7 +7,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
 
     controller: ['service', 'mnRouter',
       function(service, mnRouter) {
-        mohican.extendResourceController(this, service, mnRouter);
+        mohican.extendResourcePageController(this, service, mnRouter);
         var ctrl = this;
         ctrl.reportLocation = '/reports';
         ctrl.attached = false;
@@ -23,42 +23,22 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         };
         ctrl.CurrentItemProductsController = {};
-        ctrl.CurrentItemProductsController.fields = [
+        var productsGridFields = [
           {
-            header:      'EAN',
-            name:        'ean',
-            quickfilter: null,
-            quicksort:   false,
-            view:        'text',
-            width:       150
+            header: 'EAN',
+            name:   'ean',
+            view:   'text',
+            width:  150
           },
           {
-            header:      'Name',
-            name:        'name',
-            quickfilter: null,
-            quicksort:   false,
-            view:        'text',
-            width:       600
+            header: 'Name',
+            name:   'name',
+            view:   'text',
+            width:  600
           }
         ];
-        ctrl.CurrentItemProductsController.stateMachine = {};
-        ctrl.CurrentItemProductsController.fullyLoaded = false;
-        ctrl.CurrentItemProductsController.orderBy = function() {};
-        ctrl.CurrentItemProductsController.stateMachine.quickFilterShown = false;
-
-        ctrl.currentItemChanged = function(newCurrentItem) {
-          ctrl.CurrentItemProductsController.items = [];
-          if(newCurrentItem.products) {
-            ctrl.CurrentItemProductsController.items = newCurrentItem.products;
-            ctrl.CurrentItemProductsController.items.forEach(function(item) {
-              for(var key in item) {
-                item[key + '_formatted'] = item[key];
-              }
-            });
-          }
-          ctrl.CurrentItemProductsController.fullyLoaded = true;
-          ctrl.CurrentItemProductsController.stateMachine.quickFilterShown = false;
-        };
+        var onCurrItemCalback = mohican.extendBasicDriver(ctrl.CurrentItemProductsController, 'products', productsGridFields);
+        ctrl.onCurrentItemChanged.push(onCurrItemCalback);
 
         ctrl.onItemSelect = function(selectedItems) {
           console.log(selectedItems);
@@ -79,7 +59,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               text:   'link to activity',
               action: function() {
                 ctrl.linkToActivityController = {};
-                mohican.extendBasicController(ctrl.linkToActivityController, service);
+                mohican.extendResourceDriver(ctrl.linkToActivityController, service);
                 ctrl.popDialog('Selected Orders', 'app/routes/activities-link-to-activity-dialog.html');
               }
             },

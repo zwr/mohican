@@ -1,7 +1,7 @@
 (function(mohican) {
   'use strict';
 
-  mohican.createBaseController = function() {
+  mohican.createBaseDriver = function() {
     return {
       stateMachine: mohican.createStateMachine(),
 
