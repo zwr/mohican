@@ -238,5 +238,5 @@
                        { notify: true });
       }
     };
-  }
+  };
 }(window.mohican));
