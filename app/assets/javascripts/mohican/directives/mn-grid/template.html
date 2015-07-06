@@ -107,24 +107,27 @@
   </table>
 </div>
 <div class="row mn-pager-row" >
-  <div class="col-xs-12 col-sm-5">
+  <div class="col-xs-12 col-sm-7 col-md-6 col-lg-5">
     <mn-grid-pager owner="grid.owner" ng-hide="grid.onlySelectedItemsShown">
     </mn-grid-pager>
   </div>
-  <div class="col-sm-7 hidden-xs mn-content-footer-status-msg">
+  <div class="hidden-xs col-sm-5 col-md-6 col-lg-7 mn-content-footer-status-msg">
     <span ng-show="grid.selectedItems.length > 0">
-      <span class="accent0">{{grid.selectedItems.length}} selected</span>,
+      <span class="accent0">selected {{grid.selectedItems.length}}</span> /
     </span>
     <span ng-if="grid.owner.totalQfCount < grid.owner.service.totalCount">
       <span class="mn-content-footer-status-msg-invert"> {{grid.owner.totalQfCount}}</span> quick filtered, of
     </span>
     <span ng-if="grid.owner.service.totalCount">
       <span ng-if="grid.owner.service.buffer.length < grid.owner.service.totalCount">
-        <span class="mn-content-footer-status-msg-invert">{{grid.owner.service.buffer.length}}</span> out of
-      </span> {{grid.owner.service.totalCount}} loaded
+        <span class="mn-content-footer-status-msg-invert">{{grid.owner.service.buffer.length}}</span> /
+      </span> {{grid.owner.service.totalCount}}
     </span>
     <span ng-if="!grid.owner.service.totalCount">
-       {{grid.owner.items.length}} loaded {{isObject(grid.owner.service.totalCount)}}
+       {{grid.owner.items.length}}
+    </span>
+    <span ng-if="!(grid.selectedItems.length > 0)">
+      loaded {{isObject(grid.owner.service.totalCount)}}
     </span>
   </div>
 </div>

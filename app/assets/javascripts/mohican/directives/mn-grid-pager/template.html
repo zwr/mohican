@@ -1,6 +1,6 @@
     <nav class="pointer" ng-class="{hidden: !gridPager.owner.pageCount}">
       <ul class="pagination pagination-sm"
-          style="margin: 0px 30px;"
+          style="margin: 0px;"
           ng-class="{'client-pager': !!gridPager.owner.stateMachine.filters && gridPager.owner.fullyLoaded}">
         <li class="pointer" ng-class='{disabled: gridPager.owner.stateMachine.page === 1}'>
           <a ng-click="gridPager._changePage(gridPager.prevPage())"
