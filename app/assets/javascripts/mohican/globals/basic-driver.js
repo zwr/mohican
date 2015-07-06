@@ -19,7 +19,6 @@
     });
 
     return function(newCurrentItem) {
-      console.log(newCurrentItem);
       ctrl.items = [];
       if(newCurrentItem[ctrl.collectionName]) {
         ctrl.items = newCurrentItem[ctrl.collectionName];
