@@ -3,7 +3,6 @@
 
   mohican.extendBasicDriver = function(ctrl, collectionName, fields) {
     _.assign(ctrl, mohican.createBaseDriver());
-    _.assign(ctrl, mohican.createBasicDriver());
     ctrl.collectionName = collectionName;
     ctrl.fields = [];
     fields.forEach(function(field) {
@@ -30,12 +29,6 @@
           }
         });
       }
-    };
-  };
-
-  mohican.createBasicDriver = function() {
-    return {
-
     };
   };
 }(window.mohican));
