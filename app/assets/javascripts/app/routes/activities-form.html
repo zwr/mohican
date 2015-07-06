@@ -2,54 +2,54 @@
   <div class="row">
     <div class="col-xs-12 col-sm-6 mn-content-panel">
       <span class="loader block" ng-if="!ctrl.itemForm" style="margin: 0px 0px 0px 8px;">Loading...</span>
-    	<div ng-if="ctrl.itemForm">
-	      <div>
-	        <strong>Order ID:</strong>
-	        <span>{{ctrl.itemForm.Order_ID}}</span>
-	      </div>
-	      <div>
-	        <strong>Work Order Number:</strong>
-	        <span>{{ctrl.itemForm.WorkOrder_WorkOrderNr}}</span>
-	      </div>
-	      <div>
-	        <strong>Customer Name:</strong>
-	        <span>{{ctrl.itemForm.Customer_CustomerName}}</span>
-	      </div>
-	      <div>
-	        <strong>Work Order Number:</strong>
-	        <span>{{ctrl.itemForm.Customer_WorkCity}}</span>
-	      </div>
-	      <div>
-	        <strong>Work Order Number:</strong>
-	        <span>{{ctrl.itemForm.RPU_Address}}</span>
-	      </div>
-	      <div>
-	        <strong>Work Order Number:</strong>
-	        <span>{{ctrl.itemForm.RPU_City}}</span>
-	      </div>
-	      <div>
-	        <strong>Work Order Number:</strong>
-	        <span>{{ctrl.itemForm.RPU_ZipCode}}</span>
-	      </div>
-  			<mn-tabs>
-  				<mn-tab heading="Tab 1">
-  		        tab1
-  		    </mn-tab>
-  		    <mn-tab heading="Handlers">
+      <div ng-if="ctrl.itemForm">
+        <div>
+          <strong>Order ID:</strong>
+          <span>{{ctrl.itemForm.Order_ID}}</span>
+        </div>
+        <div>
+          <strong>Work Order Number:</strong>
+          <span>{{ctrl.itemForm.WorkOrder_WorkOrderNr}}</span>
+        </div>
+        <div>
+          <strong>Customer Name:</strong>
+          <span>{{ctrl.itemForm.Customer_CustomerName}}</span>
+        </div>
+        <div>
+          <strong>Work Order Number:</strong>
+          <span>{{ctrl.itemForm.Customer_WorkCity}}</span>
+        </div>
+        <div>
+          <strong>Work Order Number:</strong>
+          <span>{{ctrl.itemForm.RPU_Address}}</span>
+        </div>
+        <div>
+          <strong>Work Order Number:</strong>
+          <span>{{ctrl.itemForm.RPU_City}}</span>
+        </div>
+        <div>
+          <strong>Work Order Number:</strong>
+          <span>{{ctrl.itemForm.RPU_ZipCode}}</span>
+        </div>
+          <mn-tabs>
+            <mn-tab heading="Tab 1">
+              tab1
+            </mn-tab>
+            <mn-tab heading="Handlers">
             <mn-grid owner="ctrl.CurrentItemHandlersController">
             </mn-grid>
-  		    </mn-tab>
-  		    <mn-tab heading="Products">
-  		      <mn-grid owner="ctrl.CurrentItemProductsController">
-  		      </mn-grid>
-  		    </mn-tab>
-	      </mn-tabs>
-		  </div>
-  		<div class="control-group spacerT15 block">
-  	      <a class="btn btn-info" ui-sref="base.activities({})">
-  	        Back to grid
-  	      </a>
-  	  </div>
-	  </div>
+          </mn-tab>
+          <mn-tab heading="Products">
+            <mn-grid owner="ctrl.CurrentItemProductsController">
+            </mn-grid>
+          </mn-tab>
+        </mn-tabs>
+      </div>
+      <div class="control-group spacerT15 block">
+        <a class="btn btn-info" ui-sref="base.activities({})">
+          Back to grid
+        </a>
+      </div>
+    </div>
   </div>
 </div>
