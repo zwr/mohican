@@ -8,10 +8,10 @@ angular.module('mohican.directives')
         scope: {
           heading: '@'
         },
-        restrict:     'E',
-        transclude:   true,
-        require:      '^mnTabs',
-        templateUrl:  'mohican/directives/mn-tab/template.html',
+        restrict:    'E',
+        transclude:  true,
+        require:     '^mnTabs',
+        templateUrl: 'mohican/directives/mn-tab/template.html',
 
         link: function(scope, elem, attr, mnTabsCtrl) {
           scope.active = false;
