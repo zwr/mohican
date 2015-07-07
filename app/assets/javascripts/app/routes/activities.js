@@ -23,8 +23,8 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         };
 
-        mohican.createBasicDriver(ctrl, 'handlers');
-        mohican.createBasicDriver(ctrl, 'products');
+        mohican.createBasicDriver(ctrl, 'handlers', mnRouter);
+        mohican.createBasicDriver(ctrl, 'products', mnRouter);
 
         ctrl.onItemSelect = function(selectedItems) {
           console.log(selectedItems);

@@ -3,7 +3,7 @@
 
   mohican._mohicanRoute = function(routeName, controller, $stateProvider, redirectTo, template) {
     var url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
-    var urlForm = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}';
+    var urlForm = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}?activeFormCollectionsTab';
     var templateUrl = 'app/routes/' + mohican.toHyphen(routeName) + '-grid.html';
     var templateUrlForm = 'app/routes/' + mohican.toHyphen(routeName) + '-form.html';
 

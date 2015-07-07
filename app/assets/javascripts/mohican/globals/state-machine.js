@@ -12,6 +12,8 @@
       filters:          undefined,
       itemPrimaryKeyId: undefined,
 
+      activeFormCollectionsTab: undefined,
+
       stateMachineFromUrl: function($stateParams, service) {
         if (!$stateParams.backendfilter) {
           this.backendfilter = 'default';
@@ -25,11 +27,14 @@
         if (!$stateParams.direction) {
           this.direction = 'asc';
         }
+        if (!$stateParams.activeFormCollectionsTab) {
+          this.activeFormCollectionsTab = 0;
+        }
 
         //if we have qf or qs on, show first page from backend filter,
         //but after loading data is finished, page will be set to $stateParams.page
         //also check service.thePromise to see if user has changed page while eager loading
-        if(($stateParams.qf || $stateParams.column) && service.thePromise === null) {
+        if(($stateParams.qf || $stateParams.column) && service && service.thePromise === null) {
           this.page = 1;
         }
         else {
@@ -40,6 +45,7 @@
         this.column = $stateParams.column;
         this.direction = $stateParams.direction;
         this.itemPrimaryKeyId = $stateParams.itemPrimaryKeyId;
+        this.activeFormCollectionsTab = $stateParams.activeFormCollectionsTab;
 
         //filters and qf show will be available after fullyLoaded
         this.quickFilterShown = $stateParams.qf === 'true' ? true : false;
@@ -56,7 +62,9 @@
           direction:        this.direction,
           qf:               this.quickFilterShown,
           filters:          mohican.jsonToUrlParam(this.filters, fields),
-          itemPrimaryKeyId: this.itemPrimaryKeyId
+          itemPrimaryKeyId: this.itemPrimaryKeyId,
+
+          activeFormCollectionsTab: this.activeFormCollectionsTab
         });
       }
     };

@@ -10,21 +10,34 @@
   function MnTabsController() {
     var vm = this;
     vm.tabs = [];
+
     vm.addTab = function addTab(tab) {
       vm.tabs.push(tab);
-
-      if(vm.tabs.length === 1) {
-        tab.active = true;
-      }
+    };
+    vm.setSelectedTab = function(tabIndex) {
+      vm.tabs.forEach(function(tab, index) {
+        if(index == tabIndex) {
+          tab.active = true;
+        }
+        else {
+          tab.active = false;
+        }
+      });
     };
     vm.select = function(selectedTab) {
-      angular.forEach(vm.tabs, function(tab) {
+      angular.forEach(vm.tabs, function(tab, index) {
         if(tab.active && tab !== selectedTab) {
           tab.active = false;
+        }
+        if(tab === selectedTab) {
+          vm.owner.stateMachine.activeFormCollectionsTab = index;
         }
       });
 
       selectedTab.active = true;
+      vm.owner.$state.go(vm.owner.$state.current.name,
+                     vm.owner.stateMachine.stateMachineToUrl(),
+                     { notify: false });
     };
   }
 })();

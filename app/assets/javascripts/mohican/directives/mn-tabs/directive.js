@@ -6,14 +6,23 @@ angular.module('mohican.directives')
   .directive('mnTabs', [function() {
       'use strict';
       return {
-        scope:        {},
+        scope: {
+          owner: '=?'
+        },
         restrict:     'E',
         transclude:   true,
         templateUrl:  'mohican/directives/mn-tabs/template.html',
         controller:   'MnTabsController',
         controllerAs: 'mnTabs',
 
-        bindToController: true
+        bindToController: true,
+
+        link: function(scope, element, attrs, ctrl) {
+          if(!ctrl.owner) {
+            ctrl.owner = scope.owner = mohican.scopeLookup(scope);
+          }
+          ctrl.setSelectedTab(ctrl.owner.stateMachine.activeFormCollectionsTab);
+        }
       };
     }
   ]);
