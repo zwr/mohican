@@ -1,7 +1,8 @@
 <div role="tabpanel">
   <ul class="nav nav-tabs" role="tablist">
     <li role="presentation"
-      ng-repeat="tab in mnTabs.tabs">
+        ng-class="{'active' : tab.active}"
+        ng-repeat="tab in mnTabs.tabs">
 
       <a href=""
         role="tab"
