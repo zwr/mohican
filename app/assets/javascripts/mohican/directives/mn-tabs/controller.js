@@ -16,7 +16,7 @@
     };
     vm.setSelectedTab = function(tabIndex) {
       vm.tabs.forEach(function(tab, index) {
-        if(index == tabIndex) {
+        if(index.toString() === tabIndex) {
           tab.active = true;
         }
         else {
@@ -30,7 +30,7 @@
           tab.active = false;
         }
         if(tab === selectedTab) {
-          vm.owner.stateMachine.activeFormCollectionsTab = index;
+          vm.owner.stateMachine.activetab = index;
         }
       });
 

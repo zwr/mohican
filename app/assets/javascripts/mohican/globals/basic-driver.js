@@ -46,17 +46,12 @@
     }
   };
 
-  mohican.createBasicDriver = function(ctrl, collectionName, mnRouter) {
+  mohican.createBasicDriver = function(ctrl, collectionName) {
     var basicDriver = ctrl['CurrentItem' + _.capitalize(collectionName) + 'Controller'] = {};
     _.assign(basicDriver, mohican.createBaseDriver());
 
     basicDriver.collectionName = collectionName;
     basicDriver.fields = [];
-    basicDriver.$state = mnRouter.$state;
-    basicDriver.$stateParams = mnRouter.$stateParams;
-    mohican.redirectDefaultParameters(basicDriver.$stateParams, basicDriver.$state);
-    mohican.injectDefaultParameters(basicDriver.$stateParams);
-    basicDriver.stateMachine.stateMachineFromUrl(basicDriver.$stateParams);
 
     mohican.metaData.defaultFields[collectionName].forEach(function(field) {
       basicDriver.fields.push(

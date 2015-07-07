@@ -21,7 +21,7 @@ angular.module('mohican.directives')
           if(!ctrl.owner) {
             ctrl.owner = scope.owner = mohican.scopeLookup(scope);
           }
-          ctrl.setSelectedTab(ctrl.owner.stateMachine.activeFormCollectionsTab);
+          ctrl.setSelectedTab(ctrl.owner.stateMachine.activetab);
         }
       };
     }

@@ -3,7 +3,7 @@
 
   mohican._mohicanRoute = function(routeName, controller, $stateProvider, redirectTo, template) {
     var url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
-    var urlForm = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}?activeFormCollectionsTab';
+    var urlForm = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}?activetab';
     var templateUrl = 'app/routes/' + mohican.toHyphen(routeName) + '-grid.html';
     var templateUrlForm = 'app/routes/' + mohican.toHyphen(routeName) + '-form.html';
 
@@ -73,6 +73,10 @@
       newParams.qf = undefined;
       dirty = true;
     }
+    if (newParams.activetab === '0' || newParams.activetab === 0) {
+      newParams.activetab = undefined;
+      dirty = true;
+    }
 
     return {dirty: dirty, newParams: newParams};
   };
@@ -108,6 +112,9 @@
     }
     if (!params.direction) {
       params.direction = 'asc';
+    }
+    if (!params.activetab) {
+      params.activetab = '0';
     }
 
     return params;

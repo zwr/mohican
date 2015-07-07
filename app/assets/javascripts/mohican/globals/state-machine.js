@@ -12,7 +12,7 @@
       filters:          undefined,
       itemPrimaryKeyId: undefined,
 
-      activeFormCollectionsTab: undefined,
+      activetab: undefined,
 
       stateMachineFromUrl: function($stateParams, service) {
         if (!$stateParams.backendfilter) {
@@ -27,8 +27,8 @@
         if (!$stateParams.direction) {
           this.direction = 'asc';
         }
-        if (!$stateParams.activeFormCollectionsTab) {
-          this.activeFormCollectionsTab = 0;
+        if (!$stateParams.activetab) {
+          this.activetab = 0;
         }
 
         //if we have qf or qs on, show first page from backend filter,
@@ -45,7 +45,7 @@
         this.column = $stateParams.column;
         this.direction = $stateParams.direction;
         this.itemPrimaryKeyId = $stateParams.itemPrimaryKeyId;
-        this.activeFormCollectionsTab = $stateParams.activeFormCollectionsTab;
+        this.activetab = $stateParams.activetab;
 
         //filters and qf show will be available after fullyLoaded
         this.quickFilterShown = $stateParams.qf === 'true' ? true : false;
@@ -64,7 +64,7 @@
           filters:          mohican.jsonToUrlParam(this.filters, fields),
           itemPrimaryKeyId: this.itemPrimaryKeyId,
 
-          activeFormCollectionsTab: this.activeFormCollectionsTab
+          activetab: this.activetab
         });
       }
     };
