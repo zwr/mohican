@@ -65,6 +65,13 @@
       </tr>
     </thead>
     <tbody ng-hide="grid.onlySelectedItemsShown">
+      <tr ng-show="grid.owner.items.length === 0">
+        <td style="heigth: 0px;">
+          <div style="overflow: visible; position: fixed;">
+            No items to show
+          </div>
+        </td>
+      </tr>
       <tr ng-repeat="item in grid.owner.items" mn-right-click="grid.rightClick(item, $event)">
         <td ng-show="grid.showSelectColumn">
           <input type="checkbox" class="baseFont3x"
@@ -85,6 +92,13 @@
       </tr>
     </tbody>
     <tbody ng-show="grid.onlySelectedItemsShown">
+      <tr ng-show="grid.selectedItems.length === 0">
+        <td style="heigth: 0px;">
+          <div style="overflow: visible; position: fixed;">
+            No items to show
+          </div>
+        </td>
+      </tr>
       <tr ng-repeat="item in grid.selectedItems" mn-right-click="grid.rightClick(item, $event)">
         <td ng-show="grid.showSelectColumn">
           <input type="checkbox"
