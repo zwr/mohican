@@ -1,59 +1,14 @@
 (function(mohican) {
   'use strict';
 
-  mohican.metaData = {
-    defaultFields: {
-      handlers: [
-        {
-          header: 'Name',
-          name:   'name',
-          view:   'text',
-          width:  150
-        },
-        {
-          header: 'Address',
-          name:   'address',
-          view:   'text',
-          width:  200
-        },
-        {
-          header: 'Post Number',
-          name:   'postno',
-          view:   'text',
-          width:  100
-        },
-        {
-          header: 'City',
-          name:   'city',
-          view:   'text',
-          width:  100
-        }
-      ],
-      products: [
-        {
-          header: 'EAN',
-          name:   'ean',
-          view:   'text',
-          width:  150
-        },
-        {
-          header: 'Name',
-          name:   'name',
-          view:   'text',
-          width:  600
-        }
-      ]
-    }
-  };
-
-  mohican.createBasicDriver = function(ctrl, collectionName) {
-    var basicDriver = ctrl['CurrentItem' + _.capitalize(collectionName) + 'Controller'] = {};
+  mohican.createBasicDriver = function(ctrl, collectionName, fields) {
+    var basicDriver = {};
     _.assign(basicDriver, mohican.createBaseDriver());
 
     basicDriver.collectionName = collectionName;
     basicDriver.fields = [];
 
-    mohican.metaData.defaultFields[collectionName].forEach(function(field) {
+    fields.forEach(function(field) {
       basicDriver.fields.push(
         {
           header:      field.header,
@@ -77,5 +32,7 @@
         });
       }
     });
+
+    return basicDriver;
   };
 }(window.mohican));

@@ -236,6 +236,10 @@
         this.$state.go(this.$state.current.name,
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: true });
+      },
+
+      createBasicDriver: function(collectionName, fields) {
+        return mohican.createBasicDriver(this, collectionName, fields);
       }
     };
   };
