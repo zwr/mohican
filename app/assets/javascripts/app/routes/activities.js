@@ -68,8 +68,6 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           console.log(selectedItems);
         };
         ctrl.popup = function(clickedItem, selectedItems) {
-          console.log('Clicked Item: ', clickedItem);
-          console.log('Selected Items: ', selectedItems);
           var retArray = [
             {
               text:   'pop me up',
@@ -88,9 +86,15 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               }
             },
             {
-              text:   'second action',
-              action: function() {
-                console.log('second action exec on object ' + clickedItem.WorkOrder_ID);
+              text:   'select all',
+              action: function(gridCtrl) {
+                gridCtrl.selectAll();
+              }
+            },
+            {
+              text:   'select none',
+              action: function(gridCtrl) {
+                gridCtrl.selectNone();
               }
             }
           ];

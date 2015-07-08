@@ -59,8 +59,16 @@
       }
     };
 
-    vm.unselectAll = function() {
+    vm.selectNone = function() {
       vm.selectedItems = [];
+    };
+
+    vm.selectAll = function() {
+      vm.owner.items.forEach(function(item) {
+        if(!vm.isItemSelected(item)) {
+          vm.selectedItems.push(item);
+        }
+      });
     };
 
     vm.orderBy = function(field) {
@@ -94,7 +102,7 @@
     };
 
     vm.contextMenuAction = function(item) {
-      item.action();
+      item.action(vm);
       vm.contextMenuVisible = false;
     };
   }
