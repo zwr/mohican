@@ -23,7 +23,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         };
 
-        ctrl.handlersDrv = mohican.createBasicDriver(ctrl, 'handlers', [
+        ctrl.handlersDrv = ctrl.createBasicDriver('handlers', [
           {
             header: 'Name',
             name:   'name',
@@ -49,7 +49,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             width:  100
           }
         ]);
-        ctrl.productsDrv = mohican.createBasicDriver(ctrl, 'products', [
+        ctrl.productsDrv = ctrl.createBasicDriver('products', [
           {
             header: 'EAN',
             name:   'ean',

@@ -1,7 +1,7 @@
 (function(mohican) {
   'use strict';
 
-  mohican.createBasicDriver = function(ctrl, collectionName, fields) {
+  mohican.createBasicDriver = function(collectionName, fields) {
     var basicDriver = {};
     _.assign(basicDriver, mohican.createBaseDriver());
 
@@ -19,18 +19,6 @@
           width:       field.width
         }
       );
-    });
-
-    ctrl.onCurrentItemChanged.push(function(newCurrentItem) {
-      basicDriver.items = [];
-      if(newCurrentItem[basicDriver.collectionName]) {
-        basicDriver.items = newCurrentItem[basicDriver.collectionName];
-        basicDriver.items.forEach(function(item) {
-          for(var key in item) {
-            item[key + '_formatted'] = item[key];
-          }
-        });
-      }
     });
 
     return basicDriver;

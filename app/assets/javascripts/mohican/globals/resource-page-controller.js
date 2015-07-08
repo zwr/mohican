@@ -239,7 +239,21 @@
       },
 
       createBasicDriver: function(collectionName, fields) {
-        return mohican.createBasicDriver(this, collectionName, fields);
+        var basicDrv = mohican.createBasicDriver(collectionName, fields);
+
+        this.onCurrentItemChanged.push(function(newCurrentItem) {
+          basicDrv.items = [];
+          if(newCurrentItem[basicDrv.collectionName]) {
+            basicDrv.items = newCurrentItem[basicDrv.collectionName];
+            basicDrv.items.forEach(function(item) {
+              for(var key in item) {
+                item[key + '_formatted'] = item[key];
+              }
+            });
+          }
+        });
+
+        return basicDrv;
       }
     };
   };
