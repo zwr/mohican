@@ -57,10 +57,10 @@ a.navbar-brand.active, a.navbar-brand:focus {
 }
 
 .navbar-static-top, .navbar-inverse {
-  background: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,.3)) !important;
-  -webkit-box-shadow: -1px 0px 19px #0A1D42;
-  -moz-box-shadow: -1px 0px 19px #0A1D42;
-  box-shadow: -1px 0px 19px #0A1D42;
+  background: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0)) !important;
+  // -webkit-box-shadow: -1px 0px 19px #0A1D42;
+  // -moz-box-shadow: -1px 0px 19px #0A1D42;
+  // box-shadow: -1px 0px 19px #0A1D42;
 }
 
 .navbar-inverse {
@@ -175,7 +175,7 @@ mn-menu-item-route > a > span {
 .filterBar {
   background:
     $mn-content-header-background bottom right,
-    linear-gradient(135deg, transparent 10px, #36B7FF 0) top left;
+    linear-gradient(135deg, transparent 10px, $mn-colorscheme-1M 0) top left;
   background-size: 100% 72%;
   background-repeat: no-repeat;
   padding: 7px;
@@ -337,6 +337,28 @@ mn-menu-group-item > li:hover, mn-menu-group-item > li:focus {
 mn-menu-group > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
   background-color: #090909;
   color: white;
+}
+
+.nav-tabs li a {
+  background:
+    $mn-tab-passive-bg bottom right,
+    linear-gradient(135deg, transparent 10px, $mn-colorscheme-1L 0) top left;
+  background-size: 100% 60%;
+  background-repeat: no-repeat;
+  padding-left: 18px !important;
+  margin-top: 8px !important;
+  margin-right: 0px !important;
+  color: #fff;
+}
+
+.nav-tabs li a:focus, .nav-tabs li a.active  {
+  background:
+    $mn-tab-active-bg bottom right,
+    linear-gradient(135deg, transparent 10px, #dedede 0) top left !important;
+  background-size: 100% 60% !important;
+  background-repeat: no-repeat !important;
+  color: $mn-colorscheme-1V !important;
+  border-radius: 0 !important;
 }
 
 mn-item-reports > div, .block {
@@ -527,8 +549,8 @@ mn-item-reports > div, .block {
 
 .mn-content-panel {
   background:
-    linear-gradient(135deg, transparent 12px, $mn-content-panel-bg-color 0) top left,
-    linear-gradient(315deg, transparent 12px, $mn-content-panel-bg-color 0) bottom right;
+    linear-gradient(135deg, transparent 9px, $mn-content-panel-bg-color 0) top left,
+    linear-gradient(315deg, transparent 9px, $mn-content-panel-bg-color 0) bottom right;
   background-size: 100% 72%;
   background-repeat: no-repeat;
   padding: 17px;
@@ -543,9 +565,11 @@ mn-item-reports > div, .block {
   position: absolute;
   left: 0px;
   top:0px;
-  border: 8px solid transparent;
-  border-right: 8px solid $mn-colorscheme-1M;
-  border-bottom: 8px solid $mn-colorscheme-1M;
+  width: 13px;
+  height: 13px;
+  background:
+    linear-gradient(135deg, transparent 9px, $mn-colorscheme-1M 0) top left;
+  background-repeat: no-repeat;
   -moz-box-sizing: border-box;
   box-sizing: border-box;
   overflow:hidden;

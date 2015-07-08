@@ -5,8 +5,8 @@
         ng-repeat="tab in mnTabs.tabs">
 
       <a href=""
-        role="tab"
-        ng-click="mnTabs.select(tab)">{{tab.heading}}</a>
+        role="tab" ng-class="{'active' : tab.active}"
+        ng-click="mnTabs.select(tab)">{{tab.heading}} </a>
     </li>
   </ul>
 
