@@ -47,7 +47,18 @@
     };
 
     this.$get = ['$stateParams', '$state', function($stateParams, $state) {
+      provider.transitionTo = $state.transitionTo;
+
       function createAll() {
+        $state.transitionTo = function(to, toParams, options) {
+          var denyTransitionTo = provider.stateChaneValidators.some(function(validator) {
+            return !validator();
+          });
+          console.log(denyTransitionTo);
+          if(!denyTransitionTo) {
+            return provider.transitionTo(to, toParams, options);
+          }
+        };
         provider.routes.forEach(function(route) {
           mohican.defineMohicanRoute(route, $stateProviderRef);
         });
@@ -58,18 +69,18 @@
       }
 
       function transitionTo(routeName, params, options) {
-        var denyTransitionTo = provider.stateChaneValidators.some(function(validator) {
-          return !validator();
-        });
-        console.log(denyTransitionTo);
-        if(denyTransitionTo) {
-          console.log('not allowed');
-          return undefined;
-        }
-        else {
-          console.log('allowed');
+        // var denyTransitionTo = provider.stateChaneValidators.some(function(validator) {
+        //   return !validator();
+        // });
+        // console.log(denyTransitionTo);
+        // if(!denyTransitionTo) {
+        //   console.log('allowed');
           $state.go(routeName, params, options);
-        }
+        //   return true;
+        // }
+        // else {
+        //   return false;
+        // }
       }
 
       function addStateChageValidator(validator) {
