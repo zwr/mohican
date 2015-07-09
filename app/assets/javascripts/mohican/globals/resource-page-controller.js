@@ -4,7 +4,7 @@
   mohican.extendResourcePageController = function(ctrl, service, mnRouter) {
     _.assign(ctrl, mohican.createBaseDriver());
     _.assign(ctrl, mohican.createResourcePageController());
-    ctrl.initialize(service, mnRouter.$stateParams, mnRouter.$state);
+    ctrl.initialize(service, mnRouter.$stateParams, mnRouter.$state, mnRouter);
     ctrl.loadData();
   };
 
@@ -21,17 +21,19 @@
       totalQfCount:   undefined,
       primaryKeyName: undefined,
       itemForm:       undefined,
+      mnRouter:       undefined,
 
       onCurrentItemChanged: undefined,
 
       clientViewLoadingNotification: undefined,
 
-      initialize: function(service, $stateParams, $state) {
+      initialize: function(service, $stateParams, $state, mnRouter) {
         mohican.redirectDefaultParameters($stateParams, $state);
         mohican.injectDefaultParameters($stateParams);
 
         this.$stateParams = $stateParams;
         this.$state = $state;
+        this.mnRouter = mnRouter;
 
         this.stateMachine.stateMachineFromUrl($stateParams, service);
 
@@ -137,13 +139,13 @@
           this.stateMachine.quickFilterShown = false;
           this.stateMachine.filters = undefined;
 
-          this.$state.go(this.$state.current.name,
+          this.mnRouter.transitionTo(this.$state.current.name,
                          this.stateMachine.stateMachineToUrl(this.fields),
                          { notify: true });
         }
         else {
           this.stateMachine.page = parseInt(page);
-          this.$state.go(this.$state.current.name,
+          this.mnRouter.transitionTo(this.$state.current.name,
                          this.stateMachine.stateMachineToUrl(this.fields),
                          { notify: false });
           this.service.getClientPage(this.stateMachine.page,
@@ -167,7 +169,7 @@
             that.fields = layout.definition;
           }
         });
-        this.$state.go(this.$state.current.name,
+        this.mnRouter.transitionTo(this.$state.current.name,
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false });
       },
@@ -175,7 +177,7 @@
       getBackendFilter: function(backendFilter) {
         var newRouteParams = _.clone(this.$stateParams);
         newRouteParams.backendfilter = backendFilter;
-        this.$state.go(this.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
+        this.mnRouter.transitionTo(this.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
       },
 
       clientViewChanged: function(column, direction) {
@@ -187,7 +189,7 @@
           this.stateMachine.direction = direction;
         }
 
-        this.$state.go(this.$state.current.name,
+        this.mnRouter.transitionTo(this.$state.current.name,
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false });
          var that = this;
@@ -209,7 +211,7 @@
         }
         this.stateMachine.page = 1;//for all client side actions reset page to 1
 
-        this.$state.go(this.$state.current.name,
+        this.mnRouter.transitionTo(this.$state.current.name,
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false });
          var that = this;
@@ -233,7 +235,7 @@
         this.stateMachine.quickFilterShown = false;
         this.stateMachine.filters = undefined;
 
-        this.$state.go(this.$state.current.name,
+        this.mnRouter.transitionTo(this.$state.current.name,
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: true });
       },

@@ -54,19 +54,22 @@
       }
 
       function redirectTo(routeName) {
-        // var denyTransitionTo = provider.stateChaneValidators.some(function(validator) {
-        //   return !validator();
-        // });
-        // console.log(denyTransitionTo);
-        // if(denyTransitionTo) {
-        //   console.log('not allowed');
-        //   return undefined;
-        // }
-        // else {
-        //   console.log('allowed');
-        //   return provider.transitionTo(to, toParams, options);
-        // }
         $state.go('base.' + routeName, $stateParams, {location: 'replace'});
+      }
+
+      function transitionTo(routeName, params, options) {
+        var denyTransitionTo = provider.stateChaneValidators.some(function(validator) {
+          return !validator();
+        });
+        console.log(denyTransitionTo);
+        if(denyTransitionTo) {
+          console.log('not allowed');
+          return undefined;
+        }
+        else {
+          console.log('allowed');
+          $state.go(routeName, params, options);
+        }
       }
 
       function addStateChageValidator(validator) {
@@ -81,6 +84,7 @@
       return {
         createAll:    createAll,
         redirectTo:   redirectTo,
+        transitionTo: transitionTo,
         $stateParams: $stateParams,
         $state:       $state,
 

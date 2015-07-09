@@ -12,8 +12,8 @@
     }
 
     if(redirectTo) {
-      controller = ['$state', '$stateParams', function($state, $stateParams) {
-        $state.go('base.' + redirectTo, $stateParams, {location: 'replace'});
+      controller = ['mnRouter', function(mnRouter) {
+        mnRouter.transitionTo('base.' + redirectTo, mnRouter.$stateParams, {location: 'replace'});
       }];
     }
 
