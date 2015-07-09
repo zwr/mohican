@@ -11,6 +11,7 @@
 
     var provider = this;
     provider.routes = [];
+    provider.stateChaneValidators = [];
 
     provider.init = function($urlRouterProvider, $stateProvider) {
       $urlRouterProviderRef = $urlRouterProvider;
@@ -53,14 +54,38 @@
       }
 
       function redirectTo(routeName) {
+        // var denyTransitionTo = provider.stateChaneValidators.some(function(validator) {
+        //   return !validator();
+        // });
+        // console.log(denyTransitionTo);
+        // if(denyTransitionTo) {
+        //   console.log('not allowed');
+        //   return undefined;
+        // }
+        // else {
+        //   console.log('allowed');
+        //   return provider.transitionTo(to, toParams, options);
+        // }
         $state.go('base.' + routeName, $stateParams, {location: 'replace'});
+      }
+
+      function addStateChageValidator(validator) {
+        provider.stateChaneValidators.push(validator);
+      }
+
+      function removeStateChageValidator(validator) {
+        var index = provider.stateChaneValidators.indexOf(validator);
+        provider.stateChaneValidators.splice(index, 1);
       }
 
       return {
         createAll:    createAll,
         redirectTo:   redirectTo,
         $stateParams: $stateParams,
-        $state:       $state
+        $state:       $state,
+
+        addStateChageValidator:    addStateChageValidator,
+        removeStateChageValidator: removeStateChageValidator
       };
     }];
   }

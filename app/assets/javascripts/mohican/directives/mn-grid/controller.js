@@ -5,10 +5,24 @@
 
   angular
       .module('mohican.directives')
-      .controller('MnGridController', [MnGridController]);
+      .controller('MnGridController', ['mnRouter', '$scope', '$window', MnGridController]);
 
-  function MnGridController() {
+  function MnGridController(mnRouter, $scope, $window) {
     var vm = this;
+
+    vm.stateChangeValidator = function() {
+      if(vm.selectedItems.length > 0) {
+        var confirmed = $window.confirm('You have ' + vm.selectedItems.length + ' selected item(s). Leaving this page will discard the selection.');
+        return confirmed;
+      }
+      return true;
+    };
+
+    mnRouter.addStateChageValidator(vm.stateChangeValidator);
+
+    $scope.$on('$destroy', function() {
+      mnRouter.removeStateChageValidator(vm.stateChangeValidator);
+    });
 
     vm.selectedItems = [];
 
