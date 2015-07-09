@@ -1,7 +1,7 @@
 (function(mohican) {
   'use strict';
 
-  mohican.extendResourceDriver = function(ctrl, service) {
+  mohican.extendResourceDriver = function(ctrl, service, mnRouter) {
     _.assign(ctrl, mohican.createBaseDriver());
     _.assign(ctrl, mohican.createResourceDriver());
 
@@ -9,6 +9,7 @@
     ctrl.stateMachine.page = 1;
     ctrl.stateMachine.layout = 'short';
     ctrl.stateMachine.backendFilter = 'default';
+    ctrl.mnRouter = mnRouter;
 
     ctrl.initialize(service);
     ctrl.loadData();
@@ -74,7 +75,7 @@
             that.items = data.items;
             that.pageCount = data.pageCount;
             that.totalQfCount = data.totalQfCount;
-            mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+            mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams);
           });
         }
       },
@@ -97,7 +98,7 @@
            that.items = data.items;
            that.pageCount = data.pageCount;
            that.totalQfCount = data.totalQfCount;
-           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams);
          });
       }
     };

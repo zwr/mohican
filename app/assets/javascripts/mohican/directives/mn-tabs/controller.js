@@ -35,7 +35,7 @@
       });
 
       selectedTab.active = true;
-      vm.owner.mnRouter.transitionTo(vm.owner.$state.current.name,
+      vm.owner.mnRouter.transitionTo(vm.owner.mnRouter.$state.current.name,
                      vm.owner.stateMachine.stateMachineToUrl(),
                      { notify: false });
     };

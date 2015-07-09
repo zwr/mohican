@@ -4,7 +4,7 @@
   mohican.extendResourcePageController = function(ctrl, service, mnRouter) {
     _.assign(ctrl, mohican.createBaseDriver());
     _.assign(ctrl, mohican.createResourcePageController());
-    ctrl.initialize(service, mnRouter.$stateParams, mnRouter.$state, mnRouter);
+    ctrl.initialize(service, mnRouter);
     ctrl.loadData();
   };
 
@@ -14,8 +14,6 @@
       layouts:        undefined,
       layoutDefs:     undefined,
       service:        undefined,
-      $stateParams:   undefined,
-      $state:         undefined,
       fields:         undefined,
       pageCount:      undefined,
       totalQfCount:   undefined,
@@ -27,19 +25,17 @@
 
       clientViewLoadingNotification: undefined,
 
-      initialize: function(service, $stateParams, $state, mnRouter) {
-        mohican.redirectDefaultParameters($stateParams, $state);
-        mohican.injectDefaultParameters($stateParams);
+      initialize: function(service, mnRouter) {
+        mohican.redirectDefaultParameters(mnRouter.$stateParams, mnRouter.$state);
+        mohican.injectDefaultParameters(mnRouter.$stateParams);
 
-        this.$stateParams = $stateParams;
-        this.$state = $state;
         this.mnRouter = mnRouter;
 
-        this.stateMachine.stateMachineFromUrl($stateParams, service);
+        this.stateMachine.stateMachineFromUrl(mnRouter.$stateParams, service);
 
-        if(angular.isDefined($stateParams.column) ||
-              angular.isDefined($stateParams.qf) ||
-              angular.isDefined($stateParams.filters)) {
+        if(angular.isDefined(mnRouter.$stateParams.column) ||
+              angular.isDefined(mnRouter.$stateParams.qf) ||
+              angular.isDefined(mnRouter.$stateParams.filters)) {
           this.clientViewLoadingNotification = true;
         }
         else {
@@ -83,7 +79,7 @@
             });
             return;
           }
-          mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.$state, that.$stateParams);
+          mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.mnRouter.$state, that.mnRouter.$stateParams);
           that.service.getBackendFilters().then(function(backendFilters) {
             backendFilters.forEach(function(backendFilter) {
               that.backendFilters.push({
@@ -92,15 +88,15 @@
                 selected: backendFilter.name === that.stateMachine.backendFilter
               });
             });
-            mohican.validateBackendFilterParameter(that.stateMachine.backendFilter, that.backendFilters, that.$state, that.$stateParams);
+            mohican.validateBackendFilterParameter(that.stateMachine.backendFilter, that.backendFilters, that.mnRouter.$state, that.mnRouter.$stateParams);
           });
-          that.stateMachine.filters = mohican.urlParamToJson(that.$stateParams.filters, that.fields);
+          that.stateMachine.filters = mohican.urlParamToJson(that.mnRouter.$stateParams.filters, that.fields);
 
           that.fullyLoaded = false;
 
           that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.backendFilter).then(function(pageCount) {
             that.pageCount = pageCount;
-            if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams)) {
+            if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams)) {
               that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
                 that.items = items;
                 // We want to be careful to call waitFullyLoaded only when the
@@ -109,7 +105,7 @@
                 that.service.waitFullyLoaded().then(function() {
                   that.fullyLoaded = true;
                   if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
-                    that.stateMachine.page = parseInt(angular.isUndefined(that.$state.params.page) ? 1 : parseInt(that.$state.params.page));
+                    that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$state.params.page) ? 1 : parseInt(that.mnRouter.$state.params.page));
 
                     that.service.getClientPage(that.stateMachine.page,
                                                that.stateMachine.column,
@@ -119,7 +115,7 @@
                       that.items = data.items;
                       that.pageCount = data.pageCount;
                       that.totalQfCount = data.totalQfCount;
-                      mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+                      mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams);
                     });
                   }
                 });
@@ -139,13 +135,13 @@
           this.stateMachine.quickFilterShown = false;
           this.stateMachine.filters = undefined;
 
-          this.mnRouter.transitionTo(this.$state.current.name,
+          this.mnRouter.transitionTo(this.mnRouter.$state.current.name,
                          this.stateMachine.stateMachineToUrl(this.fields),
                          { notify: true });
         }
         else {
           this.stateMachine.page = parseInt(page);
-          this.mnRouter.transitionTo(this.$state.current.name,
+          this.mnRouter.transitionTo(this.mnRouter.$state.current.name,
                          this.stateMachine.stateMachineToUrl(this.fields),
                          { notify: false });
           this.service.getClientPage(this.stateMachine.page,
@@ -156,7 +152,7 @@
             that.items = data.items;
             that.pageCount = data.pageCount;
             that.totalQfCount = data.totalQfCount;
-            mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+            mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams);
           });
         }
       },
@@ -169,15 +165,15 @@
             that.fields = layout.definition;
           }
         });
-        this.mnRouter.transitionTo(this.$state.current.name,
+        this.mnRouter.transitionTo(this.mnRouter.$state.current.name,
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false });
       },
 
       getBackendFilter: function(backendFilter) {
-        var newRouteParams = _.clone(this.$stateParams);
+        var newRouteParams = _.clone(this.mnRouter.$stateParams);
         newRouteParams.backendfilter = backendFilter;
-        this.mnRouter.transitionTo(this.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
+        this.mnRouter.transitionTo(this.mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
       },
 
       clientViewChanged: function(column, direction) {
@@ -189,7 +185,7 @@
           this.stateMachine.direction = direction;
         }
 
-        this.mnRouter.transitionTo(this.$state.current.name,
+        this.mnRouter.transitionTo(this.mnRouter.$state.current.name,
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false });
          var that = this;
@@ -201,7 +197,7 @@
            that.items = data.items;
            that.pageCount = data.pageCount;
            that.totalQfCount = data.totalQfCount;
-           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams);
          });
       },
 
@@ -211,7 +207,7 @@
         }
         this.stateMachine.page = 1;//for all client side actions reset page to 1
 
-        this.mnRouter.transitionTo(this.$state.current.name,
+        this.mnRouter.transitionTo(this.mnRouter.$state.current.name,
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false });
          var that = this;
@@ -223,7 +219,7 @@
            that.items = data.items;
            that.pageCount = data.pageCount;
            that.totalQfCount = data.totalQfCount;
-           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.$state, that.$stateParams);
+           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams);
          });
       },
 
@@ -235,7 +231,7 @@
         this.stateMachine.quickFilterShown = false;
         this.stateMachine.filters = undefined;
 
-        this.mnRouter.transitionTo(this.$state.current.name,
+        this.mnRouter.transitionTo(this.mnRouter.$state.current.name,
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: true });
       },

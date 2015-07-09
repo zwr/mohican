@@ -75,7 +75,12 @@
         // console.log(denyTransitionTo);
         // if(!denyTransitionTo) {
         //   console.log('allowed');
+        if(options) {
           $state.go(routeName, params, options);
+        }
+        else {
+          $state.go(routeName, params);
+        }
         //   return true;
         // }
         // else {
