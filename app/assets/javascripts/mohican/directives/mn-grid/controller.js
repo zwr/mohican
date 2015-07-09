@@ -36,8 +36,31 @@
       vm.showSelectColumn = false;
     }
 
-    vm.selectionChanged = function(item) {
+    vm.selectionChanged = function(item, $event) {
       var index = vm.selectedItems.indexOf(item);
+
+      if($event && $event.shiftKey && index === -1) {
+        if(vm.selectedItems.length > 0) {
+          var last = vm.selectedItems[vm.selectedItems.length - 1];
+          var lastPosition = vm.owner.items.indexOf(last);
+          var itemPosition = vm.owner.items.indexOf(item);
+          vm.owner.items.forEach(function(gridItem, i) {
+            if(lastPosition > itemPosition &&
+               i < lastPosition &&
+               i > itemPosition &&
+               !vm.isItemSelected(gridItem)) {
+              vm.selectedItems.push(gridItem);
+            }
+            if(lastPosition < itemPosition &&
+               i > lastPosition &&
+               i < itemPosition &&
+               !vm.isItemSelected(gridItem)) {
+              vm.selectedItems.push(gridItem);
+            }
+          });
+        }
+      }
+
       if(index === -1) {
         vm.selectedItems.push(item);
       }
@@ -57,6 +80,11 @@
       else {
         return true;
       }
+    };
+
+    vm.isLastSelected = function(item) {
+      return vm.selectedItems.length > 0 &&
+             vm.selectedItems[vm.selectedItems.length - 1] === item;
     };
 
     vm.selectNone = function() {
