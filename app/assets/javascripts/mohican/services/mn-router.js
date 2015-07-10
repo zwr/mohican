@@ -58,6 +58,9 @@
           if(!denyTransitionTo) {
             return provider.transitionTo(to, toParams, options);
           }
+          else {
+            return provider.transitionTo($state.current.name, mohican.escapeDefaultParameters($stateParams), { notify: false });
+          }
         };
         provider.routes.forEach(function(route) {
           mohican.defineMohicanRoute(route, $stateProviderRef);
@@ -65,7 +68,7 @@
       }
 
       function redirectTo(routeName) {
-        $state.go('base.' + routeName, $stateParams, {location: 'replace'});
+        provider.transitionTo('base.' + routeName, $stateParams, {location: 'replace'});
       }
 
       function transitionTo(routeName, params, options) {

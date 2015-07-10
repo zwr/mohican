@@ -15,7 +15,9 @@
         var confirmed = $window.confirm('You have ' + vm.selectedItems.length + ' selected item(s). Leaving this page will discard the selection.');
         return confirmed;
       }
-      return true;
+      else {
+        return true;
+      }
     };
 
     mnRouter.addStateChageValidator(vm.stateChangeValidator);
