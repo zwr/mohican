@@ -75,7 +75,7 @@
             that.items = data.items;
             that.pageCount = data.pageCount;
             that.totalQfCount = data.totalQfCount;
-            mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams);
+            mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
           });
         }
       },
@@ -98,7 +98,7 @@
            that.items = data.items;
            that.pageCount = data.pageCount;
            that.totalQfCount = data.totalQfCount;
-           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams);
+           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
          });
       }
     };

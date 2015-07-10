@@ -11,10 +11,10 @@
     var vm = this;
 
     vm.stateChangeValidator = function() {
-      if(vm.selectedItems.length > 0) {
-        var confirmed = $window.confirm('You have ' + vm.selectedItems.length + ' selected item(s). Leaving this page will discard the selection.');
-        return confirmed;
-      }
+      // if(vm.selectedItems.length > 0) {
+      //   var confirmed = $window.confirm('You have ' + vm.selectedItems.length + ' selected item(s). Leaving this page will discard the selection.');
+      //   return confirmed;
+      // }
       return true;
     };
 

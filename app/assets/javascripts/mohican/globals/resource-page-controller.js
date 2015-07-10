@@ -79,7 +79,7 @@
             });
             return;
           }
-          mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.mnRouter.$state, that.mnRouter.$stateParams);
+          mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.mnRouter);
           that.service.getBackendFilters().then(function(backendFilters) {
             backendFilters.forEach(function(backendFilter) {
               that.backendFilters.push({
@@ -88,7 +88,7 @@
                 selected: backendFilter.name === that.stateMachine.backendFilter
               });
             });
-            mohican.validateBackendFilterParameter(that.stateMachine.backendFilter, that.backendFilters, that.mnRouter.$state, that.mnRouter.$stateParams);
+            mohican.validateBackendFilterParameter(that.stateMachine.backendFilter, that.backendFilters, that.mnRouter);
           });
           that.stateMachine.filters = mohican.urlParamToJson(that.mnRouter.$stateParams.filters, that.fields);
 
@@ -96,7 +96,7 @@
 
           that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.backendFilter).then(function(pageCount) {
             that.pageCount = pageCount;
-            if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams)) {
+            if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter)) {
               that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
                 that.items = items;
                 // We want to be careful to call waitFullyLoaded only when the
@@ -115,7 +115,7 @@
                       that.items = data.items;
                       that.pageCount = data.pageCount;
                       that.totalQfCount = data.totalQfCount;
-                      mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams);
+                      mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
                     });
                   }
                 });
@@ -152,7 +152,7 @@
             that.items = data.items;
             that.pageCount = data.pageCount;
             that.totalQfCount = data.totalQfCount;
-            mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams);
+            mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
           });
         }
       },
@@ -198,7 +198,7 @@
            that.items = data.items;
            that.pageCount = data.pageCount;
            that.totalQfCount = data.totalQfCount;
-           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams);
+           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
          });
       },
 
@@ -220,7 +220,7 @@
            that.items = data.items;
            that.pageCount = data.pageCount;
            that.totalQfCount = data.totalQfCount;
-           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter.$state, that.mnRouter.$stateParams);
+           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
          });
       },
 

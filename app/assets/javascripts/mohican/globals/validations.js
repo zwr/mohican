@@ -1,11 +1,11 @@
 (function(mohican) {
   'use strict';
 
-  mohican.validatePageParameter = function(page, pageCount, state, params) {
+  mohican.validatePageParameter = function(page, pageCount, mnRouter) {
     if(isNaN(page.toString()) || page < 1 || (page > pageCount && pageCount > 0)) {
-      var newRouteParams = _.clone(params);
+      var newRouteParams = _.clone(mnRouter.$stateParams);
       newRouteParams.page = '1';
-      state.go(state.current.name, mohican.escapeDefaultParameters(newRouteParams));
+      mnRouter.$state.go(mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
     }
     else {
       return true;
@@ -13,7 +13,7 @@
     return false;
   };
 
-  mohican.validateLayoutParameter = function(layout, layouts, state, params) {
+  mohican.validateLayoutParameter = function(layout, layouts, mnRouter) {
     var isInList = false;
     layouts.forEach(function(lout) {
       if(layout === lout.name) {
@@ -26,14 +26,14 @@
       return true;
     }
     else {
-      var newRouteParams = _.clone(params);
+      var newRouteParams = _.clone(mnRouter.$stateParams);
       newRouteParams.layout = 'default';
-      state.go(state.current.name, mohican.escapeDefaultParameters(newRouteParams));
+      mnRouter.$state.go(mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
     }
     return false;
   };
 
-  mohican.validateBackendFilterParameter = function(backendFilter, backendFilters, state, params) {
+  mohican.validateBackendFilterParameter = function(backendFilter, backendFilters, mnRouter) {
     var isInList = false;
     backendFilters.forEach(function(fter) {
       if(backendFilter === fter.name) {
@@ -46,9 +46,9 @@
       return true;
     }
     else {
-      var newRouteParams = _.clone(params);
+      var newRouteParams = _.clone(mnRouter.$stateParams);
       newRouteParams.backendfilter = 'default';
-      state.go(state.current.name, mohican.escapeDefaultParameters(newRouteParams));
+      mnRouter.$state.go(mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
     }
     return false;
   };
