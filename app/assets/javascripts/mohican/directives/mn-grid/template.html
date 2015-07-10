@@ -32,7 +32,7 @@
           <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
           </div>
         </th>
-        <th ng-repeat="field in grid.owner.fields" class="QfRow">
+        <th ng-repeat="field in grid.owner.fields" class="QfRow" ng-class="{'disabled' : grid.onlySelectedItemsShown}">
           <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
             <mn-qf-text
                   qf-disabled="grid.onlySelectedItemsShown"

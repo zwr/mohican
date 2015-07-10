@@ -251,9 +251,15 @@
 /* checkboxes currently disabled */
 .multiSelect .disabled,
 .multiSelect .disabled:hover,
-.multiSelect .disabled label input:hover ~ span {
+.multiSelect .disabled label input:hover ~ span,
+.disabled .multiSelect button
+{
     color: #c4c4c4 !important;
     cursor: not-allowed !important;
+}
+
+.disabled .multiSelect button span.caret {
+    border-top-color: #c4c4c4 !important;
 }
 
 /* If you use images in button / checkbox label, you might want to change the image style here. */

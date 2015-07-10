@@ -357,7 +357,7 @@ mn-menu-group > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open >
   color: #fff;
 }
 
-.nav-tabs li a:focus, .nav-tabs li a.active  {
+.nav-tabs li a:focus, .nav-tabs li a.active, .nav-tabs li a:active  {
   background:
     $mn-tab-active-bg bottom right,
     linear-gradient(135deg, transparent 10px, #dedede 0) top left !important;
@@ -365,9 +365,15 @@ mn-menu-group > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open >
   background-repeat: no-repeat !important;
   color: $mn-colorscheme-1V !important;
   border-radius: 0 !important;
+  border: 0 !important;
   outline:none !important;
-  -moz-box-shadow:none;
-  box-shadow:none;
+  -webkit-box-shadow: none;
+  -moz-box-shadow: none;
+  box-shadow: none;
+  cursor:default;
+  -webkit-appearance:none;
+  -moz-appearance:none;
+  appearance:none;
 }
 
 mn-item-reports > div, .block {
@@ -630,4 +636,17 @@ mn-item-reports > div, .block {
 
 .accent0 {
   color:$mn-colorscheme-0A !important;
+}
+
+.disabled input[type='text']
+{
+    color: $mn-disabled-L !important;
+    cursor: not-allowed !important;
+    border-color: $mn-disabled-D !important;
+}
+
+.disabled .multiSelect button {
+  box-shadow: 2px 2px $mn-disabled-D;
+  -webkit-box-shadow: 2px 2px $mn-disabled-D;
+  -moz-box-shadow: 2px 2px $mn-disabled-D;
 }
