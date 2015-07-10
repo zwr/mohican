@@ -97,12 +97,18 @@
         provider.stateChaneValidators.splice(index, 1);
       }
 
+      function currenRouteName() {
+        return $state.current.name;
+      }
+
       return {
         createAll:    createAll,
         redirectTo:   redirectTo,
         transitionTo: transitionTo,
         $stateParams: $stateParams,
         $state:       $state,
+
+        currenRouteName: currenRouteName,
 
         addStateChageValidator:    addStateChageValidator,
         removeStateChageValidator: removeStateChageValidator

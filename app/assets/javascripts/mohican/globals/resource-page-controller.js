@@ -26,8 +26,8 @@
       clientViewLoadingNotification: undefined,
 
       initialize: function(service, mnRouter) {
-        mohican.redirectDefaultParameters(mnRouter.$stateParams, mnRouter.$state);
-        mohican.injectDefaultParameters(mnRouter.$stateParams);
+        mohican.redirectDefaultParameters(mnRouter);
+        mohican.injectDefaultParameters(mnRouter);
 
         this.mnRouter = mnRouter;
 
@@ -135,13 +135,13 @@
           this.stateMachine.quickFilterShown = false;
           this.stateMachine.filters = undefined;
 
-          this.mnRouter.transitionTo(this.mnRouter.$state.current.name,
+          this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
                          this.stateMachine.stateMachineToUrl(this.fields),
                          { notify: true });
         }
         else {
           this.stateMachine.page = parseInt(page);
-          this.mnRouter.transitionTo(this.mnRouter.$state.current.name,
+          this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
                          this.stateMachine.stateMachineToUrl(this.fields),
                          { notify: false });
           this.service.getClientPage(this.stateMachine.page,
@@ -166,7 +166,7 @@
             that.stateMachine.page = newLayoutName;
           }
         });
-        this.mnRouter.transitionTo(this.mnRouter.$state.current.name,
+        this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false });
       },
@@ -174,7 +174,7 @@
       getBackendFilter: function(backendFilter) {
         var newRouteParams = _.clone(this.mnRouter.$stateParams);
         newRouteParams.backendfilter = backendFilter;
-        this.mnRouter.transitionTo(this.mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
+        this.mnRouter.transitionTo(this.mnRouter.currenRouteName(), mohican.escapeDefaultParameters(newRouteParams));
       },
 
       clientViewChanged: function(column, direction) {
@@ -186,7 +186,7 @@
           this.stateMachine.direction = direction;
         }
 
-        this.mnRouter.transitionTo(this.mnRouter.$state.current.name,
+        this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false });
          var that = this;
@@ -208,7 +208,7 @@
         }
         this.stateMachine.page = 1;//for all client side actions reset page to 1
 
-        this.mnRouter.transitionTo(this.mnRouter.$state.current.name,
+        this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false });
          var that = this;
@@ -232,7 +232,7 @@
         this.stateMachine.quickFilterShown = false;
         this.stateMachine.filters = undefined;
 
-        this.mnRouter.transitionTo(this.mnRouter.$state.current.name,
+        this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: true });
       },

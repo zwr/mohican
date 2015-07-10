@@ -5,7 +5,7 @@
     if(isNaN(page.toString()) || page < 1 || (page > pageCount && pageCount > 0)) {
       var newRouteParams = _.clone(mnRouter.$stateParams);
       newRouteParams.page = '1';
-      mnRouter.$state.go(mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
+      mnRouter.transitionTo(mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
     }
     else {
       return true;
@@ -28,7 +28,7 @@
     else {
       var newRouteParams = _.clone(mnRouter.$stateParams);
       newRouteParams.layout = 'default';
-      mnRouter.$state.go(mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
+      mnRouter.transitionTo(mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
     }
     return false;
   };
@@ -48,7 +48,7 @@
     else {
       var newRouteParams = _.clone(mnRouter.$stateParams);
       newRouteParams.backendfilter = 'default';
-      mnRouter.$state.go(mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
+      mnRouter.transitionTo(mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
     }
     return false;
   };

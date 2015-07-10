@@ -86,38 +86,38 @@
     return checkResult.newParams;
   };
 
-  mohican.redirectDefaultParameters = function(params, state) {
-    var checkResult = _checkDefaultParams(params);
+  mohican.redirectDefaultParameters = function(mnRouter) {
+    var checkResult = _checkDefaultParams(mnRouter.$stateParams);
 
-    if(checkResult.dirty && state) {
-      state.go(state.current.name, checkResult.newParams);
+    if(checkResult.dirty && mnRouter.$state) {
+      mnRouter.transitionTo(mnRouter.$state.current.name, checkResult.newParams);
     }
     else {
       //redirect to index resource route if form have no id passed
-      if(_.endsWith(state.current.name, '-form') && !params.itemPrimaryKeyId) {
-        state.go(_.trimRight(state.current.name, '-form'), {});
+      if(_.endsWith(mnRouter.$state.current.name, '-form') && !mnRouter.$stateParams.itemPrimaryKeyId) {
+        mnRouter.transitionTo(_.trimRight(mnRouter.$state.current.name, '-form'), {});
       }
     }
   };
 
-  mohican.injectDefaultParameters = function(params) {
-    if (!params.backendfilter) {
-      params.backendfilter = 'default';
+  mohican.injectDefaultParameters = function(mnRouter) {
+    if (!mnRouter.$stateParams.backendfilter) {
+      mnRouter.$stateParams.backendfilter = 'default';
     }
-    if (!params.page) {
-      params.page = '1';
+    if (!mnRouter.$stateParams.page) {
+      mnRouter.$stateParams.page = '1';
     }
-    if (!params.layout) {
-      params.layout = 'default';
+    if (!mnRouter.$stateParams.layout) {
+      mnRouter.$stateParams.layout = 'default';
     }
-    if (!params.direction) {
-      params.direction = 'asc';
+    if (!mnRouter.$stateParams.direction) {
+      mnRouter.$stateParams.direction = 'asc';
     }
-    if (!params.activetab) {
-      params.activetab = '0';
+    if (!mnRouter.$stateParams.activetab) {
+      mnRouter.$stateParams.activetab = '0';
     }
 
-    return params;
+    return mnRouter.$stateParams;
   };
 
   //HelloWorld -> hello-world
