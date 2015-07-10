@@ -11,7 +11,7 @@
 
     var provider = this;
     provider.routes = [];
-    provider.stateChaneValidators = [];
+    provider.stateChangeValidators = [];
 
     provider.init = function($urlRouterProvider, $stateProvider) {
       $urlRouterProviderRef = $urlRouterProvider;
@@ -51,7 +51,7 @@
 
       function createAll() {
         $state.transitionTo = function(to, toParams, options) {
-          var denyTransitionTo = provider.stateChaneValidators.some(function(validator) {
+          var denyTransitionTo = provider.stateChangeValidators.some(function(validator) {
             return !validator();
           });
           console.log(denyTransitionTo);
@@ -69,32 +69,21 @@
       }
 
       function transitionTo(routeName, params, options) {
-        // var denyTransitionTo = provider.stateChaneValidators.some(function(validator) {
-        //   return !validator();
-        // });
-        // console.log(denyTransitionTo);
-        // if(!denyTransitionTo) {
-        //   console.log('allowed');
         if(options) {
-          $state.go(routeName, params, options);
+          provider.transitionTo(routeName, params, options);
         }
         else {
-          $state.go(routeName, params);
+          provider.transitionTo(routeName, params);
         }
-        //   return true;
-        // }
-        // else {
-        //   return false;
-        // }
       }
 
       function addStateChageValidator(validator) {
-        provider.stateChaneValidators.push(validator);
+        provider.stateChangeValidators.push(validator);
       }
 
       function removeStateChageValidator(validator) {
-        var index = provider.stateChaneValidators.indexOf(validator);
-        provider.stateChaneValidators.splice(index, 1);
+        var index = provider.stateChangeValidators.indexOf(validator);
+        provider.stateChangeValidators.splice(index, 1);
       }
 
       function currenRouteName() {
