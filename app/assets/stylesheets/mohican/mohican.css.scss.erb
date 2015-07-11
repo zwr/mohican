@@ -248,7 +248,7 @@ mn-menu-item-route > a > span {
   position: relative;
 }
 
-.filter-bar-dropDown button .buttonLabel span.caret::after {
+.filter-bar-dropDown button .buttonLabel span.caret:after {
   content: ' ';
   position: absolute;
   left: -5px;
@@ -262,6 +262,28 @@ mn-menu-item-route > a > span {
   padding: 5px !important;
   border: 0 !important;
   vertical-align: middle;
+}
+
+.filterFieldBgWrap {
+  position:relative;
+  width:100%;
+  z-index: 200;
+}
+
+.filterFieldBgWrap:after {
+  font-family: "Glyphicons Halflings";
+  content:"\e138";
+  font-size: $font-size-base + 4;
+  color: $mn-colorscheme-2M;
+  vertical-align: middle;
+  position: absolute;
+  right: 0px;
+  bottom: 2px;
+  z-index: -1;
+}
+
+.disabled .filterFieldBgWrap:after {
+  color: $mn-disabled-L;
 }
 
 mn-menu-item-route > a:not(.mn-menu-item-route-active) > span:hover,
@@ -643,6 +665,10 @@ mn-item-reports > div, .block {
 
 .spacerT15 {
   margin-top: 15px;
+}
+
+.baseFont1_5x {
+  font-size:$font-size-base * 1.5;
 }
 
 .baseFont3x {
