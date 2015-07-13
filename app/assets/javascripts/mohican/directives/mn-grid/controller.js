@@ -60,20 +60,22 @@
           var last = vm.selectedItems[vm.selectedItems.length - 1];
           var lastPosition = vm.owner.items.indexOf(last);
           var itemPosition = vm.owner.items.indexOf(item);
-          vm.owner.items.forEach(function(gridItem, i) {
-            if(lastPosition > itemPosition &&
-               i < lastPosition &&
-               i > itemPosition &&
-               !vm.isItemSelected(gridItem)) {
-              vm.selectedItems.push(gridItem);
-            }
-            if(lastPosition < itemPosition &&
-               i > lastPosition &&
-               i < itemPosition &&
-               !vm.isItemSelected(gridItem)) {
-              vm.selectedItems.push(gridItem);
-            }
-          });
+          if(lastPosition !== -1) {
+            vm.owner.items.forEach(function(gridItem, i) {
+              if(lastPosition > itemPosition &&
+                 i < lastPosition &&
+                 i > itemPosition &&
+                 !vm.isItemSelected(gridItem)) {
+                vm.selectedItems.push(gridItem);
+              }
+              if(lastPosition < itemPosition &&
+                 i > lastPosition &&
+                 i < itemPosition &&
+                 !vm.isItemSelected(gridItem)) {
+                vm.selectedItems.push(gridItem);
+              }
+            });
+          }
         }
       }
 
