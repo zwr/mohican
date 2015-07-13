@@ -54,7 +54,6 @@
           var denyTransitionTo = provider.stateChangeValidators.some(function(validator) {
             return !validator();
           });
-          console.log(denyTransitionTo);
           if(!denyTransitionTo) {
             return provider.transitionTo(to, toParams, options);
           }
