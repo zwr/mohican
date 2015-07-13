@@ -124,8 +124,9 @@
           .then(function(resp) {
             service.thePromise = null;
             if(service.bufferBackendFilter === backendFilter) {
+              service._setInitialReadyState(resp.data.items);
+              service._parseFieldTypes(resp.data.items, dataFields);
               service.buffer = resp.data.items;
-              service._parseFieldTypes(service.buffer, dataFields);
               service.totalCount = resp.data.total_count;
               service.bottomIndex = resp.data.offset;
               // topIndex is not the index of top document, but one beyond!
@@ -182,14 +183,14 @@
             service.thePromise = null;
             // if we were told to stop, just do nothing
             if(service.beEager) {
+              service._setInitialReadyState(resp.data.items);
+              service._parseFieldTypes(resp.data.items, dataFields);
               if(service.nextEagerGrowthForward) {
                 service.topIndex += resp.data.items.length;
                 service.buffer.append(resp.data.items);
-                service._parseFieldTypes(service.buffer, dataFields);
               } else {
                 service.bottomIndex -= resp.data.items.length;
                 service.buffer = resp.data.items.append(service.buffer);
-                service._parseFieldTypes(service.buffer, dataFields);
               }
               service._continueEagerly(dataFields, backendFilter);
             }
@@ -298,11 +299,9 @@
             service.thePromise = null;
             if(service.bufferBackendFilter === 'single-id-' + id) {
               // check if it is really resp.data or something similar
+              service._setInitialReadyState([resp.data]);
+              service._parseFieldTypes([resp.data], dataFields);
               service.buffer = [resp.data];
-              // I am not sure what the next one does, but it should do
-              // it just the same. And make sure you have layout before
-              // all this.
-              service._parseFieldTypes(service.buffer, dataFields);
               // now write this data honestly, as it is: back end count is
               // 1, because we only fetched one document, and there is no
               // offset, as that would make no sense.
@@ -424,6 +423,12 @@
             item[field.name + '_formatted'] = (angular.isDefined(item[field.name]) ? item[field.name] : '');
           }
         });
+      });
+    };
+
+    service._setInitialReadyState = function(buffer) {
+      buffer.forEach(function(item) {
+        item._state = 'ready';
       });
     };
 
