@@ -1,8 +1,14 @@
 document state: {{mnForm.mnfDoc._state}}
 <hr />
-<mnf-edit></mnf-edit>
-<mnf-commit></mnf-commit>
-<mnf-rollback></mnf-rollback>
-<mnf-delete></mnf-delete>
+<div class="col-xs-12">
+  <mnf-edit></mnf-edit>
+  <mnf-commit></mnf-commit>
+  <mnf-rollback></mnf-rollback>
+  <mnf-delete></mnf-delete>
+</div>
+<div ng-if="mnForm.mnfDoc._state === 'deleted'"
+     class="col-xs-12">
+  <strong class="col-xs-5">document is deleted</strong>
+</div>
 <ng-transclude>
 </ng-transclude>

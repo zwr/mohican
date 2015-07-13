@@ -1,1 +1,2 @@
-<button type="button" name="button" ng-click="mnfDoc.delete()">delete</button>
+<button ng-click="mnfDoc.delete()"
+        ng-if="mnfDoc._state !== 'deleted'">delete</button>

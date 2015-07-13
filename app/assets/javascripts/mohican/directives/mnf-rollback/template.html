@@ -1,1 +1,2 @@
-<button type="button" ng-if="mnfDoc._state === 'changed'" name="button" ng-click="mnfDoc.rollback()">cancel</button>
+<button ng-if="mnfDoc._state === 'changed' || mnfDoc._state === 'editing'"
+        ng-click="mnfDoc.rollback()">cancel</button>

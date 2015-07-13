@@ -1,10 +1,11 @@
-<div ng-if="mnfDoc._state === 'ready'">
-  <strong>{{mnfLabel}}</strong>
+<div ng-if="mnfDoc._state === 'ready'"
+     class="col-xs-12">
+  <strong class="col-xs-5">{{mnfLabel}}</strong>
   <span>{{mnfDoc[mnfField]}}</span>
 </div>
-<div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed'">
-  <strong>{{mnfLabel}}</strong>
-  {{mnfDoc[mnfField + '_changed']}}
+<div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed'"
+     class="col-xs-12">
+  <strong class="col-xs-5">{{mnfLabel}}</strong>
   <input type="text"
          ng-model="mnfDoc._edit[mnfField]"
          ng-change="textChanged()"

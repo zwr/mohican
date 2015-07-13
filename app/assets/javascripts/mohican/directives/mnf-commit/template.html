@@ -1,1 +1,3 @@
-<button type="button" ng-if="mnfDoc._state === 'changed'" name="button" ng-click="mnfDoc.commit()">save</button>
+<button ng-disabled="mnfDoc._state === 'editing'"
+        ng-if="mnfDoc._state === 'changed' || mnfDoc._state === 'editing'"
+        ng-click="mnfDoc.commit()">save</button>

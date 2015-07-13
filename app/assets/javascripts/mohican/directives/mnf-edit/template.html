@@ -1,1 +1,2 @@
-<button type="button" name="button" ng-click="mnfDoc.edit()">edit</button>
+<button ng-if="mnfDoc._state === 'ready'"
+        ng-click="mnfDoc.edit()">edit</button>
