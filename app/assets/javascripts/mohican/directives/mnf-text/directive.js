@@ -13,10 +13,12 @@ angular.module('mohican.directives')
         require:     '^mnfForm',
         templateUrl: 'mohican/directives/mnf-text/template.html',
 
-        // bindToController: true,
-
         link: function(scope, elem, attr, mnfFormCtrl) {
           scope.mnfDoc = mnfFormCtrl.mnfDoc;
+          scope.textChanged = function() {
+            scope.mnfDoc[scope.mnfField + '_changed'] = true;
+            scope.mnfDoc._state = 'changed';
+          };
         }
       };
     }

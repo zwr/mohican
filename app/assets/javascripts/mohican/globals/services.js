@@ -124,7 +124,7 @@
           .then(function(resp) {
             service.thePromise = null;
             if(service.bufferBackendFilter === backendFilter) {
-              service._prepareDocumentsCrudOperations(resp.data.items);
+              service._prepareDocumentsCrudOperations(resp.data.items, dataFields);
               service._parseFieldTypes(resp.data.items, dataFields);
               service.buffer = resp.data.items;
               service.totalCount = resp.data.total_count;
@@ -183,7 +183,7 @@
             service.thePromise = null;
             // if we were told to stop, just do nothing
             if(service.beEager) {
-              service._prepareDocumentsCrudOperations(resp.data.items);
+              service._prepareDocumentsCrudOperations(resp.data.items, dataFields);
               service._parseFieldTypes(resp.data.items, dataFields);
               if(service.nextEagerGrowthForward) {
                 service.topIndex += resp.data.items.length;
@@ -299,7 +299,7 @@
             service.thePromise = null;
             if(service.bufferBackendFilter === 'single-id-' + id) {
               // check if it is really resp.data or something similar
-              service._prepareDocumentsCrudOperations([resp.data]);
+              service._prepareDocumentsCrudOperations([resp.data], dataFields);
               service._parseFieldTypes([resp.data], dataFields);
               service.buffer = [resp.data];
               // now write this data honestly, as it is: back end count is
@@ -426,17 +426,31 @@
       });
     };
 
-    service._prepareDocumentsCrudOperations = function(buffer) {
+    service._prepareDocumentsCrudOperations = function(buffer, dataFields) {
       buffer.forEach(function(item) {
         item._state = 'ready';
+        dataFields.forEach(function(field) {
+          item[field.name + '_changed'] = false;
+        });
         item.edit = function() {
-          this._state = 'changed';
+          this._state = 'editing';
+          this._edit = _.cloneDeep(this);
         };
         item.commit = function() {
+          // this = this._edit;
           this._state = 'ready';
+          var that = this;
+          dataFields.forEach(function(field) {
+            that[field.name + '_changed'] = false;
+          });
         };
         item.rollback = function() {
+          delete this._edit;
           this._state = 'ready';
+          var that = this;
+          dataFields.forEach(function(field) {
+            that[field.name + '_changed'] = false;
+          });
         };
         item.delete = function() {
           this._state = 'deleted';

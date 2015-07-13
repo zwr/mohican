@@ -1,4 +1,12 @@
-<div>
+<div ng-if="mnfDoc._state === 'ready'">
   <strong>{{mnfLabel}}</strong>
   <span>{{mnfDoc[mnfField]}}</span>
+</div>
+<div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed'">
+  <strong>{{mnfLabel}}</strong>
+  {{mnfDoc[scope.mnfField + '_changed']}}
+  <input type="text"
+         ng-model="mnfDoc._edit[mnfField]"
+         ng-change="textChanged()"
+         ng-class="{'changed': mnfDoc[mnfField + '_changed']}"></input>
 </div>
