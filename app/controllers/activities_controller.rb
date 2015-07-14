@@ -86,13 +86,11 @@ class ActivitiesController < ApplicationController
   # PATCH/PUT /activities/1
   # PATCH/PUT /activities/1.json
   def update
+    activity_params2 = activity_params.to_hash.reject { |k, _v| k.to_s[0] == '_' }
     respond_to do |format|
-      puts(activity_params)
-      if @activity.update(activity_params)
-        format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
-        format.json { render :show, status: :ok, location: @activity }
+      if @activity.update(activity_params2)
+        format.json { render json: @activity.as_json }
       else
-        format.html { render :edit }
         format.json { render json: @activity.errors, status: :unprocessable_entity }
       end
     end
