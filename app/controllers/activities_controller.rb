@@ -87,6 +87,7 @@ class ActivitiesController < ApplicationController
   # PATCH/PUT /activities/1.json
   def update
     respond_to do |format|
+      puts(activity_params)
       if @activity.update(activity_params)
         format.html { redirect_to @activity, notice: 'Activity was successfully updated.' }
         format.json { render :show, status: :ok, location: @activity }

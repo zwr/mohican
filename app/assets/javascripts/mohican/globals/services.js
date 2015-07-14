@@ -233,13 +233,13 @@
         });
       } else {
         trace('get  layout');
-        service.getLayoutPromise = $http.get(window.MN_BASE + '/' + docname + '/layout')
+        service.theLayoutPromise = $http.get(window.MN_BASE + '/' + docname + '/layout')
           .then(function(resp) {
-            service.getLayoutPromise = null;
+            service.theLayoutPromise = null;
             service.layout = resp.data.layout;
             return service.layout;
           });
-        return service.getLayoutPromise;
+        return service.theLayoutPromise;
       }
     };
 
@@ -436,8 +436,26 @@
           this._state = 'editing';
           this._edit = _.cloneDeep(this);
         };
+        service.theCommitPromise = null;
         item.commit = function() {
           // this = this._edit;
+          if(service.theCommitPromise) {
+            return service.theCommitPromise.then(function() {
+              item.commit();
+            });
+          } else {
+            trace('get  layout');
+            var updatedata = {};
+            console.log(item._edit.Order_ID);
+            updatedata['activity'] = item._edit;
+            service.theCommitPromise = $http.put(window.MN_BASE + '/' + docname + '/' + item.Order_ID + '.json',
+                                                 updatedata)
+              .then(function(resp) {
+                service.theCommitPromise = null;
+                console.log(resp);
+              });
+            return service.theCommitPromise;
+          }
           this._state = 'ready';
           var that = this;
           for(var field in this) {
