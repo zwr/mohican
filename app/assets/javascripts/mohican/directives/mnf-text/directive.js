@@ -16,7 +16,7 @@ angular.module('mohican.directives')
         link: function(scope, elem, attr, mnfFormCtrl) {
           scope.mnfDoc = mnfFormCtrl.mnfDoc;
           scope.textChanged = function() {
-            scope.mnfDoc[scope.mnfField + '_changed'] = true;
+            scope.mnfDoc['_' + scope.mnfField + '_changed'] = true;
             scope.mnfDoc._state = 'changed';
           };
         }

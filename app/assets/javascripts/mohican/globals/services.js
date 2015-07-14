@@ -430,7 +430,7 @@
       buffer.forEach(function(item) {
         item._state = 'ready';
         for(var field in item) {
-          item[field + '_changed'] = false;
+          item['_' + field + '_changed'] = false;
         }
         item.edit = function() {
           this._state = 'editing';
@@ -438,28 +438,29 @@
         };
         service.theCommitPromise = null;
         item.commit = function() {
-          // this = this._edit;
+          item._state = 'committing';
           if(service.theCommitPromise) {
             return service.theCommitPromise.then(function() {
               item.commit();
             });
           } else {
             trace('get  layout');
-            var updatedata = {};
-            console.log(item._edit.Order_ID);
-            updatedata['activity'] = item._edit;
-            service.theCommitPromise = $http.put(window.MN_BASE + '/' + docname + '/' + item.Order_ID + '.json',
-                                                 updatedata)
+            var data = {};
+            data['activity'] = item._edit;
+            service.theCommitPromise = $http.put(window.MN_BASE + '/' + docname + '/' + item.Order_ID + '.json', data)
               .then(function(resp) {
                 service.theCommitPromise = null;
-                console.log(resp);
+                for(var field in item) {
+                  if(_.endsWith(field, '_changed')) {
+                    item[field] = false;
+                  }
+                  else {
+                    item[field] = item._edit[field];
+                  }
+                }
+                item._state = 'ready';
               });
             return service.theCommitPromise;
-          }
-          this._state = 'ready';
-          var that = this;
-          for(var field in this) {
-            that[field + '_changed'] = false;
           }
         };
         item.rollback = function() {
@@ -467,7 +468,7 @@
           this._state = 'ready';
           var that = this;
           for(var field in this) {
-            that[field + '_changed'] = false;
+            that['_' + field + '_changed'] = false;
           }
         };
         item.delete = function() {

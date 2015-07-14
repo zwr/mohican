@@ -9,5 +9,5 @@
   <input type="text"
          ng-model="mnfDoc._edit[mnfField]"
          ng-change="textChanged()"
-         ng-class="{'changed': mnfDoc[mnfField + '_changed']}"></input>
+         ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}"></input>
 </div>
