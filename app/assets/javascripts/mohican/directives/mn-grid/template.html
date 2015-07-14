@@ -83,7 +83,7 @@
         <td ng-repeat="field in grid.owner.fields" style="overflow: hidden;">
           <div>
             <span>
-              {{item[field.name + '_formatted']}}
+              {{item['_' + field.name + '_formatted']}}
             </span>
           </div>
         </td>
@@ -110,7 +110,7 @@
         <td ng-repeat="field in grid.owner.fields" style="overflow: auto;">
           <div>
             <span>
-              {{item[field.name + '_formatted']}}
+              {{item['_' + field.name + '_formatted']}}
             </span>
           </div>
         </td>

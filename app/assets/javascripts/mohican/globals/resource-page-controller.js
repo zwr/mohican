@@ -246,7 +246,7 @@
             basicDrv.items = newCurrentItem[basicDrv.collectionName];
             basicDrv.items.forEach(function(item) {
               for(var key in item) {
-                item[key + '_formatted'] = item[key];
+                item['_' + key + '_formatted'] = item[key];
               }
             });
           }
