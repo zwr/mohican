@@ -1,13 +1,13 @@
 (function(mohican) {
   'use strict';
 
-  mohican.constructBaseService = function(docname, $http, $q) {
+  mohican.constructBaseService = function(apiResource, objectName, $http, $q) {
     var service = {};
-    mohican.extendBaseService(service, docname, $http, $q);
+    mohican.extendBaseService(service, apiResource, objectName, $http, $q);
     return service;
   };
 
-  mohican.extendBaseService = function(service, docname, $http, $q) {
+  mohican.extendBaseService = function(service, apiResource, objectName, $http, $q) {
     service.resetLoading = function() {
       service.buffer = null;
       service.bufferBackendFilter = null;
@@ -119,7 +119,7 @@
         service.beEager = true;
         trace('get  offset = ' + startIndex
           + ' count = ' + service.firstFetchSize);
-        service.thePromise = $http.get(window.MN_BASE + '/' + docname + '?offset=' +
+        service.thePromise = $http.get(window.MN_BASE + '/' + apiResource + '?offset=' +
             startIndex + '&count=' + service.firstFetchSize + '&filter=' + backendFilter)
           .then(function(resp) {
             service.thePromise = null;
@@ -177,7 +177,7 @@
         }
         trace('get  offset = ' + start
           + ' count = ' + count);
-        service.thePromise = $http.get(window.MN_BASE + '/' + docname + '?offset='
+        service.thePromise = $http.get(window.MN_BASE + '/' + apiResource + '?offset='
             + start + '&count=' + count + '&filter=' + backendFilter)
           .then(function(resp) {
             service.thePromise = null;
@@ -233,7 +233,7 @@
         });
       } else {
         trace('get  layout');
-        service.theLayoutPromise = $http.get(window.MN_BASE + '/' + docname + '/layout')
+        service.theLayoutPromise = $http.get(window.MN_BASE + '/' + apiResource + '/layout')
           .then(function(resp) {
             service.theLayoutPromise = null;
             service.layout = resp.data.layout;
@@ -293,7 +293,7 @@
             return service.getDocument(id);
           });
         } else {
-          service.thePromise = $http.get(window.MN_BASE + '/' + docname +
+          service.thePromise = $http.get(window.MN_BASE + '/' + apiResource +
             '/' + id)
           .then(function(resp) {
             service.thePromise = null;
@@ -446,8 +446,8 @@
           } else {
             trace('get  layout');
             var data = {};
-            data['activity'] = item._edit;
-            service.theCommitPromise = $http.put(window.MN_BASE + '/' + docname + '/' + item.Order_ID + '.json', data)
+            data[objectName] = item._edit;
+            service.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + item.Order_ID + '.json', data)
               .then(function(resp) {
                 service.theCommitPromise = null;
                 for(var field in item) {
