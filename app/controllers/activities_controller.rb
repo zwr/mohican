@@ -87,6 +87,8 @@ class ActivitiesController < ApplicationController
   # PATCH/PUT /activities/1.json
   def update
     activity_params2 = activity_params.to_hash.reject { |k, _v| k.to_s[0] == '_' }
+    # binding.pry
+    sleep(3.0)
     respond_to do |format|
       if @activity.update(activity_params2)
         format.json { render json: @activity.as_json }

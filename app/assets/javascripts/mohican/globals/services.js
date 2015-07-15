@@ -466,9 +466,10 @@
         item.rollback = function() {
           delete this._edit;
           this._state = 'ready';
-          var that = this;
-          for(var field in this) {
-            that['_' + field + '_changed'] = false;
+          for(var field in item) {
+            if(_.endsWith(field, '_changed')) {
+              item[field] = false;
+            }
           }
         };
         item.delete = function() {

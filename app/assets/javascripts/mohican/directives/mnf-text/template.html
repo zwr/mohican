@@ -3,10 +3,11 @@
   <strong class="col-xs-5">{{mnfLabel}}</strong>
   <span>{{mnfDoc[mnfField]}}</span>
 </div>
-<div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed'"
+<div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing'"
      class="col-xs-12">
   <strong class="col-xs-5">{{mnfLabel}}</strong>
   <input type="text"
+         ng-disabled="mnfDoc._state === 'committing'"
          ng-model="mnfDoc._edit[mnfField]"
          ng-change="textChanged()"
          ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}"></input>

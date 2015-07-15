@@ -1,2 +1,4 @@
-<button ng-click="mnfDoc.delete()"
+<button class="btn btn-danger"
+        ng-disabled="mnfDoc._state === 'committing'"
+        ng-click="mnfDoc.delete()"
         ng-if="mnfDoc._state !== 'deleted'">delete</button>
