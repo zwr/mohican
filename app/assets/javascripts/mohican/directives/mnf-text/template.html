@@ -1,14 +1,20 @@
 <div ng-if="mnfDoc._state === 'ready'"
-     class="col-xs-12">
-  <strong class="col-xs-5">{{mnfLabel}}</strong>
-  <span>{{mnfDoc[mnfField]}}</span>
+     class="form-group form-group-sm mn-form-group">
+  <label class="col-sm-4 control-label" for="formGroupInputLarge">{{mnfLabel}}</label>
+  <div class="col-sm-8" style="padding-left: 26px; padding-top: 5px; padding-bottom: 5px;">
+    <span>{{mnfDoc[mnfField]}}</span>
+  </div>
 </div>
 <div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing'"
-     class="col-xs-12">
-  <strong class="col-xs-5">{{mnfLabel}}</strong>
-  <input type="text"
-         ng-disabled="mnfDoc._state === 'committing'"
-         ng-model="mnfDoc._edit[mnfField]"
-         ng-change="textChanged()"
-         ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}"></input>
+     class="form-group form-group-sm mn-form-group">
+  <label class="col-sm-4 control-label" for="{{mnfField}}">{{mnfLabel}}</label>
+  <div class="col-sm-8">
+    <input type="text"
+           id="{{mnfField}}"
+           class="form-control mn-form-control"
+           ng-disabled="mnfDoc._state === 'committing'"
+           ng-model="mnfDoc._edit[mnfField]"
+           ng-change="textChanged()"
+           ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}"></input>
+  </div>
 </div>

@@ -4,10 +4,6 @@
       <span class="loader block" ng-if="!ctrl.itemForm" style="margin: 0px 0px 0px 8px;">Loading...</span>
       <div ng-if="ctrl.itemForm" class="container-fluid">
         <mnf-form mnf-doc="ctrl.itemForm">
-          <div class="col-xs-12">
-            <strong class="col-xs-5">Order ID</strong>
-            <span>{{ctrl.itemForm.Order_ID}}</span>
-          </div>
           <mnf-text mnf-field="WorkOrder_WorkOrderNr"
                     mnf-label="Work Order Number:"></mnf-text>
           <mnf-text mnf-field="Customer_CustomerName"
