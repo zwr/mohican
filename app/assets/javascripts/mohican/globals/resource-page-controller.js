@@ -163,7 +163,7 @@
         this.layoutDefs.forEach(function(layout) {
           if(layout.name === newLayoutName) {
             that.fields = layout.definition;
-            that.stateMachine.page = newLayoutName;
+            that.stateMachine.layout = newLayoutName;
           }
         });
         this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
