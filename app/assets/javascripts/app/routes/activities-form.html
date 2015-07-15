@@ -20,20 +20,20 @@
                     mnf-label="RPU City:"></mnf-text>
           <mnf-text mnf-field="RPU_ZipCode"
                     mnf-label="RPU Zip Code:"></mnf-text>
+          <mn-tabs>
+            <mn-tab heading="Tab 1">
+              tab1
+            </mn-tab>
+            <mn-tab heading="Handlers">
+              <mn-grid owner="ctrl.handlersDrv">
+              </mn-grid>
+            </mn-tab>
+            <mn-tab heading="Products">
+              <mn-grid owner="ctrl.productsDrv">
+              </mn-grid>
+            </mn-tab>
+          </mn-tabs>
         </mnf-form>
-        <mn-tabs>
-          <mn-tab heading="Tab 1">
-            tab1
-          </mn-tab>
-          <mn-tab heading="Handlers">
-            <mn-grid owner="ctrl.handlersDrv">
-            </mn-grid>
-          </mn-tab>
-          <mn-tab heading="Products">
-            <mn-grid owner="ctrl.productsDrv">
-            </mn-grid>
-          </mn-tab>
-        </mn-tabs>
       </div>
       <div class="control-group spacerT15 block">
         <a class="btn btn-info" ui-sref="base.activities({})">
