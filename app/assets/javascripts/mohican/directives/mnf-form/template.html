@@ -4,11 +4,12 @@
   <mnf-rollback></mnf-rollback>
   <mnf-delete></mnf-delete>
 </div>
-<div ng-if="mnForm.mnfDoc._state === 'deleted'"
+<div ng-if="!mnForm || mnForm.mnfDoc._state === 'deleted'"
      class="col-xs-12">
   <strong class="col-xs-5">document is deleted</strong>
 </div>
-<form class="form-horizontal">
+<form ng-if="mnForm && mnForm.mnfDoc._state !== 'deleted'"
+      class="form-horizontal">
   <ng-transclude>
   </ng-transclude>
 </form>

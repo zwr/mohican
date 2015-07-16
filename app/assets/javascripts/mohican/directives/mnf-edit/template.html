@@ -1,3 +1,4 @@
 <button class="btn btn-primary"
-        ng-if="mnfDoc._state === 'ready'"
+        ng-disabled="mnfDoc._state === 'deleting'"
+        ng-if="mnfDoc._state === 'ready' || mnfDoc._state === 'deleting'"
         ng-click="mnfDoc.edit()">edit</button>

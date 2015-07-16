@@ -124,7 +124,7 @@
           .then(function(resp) {
             service.thePromise = null;
             if(service.bufferBackendFilter === backendFilter) {
-              service._prepareDocumentsCrudOperations(resp.data.items);
+              service._prepareDocumentsCrudOperations(resp.data.items, dataFields);
               service._parseFieldTypes(resp.data.items, dataFields);
               service.buffer = resp.data.items;
               service.totalCount = resp.data.total_count;
@@ -183,7 +183,7 @@
             service.thePromise = null;
             // if we were told to stop, just do nothing
             if(service.beEager) {
-              service._prepareDocumentsCrudOperations(resp.data.items);
+              service._prepareDocumentsCrudOperations(resp.data.items, dataFields);
               service._parseFieldTypes(resp.data.items, dataFields);
               if(service.nextEagerGrowthForward) {
                 service.topIndex += resp.data.items.length;
@@ -298,10 +298,14 @@
           .then(function(resp) {
             service.thePromise = null;
             if(service.bufferBackendFilter === 'single-id-' + id) {
+              var item2items = [];
+              if(resp.data) {
+                item2items.push(resp.data);
+              }
               // check if it is really resp.data or something similar
-              service._prepareDocumentsCrudOperations([resp.data]);
-              service._parseFieldTypes([resp.data], dataFields);
-              service.buffer = [resp.data];
+              service._prepareDocumentsCrudOperations(item2items, dataFields);
+              service._parseFieldTypes(item2items, dataFields);
+              service.buffer = item2items;
               // now write this data honestly, as it is: back end count is
               // 1, because we only fetched one document, and there is no
               // offset, as that would make no sense.
@@ -392,51 +396,65 @@
       return collection;
     };
 
+    service._setFormattedDateField = function(item, field) {
+      item['_' + field.name + '_formatted'] = (item[field.name] ? moment(item[field.name]).format(field.format) : '');
+    };
+    service._setFormattedNumberField = function(item, field) {
+      var decimalParams = field.view.slice(7, field.view.length - 1);
+      item['_' + field.name + '_formatted'] = (item[field.name] ? item[field.name].toFixed(decimalParams) : '');
+    };
+    service._setFormattedTextField = function(item, field) {
+      item['_' + field.name + '_formatted'] = (angular.isDefined(item[field.name]) ? item[field.name] : '');
+    };
+    service._parseField = function(item, field) {
+      if(field.view === 'date') {
+        if(item[field.name]) {
+          //do not cast if it is already Date()
+          if(!(item[field.name] instanceof Date)) {
+            item[field.name] = new Date(item[field.name]);
+            // If the date is illegal, getTime returns NaN
+            if(isNaN(item[field.name].getTime())) {
+              item[field.name] = null;
+              trace('Illegal date received');
+            }
+          }
+        }
+        else {
+          // this is to avoid undefined and null values.
+          // but this also will not allow 0, date has to be string.
+          item[field.name] = null;
+        }
+        field.format = 'DD.MM.YYYY.';//TODO: store format information in db
+        service._setFormattedDateField(item, field);
+      }
+      else if((_.startsWith(field.view, 'number'))) {
+        service._setFormattedNumberField(item, field);
+      }
+      else {
+        service._setFormattedTextField(item, field);
+      }
+    };
     service._parseFieldTypes = function(buffer, dataFields) {
       buffer.forEach(function(item) {
         dataFields.forEach(function(field) {
-          if(field.view === 'date') {
-            if(item[field.name]) {
-              //do not cast if it is already Date()
-              if(!(item[field.name] instanceof Date)) {
-                item[field.name] = new Date(item[field.name]);
-                // If the date is illegal, getTime returns NaN
-                if(isNaN(item[field.name].getTime())) {
-                  item[field.name] = null;
-                  trace('Illegal date received');
-                }
-              }
-            }
-            else {
-              // this is to avoid undefined and null values.
-              // but this also will not allow 0, date has to be string.
-              item[field.name] = null;
-            }
-            field.format = 'DD.MM.YYYY.';//TODO: store format information in db
-            item['_' + field.name + '_formatted'] = (item[field.name] ? moment(item[field.name]).format(field.format) : '');
-          }
-          else if((_.startsWith(field.view, 'number'))) {
-            var decimalParams = field.view.slice(7, field.view.length - 1);
-            item['_' + field.name + '_formatted'] = (angular.isDefined(item[field.name]) ? item[field.name].toFixed(decimalParams) : '');
-          }
-          else {
-            item['_' + field.name + '_formatted'] = (angular.isDefined(item[field.name]) ? item[field.name] : '');
-          }
+          service._parseField(item, field);
         });
       });
     };
 
-    service._prepareDocumentsCrudOperations = function(buffer) {
+    service.theCommitPromise = null;
+    service.theDeletePromise = null;
+    service._prepareDocumentsCrudOperations = function(buffer, dataFields) {
       buffer.forEach(function(item) {
         item._state = 'ready';
-        for(var field in item) {
-          item['_' + field + '_changed'] = false;
-        }
+        dataFields.forEach(function(field) {
+          item['_' + field.name + '_changed'] = false;
+        });
         item.edit = function() {
           this._state = 'editing';
           this._edit = _.cloneDeep(this);
         };
-        service.theCommitPromise = null;
+
         item.commit = function() {
           item._state = 'committing';
           if(service.theCommitPromise) {
@@ -444,20 +462,16 @@
               item.commit();
             });
           } else {
-            trace('get  layout');
             var data = {};
             data[objectName] = item._edit;
             service.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + item.Order_ID + '.json', data)
               .then(function(resp) {
                 service.theCommitPromise = null;
-                for(var field in item) {
-                  if(_.endsWith(field, '_changed')) {
-                    item[field] = false;
-                  }
-                  else {
-                    item[field] = item._edit[field];
-                  }
-                }
+                dataFields.forEach(function(field) {
+                  item['_' + field.name + '_changed'] = false;
+                  item[field.name] = item._edit[field.name];
+                  service._parseField(item, field);
+                });
                 item._state = 'ready';
               });
             return service.theCommitPromise;
@@ -466,14 +480,34 @@
         item.rollback = function() {
           delete this._edit;
           this._state = 'ready';
-          for(var field in item) {
-            if(_.endsWith(field, '_changed')) {
-              item[field] = false;
-            }
-          }
+          dataFields.forEach(function(field) {
+            item['_' + field.name + '_changed'] = false;
+          });
         };
         item.delete = function() {
-          this._state = 'deleted';
+          item._state = 'deleting';
+          if(service.theDeletePromise) {
+            return service.theDeletePromise.then(function() {
+              item.delete();
+            });
+          } else {
+            var data = {};
+            data[objectName] = item._edit;
+            service.theDeletePromise = $http.delete(window.MN_BASE + '/' + apiResource + '/' + item.Order_ID + '.json', data)
+              .then(function(resp) {
+                service.theDeletePromise = null;
+                dataFields.forEach(function(field) {
+                  item['_' + field.name + '_changed'] = false;
+                });
+                item._state = 'deleted';
+                var index = buffer.indexOf(item);
+                if(index !== -1) {
+                  buffer.splice(index, 1);
+                }
+                service.totalCount--;
+              });
+            return service.theDeletePromise;
+          }
         };
       });
     };
