@@ -404,10 +404,10 @@
       item['_' + field.name + '_formatted'] = (item[field.name] ? item[field.name].toFixed(decimalParams) : '');
     };
     service._setFormattedTextField = function(item, field) {
-      item['_' + field.name + '_formatted'] = (angular.isDefined(item[field.name]) ? item[field.name] : '');
+      item['_' + field.name + '_formatted'] = (item[field.name] ? item[field.name] : '');
     };
     service._parseField = function(item, field) {
-      if(field.view === 'date') {
+      if(field && field.view === 'date') {
         if(item[field.name]) {
           //do not cast if it is already Date()
           if(!(item[field.name] instanceof Date)) {
@@ -427,18 +427,28 @@
         field.format = 'DD.MM.YYYY.';//TODO: store format information in db
         service._setFormattedDateField(item, field);
       }
-      else if((_.startsWith(field.view, 'number'))) {
+      else if(field && (_.startsWith(field.view, 'number'))) {
         service._setFormattedNumberField(item, field);
       }
-      else {
+      else if(field && field.view === 'text') {
         service._setFormattedTextField(item, field);
+      }
+      else {
+        //just copy content
+        item['_' + field.name + '_formatted'] = (item[field.name] ? item[field.name] : '');
       }
     };
     service._parseFieldTypes = function(buffer, dataFields) {
       buffer.forEach(function(item) {
-        dataFields.forEach(function(field) {
-          service._parseField(item, field);
-        });
+        for(var field in item) {
+          var dataField = service._getDataField(dataFields, field);
+          if(dataField) {
+            service._parseField(item, dataField);
+          }
+          else {
+            service._parseField(item, {name: field});
+          }
+        }
       });
     };
 
@@ -447,9 +457,10 @@
     service._prepareDocumentsCrudOperations = function(buffer, dataFields) {
       buffer.forEach(function(item) {
         item._state = 'ready';
-        dataFields.forEach(function(field) {
-          item['_' + field.name + '_changed'] = false;
-        });
+        //initial create _changed fields on every item
+        for(var field in item) {
+          item['_' + field + '_changed'] = false;
+        }
         item.edit = function() {
           this._state = 'editing';
           this._edit = _.cloneDeep(this);
@@ -467,11 +478,24 @@
             service.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + item.Order_ID + '.json', data)
               .then(function(resp) {
                 service.theCommitPromise = null;
-                dataFields.forEach(function(field) {
-                  item['_' + field.name + '_changed'] = false;
-                  item[field.name] = item._edit[field.name];
-                  service._parseField(item, field);
-                });
+                for(var field in item) {
+                  if(_.endsWith(field, '_changed')) {
+                    item[field] = false;
+                  }
+                  else if(_.endsWith(field, '_formatted')) {
+                    //do noting
+                  }
+                  else {
+                    item[field] = item._edit[field];
+                    var dataField = service._getDataField(dataFields, field);
+                    if(dataField) {
+                      service._parseField(item, dataField);
+                    }
+                    else {
+                      service._parseField(item, {name: field});
+                    }
+                  }
+                }
                 item._state = 'ready';
               });
             return service.theCommitPromise;
@@ -480,9 +504,11 @@
         item.rollback = function() {
           delete this._edit;
           this._state = 'ready';
-          dataFields.forEach(function(field) {
-            item['_' + field.name + '_changed'] = false;
-          });
+          for(var field in item) {
+            if(_.endsWith(field, '_changed')) {
+              item[field] = false;
+            }
+          }
         };
         item.delete = function() {
           item._state = 'deleting';
@@ -496,9 +522,11 @@
             service.theDeletePromise = $http.delete(window.MN_BASE + '/' + apiResource + '/' + item.Order_ID + '.json', data)
               .then(function(resp) {
                 service.theDeletePromise = null;
-                dataFields.forEach(function(field) {
-                  item['_' + field.name + '_changed'] = false;
-                });
+                for(var field in item) {
+                  if(_.endsWith(field, '_changed')) {
+                    item[field] = false;
+                  }
+                }
                 item._state = 'deleted';
                 var index = buffer.indexOf(item);
                 if(index !== -1) {
