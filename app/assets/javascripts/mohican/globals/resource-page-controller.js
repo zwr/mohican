@@ -72,10 +72,19 @@
           if(that.stateMachine.itemPrimaryKeyId) {
             that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields, that.primaryKeyName)
             .then(function(items) {
-              that.itemForm = items[0];
-              that.onCurrentItemChanged.forEach(function(callback) {
-                callback(that.itemForm);
-              });
+              ///check is item exists
+              if(items[0]) {
+                that.itemForm = items[0];
+                that.onCurrentItemChanged.forEach(function(callback) {
+                  callback(that.itemForm);
+                });
+              }
+              else {
+                //TODO currently we are redirecting user to invalid current
+                //route (without id passed to url) and this will be automaticlly
+                //redirected to resource grid route
+                that.mnRouter.transitionTo(that.mnRouter.currenRouteName(), {}, { notify: true });
+              }
             });
             return;
           }
