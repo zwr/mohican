@@ -1,4 +1,6 @@
 Rails.application.routes.draw do
+  resources :products
+
   scope '/api' do
     resources :activities, defaults: { format: 'json' } do
       get 'layout', on: :collection
