@@ -37,4 +37,17 @@ class User
   # field :failed_attempts, type: Integer, default: 0 # Only if lock strategy is :failed_attempts
   # field :unlock_token,    type: String # Only if unlock strategy is :email or :both
   # field :locked_at,       type: Time
+
+  # Additional non-devise fields
+  field :gender, type: String
+  field :address_street, type: String
+  field :address_city, type: String
+  field :address_post_number, type: String
+  field :cc_type, type: String
+  field :cc_number, type: String
+  field :cc_cvc, type: String
+  field :cc_exp, type: String
+  field :telnum, type: String
+  field :username, type: String
+  field :date_of_birth, type: Date
 end

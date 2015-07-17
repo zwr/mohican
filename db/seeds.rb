@@ -78,13 +78,13 @@ activities['items'].each_with_index do |a, index|
       { name: 'Sinuhe Jälkiuuni Ruisneppari 295g / 9kpl ruisleipä', ean: '6433500002993' },
       { name: 'Vaasan ruispalat tumma herkku täysjyväruisleipä 9kpl 450g', ean: '6437005075421' },
       { name: 'Oululainen Äitimuorin Herkkulimppu 450 g', ean: '6411402156006' },
-      { name: 'Fazer Paahto Viisi Vijaa 520 g paahtoleipä', ean: '6411402159403' },
+      { name: 'Fazer Paahto Viisi Vijaa 520 g paahtoleipä', ean: '6411402159403' }
     ]
     a[:handlers] = [
       { name: 'Arvid,Somervuori', address: 'Kartanomäenkatu 22', city: 'VARKAUS', postno: '78400', email: 'ArvidSomervuori@teleworm.us' },
       { name: 'Julia,Holopainen', address: 'Rörgrunsvägen 78', city: 'VAASA', postno: '65200', email: 'JuliaHolopainen@fleckens.hu' },
       { name: 'Ilmari,Sainio', address: 'Pesolantie 87', city: 'KALAJOKI', postno: '85100', email: 'IlmariSainio@rhyta.com' },
-      { name: 'Paula,Seppälä', address: 'Kangasmoisionkatu 90', city: 'UURAINEN', postno: '41230', email: 'PaulaSeppala@gustr.com' },
+      { name: 'Paula,Seppälä', address: 'Kangasmoisionkatu 90', city: 'UURAINEN', postno: '41230', email: 'PaulaSeppala@gustr.com' }
     ]
   end
   Activity.collection.insert(a)
@@ -113,5 +113,30 @@ Layout.collection.insert(
   doctype: :activity,
   layout: activities_layout
 )
+
+puts 'Seeding users'
+
+array_of_users = []
+File.open(Rails.root.join 'db', 'seeds', 'users.csv').each do |line|
+  u = line.split ','
+  array_of_users << {
+    name: "#{u[1]} #{u[2]}",
+    gender: u[0],
+    address_street: u[3],
+    address_city: u[4].capitalize,
+    address_post_number: u[5],
+    email: u[6],
+    username: u[7],
+    password: u[8],
+    date_of_birth: Date.strptime(u[9], '%m/%d/%Y'),
+    cc_type: u[10],
+    cc_number: u[11],
+    cc_cvc: u[12],
+    cc_exp: u[13],
+    telnum: u[14]
+  }
+end
+User.collection.insert array_of_users
+puts "Seeded #{User.count} users."
 
 puts 'Seeded.'
