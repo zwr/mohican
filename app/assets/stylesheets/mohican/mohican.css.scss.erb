@@ -369,9 +369,9 @@ mn-navbar-collapsible-left .navbar-nav {
         linear-gradient(45deg, transparent 10px, rgba(#000,.3) 10px),
         linear-gradient(315deg, transparent 10px, rgba(#000,.3) 10px);
   background-position: bottom left, bottom right;
-  -moz-background-size: 50% 50%;
-  -webkit-background-size: 50% 50%;
-  background-size: 50% 50%;
+   -moz-background-size: 50% 100%;
+   -webkit-background-size: 50% 100%;
+  background-size: 50% 100%;
   background-repeat: no-repeat;
 }
 
@@ -385,8 +385,6 @@ mn-navbar-collapsible-left .navbar-nav:before, #navbar-steady:before {
   background:
     linear-gradient(45deg, transparent 9px, $mn-colorscheme-1V 0) bottom left;
   background-repeat: no-repeat;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
   overflow:hidden;
 }
 
@@ -624,17 +622,20 @@ mn-item-reports > div, .block {
   overflow:auto;
 }
 
+td.mn-content-container {
+  background-color: transparent !important;
+  padding-left: 16px !important;
+  border:0;
+}
+
 .mn-content-panel {
   background:
-    linear-gradient(135deg, transparent 9px, $mn-content-panel-bg-color 0) top left,
-    linear-gradient(315deg, transparent 9px, $mn-content-panel-bg-color 0) bottom right;
-  background-size: 100% 72%;
+    linear-gradient(135deg, transparent 10px, $mn-content-panel-bg-color 0) top left,
+    linear-gradient(315deg, transparent 10px, $mn-content-panel-bg-color 0) bottom right;
+  background-size: 100% 80%;
   background-repeat: no-repeat;
   padding: 17px;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
   overflow:hidden;
-  border-top:9px solid transparent;
 }
 
 .mn-content-panel::before {
@@ -647,8 +648,6 @@ mn-item-reports > div, .block {
   background:
     linear-gradient(135deg, transparent 9px, $mn-colorscheme-1M 0) top left;
   background-repeat: no-repeat;
-  -moz-box-sizing: border-box;
-  box-sizing: border-box;
   overflow:hidden;
 }
 
@@ -704,6 +703,11 @@ mn-item-reports > div, .block {
 
 .noPad {
   padding:0 !important;
+}
+
+.left {
+  text-align: left !important;
+  align-content: left !important;
 }
 
 .vmiddle {

@@ -4,7 +4,7 @@
       <col ng-show="grid.showSelectColumn" class="vmiddle" style="width: 30px; margin:0 auto;" />
       <col ng-repeat="field in grid.owner.fields" ng-style="{width: field.width + 'px'}" />
       <col style="width:160px;" />
-      <col style="width:auto;"/>
+      <col style="min-width:99%;" />
     </colgroup>
     <thead>
       <tr>
@@ -25,7 +25,7 @@
                 aria-hidden="true"></span>
         </th>
         <th class="grid-header-container"></th>
-        <th class="grid-header-container"></th>
+        <th class="grid-header-container" style="min-width:99%;"></th>
       </tr>
       <tr>
         <th ng-show="grid.showSelectColumn" class="QfRow">
@@ -68,10 +68,8 @@
     </thead>
     <tbody ng-hide="grid.onlySelectedItemsShown">
       <tr ng-show="grid.owner.items.length === 0">
-        <td style="heigth: 0px;">
-          <div style="overflow: visible; position: absolute;">
-            No items to show
-          </div>
+        <td class="mn-content-footer-status-msg mn-content-container left" colspan="100%">
+          No items to show
         </td>
       </tr>
       <tr ng-repeat="item in grid.owner.items"
@@ -92,15 +90,13 @@
         <td>
           <mn-grid-actions />
         <td>
-        <td></td>
+        <td>&nbsp</td>
       </tr>
     </tbody>
     <tbody ng-show="grid.onlySelectedItemsShown">
       <tr ng-show="grid.selectedItems.length === 0">
-        <td style="heigth: 0px;">
-          <div style="overflow: visible; position: absolute;">
-            No items to show
-          </div>
+        <td class="mn-content-footer-status-msg mn-content-container left" colspan="100%">
+          No items to show
         </td>
       </tr>
       <tr ng-repeat="item in grid.selectedItems" mn-right-click="grid.rightClick(item, $event)">
@@ -119,7 +115,7 @@
         <td>
           <mn-grid-actions />
         <td>
-        <td></td>
+        <td>&nbsp</td>
       </tr>
     </tbody>
   </table>
