@@ -1,7 +1,6 @@
 FactoryGirl.define do
   factory :product do
-    name "MyString"
-ean "MyString"
+    name 'MyString'
+    ean 'MyString'
   end
-
 end
