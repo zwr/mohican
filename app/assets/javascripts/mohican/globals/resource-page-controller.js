@@ -70,7 +70,7 @@
         }).
         then(function() {
           if(that.stateMachine.itemPrimaryKeyId) {
-            that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields, that.primaryKeyName)
+            that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields)
             .then(function(items) {
               ///check is item exists
               if(items[0]) {

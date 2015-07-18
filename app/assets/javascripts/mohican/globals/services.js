@@ -266,8 +266,8 @@
       }
     };
 
-    service.getDocument = function(id, dataFields, primaryKeyField) {
-      var foundDocument = service.findBy(primaryKeyField, id);
+    service.getDocument = function(id, dataFields) {
+      var foundDocument = service.findBy(service.layout.primaryKeyName, id);
       if(foundDocument) {
         return $q.when(foundDocument);
       } else {
