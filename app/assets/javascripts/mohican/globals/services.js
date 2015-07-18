@@ -475,7 +475,7 @@
           } else {
             var data = {};
             data[objectName] = item._edit;
-            service.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + item.Order_ID + '.json', data)
+            service.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + service.layout.primaryKeyName + '.json', data)
               .then(function(resp) {
                 service.theCommitPromise = null;
                 for(var field in item) {
@@ -519,7 +519,7 @@
           } else {
             var data = {};
             data[objectName] = item._edit;
-            service.theDeletePromise = $http.delete(window.MN_BASE + '/' + apiResource + '/' + item.Order_ID + '.json', data)
+            service.theDeletePromise = $http.delete(window.MN_BASE + '/' + apiResource + '/' + service.layout.primaryKeyName + '.json', data)
               .then(function(resp) {
                 service.theDeletePromise = null;
                 for(var field in item) {
