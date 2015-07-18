@@ -16,10 +16,6 @@ angular.module('mohican.directives')
         controllerAs: 'mnForm',
 
         bindToController: true
-
-        // link: function(scope, element, attrs, ctrl) {
-        //
-        // }
       };
     }
   ]);
