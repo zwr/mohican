@@ -1,13 +1,13 @@
 (function(mohican) {
   'use strict';
 
-  mohican.constructBaseService = function(apiResource, objectName, $http, $q) {
+  mohican.constructBaseService = function(apiResource, $http, $q) {
     var service = {};
-    mohican.extendBaseService(service, apiResource, objectName, $http, $q);
+    mohican.extendBaseService(service, apiResource, $http, $q);
     return service;
   };
 
-  mohican.extendBaseService = function(service, apiResource, objectName, $http, $q) {
+  mohican.extendBaseService = function(service, apiResource, $http, $q) {
     service.resetLoading = function() {
       service.buffer = null;
       service.bufferBackendFilter = null;
@@ -474,7 +474,7 @@
             });
           } else {
             var data = {};
-            data[objectName] = item._edit;
+            data[service.layout.doctype] = item._edit;
             service.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + service.layout.primaryKeyName + '.json', data)
               .then(function(resp) {
                 service.theCommitPromise = null;
@@ -518,7 +518,7 @@
             });
           } else {
             var data = {};
-            data[objectName] = item._edit;
+            data[service.layout.doctype] = item._edit;
             service.theDeletePromise = $http.delete(window.MN_BASE + '/' + apiResource + '/' + service.layout.primaryKeyName + '.json', data)
               .then(function(resp) {
                 service.theDeletePromise = null;
