@@ -1,4 +1,9 @@
 Rails.application.routes.draw do
+  devise_for :users
+  scope '/admin' do
+    resources :users, as: 'users'
+    resources :products, as: 'products'
+  end
 
   scope '/api' do
     resources :activities, defaults: { format: 'json' } do
@@ -10,12 +15,6 @@ Rails.application.routes.draw do
     resources :products, as: 'products', defaults: { format: 'json' } do
       get 'layout', on: :collection
     end
-  end
-
-  devise_for :users
-  scope '/admin' do
-    resources :users, as: 'users'
-    resources :products, as: 'products'
   end
 
   get 'index_old', to: 'home#index_old'

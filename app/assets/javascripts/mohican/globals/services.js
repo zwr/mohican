@@ -475,7 +475,7 @@
           } else {
             var data = {};
             data[service.layout.doctype] = item._edit;
-            service.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + service.layout.primaryKeyName + '.json', data)
+            service.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + item[service.layout.primaryKeyName] + '.json', data)
               .then(function(resp) {
                 service.theCommitPromise = null;
                 for(var field in item) {

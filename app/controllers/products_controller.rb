@@ -26,11 +26,11 @@ class ProductsController < ApplicationController
                 .order_by(id: :asc)
 
     respond_to do |format|
-      format.json { render json: {
-                      items: @products.as_json,
-                      offset: offset,
-                      total_count: total_count
-                    }}
+      format.json { render json: { # rubocop:disable all
+        items: @products.as_json,
+        offset: offset,
+        total_count: total_count
+      }}
       format.html { respond_with(@product) }
     end
   end
@@ -39,8 +39,8 @@ class ProductsController < ApplicationController
     respond_to do |format|
       format.json do
         render json: {
-          doctype: 'product',
           layout: {
+            doctype: 'product',
             primaryKeyName: '_mnid',
             layouts: [{
               name: 'default',
@@ -100,8 +100,15 @@ class ProductsController < ApplicationController
   end
 
   def update
-    @product.update(product_params)
-    respond_with(@product)
+    respond_to do |format|
+      if @product.update(product_params)
+        format.json { render json: @product.as_json }
+        format.html { respond_with(@product) }
+      else
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+        format.html { respond_with(@product) }
+      end
+    end
   end
 
   def destroy
