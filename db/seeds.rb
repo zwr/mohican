@@ -7,6 +7,7 @@ puts 'Clearing the database'
 Activity.delete_all
 Layout.delete_all
 User.delete_all
+Product.delete_all
 
 User.create! email: 'mohican@zwr.fi', password: 'mohican123'
 
@@ -114,8 +115,6 @@ Layout.collection.insert(
   layout: activities_layout
 )
 
-puts 'Seeding users'
-
 array_of_users = []
 File.open(Rails.root.join 'db', 'seeds', 'users.csv').each do |line|
   u = line.split ','
@@ -138,5 +137,13 @@ File.open(Rails.root.join 'db', 'seeds', 'users.csv').each do |line|
 end
 User.collection.insert array_of_users
 puts "Seeded #{User.count} users."
+
+array_of_products = []
+File.open(Rails.root.join 'db', 'seeds', 'products.csv').each do |line|
+  u = line.split(/,(?=(?:[^"]|"[^"]*")*$)/).map { |x| x.gsub /^\"|\"?$/, '' }
+  array_of_products << { name: u[0], ean: u[1] }
+end
+Product.collection.insert array_of_products
+puts "Seeded #{Product.count} products."
 
 puts 'Seeded.'
