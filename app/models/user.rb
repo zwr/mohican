@@ -50,4 +50,10 @@ class User
   field :telnum, type: String
   field :username, type: String
   field :date_of_birth, type: Date
+
+  def as_json(options = nil)
+    j = super.as_json(options)
+    j[:_mnid] = id.to_s
+    j
+  end
 end
