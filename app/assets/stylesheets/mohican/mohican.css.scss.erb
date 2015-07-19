@@ -82,7 +82,8 @@ a.navbar-brand {
     border-left:0;
     border-top:0;
     border-radius: 0px !important;
-    padding: 1 !important;
+    padding: 1px !important;
+    margin-right: 1px !important;
 }
 
 .mn-select-filter button {
@@ -94,13 +95,10 @@ a.navbar-brand {
   overflow: hidden;
 }
 
-.filter-bar-dropDown button, .QfRow button {
+.filter-bar-dropDown button, .QfRow button, .filter-bar-button {
   background-color: $mn-filter-bar-dropDown-background-color;
   border-radius: 3px;
   border:0;
-  box-shadow: 2px 2px #006064;
-  -webkit-box-shadow: 2px 2px #006064;
-  -moz-box-shadow: 2px 2px #006064;
 }
 
 .filter-bar-dropDown button {
@@ -199,7 +197,7 @@ mn-menu-item-route > a > span {
     linear-gradient(135deg, transparent 10px, $mn-colorscheme-1M 0) top left;
   background-size: 100% 72%;
   background-repeat: no-repeat;
-  padding: 7px;
+  padding: 8px;
 }
 
 .filter-bar-item {
@@ -240,7 +238,7 @@ mn-menu-item-route > a > span {
 
 .QfRow, .table > thead > tr th.QfRow {
   background: $mn-qfilter-subheader-background;
-  padding: 5px !important;
+  padding: 2px 1px 4px 1px !important;
   border: 0 !important;
   vertical-align: middle;
 }
@@ -722,15 +720,9 @@ td.mn-content-container {
   color:$mn-colorscheme-0A !important;
 }
 
-.disabled input[type='text']
+.disabled input[type="text"]
 {
     color: $mn-disabled-L !important;
     cursor: not-allowed !important;
     border-color: $mn-disabled-D !important;
-}
-
-.disabled .multiSelect button {
-  box-shadow: 2px 2px $mn-disabled-D;
-  -webkit-box-shadow: 2px 2px $mn-disabled-D;
-  -moz-box-shadow: 2px 2px $mn-disabled-D;
 }

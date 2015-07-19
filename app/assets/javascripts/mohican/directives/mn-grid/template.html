@@ -4,7 +4,7 @@
       <col ng-show="grid.showSelectColumn" class="vmiddle" style="width: 30px; margin:0 auto;" />
       <col ng-repeat="field in grid.owner.fields" ng-style="{width: field.width + 'px'}" />
       <col style="width:160px;" />
-      <col style="min-width:99%;" />
+      <col />
     </colgroup>
     <thead>
       <tr>
@@ -25,7 +25,7 @@
                 aria-hidden="true"></span>
         </th>
         <th class="grid-header-container"></th>
-        <th class="grid-header-container" style="min-width:99%;"></th>
+        <th class="grid-header-container"></th>
       </tr>
       <tr>
         <th ng-show="grid.showSelectColumn" class="QfRow">
