@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12 col-sm-6 mn-content-panel">
+      <span class="loader block" ng-if="!ctrl.itemForm" style="margin: 0px 0px 0px 8px;">Loading...</span>
+      <div ng-if="ctrl.itemForm" class="container-fluid">
+        <mnf-form mnf-doc="ctrl.itemForm">
+          <mnf-text mnf-field="name"
+                    mnf-label="Name:"></mnf-text>
+          <mnf-text mnf-field="ean"
+                    mnf-label="EAN code:"></mnf-text>
+        </mnf-form>
+      </div>
+      <div class="control-group spacerT15 block">
+        <a class="btn btn-info" ui-sref="base.products({})">
+          Back to grid
+        </a>
+      </div>
+    </div>
+  </div>
+</div>

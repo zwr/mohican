@@ -4,9 +4,6 @@ class ProductsController < ApplicationController
   respond_to :html
 
   def index
-    # @products = Product.all
-    # respond_with(@products)
-
     limit = params[:limit] || params[:count] || 5000
     offset = params[:offset] || params[:skip] || 0
     # filter = params[:filter] || ''
@@ -29,13 +26,11 @@ class ProductsController < ApplicationController
                 .order_by(id: :asc)
 
     respond_to do |format|
-      format.json do
-        render json: {
-          items: @products.as_json,
-          offset: offset,
-          total_count: total_count
-        }
-      end
+      format.json { render json: {
+                      items: @products.as_json,
+                      offset: offset,
+                      total_count: total_count
+                    }}
       format.html { respond_with(@product) }
     end
   end
@@ -46,7 +41,7 @@ class ProductsController < ApplicationController
         render json: {
           doctype: 'product',
           layout: {
-            primaryKeyName: 'id',
+            primaryKeyName: '_mnid',
             layouts: [{
               name: 'default',
               definition: [
@@ -84,7 +79,10 @@ class ProductsController < ApplicationController
   end
 
   def show
-    respond_with(@product)
+    respond_to do |format|
+      format.json { render json: Product.find(params[:id]) }
+      format.html { respond_with(@product) }
+    end
   end
 
   def new
