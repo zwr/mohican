@@ -1,7 +1,7 @@
 class ProductsController < ApplicationController
   before_action :set_product, only: [:show, :edit, :update, :destroy]
 
-  respond_to :html
+  respond_to :html, :json
 
   def index
     limit = params[:limit] || params[:count] || 5000
@@ -31,7 +31,7 @@ class ProductsController < ApplicationController
         offset: offset,
         total_count: total_count
       }}
-      format.html { respond_with(@product) }
+      format.html { respond_with(@products) }
     end
   end
 
@@ -45,14 +45,6 @@ class ProductsController < ApplicationController
             layouts: [{
               name: 'default',
               definition: [
-                {
-                  name: :id,
-                  header: :id,
-                  width: 80,
-                  quicksort: true,
-                  quickfilter: :text,
-                  view: :text
-                },
                 {
                   name: :name,
                   header: :name,
@@ -80,8 +72,8 @@ class ProductsController < ApplicationController
 
   def show
     respond_to do |format|
-      format.json { render json: Product.find(params[:id]) }
-      format.html { respond_with(@product) }
+      format.json { render json: @product }
+      format.html { respond_with @product }
     end
   end
 
