@@ -519,7 +519,7 @@
           } else {
             var data = {};
             data[service.layout.doctype] = item._edit;
-            service.theDeletePromise = $http.delete(window.MN_BASE + '/' + apiResource + '/' + service.layout.primaryKeyName + '.json', data)
+            service.theDeletePromise = $http.delete(window.MN_BASE + '/' + apiResource + '/' + item[service.layout.primaryKeyName] + '.json', data)
               .then(function(resp) {
                 service.theDeletePromise = null;
                 for(var field in item) {

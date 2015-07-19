@@ -112,8 +112,15 @@ class ProductsController < ApplicationController
   end
 
   def destroy
-    @product.destroy
-    respond_with(@product)
+    respond_to do |format|
+      if @product.destroy
+        format.json { render json: @product.as_json }
+        format.html { respond_with(@product) }
+      else
+        format.json { render json: @product.errors, status: :unprocessable_entity }
+        format.html { respond_with(@product) }
+      end
+    end
   end
 
   private

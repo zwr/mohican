@@ -1,5 +1,6 @@
 {
   "primaryKeyName": "Order_ID",
+  "doctype": "activity",
   "layouts": [
     {
       "name": "default",
