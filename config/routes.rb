@@ -1,8 +1,13 @@
 Rails.application.routes.draw do
-  resources :products
 
   scope '/api' do
     resources :activities, defaults: { format: 'json' } do
+      get 'layout', on: :collection
+    end
+    resources :users, as: 'users', defaults: { format: 'json' } do
+      get 'layout', on: :collection
+    end
+    resources :products, as: 'products', defaults: { format: 'json' } do
       get 'layout', on: :collection
     end
   end
@@ -10,6 +15,7 @@ Rails.application.routes.draw do
   devise_for :users
   scope '/admin' do
     resources :users, as: 'users'
+    resources :products, as: 'products'
   end
 
   get 'index_old', to: 'home#index_old'

@@ -1,0 +1,20 @@
+<div class="container-fluid">
+  <div class="row">
+    <div class="col-xs-12">
+      <mn-filter-bar />
+    </div>
+  </div>
+  <div class="mn-grid-layout-row row">
+    <div class="col-xs-12 noPad" style="position: static;">
+      <mn-grid mn-select="single"
+               mn-select-type="check"
+               mn-on-select="ctrl.onItemSelect(selectedItems)"
+               mn-popup="ctrl.popup(clickedItem, selectedItems)">
+        <a ui-sref="base.products-form({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })">
+          <i class="fa fa-file-text-o fa-2x icoNormal"></i>
+        </a>
+      </mn-grid>
+    </div>
+  </div>
+</div>
+<mn-dialog-sorcerer/>
