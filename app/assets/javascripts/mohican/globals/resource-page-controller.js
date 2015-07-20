@@ -80,10 +80,7 @@
                 });
               }
               else {
-                //TODO currently we are redirecting user to invalid current
-                //route (without id passed to url) and this will be automaticlly
-                //redirected to resource grid route
-                that.mnRouter.transitionTo(that.mnRouter.currenRouteName(), {}, { notify: true });
+                that.mnRouter.pageNotFound();
               }
             });
             return;

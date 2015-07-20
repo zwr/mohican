@@ -64,6 +64,11 @@
         provider.routes.forEach(function(route) {
           mohican.defineMohicanRoute(route, $stateProviderRef);
         });
+
+        $stateProviderRef.state('base.' + mohican.toHyphen('404'), {
+          url:         '/404',
+          templateUrl: 'mohican/templates/404.html'
+        });
       }
 
       function redirectTo(routeName) {
@@ -77,6 +82,10 @@
         else {
           provider.transitionTo(routeName, params);
         }
+      }
+
+      function pageNotFound() {
+        provider.transitionTo('base.404', {});
       }
 
       function addStateChageValidator(validator) {
@@ -96,6 +105,7 @@
         createAll:    createAll,
         redirectTo:   redirectTo,
         transitionTo: transitionTo,
+        pageNotFound: pageNotFound,
         $stateParams: $stateParams,
         $state:       $state,
 
