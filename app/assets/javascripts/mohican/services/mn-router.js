@@ -61,14 +61,19 @@
             return provider.transitionTo($state.current.name, mohican.escapeDefaultParameters($stateParams), { notify: false });
           }
         };
+
+        var has404 = false;
         provider.routes.forEach(function(route) {
+          if(route.name === '404') { has404 = true; }
           mohican.defineMohicanRoute(route, $stateProviderRef);
         });
 
-        $stateProviderRef.state('base.' + mohican.toHyphen('404'), {
-          url:         '/404',
-          templateUrl: 'mohican/templates/404.html'
-        });
+        if(!has404) {
+          $stateProviderRef.state('base.' + mohican.toHyphen('404'), {
+            url:         '/404',
+            templateUrl: 'mohican/templates/404.html'
+          });
+        }
       }
 
       function redirectTo(routeName) {
