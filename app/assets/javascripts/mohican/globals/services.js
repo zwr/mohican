@@ -298,6 +298,8 @@
           .then(function(resp) {
             service.thePromise = null;
             if(service.bufferBackendFilter === 'single-id-' + id) {
+              //because of convention, we are returning array of items
+              //even if this is single document
               var item2items = [];
               if(resp.data) {
                 item2items.push(resp.data);
