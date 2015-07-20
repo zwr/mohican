@@ -25,9 +25,6 @@
 
     provider.addResouceRoute = function(definition) {
       provider.routes.push(definition);
-      if(angular.isDefined(definition.default)) {
-        $urlRouterProviderRef.otherwise('/' + mohican.toHyphen(definition.name));
-      }
     };
 
     provider.addSimpleRoute = function(definition) {
@@ -35,15 +32,10 @@
     };
 
     provider.addRedirecRoute = function(definition) {
-      if(definition.name === null || definition.name === '') {
-        $urlRouterProviderRef.otherwise('/' + mohican.toHyphen(definition.redirectTo));
-      }
-      else {
-        provider.routes.push({
-          name:       definition.name,
-          redirectTo: definition.redirectTo
-        });
-      }
+      provider.routes.push({
+        name:       definition.name,
+        redirectTo: definition.redirectTo
+      });
     };
 
     this.$get = ['$stateParams', '$state', function($stateParams, $state) {
@@ -74,6 +66,8 @@
             templateUrl: 'mohican/templates/404.html'
           });
         }
+
+        $urlRouterProviderRef.otherwise('/404');
       }
 
       function redirectTo(routeName) {

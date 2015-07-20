@@ -1,7 +1,7 @@
 (function(mohican) {
   'use strict';
 
-  mohican._mohicanRoute = function(routeName, controller, $stateProvider, redirectTo, template) {
+  mohican._createMohicanResourceRoute = function(routeName, controller, $stateProvider, redirectTo, template) {
     var url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
     var urlForm = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}?activetab';
     var templateUrl = 'app/routes/' + mohican.toHyphen(routeName) + '-grid.html';
@@ -34,6 +34,28 @@
 
   var isArray = function(obj) { return Object.prototype.toString.call(obj) === '[object Array]'; };
   mohican.defineMohicanRoute = function(definition, $stateProvider) {
+    if(definition.name === null || definition.name === '') {
+      $stateProvider.state('base.mnroot', {
+        url:        '/',
+        controller: ['mnRouter', function(mnRouter) {
+          mnRouter.transitionTo('base.' + mohican.toHyphen(definition.redirectTo),
+                                mnRouter.$stateParams,
+                                {location: 'replace'});
+        }],
+        controllerAs: 'mnroot'
+      });
+    }
+    if(definition.default) {
+      console.log(definition);
+      $stateProvider.state('base.mnroot', {
+        url:        '/',
+        controller: ['mnRouter', function(mnRouter) {
+          console.log('root route');
+          mnRouter.transitionTo('base.' + mohican.toHyphen(definition.name), mnRouter.$stateParams, {location: 'replace'});
+        }],
+        controllerAs: 'mnroot'
+      });
+    }
     var i;
     if(definition.service) {
       if(definition.controller && isArray(definition.controller)) {
@@ -47,7 +69,7 @@
       angular.module('mohican.services').register.
           factory(definition.name + 'Service', definition.service);
     }
-    mohican._mohicanRoute(definition.name, definition.controller, $stateProvider, definition.redirectTo, definition.template);
+    mohican._createMohicanResourceRoute(definition.name, definition.controller, $stateProvider, definition.redirectTo, definition.template);
   };
 
   var _checkDefaultParams = function(params) {
