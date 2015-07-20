@@ -46,7 +46,6 @@
       });
     }
     if(definition.default) {
-      console.log(definition);
       $stateProvider.state('mnroot', {
         url:        '/',
         controller: ['mnRouter', function(mnRouter) {
