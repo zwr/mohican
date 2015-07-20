@@ -15,7 +15,7 @@
                 if(scope.sref == null) {
                   scope.sref = mohican.toHyphen(clone.text());
                 }
-                scope.srefResolved = 'base.' + scope.sref;
+                scope.srefResolved = scope.sref;
               });
             },
             post: function() {

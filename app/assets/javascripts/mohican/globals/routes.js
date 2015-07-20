@@ -13,18 +13,18 @@
 
     if(redirectTo) {
       controller = ['mnRouter', function(mnRouter) {
-        mnRouter.transitionTo('base.' + redirectTo, mnRouter.$stateParams, {location: 'replace'});
+        mnRouter.transitionTo(redirectTo, mnRouter.$stateParams, {location: 'replace'});
       }];
     }
 
-    $stateProvider.state('base.' + mohican.toHyphen(routeName), {
+    $stateProvider.state(mohican.toHyphen(routeName), {
       url:          url,
       templateUrl:  templateUrl,
       controller:   controller,
       controllerAs: 'ctrl'
     });
 
-    $stateProvider.state('base.' + mohican.toHyphen(routeName) + '-form', {
+    $stateProvider.state(mohican.toHyphen(routeName) + '-form', {
       url:          urlForm,
       templateUrl:  templateUrlForm,
       controller:   controller,
@@ -35,10 +35,10 @@
   var isArray = function(obj) { return Object.prototype.toString.call(obj) === '[object Array]'; };
   mohican.defineMohicanRoute = function(definition, $stateProvider) {
     if(definition.name === null || definition.name === '') {
-      $stateProvider.state('base.mnroot', {
+      $stateProvider.state('mnroot', {
         url:        '/',
         controller: ['mnRouter', function(mnRouter) {
-          mnRouter.transitionTo('base.' + mohican.toHyphen(definition.redirectTo),
+          mnRouter.transitionTo(mohican.toHyphen(definition.redirectTo),
                                 mnRouter.$stateParams,
                                 {location: 'replace'});
         }],
@@ -47,11 +47,11 @@
     }
     if(definition.default) {
       console.log(definition);
-      $stateProvider.state('base.mnroot', {
+      $stateProvider.state('mnroot', {
         url:        '/',
         controller: ['mnRouter', function(mnRouter) {
           console.log('root route');
-          mnRouter.transitionTo('base.' + mohican.toHyphen(definition.name), mnRouter.$stateParams, {location: 'replace'});
+          mnRouter.transitionTo(mohican.toHyphen(definition.name), mnRouter.$stateParams, {location: 'replace'});
         }],
         controllerAs: 'mnroot'
       });

@@ -16,11 +16,6 @@
     provider.init = function($urlRouterProvider, $stateProvider) {
       $urlRouterProviderRef = $urlRouterProvider;
       $stateProviderRef = $stateProvider;
-      $stateProvider.state('base', {
-        abstract: true,
-        url:      '',
-        views:    { '': { template: '<ui-view/>' } }
-      });
     };
 
     provider.addResouceRoute = function(definition) {
@@ -61,7 +56,7 @@
         });
 
         if(!has404) {
-          $stateProviderRef.state('base.' + mohican.toHyphen('404'), {
+          $stateProviderRef.state(mohican.toHyphen('404'), {
             url:         '/404',
             templateUrl: 'mohican/templates/404.html'
           });
@@ -71,7 +66,7 @@
       }
 
       function redirectTo(routeName) {
-        provider.transitionTo('base.' + routeName, $stateParams, {location: 'replace'});
+        provider.transitionTo(routeName, $stateParams, {location: 'replace'});
       }
 
       function transitionTo(routeName, params, options) {
@@ -84,7 +79,7 @@
       }
 
       function pageNotFound() {
-        provider.transitionTo('base.404', {});
+        provider.transitionTo('404', {});
       }
 
       function addStateChageValidator(validator) {
