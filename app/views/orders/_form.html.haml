@@ -1,0 +1,22 @@
+= form_for @order do |f|
+  - if @order.errors.any?
+    #error_explanation
+      %h2= "#{pluralize(@order.errors.count, "error")} prohibited this order from being saved:"
+      %ul
+        - @order.errors.full_messages.each do |msg|
+          %li= msg
+
+  .field
+    = f.label :order_number
+    = f.number_field :order_number
+  .field
+    = f.label :status
+    = f.text_field :status
+  .field
+    = f.label :total
+    = f.number_field :total
+  .field
+    = f.label :items
+    = f.text_field :items
+  .actions
+    = f.submit 'Save'

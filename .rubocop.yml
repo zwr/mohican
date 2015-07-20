@@ -23,6 +23,9 @@ Metrics/MethodLength:
 Style/ClassAndModuleChildren:
   Enabled: false
 
+ClassLength:
+  Enabled: false
+
 Style/RegexpLiteral:
   Description: >-
                  Use %r for regular expressions matching more than

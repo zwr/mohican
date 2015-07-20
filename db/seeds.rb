@@ -8,6 +8,7 @@ Activity.delete_all
 Layout.delete_all
 User.delete_all
 Product.delete_all
+Order.delete_all
 
 User.create! email: 'mohican@zwr.fi', password: 'mohican123'
 
@@ -145,5 +146,55 @@ File.open(Rails.root.join 'db', 'seeds', 'products.csv').each do |line|
 end
 Product.collection.insert array_of_products
 puts "Seeded #{Product.count} products."
+
+SEED_ORDER_COUNT = 1127
+HANDLERS_COUNT = { '8': (1..5), '1': (0..0), '1_': (6..20) }
+ORDER_ITEMS_COUNT = { '8': (3..12), '1': (1..2), '1_': (3..200) }
+ITEM_PRODUCT_COUNT = { '9': (1..12), '1': (1..5000) }
+
+class Hash
+  def random
+    random_group = rand(1..10)
+    current_sum = 0
+    keys.each do |key|
+      current_sum += key.to_s.to_i
+      return rand self[key] if random_group <= current_sum
+    end
+    # return something is someone defined it wrong
+    rand values.first
+  end
+end
+
+def random(c)
+  @class_hash ||= {}
+  @class_hash[c] = c.all.to_ary if @class_hash[c].nil?
+  @class_hash[c][rand(0..@class_hash[c].count - 1)]
+end
+
+orders = []
+(1..SEED_ORDER_COUNT).each do
+  x = Order.new
+  x.total = rand 1..1000
+  x.status = [:created, :open, :closed][rand 0..2]
+  x.order_number = rand 10_000..99_999
+  x.creator = (random User).id
+
+  (1..HANDLERS_COUNT.random).each do
+    x.handlers << random(User)
+  end
+
+  (1..ORDER_ITEMS_COUNT.random).each do
+    y = OrderItem.new
+    y.product = random(Product)
+    y.quantity = ITEM_PRODUCT_COUNT.random
+    x.order_items << y
+  end
+
+  orders << x
+end
+
+puts 'Created order seeds, saving...'
+orders.each(&:save!)
+puts "Seeded #{Order.count} orders with many products."
 
 puts 'Seeded.'
