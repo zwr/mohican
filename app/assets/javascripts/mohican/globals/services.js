@@ -478,7 +478,7 @@
             });
           } else {
             var data = {};
-            data[service.layout.doctype] = item._edit;
+            data[service.layout.doctype] = item._getDiffs();
             service.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + item[service.layout.primaryKeyName] + '.json', data)
               .then(function(resp) {
                 service.theCommitPromise = null;
@@ -540,6 +540,17 @@
               });
             return service.theDeletePromise;
           }
+        };
+
+        item._getDiffs = function() {
+          var diffObject = {};
+          for(var field in item) {
+            if(!service._isMohicanField(field) &&
+               item['_' + field + '_changed']) {
+              diffObject[field] = item._edit[field];
+            }
+          }
+          return diffObject;
         };
       });
     };
