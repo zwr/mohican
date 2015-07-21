@@ -8,4 +8,10 @@ class Order
   belongs_to :creator, class_name: 'User'
   has_and_belongs_to_many :handlers, class_name: 'User'
   embeds_many :order_items
+
+  def as_json(options = nil)
+    j = super.as_json(options)
+    j[:_mnid] = id.to_s
+    j
+  end
 end

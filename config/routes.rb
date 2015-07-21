@@ -8,6 +8,9 @@ Rails.application.routes.draw do
   end
 
   scope '/api' do
+    resources :orders, defaults: { format: 'json' } do
+      get 'layout', on: :collection
+    end
     resources :activities, defaults: { format: 'json' } do
       get 'layout', on: :collection
     end

@@ -5,7 +5,7 @@
   = @order.order_number
 %p
   %b Creator:
-  = @order.creator.name
+  = @order.creator.name unless @order.creator.nil?
 %p
   %b Status:
   = @order.status

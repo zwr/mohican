@@ -16,7 +16,7 @@
     - @orders.each do |order|
       %tr
         %td= order.order_number
-        %td= order.creator.name
+        %td= order.creator.name unless order.creator.nil?
         %td= order.status
         %td= order.total
         %td= order.items
