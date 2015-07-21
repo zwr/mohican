@@ -9,6 +9,7 @@
 
     if(redirectTo && angular.isUndefined(template) || template === null) {
       templateUrl = undefined;
+      templateUrlForm = undefined;
     }
 
     if(redirectTo) {

@@ -33,7 +33,7 @@
       });
     };
 
-    this.$get = ['$stateParams', '$state', function($stateParams, $state) {
+    this.$get = ['$stateParams', '$state', '$rootScope', function($stateParams, $state, $rootScope) {
       provider.transitionTo = $state.transitionTo;
 
       function createAll() {
@@ -63,6 +63,10 @@
             templateUrl: 'mohican/templates/404.html'
           });
         }
+
+        $rootScope.$on('$stateChangeError', function() {
+          provider.transitionTo('404', {});
+        });
 
         $urlRouterProviderRef.otherwise('/404');
       }
