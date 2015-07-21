@@ -49,6 +49,8 @@
           }
         };
 
+        $urlRouterProviderRef.when('', '/');
+
         var has404 = false;
         provider.routes.forEach(function(route) {
           if(route.name === '404') { has404 = true; }

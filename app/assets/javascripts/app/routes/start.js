@@ -7,11 +7,4 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
     default:    true,
     controller: function() {}
   });
-
-  //other way to create default route,
-  //just redirect null route to one of predefines
-  // mnRouterProvider.addRedirecRoute({
-  //   name:       null,
-  //   redirectTo: 'Start'
-  // });
 }]);
