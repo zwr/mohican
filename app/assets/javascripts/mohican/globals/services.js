@@ -443,12 +443,14 @@
     service._parseFieldTypes = function(buffer, dataFields) {
       buffer.forEach(function(item) {
         for(var field in item) {
-          var dataField = service._getDataField(dataFields, field);
-          if(dataField) {
-            service._parseField(item, dataField);
-          }
-          else {
-            service._parseField(item, {name: field});
+          if(!service._isMohicanField(field)) {
+            var dataField = service._getDataField(dataFields, field);
+            if(dataField) {
+              service._parseField(item, dataField);
+            }
+            else {
+              service._parseField(item, {name: field});
+            }
           }
         }
       });
@@ -553,6 +555,19 @@
       service._fullyLoadedPromise.resolve();
       service.nextCloned = 1;
       trace('data are fully loaded');
+    };
+
+    service._isMohicanField = function(fieldName) {
+      if(_.startsWith(fieldName, '_') ||
+         fieldName === 'edit' ||
+         fieldName === 'commit' ||
+         fieldName === 'rollback' ||
+         fieldName === 'delete') {
+        return true;
+      }
+      else {
+        return false;
+      }
     };
 
     return service;
