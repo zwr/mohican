@@ -3,10 +3,7 @@
 
   mohican.validatePageParameter = function(page, pageCount, mnRouter) {
     if(isNaN(page.toString()) || page < 1 || (page > pageCount && pageCount > 0)) {
-      var newRouteParams = _.clone(mnRouter.$stateParams);
-      newRouteParams.page = '1';
-      //TODO mnRouter.pageNotFound();
-      mnRouter.transitionTo(mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
+      mnRouter.pageNotFound();
     }
     else {
       return true;
@@ -27,10 +24,7 @@
       return true;
     }
     else {
-      var newRouteParams = _.clone(mnRouter.$stateParams);
-      newRouteParams.layout = 'default';
-      //TODO mnRouter.pageNotFound();
-      mnRouter.transitionTo(mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
+      mnRouter.pageNotFound();
     }
     return false;
   };
@@ -48,10 +42,7 @@
       return true;
     }
     else {
-      var newRouteParams = _.clone(mnRouter.$stateParams);
-      newRouteParams.backendfilter = 'default';
-      //TODO mnRouter.pageNotFound();
-      mnRouter.transitionTo(mnRouter.$state.current.name, mohican.escapeDefaultParameters(newRouteParams));
+      mnRouter.pageNotFound();
     }
     return false;
   };

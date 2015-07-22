@@ -85,7 +85,7 @@
       }
 
       function pageNotFound() {
-        provider.transitionTo('404', {});
+        provider.transitionTo('404', {}, {location: 'replace'});
       }
 
       function addStateChageValidator(validator) {
