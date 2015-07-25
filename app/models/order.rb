@@ -1,6 +1,7 @@
 class OrderHandler
   include Mongoid::Document
-  field :user_name
+  field :user_name, type: String
+  field :user_ref, type: String
   belongs_to :user
 end
 
@@ -9,7 +10,7 @@ class OrderItem
   field :quantity, type: Integer
   field :product_name, type: String
   field :product_ean, type: String
-  field :product_id, type: String
+  field :product_ref, type: String
   belongs_to :product
   embedded_in :order
 end
@@ -20,9 +21,9 @@ class Order
   field :order_number, type: Integer
   field :status, type: String
   field :total, type: Integer
-  field :items, type: Array
   belongs_to :creator, class_name: 'User'
   field :creator_name, type: String
+  field :creator_ref, type: String
   has_and_belongs_to_many :__handlers, class_name: 'User'
   has_and_belongs_to_many :__products, class_name: 'Product'
   embeds_many :order_items
@@ -48,14 +49,17 @@ class Order
   def remember_referenced_object_data
     rails RuntimeError, 'Creator not specified' unless creator.present?
     self.creator_name = creator.name
-    order_handlers.each do |handler|
+    self.creator_ref = creator.id.to_s
+    order_handlers.map! do |handler|
       handler.user_name = handler.user.name
-      handler.user_id = handler.user.id
+      handler.user_ref = handler.user.id.to_s
+      handler
     end
-    order_items.each do |item|
+    order_items.map! do |item|
       item.product_name = item.product.name
       item.product_ean = item.product.ean
-      item.product_id = item.product.id
+      item.product_ref = item.product.id.to_s
+      item
     end
   end
 end
