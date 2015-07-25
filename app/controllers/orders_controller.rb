@@ -25,7 +25,6 @@ class OrdersController < ApplicationController
               .limit(limit)
               .skip(offset)
               .order_by(id: :asc)
-              .includes(:handlers, :creator, :__products)
 
     respond_to do |format|
       format.json { render json: { # rubocop:disable all

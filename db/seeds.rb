@@ -180,7 +180,7 @@ orders = []
   x.creator = (random User).id
 
   (1..HANDLERS_COUNT.random).each do
-    x.handlers << random(User)
+    x.order_handlers << OrderHandler.new(user: random(User))
   end
 
   (1..ORDER_ITEMS_COUNT.random).each do
