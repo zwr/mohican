@@ -14,6 +14,22 @@
                     mnf-label="Order number:"></mnf-text>
           <mnf-text mnf-field="total"
                     mnf-label="Total:"></mnf-text>
+          <mn-tabs>
+            <mn-tab heading="Tab 1">
+              tab1
+            </mn-tab>
+            <mn-tab heading="Handlers">
+              <mn-grid owner="ctrl.handlersDrv">
+              </mn-grid>
+            </mn-tab>
+            <mn-tab heading="Products">
+              <mn-grid owner="ctrl.productsDrv">
+                <a ui-sref="products-form({ itemPrimaryKeyId: item[ctrl.productsDrv.primaryKeyName] })">
+                  <i class="fa fa-file-text-o fa-2x icoNormal"></i>
+                </a>
+              </mn-grid>
+            </mn-tab>
+          </mn-tabs>
         </mnf-form>
       </div>
       <div class="control-group spacerT15 block">

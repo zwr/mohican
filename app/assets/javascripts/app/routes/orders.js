@@ -10,6 +10,47 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         mohican.extendResourcePageController(this, service, mnRouter);
         var ctrl = this;
 
+        ctrl.handlersDrv = ctrl.createBasicDriver('handlers', [
+          {
+            header: 'Name',
+            name:   'name',
+            view:   'text',
+            width:  150
+          },
+          {
+            header: 'Address',
+            name:   'address',
+            view:   'text',
+            width:  200
+          },
+          {
+            header: 'Post Number',
+            name:   'postno',
+            view:   'text',
+            width:  100
+          },
+          {
+            header: 'City',
+            name:   'city',
+            view:   'text',
+            width:  100
+          }
+        ]);
+        ctrl.productsDrv = ctrl.createBasicDriver('order_items', [
+          {
+            header: 'Name',
+            name:   'name',
+            view:   'text',
+            width:  100
+          },
+          {
+            header: 'quantity',
+            name:   'quantity',
+            view:   'text',
+            width:  100
+          }
+        ]);
+
         ctrl.onItemSelect = function(selectedItems) {
           console.log(selectedItems);
         };
