@@ -10,30 +10,12 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         mohican.extendResourcePageController(this, service, mnRouter);
         var ctrl = this;
 
-        ctrl.handlersDrv = ctrl.createBasicDriver('handlers', [
+        ctrl.handlersDrv = ctrl.createBasicDriver('order_handlers', [
           {
             header: 'Name',
-            name:   'name',
+            name:   'user_name',
             view:   'text',
             width:  150
-          },
-          {
-            header: 'Address',
-            name:   'address',
-            view:   'text',
-            width:  200
-          },
-          {
-            header: 'Post Number',
-            name:   'postno',
-            view:   'text',
-            width:  100
-          },
-          {
-            header: 'City',
-            name:   'city',
-            view:   'text',
-            width:  100
           }
         ]);
         console.log(ctrl);

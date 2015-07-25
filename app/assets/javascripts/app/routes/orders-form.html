@@ -10,6 +10,11 @@
             <mnf-rollback></mnf-rollback>
             <mnf-delete></mnf-delete>
           </div>
+          <mnf-text mnf-field="creator_name"
+                    mnf-label="Creator:"></mnf-text>
+          <!-- <a ui-sref="users-form({ itemPrimaryKeyId: ctrl.itemForm.creator_ref })">
+            <i class="fa fa-file-text-o fa-2x icoNormal"></i>
+          </a> -->
           <mnf-text mnf-field="order_number"
                     mnf-label="Order number:"></mnf-text>
           <mnf-text mnf-field="total"
@@ -20,6 +25,9 @@
             </mn-tab>
             <mn-tab heading="Handlers">
               <mn-grid owner="ctrl.handlersDrv">
+                <a ui-sref="users-form({ itemPrimaryKeyId: item.user_ref })">
+                  <i class="fa fa-file-text-o fa-2x icoNormal"></i>
+                </a>
               </mn-grid>
             </mn-tab>
             <mn-tab heading="Products">
