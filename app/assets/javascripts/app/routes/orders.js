@@ -36,12 +36,13 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             width:  100
           }
         ]);
+        console.log(ctrl);
         ctrl.productsDrv = ctrl.createBasicDriver('order_items', [
           {
             header: 'Name',
-            name:   'name',
+            name:   'product_name',
             view:   'text',
-            width:  100
+            width:  300
           },
           {
             header: 'quantity',
