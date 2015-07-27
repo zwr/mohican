@@ -27,6 +27,10 @@
             };
             scope.openRefDialog = function() {
               scope.owner.refResourceController = {};
+              scope.owner.refResourceController.onItemSelect = function(selectedItems) {
+                console.log(selectedItems);
+                scope.owner.closeDialog();
+              }
               mohican.extendResourceDriver(scope.owner.refResourceController, service);
               scope.owner.popDialog('Selected Users', 'mohican/directives/mnf-reference/ref-resource-dialog.html');
             };

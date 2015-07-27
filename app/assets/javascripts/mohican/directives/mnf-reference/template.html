@@ -9,16 +9,14 @@
      class="form-group form-group-sm mn-form-group">
   <label class="col-sm-4 control-label" for="{{mnfField}}">{{mnfLabel}}</label>
   <div class="col-sm-8">
-    <span type="text"
-           id="{{mnfField}}"
-           class="mn-form-control"
-           ng-disabled="mnfDoc._state === 'committing'"
-           ng-model="mnfDoc._edit[mnfField]"
-           ng-change="textChanged()"
-           ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}">
+    <span class="mn-form-control"
+          ng-model="mnfDoc._edit[mnfField]"
+          ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}">
       {{mnfDoc[mnfField]}}
     </span>
-    <a class="btn" ng-click="openRefDialog()">
+    <a class="btn"
+       ng-click="openRefDialog()"
+       ng-disabled="mnfDoc._state === 'committing'">
       <i class="fa fa-pencil-square-o fa-2x icoNormal"></i>
     </a>
   </div>
