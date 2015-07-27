@@ -10,9 +10,8 @@
   <label class="col-sm-4 control-label" for="{{mnfField}}">{{mnfLabel}}</label>
   <div class="col-sm-8">
     <span class="mn-form-control"
-          ng-model="mnfDoc._edit[mnfField]"
           ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}">
-      {{mnfDoc[mnfField]}}
+      {{mnfDoc._edit[mnfField]}}
     </span>
     <a class="btn"
        ng-click="openRefDialog()"

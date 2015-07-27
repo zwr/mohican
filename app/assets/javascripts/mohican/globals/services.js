@@ -481,6 +481,7 @@
           } else {
             var data = {};
             data[service.layout.doctype] = item._getDiffs();
+            console.log(data[service.layout.doctype]);
             service.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + item[service.layout.primaryKeyName] + '.json', data)
               .then(function(resp) {
                 service.theCommitPromise = null;
