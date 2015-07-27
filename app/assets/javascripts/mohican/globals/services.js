@@ -463,7 +463,9 @@
         item._state = 'ready';
         //initial create _changed fields on every item
         for(var field in item) {
-          item['_' + field + '_changed'] = false;
+          if(!service._isMohicanField(field)) {
+            item['_' + field + '_changed'] = false;
+          }
         }
         item.edit = function() {
           this._state = 'editing';
