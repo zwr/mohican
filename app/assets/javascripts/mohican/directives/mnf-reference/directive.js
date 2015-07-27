@@ -7,12 +7,11 @@
         return {
           scope: {
             owner:    '=?',
-            mnfField: '@',
-            mnfLabel: '@',
-            mnfRefId: '@',
-
-            mnfRefFields: '=',
-            mnfRefResource: '@'
+            mnfLabel:       '@',
+            mnfRefResource: '@',
+            mnfRefId:       '@',
+            mnfField:       '@',
+            mnfFieldSource: '='
           },
           restrict:    'E',
           require:     '^mnfForm',
@@ -31,7 +30,7 @@
                   scope.mnfDoc._edit[scope.mnfRefId] = selectedItem[scope.owner.refResourceController.primaryKeyName];
                   scope.mnfDoc['_' + scope.mnfRefId + '_changed'] = true;
                   var fieldLabel = '';
-                  scope.mnfRefFields.forEach(function(field) {
+                  scope.mnfFieldSource.forEach(function(field) {
                     fieldLabel += ' ' + selectedItem[field];
                   });
                   scope.mnfDoc._edit[scope.mnfField] = _.trim(fieldLabel);

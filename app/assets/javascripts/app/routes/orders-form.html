@@ -10,11 +10,12 @@
             <mnf-rollback></mnf-rollback>
             <mnf-delete></mnf-delete>
           </div>
-          <mnf-reference mnf-field="creator_name"
-                         mnf-label="Creator:"
+          <mnf-reference mnf-label="Creator:"
+                         mnf-ref-resource="users"
                          mnf-ref-id="creator_ref"
-                         mnf-ref-fields="['name', 'gender']"
-                         mnf-ref-resource="users"></mnf-reference>
+                         mnf-field="creator_name"
+                         mnf-field-source="['name', 'gender']"
+                         ></mnf-reference>
           <mnf-text mnf-field="order_number"
                     mnf-label="Order number:"></mnf-text>
           <mnf-text mnf-field="total"
