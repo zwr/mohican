@@ -7,7 +7,7 @@
 
     ctrl.stateMachine.quickFilterShown = true;
     ctrl.stateMachine.page = 1;
-    ctrl.stateMachine.layout = 'short';
+    ctrl.stateMachine.layout = 'default';
     ctrl.stateMachine.backendFilter = 'default';
     ctrl.mnRouter = mnRouter;
 

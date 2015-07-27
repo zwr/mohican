@@ -1,0 +1,25 @@
+<div ng-if="mnfDoc._state === 'ready' || mnfDoc._state === 'deleting'"
+     class="form-group form-group-sm mn-form-group">
+  <label class="col-sm-4 control-label" for="formGroupInputLarge">{{mnfLabel}}</label>
+  <div class="col-sm-8 state-ready-field-value">
+    <span>{{mnfDoc['_' + mnfField + '_formatted']}}</span>
+  </div>
+</div>
+<div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing'"
+     class="form-group form-group-sm mn-form-group">
+  <label class="col-sm-4 control-label" for="{{mnfField}}">{{mnfLabel}}</label>
+  <div class="col-sm-8">
+    <span type="text"
+           id="{{mnfField}}"
+           class="mn-form-control"
+           ng-disabled="mnfDoc._state === 'committing'"
+           ng-model="mnfDoc._edit[mnfField]"
+           ng-change="textChanged()"
+           ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}">
+      {{mnfDoc[mnfField]}}
+    </span>
+    <a class="btn" ng-click="openRefDialog()">
+      <i class="fa fa-pencil-square-o fa-2x icoNormal"></i>
+    </a>
+  </div>
+</div>
