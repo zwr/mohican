@@ -3,8 +3,7 @@
 (function(mohican) {
   'use strict';
   angular.module('mohican.directives')
-    .directive('mnfReference', ['$controller', '$injector',
-               function($controller, $injector) {
+    .directive('mnfReference', ['$injector', function($injector) {
         return {
           scope: {
             owner:          '=?',
@@ -19,13 +18,6 @@
           templateUrl: 'mohican/directives/mnf-reference/template.html',
 
           link: function(scope, elem, attr, mnfFormCtrl) {
-            $controller(function YourController($scope, dynamnicService) {
-                console.log('ref controller', dynamnicService);
-              }, {
-                $scope: scope,
-                dynamicService: $injector.get($attr.mnfRefResource + 'Service')
-              }
-            );
             scope.owner = mohican.scopeLookup(scope);
 
             scope.mnfDoc = mnfFormCtrl.mnfDoc;
@@ -47,8 +39,9 @@
                   scope.owner.closeDialog();
                 }
               };
+              var service = $injector.get(attr.mnfRefResource + 'Service');
               mohican.extendResourceDriver(scope.owner.refResourceController, service);
-              scope.owner.popDialog('Selected Users', 'mohican/directives/mnf-reference/ref-resource-dialog.html');
+              scope.owner.popDialog('Select from ' + attr.mnfRefResource, 'mohican/directives/mnf-reference/ref-resource-dialog.html');
             };
           }
         };
