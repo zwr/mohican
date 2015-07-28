@@ -1,12 +1,12 @@
 //= require ./template
 //= require_self
 (function(mohican) {
+  'use strict';
   angular.module('mohican.directives')
     .directive('mnfReference', ['usersService', function(service) {
-        'use strict';
         return {
           scope: {
-            owner:    '=?',
+            owner:          '=?',
             mnfLabel:       '@',
             mnfRefResource: '@',
             mnfRefId:       '@',
@@ -38,7 +38,7 @@
                   scope.mnfDoc._state = 'changed';
                   scope.owner.closeDialog();
                 }
-              }
+              };
               mohican.extendResourceDriver(scope.owner.refResourceController, service);
               scope.owner.popDialog('Selected Users', 'mohican/directives/mnf-reference/ref-resource-dialog.html');
             };
