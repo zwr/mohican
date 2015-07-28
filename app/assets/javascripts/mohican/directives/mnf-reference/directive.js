@@ -3,7 +3,8 @@
 (function(mohican) {
   'use strict';
   angular.module('mohican.directives')
-    .directive('mnfReference', ['usersService', function(service) {
+    .directive('mnfReference', ['$controller', '$injector',
+               function($controller, $injector) {
         return {
           scope: {
             owner:          '=?',
@@ -18,6 +19,13 @@
           templateUrl: 'mohican/directives/mnf-reference/template.html',
 
           link: function(scope, elem, attr, mnfFormCtrl) {
+            $controller(function YourController($scope, dynamnicService) {
+                console.log('ref controller', dynamnicService);
+              }, {
+                $scope: scope,
+                dynamicService: $injector.get($attr.mnfRefResource + 'Service')
+              }
+            );
             scope.owner = mohican.scopeLookup(scope);
 
             scope.mnfDoc = mnfFormCtrl.mnfDoc;
