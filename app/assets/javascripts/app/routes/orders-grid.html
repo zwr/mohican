@@ -6,14 +6,20 @@
   </div>
   <div class="mn-grid-layout-row row">
     <div class="col-xs-12 noPad" style="position: static;">
-      <mn-grid mn-select="multiple"
-               mn-select-type="check"
-               mn-on-select="ctrl.onItemSelect(selectedItems)"
-               mn-popup="ctrl.popup(clickedItem, selectedItems)">
-        <a ui-sref="orders-form({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })">
-          <i class="fa fa-file-text-o fa-2x icoNormal"></i>
-        </a>
-      </mn-grid>
+      <mnf-form-grid>
+        <mn-grid mn-select="multiple"
+                 mn-select-type="check"
+                 mn-on-select="ctrl.onItemSelect(selectedItems)"
+                 mn-popup="ctrl.popup(clickedItem, selectedItems)">
+          <a ui-sref="orders-form({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })">
+            <i class="fa fa-file-text-o fa-2x icoNormal"></i>
+          </a>
+          <mnf-edit-grid mnf-doc="item"></mnf-edit-grid>
+          <mnf-commit-grid mnf-doc="item"></mnf-commit-grid>
+          <mnf-rollback-grid mnf-doc="item"></mnf-rollback-grid>
+          <mnf-delete-grid mnf-doc="item"></mnf-delete-grid>
+        </mn-grid>
+      </mnf-form-grid>
     </div>
   </div>
 </div>
