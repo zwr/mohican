@@ -2,7 +2,7 @@
 //= require_self
 
 angular.module('mohican.directives')
-  .directive('mnfDelete', [function() {
+  .directive('mnfDelete', ['$window', function($window) {
       'use strict';
       return {
         scope:       {},
@@ -14,6 +14,12 @@ angular.module('mohican.directives')
 
         link: function(scope, elem, attr, mnfFormCtrl) {
           scope.mnfDoc = mnfFormCtrl.mnfDoc;
+
+          scope.confirmDelete = function() {
+            if($window.confirm('Are you sure that you want to permanently delete document?')) {
+              scope.mnfDoc.delete();
+            }
+          };
         }
       };
     }
