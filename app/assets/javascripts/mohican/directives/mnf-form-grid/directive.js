@@ -10,6 +10,12 @@ angular.module('mohican.directives')
         controller: function() {
           var vm = this;
           vm.currentMnfDoc = null;
+          vm.setCurrenEditingDoc = function(mnDoc) {
+            if(vm.currentMnfDoc) {
+              vm.currentMnfDoc.rollback();
+            }
+            vm.currentMnfDoc = mnDoc;
+          };
         }
       };
     }

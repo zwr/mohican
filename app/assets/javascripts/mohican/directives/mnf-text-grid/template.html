@@ -1,0 +1,15 @@
+<div ng-if="mnfDoc._state === 'ready' || mnfDoc._state === 'deleting'">
+  <span>
+    {{mnfDoc['_' + mnfField + '_formatted']}}
+  </span>
+</div>
+<div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing'">
+  <span>
+    <input type="text"
+           class="form-control mn-form-control"
+           ng-disabled="mnfDoc._state === 'committing'"
+           ng-model="mnfDoc._edit[mnfField]"
+           ng-change="textChanged()"
+           ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}"></input>
+  </span>
+</div>

@@ -13,17 +13,9 @@ angular.module('mohican.directives')
         templateUrl: 'mohican/directives/mnf-edit-grid/template.html',
 
         link: function(scope, elem, attr, mnfFormGridCtrl) {
-          scope.$watch(function() { return mnfFormGridCtrl.currentMnfDoc; },
-                        function(newValue) {
-                          if(newValue !== scope.mnfDoc) {
-                            scope.mnfDoc.rollback();
-                          }
-                          scope.currentMnfDoc = newValue;
-                        });
-
           scope.editItem = function() {
             scope.mnfDoc.edit();
-            mnfFormGridCtrl.currentMnfDoc = scope.mnfDoc;
+            mnfFormGridCtrl.setCurrenEditingDoc(scope.mnfDoc);
           };
         }
       };

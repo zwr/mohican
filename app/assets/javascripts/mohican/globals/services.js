@@ -468,8 +468,8 @@
           }
         }
         item.edit = function() {
-          this._state = 'editing';
-          this._edit = _.cloneDeep(this);
+          item._state = 'editing';
+          item._edit = _.cloneDeep(item);
         };
 
         item.commit = function() {
@@ -482,13 +482,13 @@
             var data = {};
             data[service.layout.doctype] = item._getDiffs();
             service.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + item[service.layout.primaryKeyName] + '.json', data)
-              .then(function(resp) {
+              .then(function() {
                 service.theCommitPromise = null;
                 for(var field in item) {
                   if(_.endsWith(field, '_changed')) {
                     item[field] = false;
                   }
-                  else if(_.endsWith(field, '_formatted')) {
+                  if(service._isMohicanField(field)) {
                     //do noting
                   }
                   else {
@@ -526,7 +526,7 @@
             var data = {};
             data[service.layout.doctype] = item._edit;
             service.theDeletePromise = $http.delete(window.MN_BASE + '/' + apiResource + '/' + item[service.layout.primaryKeyName] + '.json', data)
-              .then(function(resp) {
+              .then(function() {
                 service.theDeletePromise = null;
                 for(var field in item) {
                   if(_.endsWith(field, '_changed')) {

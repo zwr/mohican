@@ -13,10 +13,6 @@ angular.module('mohican.directives')
         templateUrl: 'mohican/directives/mnf-commit-grid/template.html',
 
         link: function(scope, elem, attr, mnfFormGridCtrl) {
-          scope.$watch(function() { return mnfFormGridCtrl.currentMnfDoc; },
-                        function(newValue) {
-                          scope.currentMnfDoc = newValue;
-                        });
           scope.commitItem = function() {
             scope.mnfDoc.commit();
             mnfFormGridCtrl.currentMnfDoc = null;

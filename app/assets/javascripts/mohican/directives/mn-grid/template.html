@@ -73,19 +73,16 @@
         </td>
       </tr>
       <tr ng-repeat="item in grid.owner.items"
--          mn-right-click="grid.rightClick(item, $event)"
--          ng-class="{'last-selected': grid.isLastSelected(item)}">
+          mn-right-click="grid.rightClick(item, $event)"
+          ng-class="{'last-selected': grid.isLastSelected(item)}">
         <td ng-show="grid.showSelectColumn">
           <input type="checkbox" class="baseFont3x"
                  ng-checked="grid.isItemSelected(item)"
                  ng-click="grid.selectionChanged(item, $event)">
         </td>
         <td ng-repeat="field in grid.owner.fields" style="overflow: hidden;">
-          <div>
-            <span>
-              {{item['_' + field.name + '_formatted']}}
-            </span>
-          </div>
+          <mnf-text-grid mnf-field="{{field.name}}" mnf-doc="item">
+          </mnf-text-grid>
         </td>
         <td>
           <mn-grid-actions />
@@ -106,11 +103,8 @@
                  ng-click="grid.selectionChanged(item)">
         </td>
         <td ng-repeat="field in grid.owner.fields" style="overflow: auto;">
-          <div>
-            <span>
-              {{item['_' + field.name + '_formatted']}}
-            </span>
-          </div>
+          <mnf-text-grid mnf-field="{{field.name}}" mnf-doc="item">
+          </mnf-text-grid>
         </td>
         <td>
           <mn-grid-actions />

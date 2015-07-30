@@ -13,11 +13,6 @@ angular.module('mohican.directives')
         templateUrl: 'mohican/directives/mnf-rollback-grid/template.html',
 
         link: function(scope, elem, attr, mnfFormGridCtrl) {
-          scope.$watch(function() { return mnfFormGridCtrl.currentMnfDoc; },
-                        function(newValue) {
-                          scope.currentMnfDoc = newValue;
-                        });
-
           scope.rollbackItem = function() {
             scope.mnfDoc.rollback();
             mnfFormGridCtrl.currentMnfDoc = null;
