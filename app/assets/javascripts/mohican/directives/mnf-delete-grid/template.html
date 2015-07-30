@@ -1,10 +1,8 @@
-<button class="btn btn-danger"
-        ng-disabled="mnfDoc._state === 'deleting'"
-        ng-if="mnfDoc._state === 'ready' || mnfDoc._state === 'deleting'"
-        ng-click="confirmDelete()">
-  <span ng-style="mnfDoc._state === 'deleting' ? {float: 'left'} : {}">delete</span>
+<a ng-click="confirmDelete()">
+  <i class="fa fa-trash-o fa-2x icoNormal"
+     ng-if="mnfDoc._state === 'ready'"></i>
   <span class="loader"
-        ng-show="mnfDoc._state === 'deleting'"
-        style="float: left; margin: 0px 0px 0px 8px;">
+        ng-if="mnfDoc._state === 'deleting'"
+        style="display: block; margin-top: -25px;">
   </span>
-</button>
+</a>

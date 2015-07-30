@@ -21,7 +21,7 @@
   animation: load2 2s infinite ease 1.5s;
 }
 .loader {
-  font-size: 2px;
+  font-size: 1.65px;
   text-indent: -99999em;
   margin: 5em auto;
   position: relative;

@@ -14,8 +14,10 @@ angular.module('mohican.directives')
 
         link: function(scope, elem, attr, mnfFormGridCtrl) {
           scope.editItem = function() {
-            scope.mnfDoc.edit();
-            mnfFormGridCtrl.setCurrenEditingDoc(scope.mnfDoc);
+            if(scope.mnfDoc._state === 'ready') {
+              scope.mnfDoc.edit();
+              mnfFormGridCtrl.setCurrenEditingDoc(scope.mnfDoc);
+            }
           };
         }
       };

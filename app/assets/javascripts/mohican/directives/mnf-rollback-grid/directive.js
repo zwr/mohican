@@ -14,8 +14,11 @@ angular.module('mohican.directives')
 
         link: function(scope, elem, attr, mnfFormGridCtrl) {
           scope.rollbackItem = function() {
-            scope.mnfDoc.rollback();
-            mnfFormGridCtrl.currentMnfDoc = null;
+            if(scope.mnfDoc._state === 'editing' ||
+               scope.mnfDoc._state === 'changed') {
+              scope.mnfDoc.rollback();
+              mnfFormGridCtrl.currentMnfDoc = null;
+            }
           };
         }
       };

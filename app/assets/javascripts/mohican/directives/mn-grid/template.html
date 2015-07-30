@@ -72,11 +72,12 @@
           No items to show
         </td>
       </tr>
-      <tr ng-repeat="item in grid.owner.items"
+      <tr class="mn-grid-data-row"
+          ng-repeat="item in grid.owner.items"
           mn-right-click="grid.rightClick(item, $event)"
           ng-class="{'last-selected': grid.isLastSelected(item)}">
         <td ng-show="grid.showSelectColumn">
-          <input type="checkbox" class="baseFont3x"
+          <input type="checkbox" class="baseFont3x mn-grid-select-box"
                  ng-checked="grid.isItemSelected(item)"
                  ng-click="grid.selectionChanged(item, $event)">
         </td>
@@ -96,9 +97,12 @@
           No items to show
         </td>
       </tr>
-      <tr ng-repeat="item in grid.selectedItems" mn-right-click="grid.rightClick(item, $event)">
+      <tr class="mn-grid-data-row"
+          ng-repeat="item in grid.selectedItems"
+          mn-right-click="grid.rightClick(item, $event)">
         <td ng-show="grid.showSelectColumn">
           <input type="checkbox"
+                 class="baseFont3x mn-grid-select-box"
                  ng-checked="grid.isItemSelected(item)"
                  ng-click="grid.selectionChanged(item)">
         </td>
