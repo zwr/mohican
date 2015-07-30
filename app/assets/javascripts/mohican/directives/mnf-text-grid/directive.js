@@ -13,6 +13,9 @@ angular.module('mohican.directives')
         templateUrl: 'mohican/directives/mnf-text-grid/template.html',
 
         link: function(scope) {
+          if(!scope.mnfDoc._state) {
+            scope.mnfDoc._state = 'ready';
+          }
           scope.textChanged = function() {
             scope.mnfDoc['_' + scope.mnfField + '_changed'] = true;
             scope.mnfDoc._state = 'changed';

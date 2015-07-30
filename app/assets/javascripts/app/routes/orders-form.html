@@ -32,11 +32,17 @@
               </mn-grid>
             </mn-tab>
             <mn-tab heading="Products">
-              <mn-grid owner="ctrl.productsDrv">
-                <a ui-sref="products-form({ itemPrimaryKeyId: item.product_ref })">
-                  <i class="fa fa-file-text-o fa-2x icoNormal"></i>
-                </a>
-              </mn-grid>
+              <mnf-form-grid>
+                <mn-grid owner="ctrl.productsDrv">
+                  <a ui-sref="products-form({ itemPrimaryKeyId: item.product_ref })">
+                    <i class="fa fa-file-text-o fa-2x icoNormal"></i>
+                  </a>
+                  <mnf-edit-grid mnf-doc="item"></mnf-edit-grid>
+                  <mnf-commit-grid mnf-doc="item"></mnf-commit-grid>
+                  <mnf-rollback-grid mnf-doc="item"></mnf-rollback-grid>
+                  <mnf-delete-grid mnf-doc="item"></mnf-delete-grid>
+                </mn-grid>
+              </mnf-form-grid>
             </mn-tab>
           </mn-tabs>
         </mnf-form>
