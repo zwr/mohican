@@ -14,8 +14,7 @@ angular.module('mohican.directives')
 
         link: function(scope, elem, attr, mnfFormGridCtrl) {
           scope.commitItem = function() {
-            if(scope.mnfDoc._state === 'editing' ||
-               scope.mnfDoc._state === 'changed') {
+            if(scope.mnfDoc._state === 'changed') {
               scope.mnfDoc.commit();
               mnfFormGridCtrl.currentMnfDoc = null;
             }
