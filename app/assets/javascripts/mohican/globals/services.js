@@ -3,6 +3,7 @@
 
   mohican.constructBaseService = function(apiResource, $http, $q) {
     var service = {};
+    _.assign(service, mohican.mixins.dataFieldsMixin);
     mohican.extendBaseService(service, apiResource, $http, $q);
     return service;
   };
@@ -335,20 +336,9 @@
       });
     };
 
-    service._getDataField = function(dataFields, name) {
-      var field;
-      dataFields.forEach(function(dField) {
-        if(dField.name === name) {
-          field = dField;
-          return;
-        }
-      });
-      return field;
-    };
-
     service._sort = function(collection, prop, asc, dataFields) {
       var timeStart = Date.now();
-      var dataField = service._getDataField(dataFields, prop);
+      var dataField = service.getDataField(dataFields, prop);
 
       if(dataField) {
         collection = _.sortBy(collection, function (obj) {
@@ -371,7 +361,7 @@
               filtered = false;
               break;
             }
-            var dataField = service._getDataField(dataFields, key);
+            var dataField = service.getDataField(dataFields, key);
             if(dataField && dataField.quickfilter === 'date-range') {
               filtered = filtered && (value >= filter.startDate && value <= filter.endDate);
             }
@@ -443,8 +433,8 @@
     service._parseFieldTypes = function(buffer, dataFields) {
       buffer.forEach(function(item) {
         for(var field in item) {
-          if(!service._isMohicanField(field)) {
-            var dataField = service._getDataField(dataFields, field);
+          if(!service.isMohicanField(field)) {
+            var dataField = service.getDataField(dataFields, field);
             if(dataField) {
               service._parseField(item, dataField);
             }
@@ -462,9 +452,9 @@
       buffer.forEach(function(item) {
         item._state = 'ready';
         //initial create _changed fields on every item
-        for(var field in item) {
-          if(!service._isMohicanField(field)) {
-            item['_' + field + '_changed'] = false;
+        for(var ifield in item) {
+          if(!service.isMohicanField(ifield)) {
+            item['_' + ifield + '_changed'] = false;
           }
         }
         item.edit = function() {
@@ -488,12 +478,12 @@
                   if(_.endsWith(field, '_changed')) {
                     item[field] = false;
                   }
-                  if(service._isMohicanField(field)) {
+                  if(service.isMohicanField(field)) {
                     //do noting
                   }
                   else {
                     item[field] = item._edit[field];
-                    var dataField = service._getDataField(dataFields, field);
+                    var dataField = service.getDataField(dataFields, field);
                     if(dataField) {
                       service._parseField(item, dataField);
                     }
@@ -547,7 +537,7 @@
         item._getDiffs = function() {
           var diffObject = {};
           for(var field in item) {
-            if(!service._isMohicanField(field) &&
+            if(!service.isMohicanField(field) &&
                item['_' + field + '_changed']) {
               diffObject[field] = item._edit[field];
             }
@@ -568,19 +558,6 @@
       service._fullyLoadedPromise.resolve();
       service.nextCloned = 1;
       trace('data are fully loaded');
-    };
-
-    service._isMohicanField = function(fieldName) {
-      if(_.startsWith(fieldName, '_') ||
-         fieldName === 'edit' ||
-         fieldName === 'commit' ||
-         fieldName === 'rollback' ||
-         fieldName === 'delete') {
-        return true;
-      }
-      else {
-        return false;
-      }
     };
 
     return service;

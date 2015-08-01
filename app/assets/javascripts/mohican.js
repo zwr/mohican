@@ -13,6 +13,7 @@
 //= require ./mohican/lib/angular-animate
 
 //= require ./mohican/globals/base.globals
+//= require ./mohican/mixins/base.mixins
 //= require ./mohican/services/base.service
 //= require ./mohican/directives/base.directive
 //= require_tree ./mohican/old-directives
