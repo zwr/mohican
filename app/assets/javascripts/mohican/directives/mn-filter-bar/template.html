@@ -1,8 +1,6 @@
-<div class="row filterBar">
-  <div class="col-xs-12 vmiddle">
-    <div class="filter-bar-item" ng-show="filterBar.owner.layouts.length > 1">
-      <div isteven-multi-select
-            class="inline-multi-select filter-bar-dropDown"
+<div class="btn-toolbar">
+      <div isteven-multi-select ng-show="filterBar.owner.layouts.length > 1"
+            class="primary fleft"
             input-model="filterBar.owner.layouts"
             on-item-click="filterBar.owner.clientLayoutChanged(data.name)"
             output-model="filterBar.outputBrowsers"
@@ -10,13 +8,10 @@
             item-label="name desc"
             tick-property="selected"
             selection-mode="single"
-            helper-elements=""
-            style="width: 140px;">
+            helper-elements="">
       </div>
-    </div>
-    <div class="filter-bar-item" ng-show="filterBar.owner.backendFilters.length > 1">
-      <div isteven-multi-select
-            class="inline-multi-select filter-bar-dropDown"
+      <div isteven-multi-select ng-show="filterBar.owner.backendFilters.length > 1"
+            class="primary fleft"
             input-model="filterBar.owner.backendFilters"
             on-item-click="filterBar.owner.getBackendFilter(data.name)"
             output-model="filterBar.outputBrowsers"
@@ -24,29 +19,24 @@
             item-label="name"
             tick-property="selected"
             selection-mode="single"
-            helper-elements=""
-            style="width: 140px;">
+            helper-elements="">
       </div>
-    </div>
-    <div class="filter-bar-item">
       <button type="button"
-              class="btn btn-primary filter-bar-button"
+              class="btn btn-primary"
               ng-model="filterBar.owner.stateMachine.quickFilterShown"
               ng-change="filterBar.owner.toggleQuickFilter()"
               btn-checkbox
               btn-checkbox-true="true"
               btn-checkbox-false="false"
               ng-disabled="!filterBar.owner.fullyLoaded">
-        <span style="float: left;">Quick Filter</span>
-        <span class="loader" ng-show="!filterBar.owner.fullyLoaded" style="float: left; margin: 0px 0px 0px 8px;"></span>
+        <span class="fleft">Quick Filter</span>
+        <span class="loader fleft" ng-show="!filterBar.owner.fullyLoaded" style="margin: 0px 0px 0px 8px;"></span>
       </button>
-    </div>
-    <div class="alert alert-warning filter-bar-item filter-bar-alert"
-         role="alert"
-         ng-show="!filterBar.owner.fullyLoaded && filterBar.owner.clientViewLoadingNotification">
-      <strong>Warning!</strong> You will be shown filtered and sorted data when
-      fully loaded or you can clear requested fiter and sort parameters
-      <button ng-click="filterBar.owner.clearClientSortAndFilter()">here</button>
-    </div>
-  </div>
+      <div class="alert alert-warning"
+           role="alert"
+           ng-show="!filterBar.owner.fullyLoaded && filterBar.owner.clientViewLoadingNotification">
+        <strong>Warning!</strong> You will be shown filtered and sorted data when
+        fully loaded or you can clear requested fiter and sort parameters
+        <button ng-click="filterBar.owner.clearClientSortAndFilter()">here</button>
+      </div>
 </div>

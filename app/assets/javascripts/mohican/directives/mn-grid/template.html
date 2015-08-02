@@ -20,19 +20,18 @@
             {{field.header}}
           </span>
           <span ng-show="grid.owner.stateMachine.column === field.name && grid.owner.fullyLoaded && !grid.onlySelectedItemsShown"
-                class="pull-right grid-header-field-dir "
-                ng-class="grid.owner.stateMachine.direction === 'desc' ? 'glyphicon glyphicon-arrow-up' : 'glyphicon glyphicon-arrow-down'"
+                ng-class="grid.owner.stateMachine.direction === 'desc' ? 'accenTriangleUp' : 'accenTriangleDown'"
                 aria-hidden="true"></span>
         </th>
         <th class="grid-header-container"></th>
         <th class="grid-header-container"></th>
       </tr>
       <tr>
-        <th ng-show="grid.showSelectColumn" class="QfRow">
+        <th ng-show="grid.showSelectColumn" class="qf-row">
           <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
           </div>
         </th>
-        <th ng-repeat="field in grid.owner.fields" class="QfRow" ng-class="{'disabled' : grid.onlySelectedItemsShown}">
+        <th ng-repeat="field in grid.owner.fields" class="qf-row" ng-class="{'disabled' : grid.onlySelectedItemsShown}">
           <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
             <div class="filterFieldBgWrap" ng-if="field.quickfilter === 'text' || field.quickfilter === 'date-range'">
               <mn-qf-text
@@ -56,11 +55,11 @@
                     field="field"></mn-qf-select>
           </div>
         </th>
-        <th class="QfRow">
+        <th class="qf-row">
           <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
           </div>
         </th>
-        <th class="QfRow">
+        <th class="qf-row">
           <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
           </div>
         </th>

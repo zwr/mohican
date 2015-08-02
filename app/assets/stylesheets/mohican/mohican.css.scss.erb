@@ -1,14 +1,28 @@
 @import "config";
-// @import "config_c5a";
+@import "includes/angular-multi-select";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "rails_bootstrap_forms";
-@import "includes/angular-multi-select";
 @import "includes/daterangepicker-bs3";
 @import "includes/css-spinner";
 @import "includes/animate";
+
+// mixins
+
+// basic bootstrap "buttonizer" for overrinding existing vendor component style
+@mixin bs-btnize($variant) {
+  @extend .btn;
+  @extend .btn-#{$variant};
+}
+
+// reseting positioning & box model for isteven-multi-select existing vendor component style
+@mixin multi-select-reset-pbm($pad,$lmargin) {
+  padding: $pad + px ($pad * 4) + px $pad + px ($pad * 4) + px; // compensate for the inner .multiSelect .buttonLabel padding
+  margin-left: $lmargin + px;
+}
+
 
 @media(max-width: $grid-float-breakpoint - 1 /*767px*/) {
   .navbar-text {
@@ -54,29 +68,8 @@ a.navbar-brand {
   background-size: contain;
 }
 
-.navbar-static-top, .navbar-inverse {
-  background: linear-gradient(rgba(0,0,0,1), rgba(0,0,0,0)) !important;
-}
-
-.navbar-static-top > .container-fluid {
-  padding-right: 0px !important;
-}
-
-.navbar-inverse {
-  border:0 !important;
-}
-
-.filterRowAnimWrap.ng-hide-add,
-.filterRowAnimWrap.ng-hide-remove {
-  transition:1.0s linear all;
-  display:block !important;
-  opacity:1;
-  transform: scale(1);
-}
-
-.filterRowAnimWrap.ng-hide {
-  opacity:0;
-  transform: scale(0.2);
+mn-filter-bar .btn-toolbar {
+  margin-bottom: $mn-filter-bar-btmPad;
 }
 
 .filterRowAnimWrap input[type="text"] {
@@ -88,21 +81,6 @@ a.navbar-brand {
     border-radius: 0px !important;
     padding: 1px !important;
     margin-right: 1px !important;
-}
-
-.mn-select-filter button {
-  max-height: 34px !important;
-  max-width: 100px;
-  width: 92px;
-  height: 34px;
-  display: block;
-  overflow: hidden;
-}
-
-.filter-bar-dropDown button, .QfRow button, .filter-bar-button {
-  background-color: $mn-filter-bar-dropDown-background-color;
-  border-radius: 3px;
-  border:0;
 }
 
 .filter-bar-dropDown button {
@@ -120,25 +98,19 @@ a.navbar-brand {
   border: 0 !important;
 }
 
-.QfRow button {
-  background: $mn-colorscheme-2L;
-  padding: 3px 1px 2px 3px !important;
-  height:auto !important;
+.success .multiSelect button {
+  @include multi-select-reset-pbm(2,2);
+  @include bs-btnize("success");
 }
 
-.QfRow .multiSelect .multiSelectItem.selected:not(.multiSelectGroup) {
-  background-image: linear-gradient($mn-colorscheme-2M, $mn-colorscheme-2L) !important;
+.qf-row .multiSelect .multiSelectItem.selected:not(.multiSelectGroup) {
+  background-image: linear-gradient($mn-colorscheme-2M, $mn-colorscheme-2L);
   border: 0 !important;
 }
 
-.QfRow .multiSelect .multiSelectItem:hover, .QfRow .multiSelect .multiSelectGroup:hover {
-  background-image: linear-gradient($mn-colorscheme-2V, $mn-colorscheme-2D) !important;
+.qf-row .multiSelect .multiSelectItem:hover, .qf-row .multiSelect .multiSelectGroup:hover {
+  background-image: linear-gradient($mn-colorscheme-2V, $mn-colorscheme-2D);
   border: 0 !important;
-}
-
-.multiSelect .buttonLabel {
-  padding: $mn-button-label-pad !important;
-  font-weight: 400;
 }
 
 mn-grid th {
@@ -155,8 +127,6 @@ mn-grid th.mn-sortable {
   color: #444 !important;
 }
 
-.mn-grid-layout-row { margin-top: $mn-grid-layout-row; }
-
 .mn-grid-data-row {
   height: 43px;
 }
@@ -168,6 +138,7 @@ mn-grid th.mn-sortable {
 .mn-grid-select-box {
   margin-top: 10px !important;
 }
+
 mn-grid tr.last-selected {
   border-left-color: blue;
   border-left-style: solid;
@@ -260,15 +231,18 @@ mnf-reference .ref-edit-label {
   padding: 4px 4px 4px 4px;
 }
 
-.filter-bar-button.active {
+.filterBar .btn.active {
   background: $mn-grid-header-container-bg;
-  border: 2px solid $mn-filter-bar-button-brdr-color;
   color: $mn-filter-bar-button-active-text-color;
   font-weight: 500;
+  -webkit-box-shadow: 0px 0px 4px $mn-colorscheme-2V inset;
+  -moz-box-shadow: 0px 0px 4px $mn-colorscheme-2V inset;
+  box-shadow: 2px 2px 5px $mn-colorscheme-2D inset !important;
 }
 
-.filter-bar-item span.multiSelect > button {
-  width: 140px;
+.primary .multiSelect button {
+  @include multi-select-reset-pbm(1,5);
+  @include bs-btnize("primary");
 }
 
 .filter-bar-dropDown button .buttonLabel span.caret {
@@ -284,11 +258,7 @@ mnf-reference .ref-edit-label {
   border-top: 6px solid #fff;
 }
 
-.filterBar .btn {
-  padding-bottom: 7px;
-}
-
-.QfRow, .table > thead > tr th.QfRow {
+.qf-row, .table > thead > tr th.qf-row {
   background: $mn-qfilter-subheader-background;
   padding: 2px 1px 4px 1px !important;
   border: 0 !important;
@@ -397,50 +367,6 @@ mn-navbar-right mn-menu-group li.navbar-text{
   margin-right: 0px;
   padding-left: 15px;
   padding-right: 15px;
-}
-
-mn-navbar-collapsible-left .navbar-nav , #navbar-steady {
-  padding-left: 10px;
-  position:relative;
-}
-
-#navbar-steady {
-  background: rgba(#000,.3);
-  background:
-        linear-gradient(45deg, transparent 10px, rgba(#000,.3) 10px);
-  background-position: bottom left;
-  background-repeat: no-repeat;
-}
-
-mn-navbar-collapsible-left .navbar-nav {
-  margin-left: 20px;
-  background: rgba(#000,.3);
-  background:
-        linear-gradient(45deg, transparent 10px, rgba(#000,.3) 10px),
-        linear-gradient(315deg, transparent 10px, rgba(#000,.3) 10px);
-  background-position: bottom left, bottom right;
-   -moz-background-size: 50% 100%;
-   -webkit-background-size: 50% 100%;
-  background-size: 50% 100%;
-  background-repeat: no-repeat;
-}
-
-mn-navbar-collapsible-left .navbar-nav:before, #navbar-steady:before {
-  content: ' ';
-  position: absolute;
-  left: 0px;
-  bottom:0px;
-  width: 13px;
-  height: 13px;
-  background:
-    linear-gradient(45deg, transparent 9px, $mn-colorscheme-1V 0) bottom left;
-  background-repeat: no-repeat;
-  overflow:hidden;
-}
-
-#navbar-steady:before {
-  background:
-    linear-gradient(45deg, transparent 9px, $mn-colorscheme-3D 0) bottom left;
 }
 
 mn-menu-group-item > li:hover, mn-menu-group-item > li:focus {
@@ -587,6 +513,7 @@ mn-item-reports > div, .block {
   border-right: 0 ;
   background: $mn-grid-header-container-bg;
   vertical-align: middle !important;
+  position: relative;
 }
 
 .grid-header-field-name {
@@ -594,12 +521,6 @@ mn-item-reports > div, .block {
   display: inline !important;
   float: left;
   overflow: hidden;
-}
-
-.grid-header-field-dir {
-  margin-right: 0px;
-  display: inline !important;
-  float: left;
 }
 
 .mn-context-menu {
@@ -701,6 +622,23 @@ td.mn-content-container {
   overflow:hidden;
 }
 
+.accenTriangleUp, .accenTriangleDown {
+  content: ' ';
+  position: absolute;
+  right: 1px;
+  border: 8px solid transparent;
+  border-top: 8px solid $mn-colorscheme-2A;
+  border-right: 8px solid $mn-colorscheme-2A;
+}
+
+.accenTriangleUp {top: 1px;}
+
+.accenTriangleDown {
+  bottom: 1px !important;
+  border-bottom: 8px solid $mn-colorscheme-2A;
+  border-top: 8px solid transparent;
+}
+
 //generic modifier styles
 
 // fix for inset shadow bug of the table-containing div, to be uniform on striped rows, because shadow is not visible on opaque background
@@ -709,7 +647,7 @@ td.mn-content-container {
 }
 
 // removing webkit active & focus markup
-.filter-bar-button.active, .filter-bar-button:focus, .QfRow button.active, .QfRow button:focus,
+.btn.active, .btn:focus,
 .filterRowAnimWrap input[type="text"],
 .nav-tabs li a:focus, .nav-tabs li a.active, .nav-tabs li a:active, a.navbar-brand.active, a.navbar-brand:focus {
   outline:none !important;
@@ -739,10 +677,6 @@ td.mn-content-container {
   width: 33%;
 }
 
-.spacerT15 {
-  margin-top: 15px;
-}
-
 .baseFont1_5x {
   font-size:$font-size-base * 1.5;
 }
@@ -753,6 +687,10 @@ td.mn-content-container {
 
 .noPad {
   padding:0 !important;
+}
+
+.fleft {
+  float: left !important;
 }
 
 .left {
