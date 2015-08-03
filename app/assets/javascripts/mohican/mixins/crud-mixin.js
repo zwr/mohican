@@ -9,6 +9,7 @@
   mohican.mixins.crudMixin.theDeletePromise = null;
 
   mohican.mixins.crudMixin.prepareDocumentsCrudOperations = function(buffer, dataFields, $http, apiResource, layout) {
+    var isArray = function(obj) { return Object.prototype.toString.call(obj) === '[object Array]'; };
     var that = this;
     buffer.forEach(function(item) {
       item._state = 'ready';
@@ -16,6 +17,9 @@
       for(var ifield in item) {
         if(!that.isMohicanField(ifield)) {
           item['_' + ifield + '_changed'] = false;
+          if(isArray(item[ifield])) {
+            that.prepareSubDocumentsCrudOperations(item[ifield], []);
+          }
         }
       }
       item.edit = function() {
@@ -106,6 +110,67 @@
           }
         }
         return diffObject;
+      };
+    });
+  };
+
+  mohican.mixins.crudMixin.prepareSubDocumentsCrudOperations = function(buffer, dataFields) {
+    var that = this;
+    buffer.forEach(function(item) {
+      item._state = 'ready';
+      //initial create _changed fields on every item
+      for(var ifield in item) {
+        if(!that.isMohicanField(ifield)) {
+          item['_' + ifield + '_changed'] = false;
+        }
+      }
+      item.edit = function() {
+        item._state = 'editing';
+        item._edit = _.cloneDeep(item);
+      };
+
+      item.commit = function() {
+        item._state = 'committing';
+        for(var field in item) {
+          if(_.endsWith(field, '_changed')) {
+            item[field] = false;
+          }
+          if(that.isMohicanField(field)) {
+            //do noting
+          }
+          else {
+            item[field] = item._edit[field];
+            var dataField = that.getDataField(dataFields, field);
+            if(dataField) {
+              that._parseField(item, dataField);
+            }
+            else {
+              that._parseField(item, {name: field});
+            }
+          }
+        }
+        item._state = 'ready';
+      };
+      item.rollback = function() {
+        delete this._edit;
+        this._state = 'ready';
+        for(var field in item) {
+          if(_.endsWith(field, '_changed')) {
+            item[field] = false;
+          }
+        }
+      };
+      item.delete = function() {
+        for(var field in item) {
+          if(_.endsWith(field, '_changed')) {
+            item[field] = false;
+          }
+        }
+        item._state = 'deleted';
+        var index = buffer.indexOf(item);
+        if(index !== -1) {
+          buffer.splice(index, 1);
+        }
       };
     });
   };
