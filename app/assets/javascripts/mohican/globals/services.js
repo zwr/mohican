@@ -4,6 +4,7 @@
   mohican.constructBaseService = function(apiResource, $http, $q) {
     var service = {};
     _.assign(service, mohican.mixins.dataFieldsMixin);
+    _.assign(service, mohican.mixins.crudMixin);
     mohican.extendBaseService(service, apiResource, $http, $q);
     return service;
   };
@@ -125,8 +126,8 @@
           .then(function(resp) {
             service.thePromise = null;
             if(service.bufferBackendFilter === backendFilter) {
-              service._prepareDocumentsCrudOperations(resp.data.items, dataFields);
-              service._parseFieldTypes(resp.data.items, dataFields);
+              service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, apiResource, service.layout);
+              service.parseFieldTypes(resp.data.items, dataFields);
               service.buffer = resp.data.items;
               service.totalCount = resp.data.total_count;
               service.bottomIndex = resp.data.offset;
@@ -184,8 +185,8 @@
             service.thePromise = null;
             // if we were told to stop, just do nothing
             if(service.beEager) {
-              service._prepareDocumentsCrudOperations(resp.data.items, dataFields);
-              service._parseFieldTypes(resp.data.items, dataFields);
+              service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, apiResource, service.layout);
+              service.parseFieldTypes(resp.data.items, dataFields);
               if(service.nextEagerGrowthForward) {
                 service.topIndex += resp.data.items.length;
                 service.buffer.append(resp.data.items);
@@ -306,8 +307,8 @@
                 item2items.push(resp.data);
               }
               // check if it is really resp.data or something similar
-              service._prepareDocumentsCrudOperations(item2items, dataFields);
-              service._parseFieldTypes(item2items, dataFields);
+              service.prepareDocumentsCrudOperations(item2items, dataFields, $http, apiResource, service.layout);
+              service.parseFieldTypes(item2items, dataFields);
               service.buffer = item2items;
               // now write this data honestly, as it is: back end count is
               // 1, because we only fetched one document, and there is no
@@ -386,165 +387,6 @@
         return filtered;
       });
       return collection;
-    };
-
-    service._setFormattedDateField = function(item, field) {
-      item['_' + field.name + '_formatted'] = (item[field.name] ? moment(item[field.name]).format(field.format) : '');
-    };
-    service._setFormattedNumberField = function(item, field) {
-      var decimalParams = field.view.slice(7, field.view.length - 1);
-      item['_' + field.name + '_formatted'] = (item[field.name] ? item[field.name].toFixed(decimalParams) : '');
-    };
-    service._setFormattedTextField = function(item, field) {
-      item['_' + field.name + '_formatted'] = (item[field.name] ? item[field.name] : '');
-    };
-    service._parseField = function(item, field) {
-      if(field && field.view === 'date') {
-        if(item[field.name]) {
-          //do not cast if it is already Date()
-          if(!(item[field.name] instanceof Date)) {
-            item[field.name] = new Date(item[field.name]);
-            // If the date is illegal, getTime returns NaN
-            if(isNaN(item[field.name].getTime())) {
-              item[field.name] = null;
-              trace('Illegal date received');
-            }
-          }
-        }
-        else {
-          // this is to avoid undefined and null values.
-          // but this also will not allow 0, date has to be string.
-          item[field.name] = null;
-        }
-        field.format = 'DD.MM.YYYY.';//TODO: store format information in db
-        service._setFormattedDateField(item, field);
-      }
-      else if(field && (_.startsWith(field.view, 'number'))) {
-        service._setFormattedNumberField(item, field);
-      }
-      else if(field && field.view === 'text') {
-        service._setFormattedTextField(item, field);
-      }
-      else {
-        //just copy content
-        item['_' + field.name + '_formatted'] = (item[field.name] ? item[field.name] : '');
-      }
-    };
-    service._parseFieldTypes = function(buffer, dataFields) {
-      buffer.forEach(function(item) {
-        for(var field in item) {
-          if(!service.isMohicanField(field)) {
-            var dataField = service.getDataField(dataFields, field);
-            if(dataField) {
-              service._parseField(item, dataField);
-            }
-            else {
-              service._parseField(item, {name: field});
-            }
-          }
-        }
-      });
-    };
-
-    service.theCommitPromise = null;
-    service.theDeletePromise = null;
-    service._prepareDocumentsCrudOperations = function(buffer, dataFields) {
-      buffer.forEach(function(item) {
-        item._state = 'ready';
-        //initial create _changed fields on every item
-        for(var ifield in item) {
-          if(!service.isMohicanField(ifield)) {
-            item['_' + ifield + '_changed'] = false;
-          }
-        }
-        item.edit = function() {
-          item._state = 'editing';
-          item._edit = _.cloneDeep(item);
-        };
-
-        item.commit = function() {
-          item._state = 'committing';
-          if(service.theCommitPromise) {
-            return service.theCommitPromise.then(function() {
-              item.commit();
-            });
-          } else {
-            var data = {};
-            data[service.layout.doctype] = item._getDiffs();
-            service.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + item[service.layout.primaryKeyName] + '.json', data)
-              .then(function() {
-                service.theCommitPromise = null;
-                for(var field in item) {
-                  if(_.endsWith(field, '_changed')) {
-                    item[field] = false;
-                  }
-                  if(service.isMohicanField(field)) {
-                    //do noting
-                  }
-                  else {
-                    item[field] = item._edit[field];
-                    var dataField = service.getDataField(dataFields, field);
-                    if(dataField) {
-                      service._parseField(item, dataField);
-                    }
-                    else {
-                      service._parseField(item, {name: field});
-                    }
-                  }
-                }
-                item._state = 'ready';
-              });
-            return service.theCommitPromise;
-          }
-        };
-        item.rollback = function() {
-          delete this._edit;
-          this._state = 'ready';
-          for(var field in item) {
-            if(_.endsWith(field, '_changed')) {
-              item[field] = false;
-            }
-          }
-        };
-        item.delete = function() {
-          item._state = 'deleting';
-          if(service.theDeletePromise) {
-            return service.theDeletePromise.then(function() {
-              item.delete();
-            });
-          } else {
-            var data = {};
-            data[service.layout.doctype] = item._edit;
-            service.theDeletePromise = $http.delete(window.MN_BASE + '/' + apiResource + '/' + item[service.layout.primaryKeyName] + '.json', data)
-              .then(function() {
-                service.theDeletePromise = null;
-                for(var field in item) {
-                  if(_.endsWith(field, '_changed')) {
-                    item[field] = false;
-                  }
-                }
-                item._state = 'deleted';
-                var index = buffer.indexOf(item);
-                if(index !== -1) {
-                  buffer.splice(index, 1);
-                }
-                service.totalCount--;
-              });
-            return service.theDeletePromise;
-          }
-        };
-
-        item._getDiffs = function() {
-          var diffObject = {};
-          for(var field in item) {
-            if(!service.isMohicanField(field) &&
-               item['_' + field + '_changed']) {
-              diffObject[field] = item._edit[field];
-            }
-          }
-          return diffObject;
-        };
-      });
     };
 
     /* eslint-disable no-extend-native */
