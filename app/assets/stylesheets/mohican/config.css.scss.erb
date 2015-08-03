@@ -1,3 +1,23 @@
+//**** header parameters
+
+//** menu collapsing breakpoint
+$grid-float-breakpoint: 1260px !default;
+
+//** width of screen at which to hide the title logo
+$app-hide-title: 496px !default;
+// parameters of the title logo
+$mn-brand-width: 165px !default;
+$mn-brand-bg: url(<%= asset_path 'logo1.png' %>) no-repeat center !default;
+
+//**** Filter bar in grid view
+//
+//** Bottom margin of the filter bar - relative size to the upper margin that
+//   comes from the navbar.
+$mn-filter-bar-btmPad: floor($line-height-computed * 0.3 + 1) !default; // ~7px
+
+
+// Original variables before the switch to basic:
+
 $mn-colorscheme-0A: #63FF3F !default;
 
 $mn-colorscheme-1P: #B4E6FF !default;
@@ -19,8 +39,7 @@ $mn-colorscheme-3D: #666 !default;
 $mn-body-bg: #3b4a69 url(<%= asset_path 'conrel.gif' %>) !default;
 $mn-brand-mgTop: 10px !default;
 $mn-brand-height: 45px !default;
-$mn-brand-width: 165px !default;
-$mn-brand-bg: url(<%= asset_path 'logo1.png' %>) no-repeat center !default;
+
 $mn-404-bg: url(<%= asset_path '404.png' %>) no-repeat center !default;
 $mn-navbar-inverse-bg: linear-gradient($mn-colorscheme-3V,$mn-colorscheme-3D) !default;
 $mn-tab-passive-bg: linear-gradient($mn-colorscheme-1L,$mn-colorscheme-1P) !default;
@@ -29,8 +48,8 @@ $mn-tab-active-bg: linear-gradient(#dedede,#fff) !default;
 $mn-disabled-L: #c1c1c1 !default;
 $mn-disabled-D: #a1a1a1 !default;
 // disabled-Light, disabled-Dark
-$app-hide-title: 496px !default;
-$grid-float-breakpoint: 1260px !default;
+
+
 $mn-content-container-bg-color: #fff !default;
 $mn-content-panel-bg-color: #F3F3F3 !default;
 $mn-menu-item-route-active-color: red !default;
@@ -45,7 +64,7 @@ $mn-content-header-background: linear-gradient($mn-colorscheme-1M,$mn-colorschem
 $mn-content-footer-background: linear-gradient($mn-colorscheme-1P,$mn-colorscheme-1L) !default;
 $mn-grid-header-container-bg: linear-gradient($mn-colorscheme-2L,$mn-colorscheme-2M) !default;
 $grid-client-pager-border-color: #e5c720 !default;
-$mn-filter-bar-btmPad: 7px !default;
+
 $mn-filter-bar-dropDown-background-color: $mn-colorscheme-1D !default;
 
 $mn-popup-menu-background-color: $mn-colorscheme-1L !default;

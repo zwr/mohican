@@ -1,7 +1,7 @@
-@import "config";
 @import "includes/angular-multi-select";
 @import "bootstrap-sprockets";
 @import "bootstrap";
+@import "config";
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "rails_bootstrap_forms";
@@ -23,8 +23,8 @@
   margin-left: $lmargin + px;
 }
 
-
-@media(max-width: $grid-float-breakpoint - 1 /*767px*/) {
+/* realign the bootstrap menu */
+@media(max-width: $grid-float-breakpoint - 1) {
   .navbar-text {
     margin-top: 10px;
   }
@@ -37,40 +37,28 @@
   }
 }
 
+.navbar { _margin-bottom: 0px;}
+
+/* hide title on very small screens, menu is more important to show */
 @media(max-width: $app-hide-title) {
   .mn-navbar-title > a {
-    width: 5px;
+    display: none;
     img {
       display: none;
     }
   }
 }
 
-body {
-  background: $mn-body-bg !important;
-}
-
-a:hover {
-  text-decoration: none;
-}
-
-.mn-navbar-title {
-  height: 50px;
-  display: inline;
-  padding-left: 15px;
-}
-
+/* title bar logo */
 a.navbar-brand {
-  margin-top: $mn-brand-mgTop;
   width:$mn-brand-width;
-  height:$mn-brand-height;
   background:$mn-brand-bg;
-  background-size: contain;
 }
 
-mn-filter-bar .btn-toolbar {
+.btn-toolbar {
   margin-bottom: $mn-filter-bar-btmPad;
 }
+
 
 .filterRowAnimWrap input[type="text"] {
     background-color: transparent;
