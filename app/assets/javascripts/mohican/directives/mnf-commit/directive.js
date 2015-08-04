@@ -10,8 +10,6 @@ angular.module('mohican.directives')
         require:     '^mnfForm',
         templateUrl: 'mohican/directives/mnf-commit/template.html',
 
-        // bindToController: true,
-
         link: function(scope, elem, attr, mnfFormCtrl) {
           scope.mnfDoc = mnfFormCtrl.mnfDoc;
         }
