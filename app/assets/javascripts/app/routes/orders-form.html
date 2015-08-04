@@ -33,7 +33,7 @@
               </mn-grid>
             </mn-tab>
             <mn-tab heading="Products">
-              <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing'">
+              <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed'">
                 <mn-grid owner="ctrl.productsDrv">
                   <a ui-sref="products-form({ itemPrimaryKeyId: item.product_ref })">
                     <i class="fa fa-file-text-o fa-2x icoNormal"></i>
