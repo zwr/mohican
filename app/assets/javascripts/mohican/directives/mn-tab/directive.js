@@ -6,7 +6,8 @@ angular.module('mohican.directives')
       'use strict';
       return {
         scope: {
-          heading: '@'
+          heading:          '@',
+          mnContentChanged: '='
         },
         restrict:    'E',
         transclude:  true,

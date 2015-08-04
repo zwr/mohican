@@ -18,7 +18,7 @@
         if(!that.isMohicanField(ifield)) {
           item['_' + ifield + '_changed'] = false;
           if(isArray(item[ifield])) {
-            that.prepareSubDocumentsCrudOperations(item[ifield], []);
+            that.prepareSubDocumentsCrudOperations(item, ifield, []);
           }
         }
       }
@@ -63,8 +63,8 @@
         }
       };
       item.rollback = function() {
-        delete this._edit;
-        this._state = 'ready';
+        delete item._edit;
+        item._state = 'ready';
         for(var field in item) {
           if(_.endsWith(field, '_changed')) {
             item[field] = false;
@@ -114,9 +114,11 @@
     });
   };
 
-  mohican.mixins.crudMixin.prepareSubDocumentsCrudOperations = function(buffer, dataFields) {
+  mohican.mixins.crudMixin.prepareSubDocumentsCrudOperations = function(mnfDoc, collectionField, dataFields) {
     var that = this;
-    buffer.forEach(function(item) {
+    var buffer = mnfDoc[collectionField];
+    buffer.forEach(function(item, index) {
+      //item is just a reference to original item in original mnDoc subcollection
       item._state = 'ready';
       //initial create _changed fields on every item
       for(var ifield in item) {
@@ -126,11 +128,14 @@
       }
       item.edit = function() {
         item._state = 'editing';
-        item._edit = _.cloneDeep(item);
+        //mnfDoc._edit will be created when parent form is switched to 'editing' state
+        item._edit = _.cloneDeep(item);//mnfDoc._edit[collectionField][index];
       };
 
       item.commit = function() {
         item._state = 'committing';
+        mnfDoc._state = 'changed';
+        mnfDoc['_' + collectionField + '_changed'] = true;
         for(var field in item) {
           if(_.endsWith(field, '_changed')) {
             item[field] = false;
@@ -152,8 +157,8 @@
         item._state = 'ready';
       };
       item.rollback = function() {
-        delete this._edit;
-        this._state = 'ready';
+        delete item._edit;
+        item._state = 'ready';
         for(var field in item) {
           if(_.endsWith(field, '_changed')) {
             item[field] = false;
@@ -167,7 +172,8 @@
           }
         }
         item._state = 'deleted';
-        var index = buffer.indexOf(item);
+        // var index = buffer.indexOf(item);
+        console.log('remove item from index: ', index);
         if(index !== -1) {
           buffer.splice(index, 1);
         }
