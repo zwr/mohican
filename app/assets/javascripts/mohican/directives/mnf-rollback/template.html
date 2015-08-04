@@ -1,4 +1,4 @@
 <button class="btn btn-primary"
         ng-disabled="mnfDoc._state === 'committing'"
-        ng-if="mnfDoc._state === 'changed' || mnfDoc._state === 'editing' || mnfDoc._state === 'committing'"
+        ng-if="mnfFormCtrl.mnfCrudShown && (mnfDoc._state === 'changed' || mnfDoc._state === 'editing' || mnfDoc._state === 'committing')"
         ng-click="mnfDoc.rollback()">cancel</button>

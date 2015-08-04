@@ -13,6 +13,7 @@ angular.module('mohican.directives')
         templateUrl: 'mohican/directives/mnf-edit-grid/template.html',
 
         link: function(scope, elem, attr, mnfFormGridCtrl) {
+          scope.mnfFormGridCtrl = mnfFormGridCtrl;
           scope.editItem = function() {
             if(scope.mnfDoc._state === 'ready') {
               scope.mnfDoc.edit();

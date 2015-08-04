@@ -3,7 +3,8 @@
     <div class="col-xs-12 col-sm-6 mn-content-panel">
       <span class="loader block" ng-if="!ctrl.itemForm" style="margin: 0px 0px 0px 8px;">Loading...</span>
       <div ng-if="ctrl.itemForm" class="container-fluid">
-        <mnf-form mnf-doc="ctrl.itemForm">
+        <mnf-form mnf-doc="ctrl.itemForm"
+                  mnf-crud-shown="ctrl.fullyLoaded">
           <div class="col-xs-12 mn-buttons-group">
             <mnf-edit></mnf-edit>
             <mnf-commit></mnf-commit>
@@ -32,7 +33,7 @@
               </mn-grid>
             </mn-tab>
             <mn-tab heading="Products">
-              <mnf-form-grid>
+              <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing'">
                 <mn-grid owner="ctrl.productsDrv">
                   <a ui-sref="products-form({ itemPrimaryKeyId: item.product_ref })">
                     <i class="fa fa-file-text-o fa-2x icoNormal"></i>

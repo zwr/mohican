@@ -13,6 +13,7 @@ angular.module('mohican.directives')
         templateUrl: 'mohican/directives/mnf-rollback-grid/template.html',
 
         link: function(scope, elem, attr, mnfFormGridCtrl) {
+          scope.mnfFormGridCtrl = mnfFormGridCtrl;
           scope.rollbackItem = function() {
             if(scope.mnfDoc._state === 'editing' ||
                scope.mnfDoc._state === 'changed') {

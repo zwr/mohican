@@ -12,6 +12,7 @@ angular.module('mohican.directives')
 
         link: function(scope, elem, attr, mnfFormCtrl) {
           scope.mnfDoc = mnfFormCtrl.mnfDoc;
+          scope.mnfFormCtrl = mnfFormCtrl;
         }
       };
     }

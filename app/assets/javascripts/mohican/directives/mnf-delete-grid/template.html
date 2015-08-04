@@ -1,8 +1,8 @@
 <a ng-click="confirmDelete()">
   <i class="fa fa-trash-o fa-2x icoNormal"
-     ng-if="mnfDoc._state === 'ready'"></i>
+     ng-if="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'ready')"></i>
   <span class="loader"
-        ng-if="mnfDoc._state === 'deleting'"
+        ng-show="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'deleting')"
         style="display: block; margin-top: -25px;">
   </span>
 </a>

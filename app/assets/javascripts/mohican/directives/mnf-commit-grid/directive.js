@@ -13,6 +13,7 @@ angular.module('mohican.directives')
         templateUrl: 'mohican/directives/mnf-commit-grid/template.html',
 
         link: function(scope, elem, attr, mnfFormGridCtrl) {
+          scope.mnfFormGridCtrl = mnfFormGridCtrl;
           scope.commitItem = function() {
             if(scope.mnfDoc._state === 'changed') {
               scope.mnfDoc.commit();

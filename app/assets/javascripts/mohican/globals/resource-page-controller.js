@@ -72,6 +72,7 @@
           if(that.stateMachine.itemPrimaryKeyId) {
             that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields)
             .then(function(items) {
+              that.fullyLoaded = true;
               ///check is item exists
               if(items[0]) {
                 that.itemForm = items[0];
