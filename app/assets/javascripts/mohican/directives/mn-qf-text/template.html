@@ -1,7 +1,11 @@
-<input ng-disabled="qfText.qfDisabled"
-       type="text"
-       ng-model="qfText.model"
-       ng-change="qfText.inputChanged()"
-       ng-style="{width: (qfText.field.width - 3) + 'px'}"
-       style="height: 34px;"
-       class="form-control" />
+<div class="input-group" ng-style="{width: (qfText.field.width - 3) + 'px'}">
+  <input ng-disabled="qfText.qfDisabled"
+         type="text"
+         ng-model="qfText.model"
+         ng-change="qfText.inputChanged()"
+         _style="height: 34px;"
+         class="form-control input-sm" />
+  <div class="input-group-addon">
+    <span class="glyphicon glyphicon-filter"></span>
+  </div>
+</div>

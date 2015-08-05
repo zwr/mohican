@@ -60,18 +60,6 @@ a.navbar-brand {
   margin-bottom: $mn-filter-bar-btmPad;
 }
 
-
-.filterRowAnimWrap input[type="text"] {
-    background-color: transparent;
-    border-bottom: 2px solid #004d40;
-    border-right: 0;
-    border-left:0;
-    border-top:0;
-    border-radius: 0px !important;
-    padding: 1px !important;
-    margin-right: 1px !important;
-}
-
 .filter-bar-dropDown button {
   color: #b3e5fc;
 }
@@ -102,14 +90,14 @@ a.navbar-brand {
   border: 0 !important;
 }
 
-mn-grid th {
+_mn-grid th {
   border-style: solid !important;
   border-width: 1px !important;
   border-color: #aaa !important;
   color: #444 !important;
 }
 
-mn-grid th.mn-sortable {
+_mn-grid th.mn-sortable {
   border-style: solid !important;
   border-width: 1px !important;
   border-color: black !important;
@@ -252,9 +240,8 @@ mnf-reference .ref-edit-label {
 }
 
 .qf-row, .table > thead > tr th.qf-row {
-  background: $mn-qfilter-subheader-background;
   padding: 2px 1px 4px 1px !important;
-  border: 0 !important;
+  border: none !important;
   vertical-align: middle;
 }
 
@@ -264,7 +251,7 @@ mnf-reference .ref-edit-label {
   z-index: 200;
 }
 
-.filterFieldBgWrap:after {
+._filterFieldBgWrap:after {
   font-family: "Glyphicons Halflings";
   content:"\e138";
   font-size: $font-size-base + 4;
@@ -500,22 +487,6 @@ mn-item-reports > div, .block {
   border-width: 1px;
 }
 
-.grid-header-container  {
-  padding: 4px;
-  border-bottom: 0 ;
-  border-right: 0 ;
-  background: $mn-grid-header-container-bg;
-  vertical-align: middle !important;
-  position: relative;
-}
-
-.grid-header-field-name {
-  padding-left: 2px;
-  display: inline !important;
-  float: left;
-  overflow: hidden;
-}
-
 .mn-context-menu {
   position: absolute;
   z-index:1999;
@@ -592,29 +563,6 @@ td.mn-content-container {
   border:0;
 }
 
-.mn-content-panel {
-  background:
-    linear-gradient(135deg, transparent 10px, $mn-content-panel-bg-color 0) top left,
-    linear-gradient(315deg, transparent 10px, $mn-content-panel-bg-color 0) bottom right;
-  background-size: 100% 80%;
-  background-repeat: no-repeat;
-  padding: 17px;
-  overflow:hidden;
-}
-
-.mn-content-panel::before {
-  content: ' ';
-  position: absolute;
-  left: 0px;
-  top:0px;
-  width: 13px;
-  height: 13px;
-  background:
-    linear-gradient(135deg, transparent 9px, $mn-colorscheme-1M 0) top left;
-  background-repeat: no-repeat;
-  overflow:hidden;
-}
-
 .accenTriangleUp, .accenTriangleDown {
   content: ' ';
   position: absolute;
@@ -637,33 +585,6 @@ td.mn-content-container {
 // fix for inset shadow bug of the table-containing div, to be uniform on striped rows, because shadow is not visible on opaque background
 .table-striped > tbody > tr:nth-child(odd) > td {
   background-color: rgba(#999, .1);
-}
-
-// removing webkit active & focus markup
-.btn.active, .btn:focus,
-.filterRowAnimWrap input[type="text"],
-.nav-tabs li a:focus, .nav-tabs li a.active, .nav-tabs li a:active, a.navbar-brand.active, a.navbar-brand:focus {
-  outline:none !important;
-  -webkit-box-shadow: none;
-  -moz-box-shadow: none;
-  box-shadow: none;
-  cursor:default;
-  -webkit-appearance:none;
-  -moz-appearance:none;
-  appearance:none;
-}
-
-.table > thead > tr > th, .table > thead > tr > td,
-.table > tbody > tr > th, .table > tbody > tr > td,
-.table > tfoot > tr > th, .table > tfoot > tr > td {
-  padding: 4px 4px;
-}
-
-.table > thead > tr > th {
-  font-weight: 500 !important;
-  font-size:$font-size-base - 1;
-  border-color: #ACF3BC !important;
-  border-top: 1px solid #fff !important;
 }
 
 .thirdWidth {
