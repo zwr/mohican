@@ -138,6 +138,6 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:order_handlers, :order_number, :status, :total, :creator_name, :creator_ref)
+    params.require(:order).permit(:order_items, :order_handlers, :order_number, :status, :total, :creator_name, :creator_ref)
   end
 end
