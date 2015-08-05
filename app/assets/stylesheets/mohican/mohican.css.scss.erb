@@ -60,21 +60,6 @@ a.navbar-brand {
   margin-bottom: $mn-filter-bar-btmPad;
 }
 
-.filter-bar-dropDown button {
-  color: #b3e5fc;
-}
-
-.filter-bar-dropDown .multiSelect .multiSelectItem.selected:not(.multiSelectGroup) {
-  background-image: linear-gradient($mn-colorscheme-1L, $mn-colorscheme-1P);
-  color: #666;
-  border: 0 !important;
-}
-
-.filter-bar-dropDown .multiSelect .multiSelectItem:hover, .filter-bar-dropDown .multiSelect .multiSelectGroup:hover {
-  background-image: linear-gradient($mn-colorscheme-1D, $mn-colorscheme-1M) !important;
-  border: 0 !important;
-}
-
 .success .multiSelect button {
   @include multi-select-reset-pbm(2,2);
   @include bs-btnize("success");
@@ -92,20 +77,6 @@ a.navbar-brand {
 
 .table > thead > tr.mn-grid-header > th {
   border-bottom: none;
-}
-
-_mn-grid th {
-  border-style: solid !important;
-  border-width: 1px !important;
-  border-color: #aaa !important;
-  color: #444 !important;
-}
-
-_mn-grid th.mn-sortable {
-  border-style: solid !important;
-  border-width: 1px !important;
-  border-color: black !important;
-  color: #444 !important;
 }
 
 .mn-grid-data-row .input-sm {
@@ -207,52 +178,9 @@ mnf-reference .ref-edit-label {
   margin-top: 5px;
 }
 
-.filterBar {
-  background:
-    $mn-content-header-background bottom right,
-    linear-gradient(135deg, transparent 10px, $mn-colorscheme-1M 0) top left;
-  background-size: 100% 72%;
-  background-repeat: no-repeat;
-  padding: 8px;
-}
-
-.filter-bar-item {
-  display: inline;
-  float: left;
-  clear: none;
-  margin: 0px 7px 0px 7px;
-  vertical-align: middle;
-}
-
-.filter-bar-alert {
-  padding: 4px 4px 4px 4px;
-}
-
-.filterBar .btn.active {
-  background: $mn-grid-header-container-bg;
-  color: $mn-filter-bar-button-active-text-color;
-  font-weight: 500;
-  -webkit-box-shadow: 0px 0px 4px $mn-colorscheme-2V inset;
-  -moz-box-shadow: 0px 0px 4px $mn-colorscheme-2V inset;
-  box-shadow: 2px 2px 5px $mn-colorscheme-2D inset !important;
-}
-
 .primary .multiSelect button {
   @include multi-select-reset-pbm(1,5);
   @include bs-btnize("primary");
-}
-
-.filter-bar-dropDown button .buttonLabel span.caret {
-  position: relative;
-}
-
-.filter-bar-dropDown button .buttonLabel span.caret:after {
-  content: ' ';
-  position: absolute;
-  left: -5px;
-  top:-5px;
-  border: 6px solid transparent;
-  border-top: 6px solid #fff;
 }
 
 .qf-row, .table > thead > tr th.qf-row {
