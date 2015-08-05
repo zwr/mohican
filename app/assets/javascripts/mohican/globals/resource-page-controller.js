@@ -246,6 +246,7 @@
 
       createBasicDriver: function(collectionName, fields) {
         var basicDrv = mohican.createBasicDriver(collectionName, fields);
+        _.assign(basicDrv, mohican.mixins.dataFieldsMixin);
 
         this.onCurrentItemChanged.push(function(newCurrentItem) {
           basicDrv.items = [];
@@ -253,7 +254,9 @@
             basicDrv.items = newCurrentItem[basicDrv.collectionName];
             basicDrv.items.forEach(function(item) {
               for(var key in item) {
-                item['_' + key + '_formatted'] = item[key];
+                if(!basicDrv.isMohicanField(key)) {
+                  item['_' + key + '_formatted'] = item[key];
+                }
               }
             });
           }

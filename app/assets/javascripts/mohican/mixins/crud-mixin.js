@@ -115,6 +115,7 @@
   };
 
   mohican.mixins.crudMixin.prepareSubDocumentsCrudOperations = function(mnfDoc, collectionField, dataFields) {
+    console.log(mnfDoc[collectionField]);
     var that = this;
     var buffer = mnfDoc[collectionField];
     buffer.forEach(function(item, index) {

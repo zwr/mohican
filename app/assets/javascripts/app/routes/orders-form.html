@@ -25,12 +25,19 @@
             <mn-tab heading="Tab 1">
               tab1
             </mn-tab>
-            <mn-tab heading="Handlers">
-              <mn-grid owner="ctrl.handlersDrv">
-                <a ui-sref="users-form({ itemPrimaryKeyId: item.user_ref })">
-                  <i class="fa fa-file-text-o fa-2x icoNormal"></i>
-                </a>
-              </mn-grid>
+            <mn-tab heading="Handlers"
+                    mn-content-changed="ctrl.itemForm['_order_handlers_changed']">
+              <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed'">
+                <mn-grid owner="ctrl.handlersDrv">
+                  <a ui-sref="users-form({ itemPrimaryKeyId: item.user_ref })">
+                    <i class="fa fa-file-text-o fa-2x icoNormal"></i>
+                  </a>
+                  <mnf-edit-grid mnf-doc="item"></mnf-edit-grid>
+                  <mnf-commit-grid mnf-doc="item"></mnf-commit-grid>
+                  <mnf-rollback-grid mnf-doc="item"></mnf-rollback-grid>
+                  <mnf-delete-grid mnf-doc="item"></mnf-delete-grid>
+                </mn-grid>
+              </mnf-form-grid>
             </mn-tab>
             <mn-tab heading="Products"
                     mn-content-changed="ctrl.itemForm['_order_items_changed']">
