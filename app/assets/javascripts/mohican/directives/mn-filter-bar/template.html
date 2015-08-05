@@ -1,6 +1,6 @@
 <div class="btn-toolbar">
       <div isteven-multi-select ng-show="filterBar.owner.layouts.length > 1"
-            class="primary fleft"
+            class="primary pull-left"
             input-model="filterBar.owner.layouts"
             on-item-click="filterBar.owner.clientLayoutChanged(data.name)"
             output-model="filterBar.outputBrowsers"
@@ -11,7 +11,7 @@
             helper-elements="">
       </div>
       <div isteven-multi-select ng-show="filterBar.owner.backendFilters.length > 1"
-            class="primary fleft"
+            class="primary pull-left"
             input-model="filterBar.owner.backendFilters"
             on-item-click="filterBar.owner.getBackendFilter(data.name)"
             output-model="filterBar.outputBrowsers"
@@ -29,8 +29,8 @@
               btn-checkbox-true="true"
               btn-checkbox-false="false"
               ng-disabled="!filterBar.owner.fullyLoaded">
-        <span class="fleft">Quick Filter</span>
-        <span class="loader fleft" ng-show="!filterBar.owner.fullyLoaded" style="margin: 0px 0px 0px 8px;"></span>
+        <span class="pull-left">Quick Filter</span>
+        <span class="loader pull-left" ng-show="!filterBar.owner.fullyLoaded" style="margin: 0px 0px 0px 8px;"></span>
       </button>
       <div class="alert alert-warning"
            role="alert"
