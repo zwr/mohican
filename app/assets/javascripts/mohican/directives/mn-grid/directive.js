@@ -6,14 +6,15 @@
   'use strict';
 
   angular.module('mohican.directives')
-    .directive('mnGrid', [function() {
+    .directive('mnGrid', ['$interval', '$window', function($interval, $window) {
         return {
           scope: {
             owner:        '=?',
             mnSelect:     '@?',
             mnSelectType: '@?',
             mnOnSelect:   '&',
-            mnPopup:      '&'
+            mnPopup:      '&',
+            mnGridFillHeight: '@?'
           },
           restrict:     'E',
           transclude:   true,
@@ -24,6 +25,25 @@
           bindToController: true,
 
           link: function(scope, element, attrs, ctrl, $transcludeFn) {
+            if(scope.grid.mnGridFillHeight) {
+              scope.setHeight = function(h) {
+                element.first().children().first().height(h - element[0].getBoundingClientRect().top - 41);
+              };
+              var timeoutId;
+              timeoutId = $interval(function() {
+                scope.setHeight($window.innerHeight);
+              }, 300);
+              element.on('$destroy', function() {
+                $interval.cancel(timeoutId);
+              });
+              angular.element($window).bind('resize', function(e) {
+                if(e.srcElement) {
+                  scope.setHeight(e.srcElement.innerHeight);
+                }
+              });
+              scope.setHeight($window.innerHeight);
+            }
+
             if(!ctrl.owner) {
               ctrl.owner = scope.owner = mohican.scopeLookup(scope);
             }

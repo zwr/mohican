@@ -9,7 +9,8 @@
       <mn-grid mn-select="multiple"
                mn-select-type="check"
                mn-on-select="ctrl.onItemSelect(selectedItems)"
-               mn-popup="ctrl.popup(clickedItem, selectedItems)">
+               mn-popup="ctrl.popup(clickedItem, selectedItems)"
+               mn-grid-fill-height="true">
         <a ui-sref="products-form({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })">
           <i class="fa fa-file-text-o fa-2x icoNormal"></i>
         </a>
