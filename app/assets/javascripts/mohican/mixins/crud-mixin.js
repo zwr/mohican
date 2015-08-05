@@ -17,14 +17,21 @@
       for(var ifield in item) {
         if(!that.isMohicanField(ifield)) {
           item['_' + ifield + '_changed'] = false;
-          if(isArray(item[ifield])) {
-            that.prepareSubDocumentsCrudOperations(item, ifield, []);
-          }
+          // if(isArray(item[ifield])) {
+          //   that.prepareSubDocumentsCrudOperations(item, ifield, []);
+          // }
         }
       }
       item.edit = function() {
         item._state = 'editing';
         item._edit = _.cloneDeep(item);
+        for(var efield in item) {
+          if(!that.isMohicanField(efield)) {
+            if(isArray(item[efield])) {
+              that.prepareSubDocumentsCrudOperations(item, efield, []);
+            }
+          }
+        }
       };
 
       item.commit = function() {
@@ -115,7 +122,6 @@
   };
 
   mohican.mixins.crudMixin.prepareSubDocumentsCrudOperations = function(mnfDoc, collectionField, dataFields) {
-    console.log(mnfDoc[collectionField]);
     var that = this;
     var buffer = mnfDoc[collectionField];
     buffer.forEach(function(item, index) {
@@ -130,10 +136,11 @@
       item.edit = function() {
         item._state = 'editing';
         //mnfDoc._edit will be created when parent form is switched to 'editing' state
-        item._edit = _.cloneDeep(item);//mnfDoc._edit[collectionField][index];
+        item._edit = mnfDoc._edit[collectionField][index];
       };
 
       item.commit = function() {
+        console.log(mnfDoc);
         item._state = 'committing';
         mnfDoc._state = 'changed';
         mnfDoc['_' + collectionField + '_changed'] = true;
