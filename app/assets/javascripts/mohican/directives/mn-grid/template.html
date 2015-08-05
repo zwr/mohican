@@ -9,7 +9,7 @@
     <thead>
       <tr class="mn-grid-header">
         <th ng-show="grid.showSelectColumn" class="grid-header-container">
-          <input type="checkbox" class="baseFont3x"
+          <input type="checkbox" class="mn-grid-select-box"
                  ng-model="grid.onlySelectedItemsShown">
         </th>
         <th ng-repeat="field in grid.owner.fields"
@@ -76,7 +76,7 @@
           mn-right-click="grid.rightClick(item, $event)"
           ng-class="{'last-selected': grid.isLastSelected(item)}">
         <td ng-show="grid.showSelectColumn">
-          <input type="checkbox" class="baseFont3x mn-grid-select-box"
+          <input type="checkbox" class="mn-grid-select-box"
                  ng-checked="grid.isItemSelected(item)"
                  ng-click="grid.selectionChanged(item, $event)">
         </td>
@@ -108,7 +108,7 @@
           mn-right-click="grid.rightClick(item, $event)">
         <td ng-show="grid.showSelectColumn">
           <input type="checkbox"
-                 class="baseFont3x mn-grid-select-box"
+                 class="mn-grid-select-box"
                  ng-checked="grid.isItemSelected(item)"
                  ng-click="grid.selectionChanged(item)">
         </td>
@@ -134,7 +134,7 @@
       <span class="accent0" title="{{grid.selectedItems.length}} selected">{{grid.selectedItems.length}} <i class="fa fa-check-square-o" /></i> </span> /
     </span>
     <span ng-if="grid.owner.totalQfCount < grid.owner.service.totalCount">
-      <span class="mn-content-footer-status-msg-invert" title="{{grid.owner.totalQfCount}} quick filtered"> {{grid.owner.totalQfCount}} <i class="glyphicon glyphicon-filter baseFont1_5x"></i> </span> /
+      <span class="mn-content-footer-status-msg-invert" title="{{grid.owner.totalQfCount}} quick filtered"> {{grid.owner.totalQfCount}} <i class="glyphicon glyphicon-filter grid-footer-bar-filter-icon"></i> </span> /
     </span>
     <span ng-if="grid.owner.service.totalCount">
       <span ng-if="grid.owner.service.buffer.length < grid.owner.service.totalCount">
