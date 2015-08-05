@@ -10,14 +10,7 @@
 
     fields.forEach(function(field) {
       basicDriver.fields.push(
-        {
-          header:      field.header,
-          name:        field.name,
-          quickfilter: null,
-          quicksort:   false,
-          view:        field.view,
-          width:       field.width
-        }
+        _.cloneDeep(field)
       );
     });
 

@@ -12,18 +12,24 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
 
         ctrl.handlersDrv = ctrl.createBasicDriver('order_handlers', [
           {
-            header: 'Name',
-            name:   'user_name',
-            view:   'text',
-            width:  150
+            header:         'Name',
+            name:           'user_name',
+            view:           'reference',
+            refId:          'user_ref',
+            refResource:    'users',
+            refFieldSource: ['name', 'gender'],
+            width:          200
           }
         ]);
         ctrl.productsDrv = ctrl.createBasicDriver('order_items', [
           {
-            header: 'Name',
-            name:   'product_name',
-            view:   'text',
-            width:  300
+            header:         'Name',
+            name:           'product_name',
+            view:           'reference',
+            refId:          'product_ref',
+            refResource:    'products',
+            refFieldSource: ['name'],
+            width:          350
           },
           {
             header: 'quantity',

@@ -81,8 +81,15 @@
                  ng-click="grid.selectionChanged(item, $event)">
         </td>
         <td ng-repeat="field in grid.owner.fields" style="overflow: hidden;">
-          <mnf-text-grid mnf-field="{{field.name}}" mnf-doc="item">
-          </mnf-text-grid>
+          <mnf-text-grid ng-if="field.view === 'text'"
+                         mnf-field="{{field.name}}"
+                         mnf-doc="item"></mnf-text-grid>
+          <mnf-reference-grid ng-if="field.view === 'reference'"
+                              mnf-ref-resource="{{field.refResource}}"
+                              mnf-ref-id="{{field.refId}}"
+                              mnf-field="{{field.name}}"
+                              mnf-doc="item"
+                              mnf-field-source="field.refFieldSource"></mnf-reference-grid>
         </td>
         <td>
           <mn-grid-actions />
