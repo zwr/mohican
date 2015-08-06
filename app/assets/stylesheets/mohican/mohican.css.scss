@@ -3,12 +3,19 @@
 *= require_self
 */
 
+$grid-float-breakpoint: 890px !default;
+
 @import "bootstrap-sprockets";
 @import "bootstrap";
-@import "config";
+@import "mn-config";
 @import "font-awesome-sprockets";
 @import "font-awesome";
 @import "rails_bootstrap_forms";
+
+.zeljko4 {
+  width: $grid-float-breakpoint;
+}
+
 
 // mixins
 
@@ -22,32 +29,6 @@
 @mixin multi-select-reset-pbm($pad,$lmargin) {
   padding: $pad + px ($pad * 4) + px $pad + px ($pad * 4) + px; // compensate for the inner .multiSelect .buttonLabel padding
   margin-left: $lmargin + px;
-}
-
-/* realign the bootstrap menu */
-@media(max-width: $grid-float-breakpoint - 1) {
-  .navbar-text {
-    margin-top: 10px;
-  }
-  .navbar-toggle {
-    margin-left: 16px;
-  }
-  .navbar-nav {
-    margin-top: 5px;
-    margin-bottom: 0px;
-  }
-}
-
-.navbar { _margin-bottom: 0px;}
-
-/* hide title on very small screens, menu is more important to show */
-@media(max-width: $app-hide-title) {
-  .mn-navbar-title > a {
-    display: none;
-    img {
-      display: none;
-    }
-  }
 }
 
 /* title bar logo */
@@ -148,11 +129,6 @@ mnf-form .state-ready-field-value i {
   font-size: 1.6em;
 }
 
-mn-menu-item-route > a > span {
-  color: $mn-menu-item-route-color;
-  text-decoration: none;
-}
-
 mnf-reference .btn-link {
   padding: 0px;
   padding-right: 17px;
@@ -195,25 +171,6 @@ mnf-reference .ref-edit-label {
   z-index: 200;
 }
 
-mn-menu-item-route > a:not(.mn-menu-item-route-active) > span:hover,
-mn-menu-group > li > a:hover,
-mn-menu-item-route > a:hover {
-  color: $mn-menu-item-route-hover-color;
-  text-decoration: none;
-}
-mn-menu-group-item > li > mn-menu-item-route > a > span:hover,
-mn-menu-group-item > li > mn-menu-item-route > a:not(.mn-menu-item-route-active) > span:hover {
-  color: $mn-menu-item-route-color;
-  text-decoration: none;
-}
-
-a.mn-menu-item-route-active span,
-a.mn-menu-item-route-active span:focus,
-a.mn-menu-item-route-active:focus {
-  color: $mn-menu-item-route-active-color;
-  text-decoration: none;
-}
-
 .nav,
 .carousel,
 .panel-title a,
@@ -222,79 +179,6 @@ a.mn-menu-item-route-active:focus {
 [data-ng-click],
 [x-ng-click] {
     cursor: pointer;
-}
-
-mn-menu-group > li {
-  float: left;
-}
-
-mn-menu-group > li > a {
-  color: #777777;
-  padding-top: 15px;
-  line-height: 20px;
-  box-sizing: border-box;
-  position: relative;
-  display: block;
-  padding: 15px;
-  list-style-position: outside;
-  text-decoration: none;
-}
-
-mn-menu-group > li > .dropdown-menu {
-  margin-top: 0;
-  border-top-right-radius: 0;
-  border-top-left-radius: 0;
-}
-
-.dropdown-menu .divider {
-  height: 1px;
-  margin: 9px 0;
-  overflow: hidden;
-  background-color: #e5e5e5;
-}
-
-mn-menu-group-item > li {
-  display: block;
-  padding: 3px 20px;
-  clear: both;
-  font-weight: normal;
-  line-height: 1.428571429;
-  color: #333333;
-  white-space: nowrap;
-}
-
-mn-navbar-right mn-menu-item {
-  position: relative;
-  display: block;
-  float: left !important;
-}
-
-mn-navbar-right mn-menu-item li.navbar-text,
-mn-navbar-right mn-menu-group li.navbar-text{
-  margin-left: 0px;
-  margin-right: 0px;
-  padding-left: 15px;
-  padding-right: 15px;
-}
-
-mn-menu-group-item > li:hover, mn-menu-group-item > li:focus {
-  text-decoration: none;
-  color: #262626;
-  background-color: whitesmoke;
-}
-
-mn-menu-group > li > a:focus, .nav .open > a, .nav .open > a:hover, .nav .open > a:focus {
-  background:
-        linear-gradient(45deg, transparent 10px, rgba(#000,.8) 10px),
-        linear-gradient(315deg, transparent 10px, rgba(#000,.8) 10px) !important;
-  background-position: bottom left, bottom right;
-  -moz-background-size: 50% 50%;
-  -webkit-background-size: 50% 50%;
-  background-size: 50% 50%;
-  background-repeat: no-repeat;
-  color: white;
-  padding-right: 1px;
-  margin-right: 14px;
 }
 
 mn-item-reports > div, .block {
@@ -320,20 +204,6 @@ mn-item-reports > div, .block {
 
 .hvBlue:hover, .hvBlue:active {
   color: #0089E2 !important;
-}
-
-.collapse.in mn-menu-group, .collapse.in mn-menu-item,
-.collapsing mn-menu-group, .collapsing mn-menu-item {
-  clear: both;
-  position: relative;
-  display: block;
-  box-sizing: border-box;
-}
-
-.collapsing mn-menu-group > li > a,
-.collapse.in mn-menu-group > li > a {
-  padding: 0px;
-  padding-bottom: 15px;
 }
 
 .mn-context-menu {
