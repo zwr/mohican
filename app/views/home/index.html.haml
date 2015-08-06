@@ -31,8 +31,8 @@
     -# If you need something from the Ruby code, set it up here
     -# %script
   %body(data-main-app ng-cloak role="document")
+    .header-wrapper(ng-include="'app/menu.html'")
     %div.full_height.container-fluid
-      .header-wrapper(ng-include="'app/menu.html'")
       %div(ui-view)
     = javascript_include_tag 'config'
     = javascript_include_tag 'mohican'

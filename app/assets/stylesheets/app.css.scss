@@ -2,5 +2,6 @@
 *= require_self
 */
 
-@import "config";
+$grid-float-breakpoint: 890px !default;
+
 @import "mohican/mohican";
