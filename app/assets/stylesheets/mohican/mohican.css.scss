@@ -12,8 +12,10 @@ $grid-float-breakpoint: 890px !default;
 @import "font-awesome";
 @import "rails_bootstrap_forms";
 
-.zeljko4 {
-  width: $grid-float-breakpoint;
+// Following should be commented when wanting to show demo features.
+// It should not be removed.
+.demo-feature {
+  display: none;
 }
 
 

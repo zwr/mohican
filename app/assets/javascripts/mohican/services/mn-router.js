@@ -6,14 +6,6 @@
       .controller('MainCtrl', ['$scope', function($scope) {
           $scope.name = 'World';
       }])
-      .controller('DropdownCtrl', ['$scope', function($scope) {
-
-          $scope.items = [
-              "The first choice!",
-              "And another choice for you.",
-              "but wait! A third!"
-          ];
-      }])
       .provider('mnRouter', [mnRouter]);
 
   function mnRouter() {
