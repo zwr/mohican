@@ -8,3 +8,6 @@ Rails.application.config.assets.version = '1.0'
 # Rails.application.config.assets.precompile += %w( search.js )
 Rails.application.config.assets.precompile +=
   %w(app.js app.css config.js mohican.js)
+
+# Following line makes translation helper findable when precompiling JS templates
+Sprockets::Context.send :include, ActionView::Helpers::TranslationHelper
