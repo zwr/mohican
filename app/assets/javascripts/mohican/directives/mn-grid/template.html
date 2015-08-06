@@ -20,8 +20,9 @@
             {{field.header}}
           </span>
           <span ng-show="grid.owner.stateMachine.column === field.name && grid.owner.fullyLoaded && !grid.onlySelectedItemsShown"
-                ng-class="grid.owner.stateMachine.direction === 'desc' ? 'accenTriangleUp' : 'accenTriangleDown'"
-                aria-hidden="true"></span>
+                ng-class="grid.owner.stateMachine.direction === 'desc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'"
+                class="glyphicon"
+                ></span>
         </th>
         <th class="grid-header-container"></th>
         <th class="grid-header-container"></th>

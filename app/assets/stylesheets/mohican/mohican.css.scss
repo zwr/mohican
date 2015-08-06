@@ -366,23 +366,6 @@ td.mn-content-container {
   border:0;
 }
 
-.accenTriangleUp, .accenTriangleDown {
-  content: ' ';
-  position: absolute;
-  right: 1px;
-  border: 8px solid transparent;
-  border-top: 8px solid $mn-colorscheme-2A;
-  border-right: 8px solid $mn-colorscheme-2A;
-}
-
-.accenTriangleUp {top: 1px;}
-
-.accenTriangleDown {
-  bottom: 1px !important;
-  border-bottom: 8px solid $mn-colorscheme-2A;
-  border-top: 8px solid transparent;
-}
-
 //generic modifier styles
 
 // fix for inset shadow bug of the table-containing div, to be uniform on striped rows, because shadow is not visible on opaque background
