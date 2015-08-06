@@ -4,7 +4,8 @@
     {{mnfDoc['_' + mnfField + '_formatted']}}
   </span>
 </div>
-<div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing'">
+<div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing'"
+     class="mnf-grid-field-editing">
   <span>
     <input type="text"
            class="form-control mn-form-control"

@@ -10,12 +10,16 @@
      ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}"
      class="mnf-grid-ref-field-editing">
 
-      <span class="">
-        {{mnfDoc._edit[mnfField]}}
-      </span>
-      <a class="btn btn-link">
-        <i class="fa fa-pencil-square-o icoNormal"></i>
-      </a>
+      <div class="mnf-grid-field-editing-text">
+        <div>
+          {{mnfDoc._edit[mnfField]}}
+        </div>
+      </div>
+      <div class="mnf-grid-field-editing-button-wrap">
+        <a class="btn btn-link">
+          <i class="fa fa-pencil-square-o icoNormal"></i>
+        </a>
+      </div>
 
 </div>
 <!--

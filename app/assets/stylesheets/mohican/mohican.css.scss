@@ -41,6 +41,40 @@ a.navbar-brand {
   border-radius: 6px;
 }
 
+
+///////////////////////////////////////
+// Align grid data when idle and when being editied.
+// This makes the text not move when editing starts but theinput simply appears around it.
+.mnf-grid-field-editing input {
+  //margin-top: -4px;
+  height: 26px !important;
+  padding: 5px 12px !important;
+  margin-top: 1px;
+}
+
+.mnf-grid-ref-field-editing {
+  .mnf-grid-field-editing-text{
+    div {
+      display: inline;
+      margin-top: 2px;
+      position: relative;
+      top: 3px;
+    }
+    display: inline;
+    position: relative;
+  }
+  .mnf-grid-field-editing-button-wrap {
+    display: inline;
+    padding-top: 0px;
+    .btn {
+      padding-top: 3px;
+    }
+  }
+}
+
+//
+///////////////////////////////////////
+
 .btn-toolbar {
   margin-bottom: $mn-filter-bar-btmPad;
 }
