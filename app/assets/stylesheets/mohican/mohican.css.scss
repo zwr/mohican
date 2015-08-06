@@ -289,10 +289,10 @@ mn-item-reports > div, .block {
   color:$mn-colorscheme-1D;
 }
 
-.client-pager {
-  border-color: $grid-client-pager-border-color;
-  border-style: solid;
-  border-width: 1px;
+.pager-shows-filter {
+    border-color: $state-warning-text;
+    border-style: solid;
+    border-width: 1px;
 }
 
 .mn-context-menu {
@@ -356,40 +356,14 @@ mn-item-reports > div, .block {
 
 //generic container styles
 
-.scrollableHframe {
+.scrollable-frame {
   overflow:auto;
-}
-
-td.mn-content-container {
-  background-color: transparent !important;
-  padding-left: 16px !important;
-  border:0;
 }
 
 //generic modifier styles
 
-// fix for inset shadow bug of the table-containing div, to be uniform on striped rows, because shadow is not visible on opaque background
-.table-striped > tbody > tr:nth-child(odd) > td {
-  background-color: rgba(#999, .1);
-}
-
-
 .grid-footer-bar-filter-icon {
   font-size:$font-size-base * 1.5;
-}
-
-.left {
-  text-align: left !important;
-  align-content: left !important;
-}
-
-.vmiddle {
-  vertical-align: middle !important;
-}
-
-
-.accent0 {
-  color:$mn-colorscheme-0A !important;
 }
 
 .page-not-found-image {

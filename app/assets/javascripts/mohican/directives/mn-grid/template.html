@@ -1,7 +1,7 @@
-<div class="scrollableHframe" style="overflow-y: auto;">
+<div class="scrollable-frame">
   <table class="table table-striped" style="table-layout:fixed;">
     <colgroup>
-      <col ng-show="grid.showSelectColumn" class="vmiddle" style="width: 30px; margin:0 auto;" />
+      <col ng-show="grid.showSelectColumn" style="width: 30px;"/>
       <col ng-repeat="field in grid.owner.fields" ng-style="{width: field.width + 'px'}" />
       <col style="width:160px;" />
       <col />
@@ -68,7 +68,7 @@
     </thead>
     <tbody ng-hide="grid.onlySelectedItemsShown">
       <tr ng-show="grid.owner.items.length === 0">
-        <td class="mn-content-footer-status-msg mn-content-container left" colspan="100%">
+        <td class="mn-content-footer-status-msg" colspan="100%">
           No items to show
         </td>
       </tr>
@@ -100,7 +100,7 @@
     </tbody>
     <tbody ng-show="grid.onlySelectedItemsShown">
       <tr ng-show="grid.selectedItems.length === 0">
-        <td class="mn-content-footer-status-msg mn-content-container left" colspan="100%">
+        <td class="mn-content-footer-status-msg" colspan="100%">
           No items to show
         </td>
       </tr>
@@ -132,7 +132,7 @@
   </div>
   <div class="hidden-xs col-sm-5 col-md-6 col-lg-7 mn-content-footer-status-msg">
     <span ng-show="grid.selectedItems.length > 0">
-      <span class="accent0" title="{{grid.selectedItems.length}} selected">{{grid.selectedItems.length}} <i class="fa fa-check-square-o" /></i> </span> /
+      <span class="text-success" title="{{grid.selectedItems.length}} selected">{{grid.selectedItems.length}} <i class="fa fa-check-square-o" /></i> </span> /
     </span>
     <span ng-if="grid.owner.totalQfCount < grid.owner.service.totalCount">
       <span class="mn-content-footer-status-msg-invert" title="{{grid.owner.totalQfCount}} quick filtered"> {{grid.owner.totalQfCount}} <i class="glyphicon glyphicon-filter grid-footer-bar-filter-icon"></i> </span> /
