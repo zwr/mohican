@@ -127,6 +127,12 @@ a.navbar-brand {
     width:100%;
     z-index: 200;
   }
+  
+  tr.last-selected {
+    border-left-color: blue;
+    border-left-style: solid;
+    border-left-width: medium;
+  }
 } // .mn-grid
 
 .btn-toolbar {
