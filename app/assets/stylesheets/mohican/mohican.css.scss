@@ -46,11 +46,6 @@ a.navbar-brand {
   background:$mn-brand-bg;
 }
 
-// Following line is a fix to Bootstrap, which is likely to be included in the nxt release
-.container-fluid .jumbotron {
-  border-radius: 6px;
-}
-
 /////////////////////////////////////////
 //
 // All the CSS for the grid (not footer, but yes qf bar)
