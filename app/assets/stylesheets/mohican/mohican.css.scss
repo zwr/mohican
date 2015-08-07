@@ -57,33 +57,6 @@ a.navbar-brand {
   // This makes the text not move when editing starts but theinput simply appears around it.
   overflow:auto;
 
-  .mnf-grid-ref-field-editing {
-    input {
-      //margin-top: -4px;
-      height: 26px !important;
-      padding: 5px 12px !important;
-      margin-top: 1px;
-    }
-    
-    .mnf-grid-field-editing-text{
-      div {
-        display: inline;
-        margin-top: 2px;
-        position: relative;
-        top: 3px;
-      }
-      display: inline;
-      position: relative;
-    }
-    .mnf-grid-field-editing-button-wrap {
-      display: inline;
-      padding-top: 0px;
-      .btn {
-        padding-top: 3px;
-      }
-    }
-  }
-
   .table > thead > tr.mn-grid-header > th {
     border-bottom: none;
   }
@@ -96,6 +69,30 @@ a.navbar-brand {
     }
   }
 
+  .mnf-grid-field-editing input {
+    height: 26px !important;
+    padding: 5px 12px !important;
+    margin-top: 1px;
+  }
+    
+  .mnf-grid-field-editing-text{
+    div {
+      display: inline;
+      margin-top: 2px;
+      position: relative;
+      top: 3px;
+    }
+    display: inline;
+    position: relative;
+  }
+  .mnf-grid-field-editing-button-wrap {
+    display: inline;
+    padding-top: 0px;
+    .btn {
+      padding-top: 3px;
+    }
+  }
+  
   .mnf-grid-field-editing {
     padding-top: 1px;
   }
