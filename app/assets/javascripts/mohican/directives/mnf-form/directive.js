@@ -8,7 +8,7 @@ angular.module('mohican.directives')
       return {
         scope: {
           mnfDoc:       '=',
-          mnfCrudShown: '='
+          mnfCrudShown: '=?'
         },
         restrict:     'E',
         transclude:   true,
