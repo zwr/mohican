@@ -17,17 +17,27 @@
 
 
 // mixins
-
 // basic bootstrap "buttonizer" for overrinding existing vendor component style
 @mixin bs-btnize($variant) {
   @extend .btn;
   @extend .btn-#{$variant};
 }
 
+// TODO: why different size of buttons? Why all this?????
 // reseting positioning & box model for isteven-multi-select existing vendor component style
 @mixin multi-select-reset-pbm($pad,$lmargin) {
   padding: $pad + px ($pad * 4) + px $pad + px ($pad * 4) + px; // compensate for the inner .multiSelect .buttonLabel padding
   margin-left: $lmargin + px;
+}
+
+.success .multiSelect button {
+  @include multi-select-reset-pbm(2,2);
+  @include bs-btnize("success");
+}
+
+.primary .multiSelect button {
+  @include multi-select-reset-pbm(1,5);
+  @include bs-btnize("primary");
 }
 
 /* title bar logo */
@@ -41,174 +51,160 @@ a.navbar-brand {
   border-radius: 6px;
 }
 
-
-///////////////////////////////////////
-// Align grid data when idle and when being editied.
-// This makes the text not move when editing starts but theinput simply appears around it.
-.mnf-grid-field-editing input {
-  //margin-top: -4px;
-  height: 26px !important;
-  padding: 5px 12px !important;
-  margin-top: 1px;
-}
-
-.mnf-grid-ref-field-editing {
-  .mnf-grid-field-editing-text{
-    div {
-      display: inline;
-      margin-top: 2px;
-      position: relative;
-      top: 3px;
-    }
-    display: inline;
-    position: relative;
-  }
-  .mnf-grid-field-editing-button-wrap {
-    display: inline;
-    padding-top: 0px;
-    .btn {
-      padding-top: 3px;
-    }
-  }
-}
-
+/////////////////////////////////////////
 //
-///////////////////////////////////////
+// All the CSS for the grid (not footer, but yes qf bar)
+// should be inside the following selector
+//
+.mn-grid {
+  ///////////////////////////////////////
+  // Align grid data when idle and when being editied.
+  // This makes the text not move when editing starts but theinput simply appears around it.
+  overflow:auto;
+
+  .mnf-grid-ref-field-editing {
+    input {
+      //margin-top: -4px;
+      height: 26px !important;
+      padding: 5px 12px !important;
+      margin-top: 1px;
+    }
+    
+    .mnf-grid-field-editing-text{
+      div {
+        display: inline;
+        margin-top: 2px;
+        position: relative;
+        top: 3px;
+      }
+      display: inline;
+      position: relative;
+    }
+    .mnf-grid-field-editing-button-wrap {
+      display: inline;
+      padding-top: 0px;
+      .btn {
+        padding-top: 3px;
+      }
+    }
+  }
+
+  .table > thead > tr.mn-grid-header > th {
+    border-bottom: none;
+  }
+  .mn-grid-data-row {
+    .input-sm {
+      margin-top: -8px;
+    }
+    .btn-link {
+      padding-bottom: 0px;
+    }
+  }
+
+  .mnf-grid-field-editing {
+    padding-top: 1px;
+  }
+
+  .mnf-grid-field-ready {
+    padding-top: 5px;
+    padding-left: 13px;
+  }
+  .mnf-grid-ref-field-editing {
+    padding-top: 1px;
+    padding-left: 13px;
+  }
+  .mn-grid-select-box {
+    margin-top: 10px !important;
+    font-size:$font-size-base * 3;
+  }
+
+  mn-grid tr.last-selected {
+    border-left-color: blue;
+    border-left-style: solid;
+    border-left-width: medium;
+  }
+
+  .qf-row, .table > thead > tr th.qf-row {
+    padding: 2px 1px 4px 1px !important;
+    border: none !important;
+    vertical-align: middle;
+  }
+
+  .filterFieldBgWrap {
+    position:relative;
+    width:100%;
+    z-index: 200;
+  }
+} // .mn-grid
 
 .btn-toolbar {
   margin-bottom: $mn-filter-bar-btmPad;
 }
 
-.success .multiSelect button {
-  @include multi-select-reset-pbm(2,2);
-  @include bs-btnize("success");
+mnf-form, mnf-form-grid {
+  .changed {
+    background-color: yellow;
+  }
 }
 
-.qf-row .multiSelect .multiSelectItem.selected:not(.multiSelectGroup) {
-  background-image: linear-gradient($mn-colorscheme-2M, $mn-colorscheme-2L);
-  border: 0 !important;
-}
+mnf-form {
+  .mn-form-group {
+    margin-bottom: 0px;
+  }
 
-.qf-row .multiSelect .multiSelectItem:hover, .qf-row .multiSelect .multiSelectGroup:hover {
-  background-image: linear-gradient($mn-colorscheme-2V, $mn-colorscheme-2D);
-  border: 0 !important;
-}
+  .mn-form-control {
+    font-size: 14px !important;
+  }
 
-.table > thead > tr.mn-grid-header > th {
-  border-bottom: none;
-}
+  .mn-buttons-group {
+    margin-bottom: 5px;
+  }
 
-.mn-grid-data-row .input-sm {
-  margin-top: -8px;
-}
-.mn-grid-data-row .btn-link {
-  padding-bottom: 0px;
-}
+  .state-ready-field-value {
+    height: 30px;
+    padding-left: 26px;
+    padding-top: 5px;
+    padding-bottom: 5px;
+  }
 
-.mnf-grid-field-editing {
-  padding-top: 1px;
-}
+  .state-ready-field-value i {
+    font-size: 1.6em;
+  }
 
-._mn-grid-data-row {
-  height: 45px;
-}
+  mnf-reference {
+    .padding-top-0 {
+      padding-top: 0px !important;
+    }
 
-.mnf-grid-field-ready {
-  padding-top: 5px;
-  padding-left: 13px;
-}
-.mnf-grid-ref-field-editing {
-  padding-top: 1px;
-  padding-left: 13px;
-}
-.mn-grid-select-box {
-  margin-top: 10px !important;
-  font-size:$font-size-base * 3;
-}
+    .btn-link {
+      padding: 0px;
+      padding-right: 17px;
+      padding-left: 11px;
+    }
 
-mn-grid tr.last-selected {
-  border-left-color: blue;
-  border-left-style: solid;
-  border-left-width: medium;
-}
+    .ref-container {
+      margin-left: -11px;
+      margin-right: 0px;
+      padding-top: 2px;
+    }
 
-mnf-form .changed, mnf-form-grid .changed {
-  background-color: yellow;
-}
-
-mnf-form button {
-  width: 93px;
-}
-
-mnf-form .mn-form-group {
-  margin-bottom: 0px;
-}
-
-mnf-form .mn-form-control {
-  font-size: 14px !important;
-}
-
-mnf-form .mn-buttons-group {
-  margin-bottom: 5px;
-}
-
-mnf-form .state-ready-field-value {
-  height: 30px;
-  padding-left: 26px;
-  padding-top: 5px;
-  padding-bottom: 5px;
-}
-
-mnf-reference .padding-top-0 {
-  padding-top: 0px !important;
-}
-
-mnf-form .state-ready-field-value i {
-  font-size: 1.6em;
-}
-
-mnf-reference .btn-link {
-  padding: 0px;
-  padding-right: 17px;
-  padding-left: 11px;
-}
-
-mnf-reference .ref-container {
-  margin-left: -11px;
-  margin-right: 0px;
-  padding-top: 2px;
-}
-
-mnf-reference .ref-edit-label {
-  padding-top: 3px;
-  padding-left: 11px;
-}
+    .ref-edit-label {
+      padding-top: 3px;
+      padding-left: 11px;
+    }
+  }
+} //mnf-form
 
 .mnf-reference-dialog-container {
   max-width: 1100px;
+  .ref-dialog-close-btn {
+    margin-top: 5px;
+  }
 }
 
-.ref-dialog-close-btn {
-  margin-top: 5px;
-}
-
-.primary .multiSelect button {
-  @include multi-select-reset-pbm(1,5);
-  @include bs-btnize("primary");
-}
-
-.qf-row, .table > thead > tr th.qf-row {
-  padding: 2px 1px 4px 1px !important;
-  border: none !important;
-  vertical-align: middle;
-}
-
-.filterFieldBgWrap {
-  position:relative;
-  width:100%;
-  z-index: 200;
-}
-
+////////////////////////////////////
+//
+// Following makes sure pointer cursor is shown on elements that are link-like
 .nav,
 .carousel,
 .panel-title a,
@@ -219,17 +215,14 @@ mnf-reference .ref-edit-label {
     cursor: pointer;
 }
 
-mn-item-reports > div, .block {
-  display: block !important;
-}
-
+///////////////////////////////////
+// TODO: replace following with Bootstrap classes rather than own.
 .icoNormal {
   color: $mn-filter-bar-button-active-text-color !important;
   padding: 0px 1px 0px 1px;
-}
-
-.icoNormal:hover, .icoNormal:active {
+  &:hover, &:active {
   color: #999 !important;
+  }
 }
 
 .hvRed:hover, .hvRed:active {
@@ -243,62 +236,7 @@ mn-item-reports > div, .block {
 .hvBlue:hover, .hvBlue:active {
   color: #0089E2 !important;
 }
-
-.mn-context-menu {
-  position: absolute;
-  z-index:999999;
-}
-
-.mn-context-menu-cover {
-  position:fixed;
-  top:0;
-  left:0;
-  width:100%;
-  height:100%;
-  background:rgba(0,0,0,0);
-  z-index:999998;
-  cursor:default;
-}
-
-.mn-context-menu > .btn-default {
-  color: $mn-popup-menu-color;
-  border-color: $mn-popup-menu-border-color;
-}
-
-.mn-context-menu > .btn-default:hover {
-  color: $mn-popup-menu-color-hover;
-  background-color: $mn-popup-menu-background-color-hover;
-  border-color: $mn-popup-menu-border-color-hover;
-}
-
-.mn-pager-row {
-  padding-top: 7px;
-  margin: 0 !important;
-}
-
-.mn-content-footer-status-msg {
-  padding-right:42px;
-  color:$mn-colorscheme-1P;
-  font-size:24px;
-  font-weight:bolder;
-  vertical-align: bottom;
-  text-align: right;
-}
-
-.mn-content-footer-status-msg-invert {
-  color:$mn-colorscheme-1D;
-}
-
-.pager-shows-filter {
-    border-color: $state-warning-text;
-    border-style: solid;
-    border-width: 1px;
-}
-
-.mn-context-menu {
-  position: absolute;
-  z-index:1999;
-}
+//////////////////////////////////////
 
 .mn-context-menu-cover, .mn-dialog-frame-cover {
   position:fixed;
@@ -318,16 +256,13 @@ mn-item-reports > div, .block {
 .mn-dialog-frame {
   position:fixed;
   z-index:1999;
-  // padding: 30px 45px;
-  //margin: 30px;
   * {
     z-index:9999;
     position:relative;
   }
-}
-
-.mn-dialog-content {
-  padding: 30px 45px;
+  .mn-dialog-content {
+    padding: 30px 45px;
+  }
 }
 
 .mn-dialog-close-button {
@@ -342,28 +277,46 @@ mn-item-reports > div, .block {
   z-index:2999;
 }
 
-.mn-context-menu > .btn-default {
-  color: $mn-popup-menu-color;
-  background-color: $mn-popup-menu-background-color;
-  border-color: $mn-popup-menu-border-color;
+.mn-context-menu {
+  position: absolute;
+  z-index:999999;
+  &> .btn-default {
+    color: $mn-popup-menu-color;
+    background-color: $mn-popup-menu-background-color;
+    border-color: $mn-popup-menu-border-color;
+    &:hover {
+      color: $mn-popup-menu-color-hover;
+      background-color: $mn-popup-menu-background-color-hover;
+      border-color: $mn-popup-menu-border-color-hover;
+    }
+  }
 }
 
-.mn-context-menu > .btn-default:hover {
-  color: $mn-popup-menu-color-hover;
-  background-color: $mn-popup-menu-background-color-hover;
-  border-color: $mn-popup-menu-border-color-hover;
+.mn-pager-row {
+  padding-top: 7px;
+  margin: 0 !important;
+  .grid-footer-bar-filter-icon {
+    font-size:$font-size-base * 1.5;
+  }
 }
 
-//generic container styles
-
-.scrollable-frame {
-  overflow:auto;
+.mn-content-footer-status-msg {
+  padding-right:42px;
+  color:$mn-colorscheme-1P;
+  font-size:24px;
+  font-weight:bolder;
+  vertical-align: bottom;
+  text-align: right;
 }
 
-//generic modifier styles
+.mn-content-footer-status-msg-invert {
+  color:$mn-colorscheme-1D;
+}
 
-.grid-footer-bar-filter-icon {
-  font-size:$font-size-base * 1.5;
+.pager-shows-filter {
+    border-color: $state-warning-text;
+    border-style: solid;
+    border-width: 1px;
 }
 
 .page-not-found-image {
