@@ -1,7 +1,8 @@
 //= require ./mohican/config
 //= require jquery
 //= require angular
-//= require angular-ui-bootstrap
+//= require angular-animate
+//= require angular-ui-bootstrap-tpls
 //= require angular-rails-templates
 
 //= require ./mohican/lib/lodash
@@ -10,7 +11,6 @@
 //= require ./mohican/lib/daterangepicker
 //= require ./mohican/lib/angular-daterangepicker
 //= require ./mohican/lib/angular-multi-select
-//= require ./mohican/lib/angular-animate
 
 //= require ./mohican/globals/base.globals
 //= require ./mohican/mixins/base.mixins
