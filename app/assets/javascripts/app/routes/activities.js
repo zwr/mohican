@@ -75,7 +75,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               action: function() {
                 ctrl.clickedItem = clickedItem;
                 ctrl.selectedItems = selectedItems;
-                ctrl.popDialog('Selected Orders', 'app/routes/activities-example-dialog.html', ctrl);
+                ctrl.popDialog('Selected Orders', 'app/routes/activities-example-dialog.html');
               }
             },
             {

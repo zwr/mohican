@@ -26,6 +26,7 @@
       mnDialogVisible: false,
 
       popDialog: function(title, templateUrl, ctrl) {
+        if(!ctrl) ctrl = this;
         var modalInstance = this.modal.open({
           // animation must stay off until the bug is fixed in 
           // angular-ui-bootstrap-rails, maybe version 13.2 fixes it but is not out.
