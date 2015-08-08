@@ -12,7 +12,7 @@
                  mn-on-select="ctrl.onItemSelect(selectedItems)"
                  mn-popup="ctrl.popup(clickedItem, selectedItems)"
                  mn-grid-fill-height="true">
-          <a ui-sref="orders-form({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })">
+          <a ui-sref="orders-doc({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })">
             <i class="fa fa-file-text-o fa-2x icoNormal"></i>
           </a>
           <mnf-edit-grid mnf-doc="item"></mnf-edit-grid>
