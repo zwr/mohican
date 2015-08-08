@@ -69,34 +69,14 @@ a.navbar-brand {
     }
   }
 
-  .mnf-grid-field-editing input {
-    height: 26px !important;
-    padding: 5px 12px !important;
-    margin-top: 1px;
-  }
-    
-  .mnf-grid-field-editing-text{
-    div {
-      display: inline;
-      margin-top: 2px;
-      position: relative;
-      top: 3px;
-    }
-    display: inline;
-    position: relative;
-  }
-  .mnf-grid-field-editing-button-wrap {
-    display: inline;
-    padding-top: 0px;
-    .btn {
-      padding-top: 3px;
-    }
-  }
-  
   .mnf-grid-field-editing {
     padding-top: 1px;
+    input {
+      height: 26px !important;
+      padding: 5px 12px !important;
+      margin-top: 1px;
+    }
   }
-
   .mnf-grid-field-ready {
     padding-top: 5px;
     padding-left: 13px;
@@ -104,6 +84,24 @@ a.navbar-brand {
   .mnf-grid-ref-field-editing {
     padding-top: 1px;
     padding-left: 13px;
+    .mnf-grid-field-editing-text{
+      div {
+        display: inline;
+        margin-top: 2px;
+        position: relative;
+        top: 3px;
+      }
+      display: inline;
+      position: relative;
+    }
+
+    .mnf-grid-field-editing-button-wrap {
+      display: inline;
+      padding-top: 0px;
+      .btn {
+        padding-top: 3px;
+      }
+    }
   }
   .mn-grid-select-box {
     margin-top: 10px !important;
