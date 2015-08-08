@@ -5,17 +5,9 @@
         <mn-grid owner="ctrl.refResourceController"
                  mn-select="single"
                  mn-select-type="check"
-                 mn-on-select="ctrl.refResourceController.onItemSelect(selectedItems)">
+                 mn-on-select="ok(selectedItems);ctrl.refResourceController.onItemSelect(selectedItems)">
         </mn-grid>
       </div>
     </div>
   </div>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-xs-12">
-        <button class="btn ref-dialog-close-btn" ng-click="ctrl.closeDialog()">Close</button>
-      </div>
-    </div>
-  </div>
-
 </div>
