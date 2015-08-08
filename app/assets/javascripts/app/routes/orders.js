@@ -5,10 +5,11 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   mnRouterProvider.addResouceRoute({
     name: 'orders',
 
-    controller: ['service', 'mnRouter',
-      function(service, mnRouter) {
+    controller: ['$modal', 'service', 'mnRouter',
+      function($modal, service, mnRouter) {
         mohican.extendResourcePageController(this, service, mnRouter);
         var ctrl = this;
+        ctrl.modal = $modal;
         ctrl.reportLocation = '/reports';
         ctrl.attached = false;
         ctrl.printMe = function(item) {
