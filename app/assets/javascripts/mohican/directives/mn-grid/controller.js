@@ -137,7 +137,7 @@
     };
 
     vm.rightClick = function(item, $event) {
-      if(vm.mnPopup) {
+      if(vm.hasContextMenu) {
         vm.contextMenuItems = vm.mnPopup({clickedItem: item, selectedItems: vm.selectedItems});
         vm.contextMenuVisible = true;
         vm.menuPosition = {

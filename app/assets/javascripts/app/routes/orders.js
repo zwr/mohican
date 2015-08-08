@@ -9,6 +9,19 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
       function(service, mnRouter) {
         mohican.extendResourcePageController(this, service, mnRouter);
         var ctrl = this;
+        ctrl.reportLocation = '/reports';
+        ctrl.attached = false;
+        ctrl.printMe = function(item) {
+          console.log(item);
+          angular.element('#printf').attr('src', '/id.pdf');
+          if(!ctrl.attached) {
+            ctrl.attached = true;
+            angular.element('#print-f').load(function() {
+              window.frames['print-f'].focus();
+              window.frames['print-f'].print();
+            });
+          }
+        };
 
         ctrl.handlersDrv = ctrl.createBasicDriver('order_handlers', [
           {
@@ -42,17 +55,37 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         ctrl.onItemSelect = function(selectedItems) {
           console.log(selectedItems);
         };
-        ctrl.popup = function(/*clickedItem, selectedItems*/) {
-          var retArray = [/*
+        ctrl.popup = function(clickedItem, selectedItems) {
+          var retArray = [
             {
               text:   'pop me up',
               action: function() {
                 ctrl.clickedItem = clickedItem;
                 ctrl.selectedItems = selectedItems;
-                ctrl.popDialog('Selected Orders', 'app/routes/activities-example-dialog.html');
+                ctrl.popDialog('Selected Orders', 'app/routes/orders-example-dialog.html');
+              }
+            },
+            {
+              text:   'link to order',
+              action: function() {
+                ctrl.linkToOrderController = {};
+                mohican.extendResourceDriver(ctrl.linkToOrderController, service);
+                ctrl.popDialog('Selected Orders', 'app/routes/orders-link-to-order-dialog.html');
+              }
+            },
+            {
+              text:   'select all',
+              action: function(gridCtrl) {
+                gridCtrl.selectAll();
+              }
+            },
+            {
+              text:   'select none',
+              action: function(gridCtrl) {
+                gridCtrl.selectNone();
               }
             }
-          */];
+          ];
           return retArray;
         };
       }

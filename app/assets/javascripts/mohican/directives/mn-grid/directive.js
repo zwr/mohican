@@ -9,11 +9,11 @@
     .directive('mnGrid', ['$interval', '$window', function($interval, $window) {
         return {
           scope: {
-            owner:        '=?',
-            mnSelect:     '@?',
-            mnSelectType: '@?',
-            mnOnSelect:   '&',
-            mnPopup:      '&',
+            owner:            '=?',
+            mnSelect:         '@?',
+            mnSelectType:     '@?',
+            mnOnSelect:       '&',
+            mnPopup:          '&',
             mnGridFillHeight: '@?'
           },
           restrict:     'E',
@@ -25,6 +25,7 @@
           bindToController: true,
 
           link: function(scope, element, attrs, ctrl, $transcludeFn) {
+            ctrl.hasContextMenu = attrs.mnPopup ? true : false;
             if(scope.grid.mnGridFillHeight) {
               scope.setHeight = function(h) {
                 element.first().children().first().height(h - element[0].getBoundingClientRect().top - 41);
