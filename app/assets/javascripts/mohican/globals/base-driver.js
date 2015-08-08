@@ -27,7 +27,9 @@
 
       popDialog: function(title, templateUrl, ctrl) {
         var modalInstance = this.modal.open({
-          animation: true,
+          // animation must stay off until the bug is fixed in 
+          // angular-ui-bootstrap-rails, maybe version 13.2 fixes it but is not out.
+          animation: false,
           template: '<div class="modal-header">                                   \
             <h3 class="modal-title">{{mnDialogActiveTitle}}</h3>                  \
           </div>                                                                  \
