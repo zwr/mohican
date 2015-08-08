@@ -42,7 +42,6 @@
             <button class="btn btn-primary" ng-click="ok()">OK</button>           \
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>   \
           </div>',
-          //templateUrl: mohican/directives/mn-dialog-sorcerer/template2.html',
           controller: ['$scope', '$modalInstance', function($scope, $modalInstance) {
             $scope.ok = function(result) {
               $modalInstance.close(result);
@@ -54,6 +53,7 @@
             $scope.mnDialogActiveTemplate = templateUrl;
             $scope.ctrl = ctrl;
           }],
+          backdrop: 'static',
           size: 'lg'
         });
 
