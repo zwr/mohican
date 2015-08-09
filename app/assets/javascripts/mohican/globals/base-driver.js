@@ -25,24 +25,27 @@
 
       mnDialogVisible: false,
 
-      popDialog: function(title, templateUrl, ctrl) {
-        if(!ctrl) ctrl = this;
+      popDialog: function(title, templateUrl, options) {
+        if(!options) { options = {}; }
+        if(!options.ctrl) options.ctrl = this;
         var modalInstance = this.modal.open({
           // animation must stay off until the bug is fixed in 
           // angular-ui-bootstrap-rails, maybe version 13.2 fixes it but is not out.
           animation: false,
           template: '<div class="modal-header">                                   \
+            <button type="button" class="close"                                   \
+                    data-dismiss="modal" ng-if="!options.hideHeaderX"             \
+                    ng-click="cancel("header x-ed")">&times;</button>             \
             <h3 class="modal-title">{{mnDialogActiveTitle}}</h3>                  \
           </div>                                                                  \
           <div class="modal-body">                                                \
-            <p>I am the dialog</p>                                                \
             <ng-include src="mnDialogActiveTemplate"></ng-include>                \
           </div>                                                                  \
-          <div class="modal-footer">                                              \
+          <div class="modal-footer" ng-if="!options.hideFooter">                  \
             <button class="btn btn-primary" ng-click="ok()">OK</button>           \
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>   \
           </div>',
-          controller: ['$scope', '$modalInstance', function($scope, $modalInstance) {
+          controller: ['$scope', '$modalInstance', function($scope, $modalInstance) {
             $scope.ok = function(result) {
               $modalInstance.close(result);
             };
@@ -51,16 +54,11 @@
             };
             $scope.mnDialogActiveTitle = title;
             $scope.mnDialogActiveTemplate = templateUrl;
-            $scope.ctrl = ctrl;
+            $scope.ctrl = options.ctrl;
+            $scope.options = options;
           }],
           backdrop: 'static',
           size: 'lg'
-        });
-
-        modalInstance.result.then(function () {
-          console.log('Modal success at: ' + new Date());
-        }, function () {
-          console.log('Modal dismissed at: ' + new Date());
         });
         
         return modalInstance.result;

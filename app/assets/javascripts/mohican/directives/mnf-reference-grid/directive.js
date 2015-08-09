@@ -38,7 +38,9 @@
               };
               var service = $injector.get(attr.mnfRefResource + 'Service');
               mohican.extendResourceDriver(scope.owner.refResourceController, service);
-              scope.owner.popDialog('Select from ' + attr.mnfRefResource, 'mohican/directives/mnf-reference-grid/ref-resource-dialog.html');
+              scope.owner.popDialog('Select from ' + attr.mnfRefResource,
+                                    'mohican/directives/mnf-reference-grid/ref-resource-dialog.html',
+                                    { hideFooter: true });
             };
           }
         };
