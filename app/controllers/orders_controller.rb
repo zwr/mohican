@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
                 {
                   name: :status,
                   header: :Status,
-                  width: 420,
+                  width: 320,
                   quicksort: true,
                   quickfilter: :text,
                   view: :text
@@ -65,7 +65,7 @@ class OrdersController < ApplicationController
                 {
                   name: :total,
                   header: :Total,
-                  width: 420,
+                  width: 320,
                   quicksort: true,
                   quickfilter: :text,
                   view: :text

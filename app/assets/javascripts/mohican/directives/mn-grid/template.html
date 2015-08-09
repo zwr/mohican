@@ -1,30 +1,27 @@
 <div class="mn-grid">
   <table class="table table-striped" style="table-layout:fixed;">
-    <colgroup>
-      <col ng-show="grid.showSelectColumn" style="width: 30px;"/>
-      <col ng-repeat="field in grid.owner.fields" ng-style="{width: field.width + 'px'}" />
-      <col style="width:250px;" />
-      <col />
-    </colgroup>
     <thead>
       <tr class="mn-grid-header">
-        <th ng-show="grid.showSelectColumn" class="grid-header-container">
+        <th ng-show="grid.showSelectColumn"
+            class="grid-header-container"
+            style="width: 30px;">
           <input type="checkbox" class="mn-grid-select-box"
                  ng-model="grid.onlySelectedItemsShown">
         </th>
         <th ng-repeat="field in grid.owner.fields"
             ng-class="{'mn-sortable': grid.owner.fullyLoaded && !grid.onlySelectedItemsShown}"
             ng-click="grid.orderBy(field)"
-            class="grid-header-container">
-          <span class="grid-header-field-name" ng-style="{width: (field.width - 22) + 'px'}">
-            {{field.header}}
-          </span>
+            class="grid-header-container"
+            ng-style="{width: (field.width) + 'px'}">
+            <div class="mnf-grid-field-ready">
+              <span class="grid-header-field-name">
+                {{field.header}}
+              </span>
+            </div>
           <span ng-show="grid.owner.stateMachine.column === field.name && grid.owner.fullyLoaded && !grid.onlySelectedItemsShown"
                 ng-class="grid.owner.stateMachine.direction === 'desc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'"
-                class="glyphicon"
-                ></span>
+                class="glyphicon"></span>
         </th>
-        <th class="grid-header-container"></th>
         <th class="grid-header-container"></th>
       </tr>
       <tr>
@@ -32,7 +29,10 @@
           <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
           </div>
         </th>
-        <th ng-repeat="field in grid.owner.fields" class="qf-row" ng-class="{'disabled' : grid.onlySelectedItemsShown}">
+        <th ng-repeat="field in grid.owner.fields"
+            class="qf-row"
+            ng-class="{'disabled' : grid.onlySelectedItemsShown}"
+            ng-style="{width: field.width + 'px'}">
           <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
             <div class="filterFieldBgWrap" ng-if="field.quickfilter === 'text' || field.quickfilter === 'date-range'">
               <mn-qf-text
@@ -54,10 +54,6 @@
                     model="grid.owner.stateMachine.filters[field.name]"
                     qf-changed="grid.filterBy(fieldName)"
                     field="field"></mn-qf-select>
-          </div>
-        </th>
-        <th class="qf-row">
-          <div animate class="filterRowAnimWrap" ng-show="grid.owner.stateMachine.quickFilterShown && grid.owner.fullyLoaded">
           </div>
         </th>
         <th class="qf-row">
@@ -93,9 +89,8 @@
                               mnf-field-source="field.refFieldSource"></mnf-reference-grid>
         </td>
         <td>
-          <mn-grid-actions />
+          <mn-grid-actions></mn-grid-actions>
         <td>
-        <td>&nbsp</td>
       </tr>
     </tbody>
     <tbody ng-show="grid.onlySelectedItemsShown">
@@ -118,9 +113,8 @@
           </mnf-text-grid>
         </td>
         <td>
-          <mn-grid-actions />
+          <mn-grid-actions></mn-grid-actions>
         <td>
-        <td>&nbsp</td>
       </tr>
     </tbody>
   </table>
