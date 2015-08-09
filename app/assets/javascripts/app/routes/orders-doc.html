@@ -27,9 +27,8 @@
                     mn-content-changed="ctrl.itemForm['_order_handlers_changed']">
               <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed'">
                 <mn-grid owner="ctrl.handlersDrv">
-                  <a ui-sref="users-doc({ itemPrimaryKeyId: item.user_ref })">
-                    <i class="fa fa-file-text-o fa-2x icoNormal"></i>
-                  </a>
+                  <span ui-sref="users-doc({ itemPrimaryKeyId: item.user_ref })"
+                        class="mn-action-icon glyphicon glyphicon-folder-open"></span>
                   <mnf-edit-grid mnf-doc="item"></mnf-edit-grid>
                   <mnf-commit-grid mnf-doc="item"></mnf-commit-grid>
                   <mnf-rollback-grid mnf-doc="item"></mnf-rollback-grid>
@@ -41,9 +40,8 @@
                     mn-content-changed="ctrl.itemForm['_order_items_changed']">
               <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed'">
                 <mn-grid owner="ctrl.productsDrv">
-                  <a ui-sref="products-doc({ itemPrimaryKeyId: item.product_ref })">
-                    <i class="fa fa-file-text-o fa-2x icoNormal"></i>
-                  </a>
+                  <span ui-sref="products-doc({ itemPrimaryKeyId: item.product_ref })"
+                        class="mn-action-icon glyphicon glyphicon-folder-open"></span>
                   <mnf-edit-grid mnf-doc="item"></mnf-edit-grid>
                   <mnf-commit-grid mnf-doc="item"></mnf-commit-grid>
                   <mnf-rollback-grid mnf-doc="item"></mnf-rollback-grid>

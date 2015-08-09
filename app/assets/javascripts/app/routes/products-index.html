@@ -10,9 +10,8 @@
                mn-select-type="check"
                mn-on-select="ctrl.onItemSelect(selectedItems)"
                mn-grid-fill-height="true">
-        <a ui-sref="products-doc({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })">
-          <i class="fa fa-file-text-o fa-2x icoNormal"></i>
-        </a>
+        <span ui-sref="products-doc({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })"
+              class="mn-action-icon glyphicon glyphicon-folder-open"></span>
       </mn-grid>
     </div>
   </div>

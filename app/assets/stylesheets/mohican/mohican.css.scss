@@ -125,7 +125,7 @@ a.navbar-brand {
     width:100%;
     z-index: 200;
   }
-  
+
   tr.last-selected {
     border-left-color: blue;
     border-left-style: solid;
@@ -196,6 +196,10 @@ mnf-form {
   .ref-dialog-close-btn {
     margin-top: 5px;
   }
+}
+
+.mn-action-icon {
+  cursor: pointer;
 }
 
 ////////////////////////////////////

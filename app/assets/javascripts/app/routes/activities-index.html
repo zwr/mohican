@@ -10,9 +10,8 @@
                mn-select-type="check"
                mn-on-select="ctrl.onItemSelect(selectedItems)"
                mn-popup="ctrl.popup(clickedItem, selectedItems)">
-        <a ui-sref="activities-doc({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })">
-          <i class="fa fa-file-text-o fa-2x icoNormal"></i>
-        </a>
+        <span ui-sref="activities-doc({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })"
+              class="mn-action-icon glyphicon glyphicon-folder-open"></span>
         <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.pdf">
           <i class="fa fa-file-pdf-o fa-2x icoNormal hvRed"></i>
         </a>

@@ -12,9 +12,8 @@
                  mn-on-select="ctrl.onItemSelect(selectedItems)"
                  mn-popup="ctrl.popup(clickedItem, selectedItems)"
                  mn-grid-fill-height="true">
-          <a ui-sref="orders-doc({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })">
-            <i class="fa fa-file-text-o fa-2x icoNormal"></i>
-          </a>
+          <span ui-sref="orders-doc({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })"
+                class="mn-action-icon glyphicon glyphicon-folder-open"></span>
           <mnf-edit-grid mnf-doc="item"></mnf-edit-grid>
           <mnf-commit-grid mnf-doc="item"></mnf-commit-grid>
           <mnf-rollback-grid mnf-doc="item"></mnf-rollback-grid>
