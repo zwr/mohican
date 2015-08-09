@@ -88,4 +88,35 @@
         }
       };
     }]);
+  angular.module('mohican.directives')
+    .directive('modalFitInWindow',['$interval', '$window',
+      function($interval, $window) {
+        return {
+          scope: false,
+          restrict: 'A',
+          link: function(scope, element, attrs, ctrl, $transcludeFn) {
+            scope.setHeight = function(h) {
+              // element.first().children().first().height(h - element[0].getBoundingClientRect().top - 200);
+              var offset = 30;
+              if(element.next().hasClass('modal-footer')) {
+                offset += element.next().outerHeight();
+              }
+              element.css('max-height', h - element[0].getBoundingClientRect().top - offset);
+            };
+            var timeoutId;
+            timeoutId = $interval(function() {
+              scope.setHeight($window.innerHeight);
+            }, 300);
+            element.on('$destroy', function() {
+              $interval.cancel(timeoutId);
+            });
+            angular.element($window).bind('resize', function(e) {
+              if(e.srcElement) {
+                scope.setHeight(e.srcElement.innerHeight);
+              }
+            });
+            scope.setHeight($window.innerHeight);
+          }
+        };
+      }]);
 }(window.mohican));

@@ -38,7 +38,7 @@
                     ng-click="cancel(\'header x-ed\')">&times;</button>           \
             <h3 class="modal-title">{{mnDialogActiveTitle}}</h3>                  \
           </div>                                                                  \
-          <div class="modal-body">                                                \
+          <div class="modal-body" modal-fit-in-window>                            \
             <ng-include src="mnDialogActiveTemplate"></ng-include>                \
           </div>                                                                  \
           <div class="modal-footer" ng-if="!options.hideFooter">                  \

@@ -320,3 +320,16 @@ mnf-form {
   height: 400px;
   weight: 400px;
 }
+
+///////////////////////////////////////////
+//
+// Mohican BS dialog - max height to fit and scrolling
+// See also modalFitInWindow which sets max-height on .modal-body element.
+//
+.modal-dialog {
+  .modal-content {
+    .modal-header {}
+    .modal-body { overflow-y: auto; }
+    .modal-footer {}
+  }
+}
