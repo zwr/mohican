@@ -1,8 +1,7 @@
-<a ng-click="confirmDelete()">
-  <i class="fa fa-trash-o fa-2x icoNormal"
-     ng-if="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'ready')"></i>
-  <span class="loader"
-        ng-show="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'deleting')"
-        style="display: block; margin-top: -25px;">
-  </span>
-</a>
+<span ng-click="confirmDelete()"
+      ng-if="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'ready')"
+      class="mn-action-icon glyphicon glyphicon-trash"></span>
+<!-- <span class="loader"
+      ng-show="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'deleting')"
+      style="display: block; margin-top: -25px;">
+</span> -->

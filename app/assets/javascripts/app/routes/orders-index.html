@@ -13,22 +13,22 @@
                  mn-popup="ctrl.popup(clickedItem, selectedItems)"
                  mn-grid-fill-height="true">
           <span ui-sref="orders-doc({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })"
-                class="mn-action-icon glyphicon glyphicon-folder-open"></span>
+                class="mn-action-icon glyphicon glyphicon-open"></span>
           <mnf-edit-grid mnf-doc="item"></mnf-edit-grid>
           <mnf-commit-grid mnf-doc="item"></mnf-commit-grid>
           <mnf-rollback-grid mnf-doc="item"></mnf-rollback-grid>
           <mnf-delete-grid mnf-doc="item"></mnf-delete-grid>
           <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.pdf">
-            <i class="fa fa-file-pdf-o fa-2x icoNormal hvRed"></i>
+            <span class="mn-action-icon glyphicon glyphicon-paperclip"></span>
           </a>
           <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.xls">
-            <i class="fa fa-file-excel-o fa-2x icoNormal hvGreen"></i>
+            <span class="mn-action-icon glyphicon glyphicon-stats"></span>
           </a>
           <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.xml">
-            <i class="fa fa-file-code-o fa-2x icoNormal hvBlue"></i>
+            <span class="mn-action-icon glyphicon glyphicon-cloud-download"></span>
           </a>
           <a target="_blank" ng-click="ctrl.printMe(item)">
-            <i class="fa fa-print fa-2x icoNormal"></i>
+            <span class="mn-action-icon glyphicon glyphicon-print"></span>
           </a>
         </mn-grid>
       </mnf-form-grid>

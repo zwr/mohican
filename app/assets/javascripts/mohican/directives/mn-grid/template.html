@@ -126,7 +126,7 @@
   </div>
   <div class="hidden-xs col-sm-5 col-md-6 col-lg-7 mn-content-footer-status-msg">
     <span ng-show="grid.selectedItems.length > 0">
-      <span class="text-success" title="{{grid.selectedItems.length}} selected">{{grid.selectedItems.length}} <i class="fa fa-check-square-o" /></i> </span> /
+      <span class="text-success" title="{{grid.selectedItems.length}} selected">{{grid.selectedItems.length}} <span class="glyphicon glyphicon-check"></span></span> /
     </span>
     <span ng-if="grid.owner.totalQfCount < grid.owner.service.totalCount">
       <span class="mn-content-footer-status-msg-invert" title="{{grid.owner.totalQfCount}} quick filtered"> {{grid.owner.totalQfCount}} <i class="glyphicon glyphicon-filter grid-footer-bar-filter-icon"></i> </span> /
@@ -142,9 +142,9 @@
     <span ng-if="!(grid.selectedItems.length > 0)">
       loaded {{isObject(grid.owner.service.totalCount)}}
     </span>
-    <span ng-if="grid.selectedItems.length > 0">
-      <i class="fa fa-list" title="{{grid.owner.service.totalCount}} loaded" /></i>
-    </span>
+    <span ng-if="grid.selectedItems.length > 0"
+          class="fa fa-list"
+          title="{{grid.owner.service.totalCount}} loaded"></span>
   </div>
 </div>
 <!-- <div>

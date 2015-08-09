@@ -1,9 +1,7 @@
-<a ng-click="commitItem()">
-  <i class="fa fa-floppy-o fa-2x icoNormal"
-     ng-if="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'changed' || mnfDoc._state === 'editing' || mnfDoc._state === 'committing')"
-     ng-click="commitItem()"></i>
-  <!-- <span class="loader"
-        ng-show="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'committing')"
-        style="display: block; margin-top: -25px;">
-  </span> -->
-</a>
+<span ng-click="commitItem()"
+      ng-if="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'changed' || mnfDoc._state === 'editing' || mnfDoc._state === 'committing')"
+      class="mn-action-icon glyphicon glyphicon-floppy-save"></span>
+<!-- <span class="loader"
+      ng-show="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'committing')"
+      style="display: block; margin-top: -25px;">
+</span> -->
