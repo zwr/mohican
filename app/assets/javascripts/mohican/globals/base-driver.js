@@ -57,8 +57,8 @@
             $scope.ctrl = options.ctrl;
             $scope.options = options;
           }],
-          backdrop: 'static',
-          size: 'lg'
+          backdrop: options.backdrop || 'static',
+          size: options.dialogSize || 'lg'
         });
         
         return modalInstance.result;
