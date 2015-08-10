@@ -5,7 +5,8 @@ angular.module('mohican.directives')
       'use strict';
       return {
         scope: {
-          mnfCrudShown: '=?'
+          mnfCrudShown:       '=?',
+          mnfSubdocumetsGrid: '=?'
         },
         restrict:   'E',
         transclude: true,
@@ -13,12 +14,19 @@ angular.module('mohican.directives')
         controller: ['$scope', function($scope) {
           var vm = this;
           vm.mnfCrudShown = angular.isDefined(vm.mnfCrudShown) ? vm.mnfCrudShown : true;
+          vm.mnfSubdocumetsGrid = angular.isDefined(vm.mnfSubdocumetsGrid) ? vm.mnfSubdocumetsGrid : false;
 
           var unwatch = $scope.$watch(function() {
             return vm.mnfCrudShown;
           }, function(newValue) {
             if(newValue === false && vm.currentMnfDoc) {
               vm.currentMnfDoc.rollback();
+              if(vm.mnfSubdocumetsGrid) {
+                // vm.currentMnfDoc.commit();
+              }
+              else {
+                vm.currentMnfDoc.rollback();
+              }
             }
           });
 

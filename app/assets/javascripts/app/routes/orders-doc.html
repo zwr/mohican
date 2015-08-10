@@ -25,7 +25,8 @@
             </mn-tab>
             <mn-tab heading="Handlers"
                     mn-content-changed="ctrl.itemForm['_order_handlers_changed']">
-              <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed'">
+              <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed'"
+                             mnf-subdocumets-grid="true">
                 <mn-grid owner="ctrl.handlersDrv">
                   <span ui-sref="users-doc({ itemPrimaryKeyId: item.user_ref })"
                         class="mn-action-icon glyphicon glyphicon-open"></span>
@@ -38,7 +39,8 @@
             </mn-tab>
             <mn-tab heading="Products"
                     mn-content-changed="ctrl.itemForm['_order_items_changed']">
-              <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed'">
+              <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed'"
+                             mnf-subdocumets-grid="true">
                 <mn-grid owner="ctrl.productsDrv">
                   <span ui-sref="products-doc({ itemPrimaryKeyId: item.product_ref })"
                         class="mn-action-icon glyphicon glyphicon-open"></span>
