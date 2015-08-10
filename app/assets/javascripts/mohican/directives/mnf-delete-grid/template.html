@@ -1,5 +1,6 @@
 <span ng-click="confirmDelete()"
-      ng-if="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'ready')"
+      ng-if="mnfFormGridCtrl.mnfCrudShown &&
+             (mnfDoc._state === 'ready' || mnfFormGridCtrl.mnfSubdocumetsGrid === true)"
       class="mn-action-icon glyphicon glyphicon-trash"></span>
 <!-- <span class="loader"
       ng-show="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'deleting')"
