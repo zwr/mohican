@@ -17,9 +17,6 @@
       for(var ifield in item) {
         if(!that.isMohicanField(ifield)) {
           item['_' + ifield + '_changed'] = false;
-          // if(isArray(item[ifield])) {
-          //   that.prepareSubDocumentsCrudOperations(item, ifield, []);
-          // }
         }
       }
       item.edit = function() {
@@ -50,17 +47,26 @@
                 if(_.endsWith(field, '_changed')) {
                   item[field] = false;
                 }
-                if(that.isMohicanField(field)) {
-                  //do noting
+                if(isArray(item[field])) {
+                  if(!that.isMohicanField(field)) {
+                    for(var si = 0; si < item[field].length; si++) {
+                      item[field][si].commit();
+                    }
+                  }
                 }
                 else {
-                  item[field] = item._edit[field];
-                  var dataField = that.getDataField(dataFields, field);
-                  if(dataField) {
-                    that._parseField(item, dataField);
+                  if(that.isMohicanField(field)) {
+                    //do noting
                   }
                   else {
-                    that._parseField(item, {name: field});
+                    item[field] = item._edit[field];
+                    var dataField = that.getDataField(dataFields, field);
+                    if(dataField) {
+                      that._parseField(item, dataField);
+                    }
+                    else {
+                      that._parseField(item, {name: field});
+                    }
                   }
                 }
               }
@@ -75,6 +81,13 @@
         for(var field in item) {
           if(_.endsWith(field, '_changed')) {
             item[field] = false;
+          }
+          if(!that.isMohicanField(field)) {
+            if(isArray(item[field])) {
+              for(var si = 0; si < item[field].length; si++) {
+                item[field][si].rollback();
+              }
+            }
           }
         }
       };
@@ -108,6 +121,11 @@
         }
       };
 
+      item.change = function(mnfField) {
+        item['_' + mnfField + '_changed'] = true;
+        item._state = 'changed';
+      };
+
       item._getDiffs = function() {
         var diffObject = {};
         for(var field in item) {
@@ -124,26 +142,18 @@
   mohican.mixins.crudMixin.prepareSubDocumentsCrudOperations = function(mnfDoc, collectionField, dataFields) {
     var that = this;
     var buffer = mnfDoc[collectionField];
+    //item is just a reference to original item in original mnDoc subcollection
     buffer.forEach(function(item, index) {
-      //item is just a reference to original item in original mnDoc subcollection
-      item._state = 'ready';
+      item._edit = mnfDoc._edit[collectionField][index];
+      item._state = 'editing';
       //initial create _changed fields on every item
       for(var ifield in item) {
         if(!that.isMohicanField(ifield)) {
           item['_' + ifield + '_changed'] = false;
         }
       }
-      item.edit = function() {
-        item._state = 'editing';
-        //mnfDoc._edit will be created when parent form is switched to 'editing' state
-        item._edit = mnfDoc._edit[collectionField][index];
-      };
 
       item.commit = function() {
-        console.log(mnfDoc);
-        item._state = 'committing';
-        mnfDoc._state = 'changed';
-        mnfDoc['_' + collectionField + '_changed'] = true;
         for(var field in item) {
           if(_.endsWith(field, '_changed')) {
             item[field] = false;
@@ -164,8 +174,14 @@
         }
         item._state = 'ready';
       };
+
+      item.change = function(changedField) {
+        item._state = 'changed';
+        item['_' + changedField + '_changed'] = true;
+        mnfDoc._state = 'changed';
+        mnfDoc['_' + collectionField + '_changed'] = true;
+      };
       item.rollback = function() {
-        delete item._edit;
         item._state = 'ready';
         for(var field in item) {
           if(_.endsWith(field, '_changed')) {

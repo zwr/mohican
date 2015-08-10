@@ -20,7 +20,6 @@ angular.module('mohican.directives')
             return vm.mnfCrudShown;
           }, function(newValue) {
             if(newValue === false && vm.currentMnfDoc) {
-              vm.currentMnfDoc.rollback();
               if(vm.mnfSubdocumetsGrid) {
                 // vm.currentMnfDoc.commit();
               }

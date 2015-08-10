@@ -17,8 +17,7 @@ angular.module('mohican.directives')
             scope.mnfDoc._state = 'ready';
           }
           scope.textChanged = function() {
-            scope.mnfDoc['_' + scope.mnfField + '_changed'] = true;
-            scope.mnfDoc._state = 'changed';
+            scope.mnfDoc.change(scope.mnfField);
           };
         }
       };

@@ -31,8 +31,7 @@
                     fieldLabel += ' ' + selectedItem[field];
                   });
                   scope.mnfDoc._edit[scope.mnfField] = _.trim(fieldLabel);
-                  scope.mnfDoc['_' + scope.mnfField + '_changed'] = true;
-                  scope.mnfDoc._state = 'changed';
+                  scope.mnfDoc.change(scope.mnfField);
                   scope.owner.closeDialog();
                 }
               };

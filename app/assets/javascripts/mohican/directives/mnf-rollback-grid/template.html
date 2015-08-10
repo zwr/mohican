@@ -1,3 +1,5 @@
 <span ng-click="rollbackItem()"
-      ng-if="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'changed' || mnfDoc._state === 'editing' || mnfDoc._state === 'committing')"
+      ng-if="mnfFormGridCtrl.mnfSubdocumetsGrid === false &&
+             mnfFormGridCtrl.mnfCrudShown &&
+             (mnfDoc._state === 'changed' || mnfDoc._state === 'editing' || mnfDoc._state === 'committing')"
       class="mn-action-icon glyphicon glyphicon-remove-circle"></span>

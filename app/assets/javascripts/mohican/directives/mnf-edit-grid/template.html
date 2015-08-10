@@ -1,3 +1,5 @@
 <span ng-click="editItem()"
-      ng-if="mnfFormGridCtrl.mnfCrudShown && (mnfDoc._state === 'ready' || mnfDoc._state === 'deleting')"
+      ng-if="mnfFormGridCtrl.mnfSubdocumetsGrid === false &&
+             mnfFormGridCtrl.mnfCrudShown &&
+             (mnfDoc._state === 'ready' || mnfDoc._state === 'deleting')"
       class="mn-action-icon glyphicon glyphicon-pencil"></span>

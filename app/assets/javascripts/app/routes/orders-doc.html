@@ -28,11 +28,6 @@
               <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed'"
                              mnf-subdocumets-grid="true">
                 <mn-grid owner="ctrl.handlersDrv">
-                  <span ui-sref="users-doc({ itemPrimaryKeyId: item.user_ref })"
-                        class="mn-action-icon glyphicon glyphicon-open"></span>
-                  <mnf-edit-grid mnf-doc="item"></mnf-edit-grid>
-                  <mnf-commit-grid mnf-doc="item"></mnf-commit-grid>
-                  <mnf-rollback-grid mnf-doc="item"></mnf-rollback-grid>
                   <mnf-delete-grid mnf-doc="item"></mnf-delete-grid>
                 </mn-grid>
               </mnf-form-grid>
@@ -42,11 +37,6 @@
               <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed'"
                              mnf-subdocumets-grid="true">
                 <mn-grid owner="ctrl.productsDrv">
-                  <span ui-sref="products-doc({ itemPrimaryKeyId: item.product_ref })"
-                        class="mn-action-icon glyphicon glyphicon-open"></span>
-                  <mnf-edit-grid mnf-doc="item"></mnf-edit-grid>
-                  <mnf-commit-grid mnf-doc="item"></mnf-commit-grid>
-                  <mnf-rollback-grid mnf-doc="item"></mnf-rollback-grid>
                   <mnf-delete-grid mnf-doc="item"></mnf-delete-grid>
                 </mn-grid>
               </mnf-form-grid>
