@@ -26,9 +26,19 @@
 
           link: function(scope, element, attrs, ctrl, $transcludeFn) {
             ctrl.hasContextMenu = attrs.mnPopup ? true : false;
-            if(scope.grid.mnGridFillHeight) {
+            if(scope.grid.mnGridFillHeight !== false) {
               scope.setHeight = function(h) {
-                element.first().children().first().height(h - element[0].getBoundingClientRect().top - 41);
+                if(scope.grid.mnGridFillHeight !== true
+                  && element.parentsUntil('.modal-body').last().parent().is('.modal-body')) {
+                    var x = element.parentsUntil('.modal-body').last().parent().css('max-height');
+                    if(x.endsWith('px')) {
+                      h = parseInt(x);
+                      h += element.parentsUntil('.modal-body').last().parent()[0].getBoundingClientRect().top;
+                    }
+                }
+                element.first().children().first().height(
+                  h - element[0].getBoundingClientRect().top
+                    - element.first().children().first().next().outerHeight());
               };
               var timeoutId;
               timeoutId = $interval(function() {
