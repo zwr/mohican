@@ -33,6 +33,10 @@
                     var x = element.parentsUntil('.modal-body').last().parent().css('max-height');
                     if(x.endsWith('px')) {
                       h = parseInt(x);
+                      var paddingTop = element.parentsUntil('.modal-body').last().parent().css('padding-top');
+                      if(paddingTop.endsWith('px')) {
+                        h -= parseInt(paddingTop);
+                      }
                       h += element.parentsUntil('.modal-body').last().parent()[0].getBoundingClientRect().top;
                     }
                 }
