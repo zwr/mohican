@@ -16,6 +16,11 @@
       for(var ifield in item) {
         if(!that.isMohicanField(ifield)) {
           item['_' + ifield + '_changed'] = false;
+          if(angular.isArray(item[ifield])) {
+            for(var i = 0; i < item[ifield].length; i++) {
+              item[ifield][i]._state = 'ready';
+            }
+          }
         }
       }
       item.edit = function() {
