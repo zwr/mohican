@@ -111,7 +111,7 @@
           link: function(scope, element, attrs, ctrl, $transcludeFn) {
             scope.setHeight = function(h) {
               // element.first().children().first().height(h - element[0].getBoundingClientRect().top - 200);
-              var offset = 30;
+              var offset = 36;
               if(element.next().hasClass('modal-footer')) {
                 offset += element.next().outerHeight();
               }
