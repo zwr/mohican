@@ -201,11 +201,11 @@
           }
         }
         item._state = 'deleted';
-        // var index = buffer.indexOf(item);
-        console.log('remove item from index: ', index);
-        if(index !== -1) {
-          buffer.splice(index, 1);
-        }
+        var indexInBuffer = buffer.indexOf(item);
+        console.log('remove item from index: ', indexInBuffer);
+        // if(index !== -1) {
+        //   buffer.splice(index, 1);
+        // }
       };
     });
   };

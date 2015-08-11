@@ -109,12 +109,6 @@ a.navbar-brand {
     font-size:$font-size-base * 3;
   }
 
-  mn-grid tr.last-selected {
-    border-left-color: blue;
-    border-left-style: solid;
-    border-left-width: medium;
-  }
-
   .qf-row, .table > thead > tr th.qf-row {
     padding: 2px 1px 4px 1px !important;
     border: none !important;
@@ -131,6 +125,9 @@ a.navbar-brand {
     border-left-color: blue;
     border-left-style: solid;
     border-left-width: medium;
+  }
+  tr.deleted {
+    background-color: red;
   }
 } // .mn-grid
 
