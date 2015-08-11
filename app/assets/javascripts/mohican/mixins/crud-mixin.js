@@ -185,6 +185,7 @@
         mnfDoc._state = 'changed';
         mnfDoc['_' + collectionField + '_changed'] = true;
       };
+
       item.rollback = function() {
         item._state = 'ready';
         for(var field in item) {
