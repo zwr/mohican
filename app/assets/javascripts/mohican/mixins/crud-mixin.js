@@ -9,7 +9,6 @@
   mohican.mixins.crudMixin.theDeletePromise = null;
 
   mohican.mixins.crudMixin.prepareDocumentsCrudOperations = function(buffer, dataFields, $http, apiResource, layout) {
-    var isArray = function(obj) { return Object.prototype.toString.call(obj) === '[object Array]'; };
     var that = this;
     buffer.forEach(function(item) {
       item._state = 'ready';
@@ -24,7 +23,7 @@
         item._edit = _.cloneDeep(item);
         for(var efield in item) {
           if(!that.isMohicanField(efield)) {
-            if(isArray(item[efield])) {
+            if(angular.isArray(item[efield])) {
               that.prepareSubDocumentsCrudOperations(item, efield, []);
             }
           }
@@ -47,7 +46,7 @@
                 if(_.endsWith(field, '_changed')) {
                   item[field] = false;
                 }
-                if(isArray(item[field])) {
+                if(angular.isArray(item[field])) {
                   if(!that.isMohicanField(field)) {
                     for(var si = 0; si < item[field].length; si++) {
                       item[field][si].commit();
@@ -83,7 +82,7 @@
             item[field] = false;
           }
           if(!that.isMohicanField(field)) {
-            if(isArray(item[field])) {
+            if(angular.isArray(item[field])) {
               for(var si = 0; si < item[field].length; si++) {
                 item[field][si].rollback();
               }
