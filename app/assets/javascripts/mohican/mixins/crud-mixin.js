@@ -37,6 +37,15 @@
 
       item.commit = function() {
         item._state = 'committing';
+        for(var cfield in item) {
+          if(!that.isMohicanField(cfield)) {
+            if(angular.isArray(item[cfield])) {
+              item[cfield] = item[cfield].filter(function(itm) {
+                return itm._state !== 'deleted';
+              });
+            }
+          }
+        }
         if(that.theCommitPromise) {
           return that.theCommitPromise.then(function() {
             item.commit();
@@ -135,7 +144,12 @@
         for(var field in item) {
           if(!that.isMohicanField(field) &&
              item['_' + field + '_changed']) {
-            diffObject[field] = item._edit[field];
+            if(angular.isArray(item[field])) {
+              diffObject[field] = item[field];
+            }
+            else {
+              diffObject[field] = item._edit[field];
+            }
           }
         }
         return diffObject;
@@ -201,11 +215,8 @@
           }
         }
         item._state = 'deleted';
-        var indexInBuffer = buffer.indexOf(item);
-        console.log('remove item from index: ', indexInBuffer);
-        // if(index !== -1) {
-        //   buffer.splice(index, 1);
-        // }
+        mnfDoc._state = 'changed';
+        mnfDoc['_' + collectionField + '_changed'] = true;
       };
     });
   };
