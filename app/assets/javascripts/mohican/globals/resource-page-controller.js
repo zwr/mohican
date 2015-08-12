@@ -252,13 +252,6 @@
           basicDrv.items = [];
           if(newCurrentItem[basicDrv.collectionName]) {
             basicDrv.items = newCurrentItem[basicDrv.collectionName];
-            basicDrv.items.forEach(function(item) {
-              for(var key in item) {
-                if(!basicDrv.isMohicanField(key)) {
-                  item['_' + key + '_formatted'] = item[key];
-                }
-              }
-            });
           }
         });
 

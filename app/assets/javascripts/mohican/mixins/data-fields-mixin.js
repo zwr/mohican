@@ -29,12 +29,30 @@
       buffer.forEach(function(item) {
         for(var field in item) {
           if(!that.isMohicanField(field)) {
-            var dataField = that.getDataField(dataFields, field);
-            if(dataField) {
-              that._parseField(item, dataField);
+            if(angular.isArray(item[field])) {
+              item[field].forEach(function(item) {
+                for(var subdocField in item) {
+                  if(!that.isMohicanField(subdocField)) {
+                    //TODO subdoc field types
+                    var dataField = undefined;//that.getDataField(dataFields, subdocField);
+                    if(dataField) {
+                      that._parseField(item, dataField);
+                    }
+                    else {
+                      that._parseField(item, {name: subdocField});
+                    }
+                  }
+                }
+              });
             }
             else {
-              that._parseField(item, {name: field});
+              var dataField = that.getDataField(dataFields, field);
+              if(dataField) {
+                that._parseField(item, dataField);
+              }
+              else {
+                that._parseField(item, {name: field});
+              }
             }
           }
         }
