@@ -1,0 +1,25 @@
+<div ng-if="mnfDoc._state === 'ready' || mnfDoc._state === 'deleting'"
+     class="form-group form-group-sm mn-form-group">
+  <label class="col-sm-4 control-label" for="formGroupInputLarge">{{mnfLabel}}</label>
+  <div class="col-sm-8 state-ready-field-value">
+    <span>{{dateFormated()}}</span>
+  </div>
+</div>
+<div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing'"
+     class="form-group form-group-sm mn-form-group">
+  <label class="col-sm-4 control-label" for="{{mnfField}}">{{mnfLabel}}</label>
+  <div class="col-sm-8">
+    <p class="input-group">
+      <input type="date"
+             class="form-control"
+             datepicker-popup
+             ng-model="mnfDoc._edit[mnfField]"
+             ng-change="textChanged()" />
+     <!-- <input type="text"
+            date-range-picker
+            options="{singleDatePicker: true}"
+            class="form-control date-picker"
+            ng-model="{startDate: mnfDoc._edit[mnfField]}" /> -->
+    </p>
+  </div>
+</div>
