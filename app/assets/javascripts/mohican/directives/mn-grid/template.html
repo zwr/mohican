@@ -48,12 +48,12 @@
                     qf-changed="grid.filterBy(fieldName)"
                     field="field"></mn-qf-date-range>
             </div>
-              <mn-qf-select
-                    qf-disabled="grid.onlySelectedItemsShown"
-                    ng-if="field.quickfilter === 'select'"
-                    model="grid.owner.stateMachine.filters[field.name]"
-                    qf-changed="grid.filterBy(fieldName)"
-                    field="field"></mn-qf-select>
+            <mn-qf-select
+                  qf-disabled="grid.onlySelectedItemsShown"
+                  ng-if="field.quickfilter === 'select'"
+                  model="grid.owner.stateMachine.filters[field.name]"
+                  qf-changed="grid.filterBy(fieldName)"
+                  field="field"></mn-qf-select>
           </div>
         </th>
         <th class="qf-row">
