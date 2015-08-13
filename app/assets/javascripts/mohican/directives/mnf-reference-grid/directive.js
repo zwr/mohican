@@ -11,7 +11,8 @@
             mnfRefId:       '@',
             mnfField:       '@',
             mnfDoc:         '=?',
-            mnfFieldSource: '='
+            mnfFieldSource: '=',
+            readOnly:       '=?'
           },
           restrict:    'E',
           templateUrl: 'mohican/directives/mnf-reference-grid/template.html',

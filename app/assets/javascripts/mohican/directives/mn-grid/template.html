@@ -80,9 +80,11 @@
         </td>
         <td ng-repeat="field in grid.owner.fields" style="overflow: hidden;">
           <mnf-text-grid ng-if="field.view === 'text'"
+                         read-only="field.readOnly"
                          mnf-field="{{field.name}}"
                          mnf-doc="item"></mnf-text-grid>
           <mnf-reference-grid ng-if="field.view === 'reference'"
+                              read-only="field.readOnly"
                               mnf-ref-resource="{{field.refResource}}"
                               mnf-ref-id="{{field.refId}}"
                               mnf-field="{{field.name}}"

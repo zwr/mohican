@@ -7,7 +7,8 @@ angular.module('mohican.directives')
       return {
         scope: {
           mnfField: '@',
-          mnfDoc:   '=?'
+          mnfDoc:   '=?',
+          readOnly: '=?'
         },
         restrict:    'E',
         templateUrl: 'mohican/directives/mnf-text-grid/template.html',

@@ -43,13 +43,15 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             refId:          'product_ref',
             refResource:    'products',
             refFieldSource: ['name'],
-            width:          350
+            width:          350,
+            readOnly:       true
           },
           {
-            header: 'quantity',
-            name:   'quantity',
-            view:   'text',
-            width:  100
+            header:   'quantity',
+            name:     'quantity',
+            view:     'text',
+            width:    100,
+            readOnly: true
           }
         ]);
 
