@@ -27,7 +27,7 @@ angular.module('mohican.directives')
             scope.mnfDoc._state = 'changed';
           };
           scope.dateFormated = function() {
-            return moment(scope.mnfDoc[scope.mnfField]).format('MM/DD/YYYY.');
+            return moment(scope.mnfDoc[scope.mnfField]).format('MM/DD/YYYY');
           };
         }
       };
