@@ -15,6 +15,14 @@ angular.module('mohican.directives')
 
         link: function(scope, elem, attr, mnfFormCtrl) {
           scope.mnfDoc = mnfFormCtrl.mnfDoc;
+          scope.status = {
+            opened: false
+          };
+          scope.$watch(function() {
+            return scope.status.opened;
+          }, function(newValue) {
+            console.log(newValue);
+          });
           scope.$watch(function() {
             return scope.mnfDoc._state;
           }, function(newValue) {
@@ -27,7 +35,11 @@ angular.module('mohican.directives')
             scope.mnfDoc._state = 'changed';
           };
           scope.dateFormated = function() {
-            return moment(scope.mnfDoc[scope.mnfField]).format('MM/DD/YYYY');
+            return moment(scope.mnfDoc[scope.mnfField]).format('DD.MM.YYYY.');
+          };
+          scope.openDateDialog = function() {
+            console.log('open');
+            scope.status.opened = true;
           };
         }
       };

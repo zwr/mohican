@@ -2,7 +2,6 @@
 //= require jquery
 //= require angular
 //= require angular-animate
-//= require angular-ui-bootstrap-tpls
 //= require angular-rails-templates
 
 //= require ./mohican/lib/lodash
@@ -44,12 +43,12 @@
   }];
 
   angular.module('mohican', [
+    'ngAnimate',
     'ui.bootstrap',
     'templates',
     'ui.router',
     'isteven-multi-select',
     'daterangepicker',
-    'ngAnimate',
     'mohican.services',
     'mohican.directives',
     'mnOldDirectives'
