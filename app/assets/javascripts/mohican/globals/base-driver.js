@@ -1,8 +1,10 @@
 (function(mohican) {
   'use strict';
 
-  mohican.createBaseDriver = function() {
+  mohican.createBaseDriver = function($injector) {
     return {
+      modal: $injector.get('$modal'),
+
       stateMachine: mohican.createStateMachine(),
 
       currentItemChanged: function() {},
@@ -27,11 +29,10 @@
 
       popDialog: function(title, templateUrl, options) {
         if(!options) { options = {}; }
-        if(!options.ctrl) options.ctrl = this;
+        if(!options.ctrl) { options.ctrl = this; }
         var modalInstance = this.modal.open({
-          // animation must stay off until the bug is fixed in 
-          // angular-ui-bootstrap-rails, maybe version 13.2 fixes it but is not out.
-          animation: false,
+          animation: true,
+
           template: '<div class="modal-header">                                   \
             <button type="button" class="close"                                   \
                     data-dismiss="modal" ng-if="!options.hideHeaderX"             \
@@ -45,6 +46,7 @@
             <button class="btn btn-primary" ng-click="ok()">OK</button>           \
             <button class="btn btn-warning" ng-click="cancel()">Cancel</button>   \
           </div>',
+
           controller: ['$scope', '$modalInstance', function($scope, $modalInstance) {
             $scope.ok = function(result) {
               $modalInstance.close(result);
@@ -57,15 +59,14 @@
             $scope.ctrl = options.ctrl;
             $scope.options = options;
           }],
+
           backdrop: options.backdrop || 'static',
+
           size: options.dialogSize || 'lg'
         });
         
         return modalInstance.result;
       },
-      closeDialog: function() {
-        this.mnDialogVisible = false;
-      }
     };
   };
 }(window.mohican));

@@ -5,9 +5,9 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   mnRouterProvider.addResouceRoute({
     name: 'users',
 
-    controller: ['service', 'mnRouter',
-      function(service, mnRouter) {
-        mohican.extendResourcePageController(this, service, mnRouter);
+    controller: ['service', '$injector',
+      function(service, $injector) {
+        mohican.extendResourcePageController(this, service, $injector);
         var ctrl = this;
 
         ctrl.onItemSelect = function(selectedItems) {

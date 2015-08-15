@@ -1,15 +1,14 @@
 (function(mohican) {
   'use strict';
 
-  mohican.extendResourceDriver = function(ctrl, service, mnRouter) {
-    _.assign(ctrl, mohican.createBaseDriver());
+  mohican.extendResourceDriver = function(ctrl, service, $injector) {
+    _.assign(ctrl, mohican.createBaseDriver($injector));
     _.assign(ctrl, mohican.createResourceDriver());
 
     ctrl.stateMachine.quickFilterShown = true;
     ctrl.stateMachine.page = 1;
     ctrl.stateMachine.layout = 'default';
     ctrl.stateMachine.backendFilter = 'default';
-    ctrl.mnRouter = mnRouter;
 
     ctrl.initialize(service);
     ctrl.loadData();

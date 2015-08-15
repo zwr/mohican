@@ -5,11 +5,10 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   mnRouterProvider.addResouceRoute({
     name: 'activities',
 
-    controller: ['$modal', 'service', 'mnRouter',
-      function($modal, service, mnRouter) {
-        mohican.extendResourcePageController(this, service, mnRouter);
+    controller: ['service', '$injector',
+      function(service, $injector) {
+        mohican.extendResourcePageController(this, service, $injector);
         var ctrl = this;
-        ctrl.modal = $modal;
         ctrl.reportLocation = '/reports';
         ctrl.attached = false;
         ctrl.printMe = function(item) {
@@ -24,7 +23,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         };
 
-        ctrl.handlersDrv = ctrl.createBasicDriver('handlers', [
+        ctrl.handlersDrv = ctrl.createBasicDriver($injector, 'handlers', [
           {
             header: 'Name',
             name:   'name',
@@ -50,7 +49,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             width:  100
           }
         ]);
-        ctrl.productsDrv = ctrl.createBasicDriver('products', [
+        ctrl.productsDrv = ctrl.createBasicDriver($injector, 'products', [
           {
             header: 'EAN',
             name:   'ean',
@@ -82,7 +81,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               text:   'link to activity',
               action: function() {
                 ctrl.linkToActivityController = {};
-                mohican.extendResourceDriver(ctrl.linkToActivityController, service);
+                mohican.extendResourceDriver(ctrl.linkToActivityController, service, $injector);
                 ctrl.popDialog('Selected Orders', 'app/routes/activities-link-to-activity-dialog.html');
               }
             },

@@ -23,7 +23,7 @@
             scope.openRefDialog = function() {
               scope.owner.refResourceController = {};
               var service = $injector.get(attr.mnfRefResource + 'Service');
-              mohican.extendResourceDriver(scope.owner.refResourceController, service);
+              mohican.extendResourceDriver(scope.owner.refResourceController, service, $injector);
               scope.owner.popDialog('Select from ' + attr.mnfRefResource,
                                     'mohican/directives/mnf-reference-grid/ref-resource-dialog.html',
                                     { hideFooter: true }).
@@ -38,7 +38,6 @@
                               });
                               scope.mnfDoc._edit[scope.mnfField] = _.trim(fieldLabel);
                               scope.mnfDoc.change(scope.mnfField);
-                              scope.owner.closeDialog();
                             }
                           });
             };

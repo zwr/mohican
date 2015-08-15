@@ -1,10 +1,10 @@
 (function(mohican) {
   'use strict';
 
-  mohican.extendResourcePageController = function(ctrl, service, mnRouter) {
-    _.assign(ctrl, mohican.createBaseDriver());
+  mohican.extendResourcePageController = function(ctrl, service, $injector) {
+    _.assign(ctrl, mohican.createBaseDriver($injector));
     _.assign(ctrl, mohican.createResourcePageController());
-    ctrl.initialize(service, mnRouter);
+    ctrl.initialize(service, $injector);
     ctrl.loadData();
   };
 
@@ -25,17 +25,17 @@
 
       clientViewLoadingNotification: undefined,
 
-      initialize: function(service, mnRouter) {
-        mohican.redirectDefaultParameters(mnRouter);
-        mohican.injectDefaultParameters(mnRouter);
+      initialize: function(service, $injector) {
+        this.mnRouter = $injector.get('mnRouter');
 
-        this.mnRouter = mnRouter;
+        mohican.redirectDefaultParameters(this.mnRouter);
+        mohican.injectDefaultParameters(this.mnRouter);
 
-        this.stateMachine.stateMachineFromUrl(mnRouter.$stateParams, service);
+        this.stateMachine.stateMachineFromUrl(this.mnRouter.$stateParams, service);
 
-        if(angular.isDefined(mnRouter.$stateParams.column) ||
-              angular.isDefined(mnRouter.$stateParams.qf) ||
-              angular.isDefined(mnRouter.$stateParams.filters)) {
+        if(angular.isDefined(this.mnRouter.$stateParams.column) ||
+              angular.isDefined(this.mnRouter.$stateParams.qf) ||
+              angular.isDefined(this.mnRouter.$stateParams.filters)) {
           this.clientViewLoadingNotification = true;
         }
         else {
@@ -244,8 +244,8 @@
                        { notify: true });
       },
 
-      createBasicDriver: function(collectionName, fields) {
-        var basicDrv = mohican.createBasicDriver(collectionName, fields);
+      createBasicDriver: function($injector, collectionName, fields) {
+        var basicDrv = mohican.createBasicDriver($injector, collectionName, fields);
         _.assign(basicDrv, mohican.mixins.dataFieldsMixin);
 
         this.onCurrentItemChanged.push(function(newCurrentItem) {

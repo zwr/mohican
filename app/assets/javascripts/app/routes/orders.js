@@ -5,11 +5,10 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   mnRouterProvider.addResouceRoute({
     name: 'orders',
 
-    controller: ['$modal', 'service', 'mnRouter',
-      function($modal, service, mnRouter) {
-        mohican.extendResourcePageController(this, service, mnRouter);
+    controller: ['service', '$injector',
+      function(service, $injector) {
+        mohican.extendResourcePageController(this, service, $injector);
         var ctrl = this;
-        ctrl.modal = $modal;
         ctrl.reportLocation = '/reports';
         ctrl.attached = false;
         ctrl.printMe = function(item) {
@@ -24,7 +23,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         };
 
-        ctrl.handlersDrv = ctrl.createBasicDriver('order_handlers', [
+        ctrl.handlersDrv = ctrl.createBasicDriver($injector, 'order_handlers', [
           {
             header:         'Name',
             name:           'user_name',
@@ -35,7 +34,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             width:          200
           }
         ]);
-        ctrl.productsDrv = ctrl.createBasicDriver('order_items', [
+        ctrl.productsDrv = ctrl.createBasicDriver($injector, 'order_items', [
           {
             header:         'Name',
             name:           'product_name',
@@ -51,7 +50,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             name:     'quantity',
             view:     'text',
             width:    100,
-            readOnly: true
+            readOnly: false
           }
         ]);
 
@@ -72,7 +71,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               text:   'link to order',
               action: function() {
                 ctrl.linkToOrderController = {};
-                mohican.extendResourceDriver(ctrl.linkToOrderController, service);
+                mohican.extendResourceDriver(ctrl.linkToOrderController, service, $injector);
                 ctrl.popDialog('Selected Orders', 'app/routes/orders-link-to-order-dialog.html');
               }
             },
