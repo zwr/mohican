@@ -137,6 +137,8 @@
     };
 
     vm.rightClick = function(item, $event) {
+      //return value is checked in mn-right-click directive
+      //to prevent or not default events propagation
       if(vm.hasContextMenu) {
         vm.contextMenuItems = vm.mnPopup({clickedItem: item, selectedItems: vm.selectedItems});
         vm.contextMenuVisible = true;
@@ -144,6 +146,10 @@
           left: $event.pageX + 'px',
           top:  $event.pageY + 'px'
         };
+        return true;
+      }
+      else {
+        return false;
       }
     };
 

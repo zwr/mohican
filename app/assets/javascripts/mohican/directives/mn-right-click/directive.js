@@ -9,8 +9,9 @@
         var fn = $parse(attrs.mnRightClick);
         element.bind('contextmenu', function(event) {
           scope.$apply(function() {
-            event.preventDefault();
-            fn(scope, {$event: event});
+            if(fn(scope, {$event: event})) {
+              event.preventDefault();
+            }
           });
         });
       };
