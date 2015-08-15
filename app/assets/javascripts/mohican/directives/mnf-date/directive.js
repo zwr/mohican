@@ -14,15 +14,9 @@ angular.module('mohican.directives')
         templateUrl: 'mohican/directives/mnf-date/template.html',
 
         link: function(scope, elem, attr, mnfFormCtrl) {
+          scope.moment = moment;
           scope.mnfDoc = mnfFormCtrl.mnfDoc;
-          scope.status = {
-            opened: false
-          };
-          scope.$watch(function() {
-            return scope.status.opened;
-          }, function(newValue) {
-            console.log(newValue);
-          });
+          scope.dialogOpened = false;
           scope.$watch(function() {
             return scope.mnfDoc._state;
           }, function(newValue) {
@@ -33,13 +27,6 @@ angular.module('mohican.directives')
           scope.textChanged = function() {
             scope.mnfDoc['_' + scope.mnfField + '_changed'] = true;
             scope.mnfDoc._state = 'changed';
-          };
-          scope.dateFormated = function() {
-            return moment(scope.mnfDoc[scope.mnfField]).format('DD.MM.YYYY.');
-          };
-          scope.openDateDialog = function() {
-            console.log('open');
-            scope.status.opened = true;
           };
         }
       };

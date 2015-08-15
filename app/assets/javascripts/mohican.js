@@ -6,6 +6,7 @@
 
 //= require ./mohican/lib/lodash
 //= require ./mohican/lib/angular-ui-router
+//= require ./mohican/lib/ui-bootstrap-tpls
 //= require ./mohican/lib/moment
 //= require ./mohican/lib/daterangepicker
 //= require ./mohican/lib/angular-daterangepicker

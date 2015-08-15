@@ -2,7 +2,7 @@
      class="form-group form-group-sm mn-form-group">
   <label class="col-sm-4 control-label" for="formGroupInputLarge">{{mnfLabel}}</label>
   <div class="col-sm-8 state-ready-field-value">
-    <span>{{dateFormated()}}</span>
+    <span>{{moment(mnfDoc[mnfField]).format('DD.MM.YYYY.')}}</span>
   </div>
 </div>
 <div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing'"
@@ -25,10 +25,10 @@
              datepicker-popup="dd.MM.yyyy."
              ng-model="mnfDoc._edit[mnfField]"
              ng-change="textChanged()"
-             is-open="status.opened"
+             is-open="dialogOpened"
              close-text="Close" />
       <span class="input-group-btn">
-        <button type="button" class="btn btn-default" ng-click="openDateDialog($event)">
+        <button type="button" class="btn btn-default" ng-click="dialogOpened = true">
           <i class="glyphicon glyphicon-calendar"></i>
         </button>
       </span>
