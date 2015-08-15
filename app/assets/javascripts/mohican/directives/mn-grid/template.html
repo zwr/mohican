@@ -62,7 +62,7 @@
         </th>
       </tr>
     </thead>
-    <tbody ng-hide="grid.onlySelectedItemsShown">
+    <tbody ng-if="!grid.onlySelectedItemsShown">
       <tr ng-show="grid.owner.items.length === 0">
         <td class="mn-content-footer-status-msg" colspan="100%">
           No items to show
@@ -96,7 +96,7 @@
         <td>
       </tr>
     </tbody>
-    <tbody ng-show="grid.onlySelectedItemsShown">
+    <tbody ng-if="grid.onlySelectedItemsShown">
       <tr ng-show="grid.selectedItems.length === 0">
         <td class="mn-content-footer-status-msg" colspan="100%">
           No items to show
