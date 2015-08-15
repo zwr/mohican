@@ -16,7 +16,6 @@
 //= require ./mohican/mixins/base.mixins
 //= require ./mohican/services/base.service
 //= require ./mohican/directives/base.directive
-//= require_tree ./mohican/old-directives
 //= require_tree ./mohican
 //= require_self
 
@@ -51,8 +50,7 @@
     'isteven-multi-select',
     'daterangepicker',
     'mohican.services',
-    'mohican.directives',
-    'mnOldDirectives'
+    'mohican.directives'
   ]).config(['$httpProvider', '$provide', 'mnRouterProvider', '$urlRouterProvider', '$stateProvider',
     function($httpProvider, $provide, mnRouter, $urlRouterProvider, $stateProvider) {
       $httpProvider.interceptors.push(interceptor);
