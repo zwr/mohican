@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-      .module('mohican.directives')
+      .module('mohican')
       .controller('MnGridController', ['mnRouter', '$scope', '$window', MnGridController]);
 
   function MnGridController(mnRouter, $scope, $window) {

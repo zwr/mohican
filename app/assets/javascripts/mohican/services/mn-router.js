@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('mohican.services')
+      .module('mohican')
       .controller('MainCtrl', ['$scope', function($scope) {
           $scope.name = 'World';
       }])

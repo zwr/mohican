@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-      .module('mohican.directives')
+      .module('mohican')
       .controller('MnfFormController', ['mnRouter', '$scope', '$window', MnfFormController]);
 
   function MnfFormController(mnRouter, $scope, $window) {

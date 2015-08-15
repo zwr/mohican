@@ -4,7 +4,7 @@
 
 (function(mohican) {
   'use strict';
-  angular.module('mohican.directives')
+  angular.module('mohican')
     .directive('mnGridPager', [function() {
         return {
           scope: {

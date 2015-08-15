@@ -2,7 +2,7 @@
   'use strict';
 
   angular
-      .module('mohican.services')
+      .module('mohican')
       .factory('mnTranslations', [mnTranslations]);
 
   function mnTranslations() {

@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-      .module('mohican.directives')
+      .module('mohican')
       .controller('MnGridPagerController', ['$scope', MnGridPagerController]);
 
   function MnGridPagerController() {

@@ -3,7 +3,7 @@
 //= require_self
 (function(mohican) {
   'use strict';
-  angular.module('mohican.directives')
+  angular.module('mohican')
     .directive('mnFilterBar', [function() {
         return {
           scope: {

@@ -2,7 +2,7 @@
 //= require_self
 (function(mohican) {
   'use strict';
-  angular.module('mohican.directives')
+  angular.module('mohican')
     .directive('mnfReference', ['$injector', function($injector) {
         return {
           scope: {

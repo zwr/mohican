@@ -2,7 +2,7 @@
 //= require ./controller
 //= require_self
 
-angular.module('mohican.directives')
+angular.module('mohican')
   .directive('mnQfDateRange', [function() {
       'use strict';
       return {

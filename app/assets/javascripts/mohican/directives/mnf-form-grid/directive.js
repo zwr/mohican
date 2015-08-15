@@ -1,6 +1,6 @@
 //= require_self
 
-angular.module('mohican.directives')
+angular.module('mohican')
   .directive('mnfFormGrid', [function() {
       'use strict';
       return {

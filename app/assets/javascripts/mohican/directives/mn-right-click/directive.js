@@ -3,7 +3,7 @@
 (function() {
   'use strict';
 
-  angular.module('mohican.directives').
+  angular.module('mohican').
     directive('mnRightClick', ['$parse', function($parse) {
       return function(scope, element, attrs) {
         var fn = $parse(attrs.mnRightClick);

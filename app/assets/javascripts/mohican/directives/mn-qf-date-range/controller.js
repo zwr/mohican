@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-      .module('mohican.directives')
+      .module('mohican')
       .controller('MnQfDateRangeController', ['$scope', '$timeout', MnQfDateRangeController]);
 
   function MnQfDateRangeController($scope, $timeout) {

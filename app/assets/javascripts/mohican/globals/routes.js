@@ -44,7 +44,7 @@
         }
       }
 
-      angular.module('mohican.services').register.
+      angular.module('mohican').register.
           factory(definition.name + 'Service', definition.service);
     }
     mohican._createMohicanResourceRoute(definition.name, definition.controller, definition.default, $stateProvider, definition.redirectTo, definition.template);

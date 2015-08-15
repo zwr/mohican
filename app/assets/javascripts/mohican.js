@@ -12,12 +12,13 @@
 //= require ./mohican/lib/angular-daterangepicker
 //= require ./mohican/lib/angular-multi-select
 
+//= require_tree ./mohican/templates
 //= require ./mohican/globals/base.globals
 //= require ./mohican/mixins/base.mixins
+//= require_self
 //= require ./mohican/services/base.service
 //= require ./mohican/directives/base.directive
-//= require_tree ./mohican
-//= require_self
+
 
 (function() {
   'use strict';
@@ -48,9 +49,7 @@
     'templates',
     'ui.router',
     'isteven-multi-select',
-    'daterangepicker',
-    'mohican.services',
-    'mohican.directives'
+    'daterangepicker'
   ]).config(['$httpProvider', '$provide', 'mnRouterProvider', '$urlRouterProvider', '$stateProvider',
     function($httpProvider, $provide, mnRouter, $urlRouterProvider, $stateProvider) {
       $httpProvider.interceptors.push(interceptor);
@@ -61,7 +60,7 @@
 
       //utility object which stores references to $provide's methods
       //we need this for runtime creating services/factories
-      angular.module('mohican.services').register =
+      angular.module('mohican').register =
             {
                 factory:  $provide.factory,
                 service:  $provide.service,

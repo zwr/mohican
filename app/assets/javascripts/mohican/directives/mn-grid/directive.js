@@ -5,7 +5,7 @@
 (function(mohican) {
   'use strict';
 
-  angular.module('mohican.directives')
+  angular.module('mohican')
     .directive('mnGrid', ['$interval', '$window', function($interval, $window) {
         return {
           scope: {
@@ -92,7 +92,7 @@
       }
     ]);
 
-  angular.module('mohican.directives')
+  angular.module('mohican')
     .directive('mnGridActions', [function() {
       return {
         scope: false,
@@ -102,7 +102,7 @@
         }
       };
     }]);
-  angular.module('mohican.directives')
+  angular.module('mohican')
     .directive('modalFitInWindow',['$interval', '$window',
       function($interval, $window) {
         return {

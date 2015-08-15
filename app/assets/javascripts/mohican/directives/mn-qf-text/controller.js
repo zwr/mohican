@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-      .module('mohican.directives')
+      .module('mohican')
       .controller('MnQfTextController', ['$scope', '$element', '$timeout', MnQfTextController]);
 
   function MnQfTextController($scope, $element, $timeout) {

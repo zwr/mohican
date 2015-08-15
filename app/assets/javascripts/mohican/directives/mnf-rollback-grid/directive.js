@@ -1,7 +1,7 @@
 //= require ./template
 //= require_self
 
-angular.module('mohican.directives')
+angular.module('mohican')
   .directive('mnfRollbackGrid', [function() {
       'use strict';
       return {

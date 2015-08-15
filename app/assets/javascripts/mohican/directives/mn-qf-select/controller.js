@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-      .module('mohican.directives')
+      .module('mohican')
       .controller('MnQfSelectController', ['$scope', '$timeout', MnQfSelectController]);
 
   function MnQfSelectController($scope, $timeout) {

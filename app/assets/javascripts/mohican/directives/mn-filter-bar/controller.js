@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-      .module('mohican.directives')
+      .module('mohican')
       .controller('MnFilterBarController', [MnFilterBarController]);
 
   function MnFilterBarController() {

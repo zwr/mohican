@@ -2,7 +2,7 @@
 //= require ./controller
 //= require_self
 
-angular.module('mohican.directives')
+angular.module('mohican')
   .directive('mnTabs', [function() {
       'use strict';
       return {

@@ -4,7 +4,7 @@
   'use strict';
 
   angular
-      .module('mohican.directives')
+      .module('mohican')
       .controller('MnTabsController', [MnTabsController]);
 
   function MnTabsController() {
