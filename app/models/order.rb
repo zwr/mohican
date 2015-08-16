@@ -18,9 +18,24 @@ end
 class Order
   include Mongoid::Document
   include Mongoid::Timestamps
+
   field :order_number, type: Integer
   field :status, type: String
   field :total, type: Integer
+  field :delivery_date, type: Date
+  field :actual_delivery_date, type: Date
+
+  # Status field must be exactly one of the STATUS values
+  STATUS = [:open, :processing, :delivered, :deferred]
+  field :status, type: String
+
+  # Delvivery tag field is a string of comma-separated values of none, one or
+  # more of the DELIVERY_TAG values
+  DELIVERY_TAGS = [:standard, :urgent, :insured, :fragile, :flammable,
+                   :tax_free, :export, :import, :secret, :poison,
+                   :large, :heavy]
+  field :delivery_tag, type: String
+
   belongs_to :creator, class_name: 'User'
   field :creator_name, type: String
   field :creator_ref, type: String

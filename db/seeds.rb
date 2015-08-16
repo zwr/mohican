@@ -151,6 +151,7 @@ SEED_ORDER_COUNT = 1127
 HANDLERS_COUNT = { '8': (1..5), '1': (0..0), '1_': (6..20) }
 ORDER_ITEMS_COUNT = { '8': (3..12), '1': (1..2), '1_': (3..200) }
 ITEM_PRODUCT_COUNT = { '9': (1..12), '1': (1..5000) }
+TAG_COUNT = { '1': (0..0), '8': (1..5), '1_': (6..Order::DELIVERY_TAGS.length) }
 
 class Hash
   def random
@@ -178,6 +179,18 @@ orders = []
   x.status = [:created, :open, :closed][rand 0..2]
   x.order_number = rand 10_000..99_999
   x.creator = (random User).id
+  x.delivery_tag = Order::DELIVERY_TAGS.sample(TAG_COUNT.random).join ','
+
+  x.delivery_date = (rand(30) - 5).days.ago
+  x.status = if x.delivery_date > Date.today
+               :open
+             elsif x.delivery_date < 15.days.ago
+               :delivered
+             else
+               Order::STATUS.sample
+             end
+
+  x.actual_delivery_date = rand(23).days.ago if x.status == :delivered
 
   (1..HANDLERS_COUNT.random).each do
     x.order_handlers << OrderHandler.new(user: random(User))

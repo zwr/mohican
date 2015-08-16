@@ -69,6 +69,38 @@ class OrdersController < ApplicationController
                   quicksort: true,
                   quickfilter: :text,
                   view: :text
+                },
+                {
+                  name: :delivery_date,
+                  header: 'Delivery date',
+                  width: 320,
+                  quicksort: true,
+                  quickfilter: 'date-range',
+                  view: :text
+                },
+                {
+                  name: :actual_delivery_date, # Note that this fate cn be null
+                  header: 'Delivered on',
+                  width: 320,
+                  quicksort: true,
+                  quickfilter: 'date-range',
+                  view: :text
+                },
+                {
+                  name: :status,
+                  header: :Status,
+                  width: 320,
+                  quicksort: true,
+                  quickfilter: :select, # here should be select one
+                  view: :text
+                },
+                {
+                  name: :delivery_tag,
+                  header: 'Delivery Tags',
+                  width: 320,
+                  quicksort: true,
+                  quickfilter: :select, # here should be select zero, one or more
+                  view: :text
                 }
               ]
             }]
