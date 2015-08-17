@@ -17,7 +17,10 @@
            is-open="dialogOpened"
            ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}"
            close-text="Close" />
-      <button type="button" class="btn btn-default col-sm-4" ng-click="dialogOpened = true">
+      <button type="button"
+              class="btn btn-default col-sm-4"
+              style="height: 27px;"
+              ng-click="dialogOpened = true">
         <i class="glyphicon glyphicon-calendar"></i>
       </button>
   </span>

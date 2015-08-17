@@ -83,6 +83,11 @@
                          read-only="field.readOnly"
                          mnf-field="{{field.name}}"
                          mnf-doc="item"></mnf-text-grid>
+          <mnf-select-grid ng-if="field.view === 'select'"
+                           read-only="field.readOnly"
+                           mnf-field="{{field.name}}"
+                           field="field"
+                           mnf-doc="item"></mnf-select-grid>
           <mnf-date-grid ng-if="field.view === 'date'"
                          read-only="field.readOnly"
                          mnf-field="{{field.name}}"
@@ -116,8 +121,26 @@
                  ng-click="grid.selectionChanged(item)">
         </td>
         <td ng-repeat="field in grid.owner.fields" style="overflow: auto;">
-          <mnf-text-grid mnf-field="{{field.name}}" mnf-doc="item">
-          </mnf-text-grid>
+          <mnf-text-grid ng-if="field.view === 'text'"
+                         read-only="field.readOnly"
+                         mnf-field="{{field.name}}"
+                         mnf-doc="item"></mnf-text-grid>
+          <mnf-select-grid ng-if="field.view === 'select'"
+                           read-only="field.readOnly"
+                           mnf-field="{{field.name}}"
+                           field="field"
+                           mnf-doc="item"></mnf-select-grid>
+          <mnf-date-grid ng-if="field.view === 'date'"
+                         read-only="field.readOnly"
+                         mnf-field="{{field.name}}"
+                         mnf-doc="item"></mnf-date-grid>
+          <mnf-reference-grid ng-if="field.view === 'reference'"
+                              read-only="field.readOnly"
+                              mnf-ref-resource="{{field.refResource}}"
+                              mnf-ref-id="{{field.refId}}"
+                              mnf-field="{{field.name}}"
+                              mnf-doc="item"
+                              mnf-field-source="field.refFieldSource"></mnf-reference-grid>
         </td>
         <td>
           <mn-grid-actions></mn-grid-actions>

@@ -1,0 +1,21 @@
+<div ng-if="readOnly || mnfDoc._state === 'deleted' || mnfDoc._state === 'ready' || mnfDoc._state === 'deleting'"
+     class="mnf-grid-field-ready">
+  <span>
+    {{mnfDoc['_' + mnfField + '_formatted']}}
+  </span>
+</div>
+<div ng-if="!readOnly && (mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing')"
+     class="mnf-grid-field-editing"
+     ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}">
+  <span is-disabled="mnfDoc._state === 'committing'"
+        isteven-multi-select
+        class="success"
+        input-model="selectItems"
+        on-item-click="textChanged(data.name)"
+        output-model="selectedValues1"
+        button-label="name"
+        item-label="name"
+        tick-property="selected"
+        helper-elements="">
+  </span>
+</div>
