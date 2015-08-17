@@ -57,7 +57,7 @@ class OrdersController < ApplicationController
                 {
                   name: :delivery_date,
                   header: 'Delivery date',
-                  width: 130,
+                  width: 210,
                   quicksort: true,
                   quickfilter: 'date-range',
                   view: :date
@@ -65,7 +65,7 @@ class OrdersController < ApplicationController
                 {
                   name: :actual_delivery_date, # Note that this fate cn be null
                   header: 'Delivered on',
-                  width: 130,
+                  width: 210,
                   quicksort: true,
                   quickfilter: 'date-range',
                   view: :date
@@ -166,6 +166,6 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:created_at, :order_items, :order_handlers, :order_number, :status, :total, :creator_name, :creator_ref)
+    params.require(:order).permit(:delivery_tag, :delivery_date, :actual_delivery_date, :created_at, :order_items, :order_handlers, :order_number, :status, :total, :creator_name, :creator_ref)
   end
 end

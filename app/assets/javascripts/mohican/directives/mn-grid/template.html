@@ -83,6 +83,10 @@
                          read-only="field.readOnly"
                          mnf-field="{{field.name}}"
                          mnf-doc="item"></mnf-text-grid>
+          <mnf-date-grid ng-if="field.view === 'date'"
+                         read-only="field.readOnly"
+                         mnf-field="{{field.name}}"
+                         mnf-doc="item"></mnf-date-grid>
           <mnf-reference-grid ng-if="field.view === 'reference'"
                               read-only="field.readOnly"
                               mnf-ref-resource="{{field.refResource}}"

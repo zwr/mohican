@@ -1,0 +1,24 @@
+<div ng-if="readOnly || mnfDoc._state === 'deleted' || mnfDoc._state === 'ready' || mnfDoc._state === 'deleting'"
+     class="mnf-grid-field-ready">
+  <span>
+    {{mnfDoc['_' + mnfField + '_formatted']}}
+  </span>
+</div>
+<div ng-if="!readOnly && (mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing')"
+     class="mnf-grid-field-editing">
+  <span>
+    <input type="text"
+           style="width: 125px;"
+           class="form-control col-sm-8"
+           ng-disabled="mnfDoc._state === 'committing'"
+           datepicker-popup="dd.MM.yyyy."
+           ng-model="mnfDoc._edit[mnfField]"
+           ng-change="textChanged()"
+           is-open="dialogOpened"
+           ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}"
+           close-text="Close" />
+      <button type="button" class="btn btn-default col-sm-4" ng-click="dialogOpened = true">
+        <i class="glyphicon glyphicon-calendar"></i>
+      </button>
+  </span>
+</div>
