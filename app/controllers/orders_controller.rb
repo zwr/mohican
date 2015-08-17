@@ -49,23 +49,7 @@ class OrdersController < ApplicationController
                 {
                   name: :order_number,
                   header: 'Order No.',
-                  width: 160,
-                  quicksort: true,
-                  quickfilter: :text,
-                  view: :text
-                },
-                {
-                  name: :status,
-                  header: :Status,
-                  width: 320,
-                  quicksort: true,
-                  quickfilter: :text,
-                  view: :text
-                },
-                {
-                  name: :total,
-                  header: :Total,
-                  width: 320,
+                  width: 130,
                   quicksort: true,
                   quickfilter: :text,
                   view: :text
@@ -73,27 +57,27 @@ class OrdersController < ApplicationController
                 {
                   name: :delivery_date,
                   header: 'Delivery date',
-                  width: 320,
+                  width: 130,
                   quicksort: true,
                   quickfilter: 'date-range',
-                  view: :text
+                  view: :date
                 },
                 {
                   name: :actual_delivery_date, # Note that this fate cn be null
                   header: 'Delivered on',
-                  width: 320,
+                  width: 130,
                   quicksort: true,
                   quickfilter: 'date-range',
-                  view: :text
+                  view: :date
                 },
                 {
                   name: :status,
                   header: :Status,
-                  width: 320,
+                  width: 90,
                   quicksort: true,
                   values: [:created, :open, :closed],
                   quickfilter: :select, # here should be select one
-                  view: :text
+                  view: :select
                 },
                 {
                   name: :delivery_tag,
@@ -104,6 +88,14 @@ class OrdersController < ApplicationController
                            :tax_free, :export, :import, :secret, :poison, :large,
                            :heavy],
                   quickfilter: :select, # here should be select zero, one or more
+                  view: :select
+                },
+                {
+                  name: :total,
+                  header: :Total,
+                  width: 80,
+                  quicksort: true,
+                  quickfilter: :text,
                   view: :text
                 }
               ]
