@@ -91,6 +91,7 @@ class OrdersController < ApplicationController
                   header: :Status,
                   width: 320,
                   quicksort: true,
+                  values: [:created, :open, :closed],
                   quickfilter: :select, # here should be select one
                   view: :text
                 },
@@ -99,6 +100,9 @@ class OrdersController < ApplicationController
                   header: 'Delivery Tags',
                   width: 320,
                   quicksort: true,
+                  values: [:standard, :urgent, :insured, :fragile, :flammable,
+                           :tax_free, :export, :import, :secret, :poison, :large,
+                           :heavy],
                   quickfilter: :select, # here should be select zero, one or more
                   view: :text
                 }
