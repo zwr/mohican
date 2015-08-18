@@ -1,8 +1,8 @@
 Rails.application.routes.draw do
-  resources :orders
-
   devise_for :users
   scope '/admin' do
+    resources :bookmarks, as: 'bookmarks'
+    resources :orders, as: 'orders'
     resources :users, as: 'users'
     resources :products, as: 'products'
   end
@@ -18,6 +18,9 @@ Rails.application.routes.draw do
       get 'layout', on: :collection
     end
     resources :products, as: 'products', defaults: { format: 'json' } do
+      get 'layout', on: :collection
+    end
+    resources :bookmarks, as: 'bookmarks', defaults: { format: 'json' } do
       get 'layout', on: :collection
     end
   end

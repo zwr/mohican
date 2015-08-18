@@ -1,0 +1,18 @@
+%p#notice= notice
+
+%p
+  %b Name:
+  = @bookmark.name
+%p
+  %b Url:
+  = @bookmark.url
+%p
+  %b Bookmark order:
+  = @bookmark.bookmark_order
+%p
+  %b Panel index:
+  = @bookmark.panel_index
+
+= link_to 'Edit', edit_bookmark_path(@bookmark)
+\|
+= link_to 'Back', bookmarks_path

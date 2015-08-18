@@ -210,4 +210,18 @@ puts 'Created order seeds, saving...'
 orders.each(&:save!)
 puts "Seeded #{Order.count} orders with many products."
 
+puts 'Seeding bookmarks...'
+Bookmark.create! name: 'Open Orders',
+                 url: 'orders?qf=true&filters=status$open',
+                 bookmark_order: 1,
+                 panel_index: nil
+
+Bookmark.create! name: 'Current Products',
+                 url: 'products',
+                 bookmark_order: 2
+
+Bookmark.create! name: 'Employees',
+                 url: 'users',
+                 bookmark_order: 3
+
 puts 'Seeded.'

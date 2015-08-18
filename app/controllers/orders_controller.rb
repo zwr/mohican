@@ -166,6 +166,9 @@ class OrdersController < ApplicationController
   end
 
   def order_params
-    params.require(:order).permit(:delivery_tag, :delivery_date, :actual_delivery_date, :created_at, :order_items, :order_handlers, :order_number, :status, :total, :creator_name, :creator_ref)
+    params.require(:order).permit(:delivery_tag, :delivery_date, :actual_delivery_date,
+                                  :created_at, :order_items, :order_handlers,
+                                  :order_number, :status, :total, :creator_name,
+                                  :creator_ref)
   end
 end
