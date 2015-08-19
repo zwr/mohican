@@ -6,8 +6,9 @@ angular.module('mohican')
       'use strict';
       return {
         scope: {
-          mnfField: '@',
-          mnfLabel: '@'
+          mnfField:      '@',
+          mnfLabel:      '@',
+          allowedValues: '='
         },
         restrict:    'E',
         require:     '^mnfForm',
@@ -15,9 +16,31 @@ angular.module('mohican')
 
         link: function(scope, elem, attr, mnfFormCtrl) {
           scope.mnfDoc = mnfFormCtrl.mnfDoc;
-          scope.textChanged = function() {
-            scope.mnfDoc['_' + scope.mnfField + '_changed'] = true;
-            scope.mnfDoc._state = 'changed';
+
+          scope.selectItems = [];
+          scope.selectedValues = [];
+
+          scope.mnfDoc[scope.mnfField].split(',').forEach(function(value) {
+            scope.selectedValues.push(value);
+          });
+
+          scope.allowedValues.forEach(function(value) {
+            scope.selectItems.push({
+              name:     value,
+              selected: _.contains(scope.selectedValues, value)
+            });
+          });
+
+          scope.textChanged = function(clickedItem) {
+            var index = scope.selectedValues.indexOf(clickedItem);
+            if(index > -1) {
+              scope.selectedValues.splice(index, 1);
+            }
+            else {
+              scope.selectedValues.push(clickedItem);
+            }
+            scope.mnfDoc._edit[scope.mnfField] = scope.selectedValues.join(',');
+            scope.mnfDoc.change(scope.mnfField);
           };
         }
       };

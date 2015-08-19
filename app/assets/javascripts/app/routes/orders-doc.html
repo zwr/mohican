@@ -10,6 +10,11 @@
             <mnf-rollback></mnf-rollback>
             <mnf-delete></mnf-delete>
           </div>
+          <mnf-select mnf-field="delivery_tag"
+                      mnf-label="Delivery tag:"
+                      allowed-values="['standard', 'urgent', 'insured', 'fragile',
+                                       'flammable', 'tax_free', 'export', 'import',
+                                       'secret', 'poison', 'large', 'heavy']"></mnf-select>
           <mnf-date mnf-field="actual_delivery_date"
                     mnf-label="Delivered on:"></mnf-date>
           <mnf-reference mnf-label="Creator:"

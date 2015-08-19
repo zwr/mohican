@@ -75,7 +75,7 @@ class OrdersController < ApplicationController
                   header: :Status,
                   width: 90,
                   quicksort: true,
-                  values: [:created, :open, :closed],
+                  values: [:created, :open, :closed, :deferred, :processing, :delivered],
                   quickfilter: :select, # here should be select one
                   view: :select
                 },

@@ -8,13 +8,18 @@
 <div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing'"
      class="form-group form-group-sm mn-form-group">
   <label class="col-sm-4 control-label" for="{{mnfField}}">{{mnfLabel}}</label>
-  <div class="col-sm-8">
-    <input type="text"
-           id="{{mnfField}}"
-           class="form-control mn-form-control"
-           ng-disabled="mnfDoc._state === 'committing'"
-           ng-model="mnfDoc._edit[mnfField]"
-           ng-change="textChanged()"
-           ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}"></input>
+  <div class="col-sm-8"
+       ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}">
+    <span is-disabled="mnfDoc._state === 'committing'"
+          isteven-multi-select
+          class="success"
+          input-model="selectItems"
+          on-item-click="textChanged(data.name)"
+          output-model="selectedItems"
+          button-label="name"
+          item-label="name"
+          tick-property="selected"
+          helper-elements="">
+    </span>
   </div>
 </div>
