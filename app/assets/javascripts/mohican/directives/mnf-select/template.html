@@ -2,7 +2,7 @@
      class="form-group form-group-sm mn-form-group">
   <label class="col-sm-4 control-label" for="formGroupInputLarge">{{mnfLabel}}</label>
   <div class="col-sm-8 state-ready-field-value">
-    <span>{{mnfDoc['_' + mnfField + '_formatted']}}</span>
+    <span>{{mnfDoc[mnfField]}}</span>
   </div>
 </div>
 <div ng-if="mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing'"

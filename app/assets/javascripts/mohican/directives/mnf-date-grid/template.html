@@ -1,8 +1,6 @@
 <div ng-if="readOnly || mnfDoc._state === 'deleted' || mnfDoc._state === 'ready' || mnfDoc._state === 'deleting'"
      class="mnf-grid-field-ready">
-  <span>
-    {{mnfDoc['_' + mnfField + '_formatted']}}
-  </span>
+  <span>{{mnfDoc[mnfField] ? moment(mnfDoc[mnfField]).format('DD.MM.YYYY.') : ''}}</span>
 </div>
 <div ng-if="!readOnly && (mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing')"
      class="mnf-grid-field-editing">
