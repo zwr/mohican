@@ -22,7 +22,8 @@
                 ng-class="grid.owner.stateMachine.direction === 'desc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'"
                 class="glyphicon"></span>
         </th>
-        <th class="grid-header-container"></th>
+        <th class="grid-header-container"
+            style="{{grid.mnActionsWidth ? 'width: ' + grid.mnActionsWidth : ''}}"></th>
       </tr>
       <tr>
         <th ng-show="grid.showSelectColumn" class="qf-row">

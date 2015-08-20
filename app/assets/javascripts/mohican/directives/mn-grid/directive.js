@@ -14,7 +14,8 @@
             mnSelectType:     '@?',
             mnOnSelect:       '&',
             mnPopup:          '&',
-            mnGridFillHeight: '@?'
+            mnGridFillHeight: '@?',
+            mnActionsWidth:   '@?'
           },
           restrict:     'E',
           transclude:   true,

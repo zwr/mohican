@@ -11,7 +11,8 @@
                  mn-select-type="check"
                  mn-on-select="ctrl.onItemSelect(selectedItems)"
                  mn-popup="ctrl.popup(clickedItem, selectedItems)"
-                 mn-grid-fill-height="true">
+                 mn-grid-fill-height="true"
+                 mn-actions-width="140px">
           <span ui-sref="orders-doc({ itemPrimaryKeyId: item[ctrl.primaryKeyName] })"
                 class="mn-action-icon glyphicon glyphicon-open"></span>
           <mnf-edit-grid mnf-doc="item"></mnf-edit-grid>
