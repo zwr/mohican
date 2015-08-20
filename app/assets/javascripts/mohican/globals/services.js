@@ -126,7 +126,7 @@
           .then(function(resp) {
             service.thePromise = null;
             if(service.bufferBackendFilter === backendFilter) {
-              service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, apiResource, service.layout);
+              service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, $q, apiResource, service.layout);
               service.parseFieldTypes(resp.data.items, dataFields);
               service.buffer = resp.data.items;
               service.totalCount = resp.data.total_count;
@@ -185,7 +185,7 @@
             service.thePromise = null;
             // if we were told to stop, just do nothing
             if(service.beEager) {
-              service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, apiResource, service.layout);
+              service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, $q, apiResource, service.layout);
               service.parseFieldTypes(resp.data.items, dataFields);
               if(service.nextEagerGrowthForward) {
                 service.topIndex += resp.data.items.length;
@@ -307,7 +307,7 @@
                 item2items.push(resp.data);
               }
               // check if it is really resp.data or something similar
-              service.prepareDocumentsCrudOperations(item2items, dataFields, $http, apiResource, service.layout);
+              service.prepareDocumentsCrudOperations(item2items, dataFields, $http, $q, apiResource, service.layout);
               service.parseFieldTypes(item2items, dataFields);
               service.buffer = item2items;
               // now write this data honestly, as it is: back end count is

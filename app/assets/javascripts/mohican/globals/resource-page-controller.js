@@ -49,6 +49,39 @@
         this.onCurrentItemChanged = [];
       },
 
+      loadMnGridItems: function() {
+        var that = this;
+        that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.backendFilter).then(function(pageCount) {
+          that.pageCount = pageCount;
+
+          if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter)) {
+            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
+              that.items = items;
+              // We want to be careful to call waitFullyLoaded only when the
+              // initial promise has returned! Now we are sure the eager loading
+              // is ongoing.
+              that.service.waitFullyLoaded().then(function() {
+                that.fullyLoaded = true;
+                if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
+                  that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$state.params.page) ? 1 : parseInt(that.mnRouter.$state.params.page));
+
+                  that.service.getClientPage(that.stateMachine.page,
+                                             that.stateMachine.column,
+                                             that.stateMachine.direction,
+                                             that.stateMachine.filters,
+                                             that.fields).then(function(data) {
+                    that.items = data.items;
+                    that.pageCount = data.pageCount;
+                    that.totalQfCount = data.totalQfCount;
+                    mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
+                  });
+                }
+              });
+            });
+          }
+        });
+      },
+
       loadData: function() {
         var that = this;
 
@@ -101,34 +134,7 @@
 
           that.fullyLoaded = false;
 
-          that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.backendFilter).then(function(pageCount) {
-            that.pageCount = pageCount;
-            if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter)) {
-              that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
-                that.items = items;
-                // We want to be careful to call waitFullyLoaded only when the
-                // initial promise has returned! Now we are sure the eager loading
-                // is ongoing.
-                that.service.waitFullyLoaded().then(function() {
-                  that.fullyLoaded = true;
-                  if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
-                    that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$state.params.page) ? 1 : parseInt(that.mnRouter.$state.params.page));
-
-                    that.service.getClientPage(that.stateMachine.page,
-                                               that.stateMachine.column,
-                                               that.stateMachine.direction,
-                                               that.stateMachine.filters,
-                                               that.fields).then(function(data) {
-                      that.items = data.items;
-                      that.pageCount = data.pageCount;
-                      that.totalQfCount = data.totalQfCount;
-                      mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
-                    });
-                  }
-                });
-              });
-            }
-          });
+          that.loadMnGridItems();
         });
       },
 

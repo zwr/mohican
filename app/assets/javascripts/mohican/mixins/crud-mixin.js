@@ -8,7 +8,7 @@
   mohican.mixins.crudMixin.theCommitPromise = null;
   mohican.mixins.crudMixin.theDeletePromise = null;
 
-  mohican.mixins.crudMixin.prepareDocumentsCrudOperations = function(items, dataFields, $http, apiResource, layout) {
+  mohican.mixins.crudMixin.prepareDocumentsCrudOperations = function(items, dataFields, $http, $q, apiResource, layout) {
     var that = this;
     items.forEach(function(item) {
       item._state = 'ready';
@@ -29,7 +29,7 @@
         for(var efield in item) {
           if(!that.isMohicanField(efield)) {
             if(angular.isArray(item[efield])) {
-              that.prepareSubDocumentsCrudOperations(item, efield, []);
+              that.prepareSubDocumentsCrudOperations($q, item, efield, []);
             }
           }
         }
@@ -157,7 +157,7 @@
     });
   };
 
-  mohican.mixins.crudMixin.prepareSubDocumentsCrudOperations = function(mnfDoc, collectionField, dataFields) {
+  mohican.mixins.crudMixin.prepareSubDocumentsCrudOperations = function($q, mnfDoc, collectionField, dataFields) {
     var that = this;
     var items = mnfDoc[collectionField];
     //item is just a reference to original item in original mnDoc subcollection
@@ -217,6 +217,7 @@
         item._state = 'deleted';
         mnfDoc._state = 'changed';
         mnfDoc['_' + collectionField + '_changed'] = true;
+        return $q.when();
       };
     });
   };
