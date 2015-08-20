@@ -8,9 +8,9 @@
   mohican.mixins.crudMixin.theCommitPromise = null;
   mohican.mixins.crudMixin.theDeletePromise = null;
 
-  mohican.mixins.crudMixin.prepareDocumentsCrudOperations = function(buffer, dataFields, $http, apiResource, layout) {
+  mohican.mixins.crudMixin.prepareDocumentsCrudOperations = function(items, dataFields, $http, apiResource, layout) {
     var that = this;
-    buffer.forEach(function(item) {
+    items.forEach(function(item) {
       item._state = 'ready';
       //initial create _changed fields on every item
       for(var ifield in item) {
@@ -122,9 +122,9 @@
                 }
               }
               item._state = 'deleted';
-              var index = buffer.indexOf(item);
+              var index = that.buffer.indexOf(item);
               if(index !== -1) {
-                buffer.splice(index, 1);
+                that.buffer.splice(index, 1);
               }
               if(that.totalCount) {
                 that.totalCount--;
@@ -159,9 +159,9 @@
 
   mohican.mixins.crudMixin.prepareSubDocumentsCrudOperations = function(mnfDoc, collectionField, dataFields) {
     var that = this;
-    var buffer = mnfDoc[collectionField];
+    var items = mnfDoc[collectionField];
     //item is just a reference to original item in original mnDoc subcollection
-    buffer.forEach(function(item, index) {
+    items.forEach(function(item, index) {
       item._edit = mnfDoc._edit[collectionField][index];
       item._state = 'editing';
       //initial create _changed fields on every item
