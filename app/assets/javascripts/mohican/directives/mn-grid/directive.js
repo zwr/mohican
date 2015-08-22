@@ -27,6 +27,12 @@
 
           link: function(scope, element, attrs, ctrl, $transcludeFn) {
             ctrl.hasContextMenu = attrs.mnPopup ? true : false;
+            scope.clearSelectedItems = function(item) {
+              var index = ctrl.selectedItems.indexOf(item);
+              if(index !== -1) {
+                ctrl.selectedItems.splice(index, 1);
+              }
+            };
             if(scope.grid.mnGridFillHeight !== false) {
               scope.setHeight = function(h) {
                 if(scope.grid.mnGridFillHeight !== true
@@ -107,9 +113,9 @@
     .directive('modalFitInWindow',['$interval', '$window',
       function($interval, $window) {
         return {
-          scope: false,
+          scope:    false,
           restrict: 'A',
-          link: function(scope, element, attrs, ctrl, $transcludeFn) {
+          link:     function(scope, element, attrs, ctrl, $transcludeFn) {
             scope.setHeight = function(h) {
               // element.first().children().first().height(h - element[0].getBoundingClientRect().top - 200);
               var offset = 36;

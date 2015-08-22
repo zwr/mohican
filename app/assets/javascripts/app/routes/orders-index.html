@@ -19,7 +19,7 @@
           <mnf-commit-grid mnf-doc="item"></mnf-commit-grid>
           <mnf-rollback-grid mnf-doc="item"></mnf-rollback-grid>
           <mnf-delete-grid mnf-doc="item"
-                           mn-on-delete="ctrl.loadMnGridItems()"></mnf-delete-grid>
+                           mn-on-delete="ctrl.loadMnGridItems();clearSelectedItems(item);"></mnf-delete-grid>
           <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.pdf">
             <span class="mn-action-icon glyphicon glyphicon-paperclip"></span>
           </a>
