@@ -2,7 +2,7 @@
 //= require_self
 
 angular.module('mohican')
-  .directive('mnfDelete', ['$window', function($window) {
+  .directive('mnfDelete', ['$window', 'mnRouter', function($window, mnRouter) {
       'use strict';
       return {
         scope:       {},
@@ -16,7 +16,11 @@ angular.module('mohican')
 
           scope.confirmDelete = function() {
             if($window.confirm('Are you sure that you want to permanently delete document?')) {
-              scope.mnfDoc.delete();
+              scope.mnfDoc.delete().then(function() {
+                mnRouter.transitionTo(mnRouter.currenRouteName(),
+                                      {},
+                                      { notify: true });
+              });
             }
           };
         }
