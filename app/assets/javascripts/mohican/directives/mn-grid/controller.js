@@ -90,6 +90,10 @@
       });
     };
 
+    vm.isItemVisible = function(item) {
+      return item._state !== 'deleted' ? true : false;
+    };
+
     vm.isItemSelected = function(item) {
       var index = vm.selectedItems.indexOf(item);
       if(index === -1) {
