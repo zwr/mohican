@@ -37,20 +37,15 @@
     };
 
     this.$get = ['$stateParams', '$state', '$rootScope', function($stateParams, $state, $rootScope) {
-      provider.transitionTo = $state.transitionTo;
-
       function createAll() {
-        $state.transitionTo = function(to, toParams, options) {
+        $rootScope.$on('$locationChangeStart', function (event, next, current) {
           var denyTransitionTo = provider.stateChangeValidators.some(function(validator) {
             return !validator();
           });
-          if(!denyTransitionTo) {
-            return provider.transitionTo(to, toParams, options);
+          if (denyTransitionTo) {
+            event.preventDefault();
           }
-          else {
-            return provider.transitionTo($state.current.name, mohican.escapeDefaultParameters($stateParams), { notify: false });
-          }
-        };
+        });
 
         $urlRouterProviderRef.when('', '/');
 
@@ -68,27 +63,27 @@
         }
 
         $rootScope.$on('$stateChangeError', function() {
-          provider.transitionTo('404', {});
+          $state.transitionTo('404', {});
         });
 
         $urlRouterProviderRef.otherwise('/404');
       }
 
       function redirectTo(routeName) {
-        provider.transitionTo(routeName, $stateParams, {location: 'replace'});
+        $state.transitionTo(routeName, $stateParams, {location: 'replace'});
       }
 
       function transitionTo(routeName, params, options) {
         if(options) {
-          provider.transitionTo(routeName, params, options);
+          $state.transitionTo(routeName, params, options);
         }
         else {
-          provider.transitionTo(routeName, params);
+          $state.transitionTo(routeName, params);
         }
       }
 
       function pageNotFound() {
-        provider.transitionTo('404', {}, {location: 'replace'});
+        $state.transitionTo('404', {}, {location: 'replace'});
       }
 
       function addStateChageValidator(validator) {
