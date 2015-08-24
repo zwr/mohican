@@ -11,3 +11,30 @@ angular.element(document).ready(function documentReady() {
     strictDi: true
   });
 });
+
+/*
+function blah() {
+  var i;
+  for(i = 0; i<4; i++) {
+    var b;
+    b = b || 7;
+    alert(b);
+    b = b + 1;
+  }
+}
+
+function blah2() {
+  var i;
+  for(i = 0; i<4; i++) {
+    function blah2_helper() {
+      var b;
+      b = b || 7;
+      alert(b);
+      b = b + 1;
+    }
+    blah2_helper();
+  }
+}
+
+blah();blah2();
+*/
