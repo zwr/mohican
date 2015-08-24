@@ -27,12 +27,6 @@
 
           link: function(scope, element, attrs, ctrl, $transcludeFn) {
             ctrl.hasContextMenu = attrs.mnPopup ? true : false;
-            scope.clearSelectedItems = function(item) {
-              var index = ctrl.selectedItems.indexOf(item);
-              if(index !== -1) {
-                ctrl.selectedItems.splice(index, 1);
-              }
-            };
             if(scope.grid.mnGridFillHeight !== false) {
               scope.setHeight = function(h) {
                 if(scope.grid.mnGridFillHeight !== true

@@ -126,8 +126,11 @@
               if(index !== -1) {
                 that.buffer.splice(index, 1);
               }
-              if(that.totalCount) {
+              if(that.totalCount && that.totalCount > 0) {
                 that.totalCount--;
+              }
+              if(that.topIndex && that.topIndex > 0) {
+                that.topIndex--;
               }
             });
           return that.theDeletePromise;
