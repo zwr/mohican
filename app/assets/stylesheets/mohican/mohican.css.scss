@@ -113,6 +113,16 @@ a.navbar-brand {
     padding: 2px 1px 4px 1px !important;
     border: none !important;
     vertical-align: middle;
+    .multiSelect {
+      button {
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        div {
+
+        }
+      }
+    }
   }
 
   .filterFieldBgWrap {

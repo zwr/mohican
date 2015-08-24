@@ -13,11 +13,11 @@
             ng-click="grid.orderBy(field)"
             class="grid-header-container"
             ng-style="{width: (field.width) + 'px'}">
-            <div class="mnf-grid-field-ready">
+            <span class="mnf-grid-field-ready">
               <span class="grid-header-field-name">
                 {{field.header}}
               </span>
-            </div>
+            </span>
           <span ng-show="grid.owner.stateMachine.column === field.name && grid.owner.fullyLoaded && !grid.onlySelectedItemsShown"
                 ng-class="grid.owner.stateMachine.direction === 'desc' ? 'glyphicon-chevron-up' : 'glyphicon-chevron-down'"
                 class="glyphicon"></span>
