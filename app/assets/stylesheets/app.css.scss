@@ -2,11 +2,56 @@
 *= require_self
 */
 
-$grid-float-breakpoint: 890px;
+$grid-float-breakpoint: 500px;
+$jumbotron-padding: 10px;
+
+
+$screen-sm-min: 650px;
+$screen-md-min: 1100px;
+$screen-lg-min: 1500px;
 
 @import "mohican/mohican";
 
 // Following line is a fix to Bootstrap, which is likely to be included in the nxt release
 .container-fluid .jumbotron {
   border-radius: 6px;
+}
+
+.production-cell {
+  .cell-title {
+    position: relative;
+    
+    .cell-img {
+      padding-left: 35px;
+      width: 34px;
+      height: 35px;
+      &:before {
+        content: '';
+        position: absolute;
+        width: 34px;
+        height: 35px;
+        background-image: url(../production-140.png);
+        background-attachment: absolute;
+        background-position: right -35px bottom 35px;
+        top: 2px;
+        left: 6px;
+      }
+    }
+    %h3 {
+      
+    }
+  }
+  .table {
+    margin-bottom: 0px;
+    > thead,
+    > tbody,
+    > tfoot {
+      > tr {
+        > th,
+        > td {
+          padding: 0px;
+        }
+      }
+    }
+  }
 }

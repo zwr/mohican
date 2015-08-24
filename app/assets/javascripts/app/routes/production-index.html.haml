@@ -1,0 +1,82 @@
+.container-fluid
+  .jumbotron.hidden-sm.hidden-xs
+    .row
+      .col-md-7
+        %h1 Celesta
+        %h2 PRODUCTION MONITORING
+      .hidden-xs.hidden-sm.col-md-5
+        .panel.panel-warning
+          .panel-heading
+            %h3.panel-title Bookmarks
+          .panel-body
+            %ul
+              %li(ng-repeat="bookmark in bookmarks")
+                %a(href='#/orders') {{bookmark}}
+  .row
+    .col-xs-12.hidden-md.hidden-lg
+      %span.pull-left
+        %h1 Celesta
+      %span.pull-right
+        %h2 PRODUCTION MONITORING
+  .row
+    .col-lg-9
+      .row
+        .col-lg-12(ng-repeat="(line, cells) in lines")
+          .panel.panel-primary
+            .panel-heading
+              %h3.panel-title {{line}}
+            .panel-body
+              .row
+                .col-md-3.col-sm-6(ng-repeat="cell in cells")
+                  .panel.panel-default.production-cell
+                    .panel-heading.cell-title
+                      .pull-left.cell-img
+                      %h3.panel-title {{cell}}
+                    .panel-body.production-report
+                      %table.table
+                        %tr
+                          %th Orders
+                          %th Today
+                          %th Week
+                        %tr
+                          %td Total
+                          %td 25
+                          %td 23
+                        %tr
+                          %td Open
+                          %td 22
+                          %td 21
+                        %tr
+                          %td Completed
+                          %td 22
+                          %td 21
+    .col-lg-3
+      .panel.panel-primary
+        .panel-heading
+          %h3.panel-title Rsources
+        .panel-body
+          .row
+            .col-xs-12.col-sm-6.col-md-4.col-lg-12(ng-repeat="resource in resources")
+              .panel.panel-default.production-cell
+                .panel-heading.cell-title
+                  .pull-left.cell-img
+                  %h3.panel-title {{resource}}
+                .panel-body.production-report
+                  %table.table
+                    %tr
+                      %th Orders
+                      %th Today
+                      %th Week
+                    %tr
+                      %td Total
+                      %td 25
+                      %td 23
+                    %tr
+                      %td Open
+                      %td 22
+                      %td 21
+                    %tr
+                      %td Completed
+                      %td 22
+                      %td 21
+    
