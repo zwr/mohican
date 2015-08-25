@@ -3,9 +3,6 @@
 
   angular
       .module('mohican')
-      .controller('MainCtrl', ['$scope', function($scope) {
-          $scope.name = 'World';
-      }])
       .provider('mnRouter', [mnRouter]);
 
   function mnRouter() {
@@ -38,7 +35,7 @@
 
     this.$get = ['$stateParams', '$state', '$rootScope', function($stateParams, $state, $rootScope) {
       function createAll() {
-        $rootScope.$on('$locationChangeStart', function (event, next, current) {
+        var lcs = $rootScope.$on('$locationChangeStart', function (event, next, current) {
           var denyTransitionTo = provider.stateChangeValidators.some(function(validator) {
             return !validator();
           });
@@ -62,7 +59,7 @@
           });
         }
 
-        $rootScope.$on('$stateChangeError', function() {
+        var scr = $rootScope.$on('$stateChangeError', function() {
           $state.transitionTo('404', {});
         });
 
