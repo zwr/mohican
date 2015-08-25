@@ -38,10 +38,10 @@
         var lcs = $rootScope.$on('$locationChangeStart', function (event, next, current) {
           var nextWithNoParams = next.split('?')[0];
           var currentWithNoParams = current.split('?')[0];
-          //do not validate if only after '?' param is changed
+          //do not validate if only "after '?' params" are changed
           if(nextWithNoParams !== currentWithNoParams) {
             var denyTransitionTo = provider.stateChangeValidators.some(function(validator) {
-              return !validator();
+              return !validator(next, current);
             });
             if (denyTransitionTo) {
               event.preventDefault();
