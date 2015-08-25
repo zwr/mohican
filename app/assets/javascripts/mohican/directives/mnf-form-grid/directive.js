@@ -25,7 +25,7 @@ angular.module('mohican')
 
           vm.editingCurrentItemStateChangeValidator = function() {
             if(vm.currentMnfDoc) {
-              var confirmed = $window.confirm('You have one unsaved item. Rollback all changes?');
+              var confirmed = $window.confirm('You have one item in ' + vm.currentMnfDoc._state + ' state. Rollback all changes?');
               if(confirmed) {
                 vm.currentMnfDoc.rollback();
                 vm.currentMnfDoc = null;
