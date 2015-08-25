@@ -11,10 +11,37 @@ angular.module('mohican')
         restrict:   'E',
         transclude: true,
         template:   '<ng-transclude></ng-transclude>',
-        controller: ['$scope', function($scope) {
+        controller: ['$scope', '$window', 'mnRouter', function($scope, $window, mnRouter) {
           var vm = this;
+          vm.currentMnfDoc = null;
+          vm.setCurrenEditingDoc = function(mnDoc) {
+            if(vm.currentMnfDoc) {
+              vm.currentMnfDoc.rollback();
+            }
+            vm.currentMnfDoc = mnDoc;
+          };
           vm.mnfCrudShown = angular.isDefined(vm.mnfCrudShown) ? vm.mnfCrudShown : true;
           vm.mnfSubdocumetsGrid = angular.isDefined(vm.mnfSubdocumetsGrid) ? vm.mnfSubdocumetsGrid : false;
+
+          vm.editingCurrentItemStateChangeValidator = function() {
+            if(vm.currentMnfDoc) {
+              var confirmed = $window.confirm('You have one unsaved item. Rollback all changes?');
+              if(confirmed) {
+                vm.currentMnfDoc.rollback();
+                vm.currentMnfDoc = null;
+              }
+              return confirmed;
+            }
+            else {
+              return true;
+            }
+          };
+
+          mnRouter.addStateChageValidator(vm.editingCurrentItemStateChangeValidator);
+
+          $scope.$on('$destroy', function() {
+            mnRouter.removeStateChageValidator(vm.editingCurrentItemStateChangeValidator);
+          });
 
           var unwatch = $scope.$watch(function() {
             return vm.mnfCrudShown;
@@ -32,14 +59,6 @@ angular.module('mohican')
           $scope.$on('$destroy', function() {
             unwatch();
           });
-
-          vm.currentMnfDoc = null;
-          vm.setCurrenEditingDoc = function(mnDoc) {
-            if(vm.currentMnfDoc) {
-              vm.currentMnfDoc.rollback();
-            }
-            vm.currentMnfDoc = mnDoc;
-          };
         }],
         controllerAs:     'mnFormGrid',
         bindToController: true

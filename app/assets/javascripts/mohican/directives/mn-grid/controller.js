@@ -10,7 +10,7 @@
   function MnGridController(mnRouter, $scope, $window) {
     var vm = this;
 
-    vm.stateChangeValidator = function() {
+    vm.selectedItemsStateChangeValidator = function() {
       if(vm.selectedItems.length > 0) {
         var confirmed = $window.confirm('You have ' + vm.selectedItems.length + ' selected item(s). Leaving this page will discard the selection.');
         return confirmed;
@@ -20,10 +20,10 @@
       }
     };
 
-    mnRouter.addStateChageValidator(vm.stateChangeValidator);
+    mnRouter.addStateChageValidator(vm.selectedItemsStateChangeValidator);
 
     $scope.$on('$destroy', function() {
-      mnRouter.removeStateChageValidator(vm.stateChangeValidator);
+      mnRouter.removeStateChageValidator(vm.selectedItemsStateChangeValidator);
     });
 
     vm.selectedItems = [];
