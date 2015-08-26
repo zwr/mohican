@@ -10,8 +10,9 @@
   function MnGridController(mnRouter, $scope, $window) {
     var vm = this;
 
-    vm.selectedItemsStateChangeValidator = function() {
-      if(vm.selectedItems.length > 0) {
+    vm.selectedItemsStateChangeValidator = function(fullStateChanged) {
+      //do not validate if only "after '?' params" are changed (fullStateChanged === true)
+      if(fullStateChanged && vm.selectedItems.length > 0) {
         var confirmed = $window.confirm('You have ' + vm.selectedItems.length + ' selected item(s). Leaving this page will discard the selection.');
         return confirmed;
       }

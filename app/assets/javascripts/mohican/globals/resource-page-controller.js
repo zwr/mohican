@@ -153,35 +153,62 @@
                          { notify: true });
         }
         else {
-          this.stateMachine.page = parseInt(page);
+          var pageBefore = that.stateMachine.page;
+          that.stateMachine.page = parseInt(page);
           this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
                          this.stateMachine.stateMachineToUrl(this.fields),
-                         { notify: false });
-          this.service.getClientPage(this.stateMachine.page,
-                                     this.stateMachine.column,
-                                     this.stateMachine.direction,
-                                     this.stateMachine.filters,
-                                     this.fields).then(function(data) {
-            that.items = data.items;
-            that.pageCount = data.pageCount;
-            that.totalQfCount = data.totalQfCount;
-            mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
-          });
+                         { notify: false })
+                       .then(function() {
+                         that.service.getClientPage(that.stateMachine.page,
+                                                    that.stateMachine.column,
+                                                    that.stateMachine.direction,
+                                                    that.stateMachine.filters,
+                                                    that.fields).then(function(data) {
+                           that.stateMachine.page = parseInt(page);
+                           that.items = data.items;
+                           that.pageCount = data.pageCount;
+                           that.totalQfCount = data.totalQfCount;
+                           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
+                         });
+                       }, function() {
+                         //TODO: make it better
+                         //if transitionTo validations is rejected,
+                         //rollback stateMachine
+                         that.stateMachine.page = pageBefore;
+                       });
         }
       },
 
       clientLayoutChanged: function(newLayoutName) {
-        this.stateMachine.page = 1;
         var that = this;
-        this.layoutDefs.forEach(function(layout) {
+
+        var fieldsBefore = _.clone(that.fields);
+        var layoutBefore = that.stateMachine.layout;
+
+        that.layoutDefs.forEach(function(layout) {
           if(layout.name === newLayoutName) {
-            that.fields = layout.definition;
             that.stateMachine.layout = newLayoutName;
           }
         });
+
         this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
-                       { notify: false });
+                       { notify: false }).
+                      then(function() {
+                        that.stateMachine.page = 1;
+                        that.layoutDefs.forEach(function(layout) {
+                          if(layout.name === newLayoutName) {
+                            that.fields = layout.definition;
+                            that.stateMachine.layout = newLayoutName;
+                          }
+                        });
+                      }, function() {
+                        //TODO: make it better
+                        //if transitionTo validations is rejected,
+                        //rollback stateMachine
+                        that.fields = _.clone(fieldsBefore);
+                        that.stateMachine.layout = layoutBefore;
+                      });
       },
 
       getBackendFilter: function(backendFilter) {
@@ -191,50 +218,72 @@
       },
 
       clientViewChanged: function(column, direction) {
-        this.stateMachine.page = 1;//for all client side actions reset page to 1
+        var that = this;
+
+        var columnBefore = that.stateMachine.column;
+        var directionBefore = that.stateMachine.direction;
+
         if(column) {
-          this.stateMachine.column = column;
+          that.stateMachine.column = column;
         }
         if(direction) {
-          this.stateMachine.direction = direction;
+          that.stateMachine.direction = direction;
         }
 
         this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
-                       { notify: false });
-         var that = this;
-         that.service.getClientPage(that.stateMachine.page,
-                                    that.stateMachine.column,
-                                    that.stateMachine.direction,
-                                    that.stateMachine.filters,
-                                    that.fields).then(function(data) {
-           that.items = data.items;
-           that.pageCount = data.pageCount;
-           that.totalQfCount = data.totalQfCount;
-           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
-         });
+                       { notify: false }).
+                      then(function() {
+                        that.service.getClientPage(that.stateMachine.page,
+                                                   that.stateMachine.column,
+                                                   that.stateMachine.direction,
+                                                   that.stateMachine.filters,
+                                                   that.fields).then(function(data) {
+                          that.stateMachine.page = 1;//for all client side actions reset page to 1
+                          that.items = data.items;
+                          that.pageCount = data.pageCount;
+                          that.totalQfCount = data.totalQfCount;
+                          mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
+                        });
+                      }, function() {
+                        //TODO: make it better
+                        //if transitionTo validations is rejected,
+                        //rollback stateMachine
+                        that.stateMachine.column = columnBefore;
+                        that.stateMachine.direction = directionBefore;
+                      });
       },
 
       toggleQuickFilter: function() {
-        if(!this.stateMachine.quickFilterShown) {
-          this.stateMachine.filters = undefined;
-        }
-        this.stateMachine.page = 1;//for all client side actions reset page to 1
+        var that = this;
+        var quickFilterShownBefore = that.stateMachine.quickFilterShown;
+        that.stateMachine.quickFilterShown = !that.stateMachine.quickFilterShown;
 
         this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
-                       { notify: false });
-         var that = this;
-         that.service.getClientPage(that.stateMachine.page,
-                                    that.stateMachine.column,
-                                    that.stateMachine.direction,
-                                    that.stateMachine.filters,
-                                    that.fields).then(function(data) {
-           that.items = data.items;
-           that.pageCount = data.pageCount;
-           that.totalQfCount = data.totalQfCount;
-           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
-         });
+                       { notify: false }).
+                      then(function() {
+                        that.service.getClientPage(that.stateMachine.page,
+                                                   that.stateMachine.column,
+                                                   that.stateMachine.direction,
+                                                   that.stateMachine.filters,
+                                                   that.fields).then(function(data) {
+                          if(!that.stateMachine.quickFilterShown) {
+                            that.stateMachine.filters = undefined;
+                          }
+                          that.stateMachine.page = 1;//for all client side actions reset page to 1
+
+                          that.items = data.items;
+                          that.pageCount = data.pageCount;
+                          that.totalQfCount = data.totalQfCount;
+                          mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
+                        });
+                      }, function() {
+                        //TODO: make it better
+                        //if transitionTo validations is rejected,
+                        //rollback stateMachine
+                        that.stateMachine.quickFilterShown = quickFilterShownBefore;
+                      });
       },
 
       clearClientSortAndFilter: function() {

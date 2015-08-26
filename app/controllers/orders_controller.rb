@@ -99,6 +99,27 @@ class OrdersController < ApplicationController
                   view: :text
                 }
               ]
+            },
+            {
+              name: 'short',
+              definition: [
+                {
+                  name: :order_number,
+                  header: 'Order No.',
+                  width: 130,
+                  quicksort: true,
+                  quickfilter: :text,
+                  view: :text
+                },
+                {
+                  name: :delivery_date,
+                  header: 'Delivery date',
+                  width: 210,
+                  quicksort: true,
+                  quickfilter: 'date-range',
+                  view: :date
+                }
+              ]
             }]
           },
           filter: []

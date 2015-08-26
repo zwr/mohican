@@ -23,12 +23,14 @@ angular.module('mohican')
           vm.mnfCrudShown = angular.isDefined(vm.mnfCrudShown) ? vm.mnfCrudShown : true;
           vm.mnfSubdocumetsGrid = angular.isDefined(vm.mnfSubdocumetsGrid) ? vm.mnfSubdocumetsGrid : false;
 
-          vm.editingCurrentItemStateChangeValidator = function(nextUrl, currentUrl) {
+          vm.editingCurrentItemStateChangeValidator = function(fullStateChanged, nextUrl, currentUrl, params) {
             if(vm.currentMnfDoc) {
-              var currDocPreviewUrl = currentUrl + '/' + vm.currentMnfDoc._mnid;
-              //do not validate if user clicked to preview currentMnfDoc
-              if(currDocPreviewUrl === nextUrl) {
-                return true;
+              //do not validate if user clicked to preview currentMnfDoc link
+              if(nextUrl && currentUrl) {
+                var currDocPreviewUrl = currentUrl + '/' + vm.currentMnfDoc._mnid;
+                if(currDocPreviewUrl === nextUrl) {
+                  return true;
+                }
               }
               var confirmed = $window.confirm('You have one item in ' + vm.currentMnfDoc._state + ' state. Rollback all changes?');
               if(confirmed) {

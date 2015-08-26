@@ -12,6 +12,7 @@
     var provider = this;
     provider.routes = [];
     provider.stateChangeValidators = [];
+    provider.transitionToValidarionAllreadyDone = false;
 
     provider.init = function($urlRouterProvider, $stateProvider) {
       $urlRouterProviderRef = $urlRouterProvider;
@@ -33,19 +34,23 @@
       });
     };
 
-    this.$get = ['$stateParams', '$state', '$rootScope', function($stateParams, $state, $rootScope) {
+    provider.$get = ['$stateParams', '$state', '$rootScope', '$q', '$urlRouter', function($stateParams, $state, $rootScope, $q, $urlRouter) {
       function createAll() {
         var lcs = $rootScope.$on('$locationChangeStart', function (event, next, current) {
-          var nextWithNoParams = next.split('?')[0];
-          var currentWithNoParams = current.split('?')[0];
-          //do not validate if only "after '?' params" are changed
-          if(nextWithNoParams !== currentWithNoParams) {
+          if(provider.transitionToValidarionAllreadyDone === false) {
+            var nextWithNoParams = next.split('?')[0];
+            var currentWithNoParams = current.split('?')[0];
+            var fullStateChanged = nextWithNoParams !== currentWithNoParams;
             var denyTransitionTo = provider.stateChangeValidators.some(function(validator) {
-              return !validator(next, current);
+              return !validator(fullStateChanged, next, current);
             });
             if (denyTransitionTo) {
               event.preventDefault();
             }
+          }
+          else {
+            //reset tot false
+            provider.transitionToValidarionAllreadyDone = false;
           }
         });
 
@@ -76,12 +81,30 @@
       }
 
       function transitionTo(routeName, params, options) {
-        if(options) {
-          $state.transitionTo(routeName, params, options);
+        var deffered  = $q.defer();
+
+        var fullStateChanged = routeName !== this.currenRouteName();
+        var denyTransitionTo = provider.stateChangeValidators.some(function(validator) {
+          return !validator(fullStateChanged, undefined, undefined, params);
+        });
+        if (denyTransitionTo) {
+          deffered.reject();
         }
         else {
-          $state.transitionTo(routeName, params);
+          if(options) {
+            $state.transitionTo(routeName, params, options).then(function() {
+              deffered.resolve();
+            });
+          }
+          else {
+            $state.transitionTo(routeName, params).then(function() {
+              deffered.resolve();
+            });
+          }
         }
+        provider.transitionToValidarionAllreadyDone = true;
+
+        return deffered.promise;
       }
 
       function pageNotFound() {

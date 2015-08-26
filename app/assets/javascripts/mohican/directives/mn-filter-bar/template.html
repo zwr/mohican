@@ -22,12 +22,8 @@
             helper-elements="">
       </div>
       <button type="button"
-              class="btn btn-primary"
-              ng-model="filterBar.owner.stateMachine.quickFilterShown"
-              ng-change="filterBar.owner.toggleQuickFilter()"
-              btn-checkbox
-              btn-checkbox-true="true"
-              btn-checkbox-false="false"
+              class="btn {{filterBar.owner.stateMachine.quickFilterShown ? '' : 'btn-primary'}}"
+              ng-click="filterBar.owner.toggleQuickFilter()"
               ng-disabled="!filterBar.owner.fullyLoaded">
         <span class="pull-left">Quick Filter</span>
         <span class="loader pull-left" ng-show="!filterBar.owner.fullyLoaded" style="margin: 0px 0px 0px 8px;"></span>

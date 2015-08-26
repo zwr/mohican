@@ -10,8 +10,9 @@
   function MnfFormController(mnRouter, $scope, $window) {
     var vm = this;
     vm.mnfCrudShown = angular.isDefined(vm.mnfCrudShown) ? vm.mnfCrudShown : true;
-    vm.hasNotReadyStateItemStateChangeValidator = function() {
-      if(vm.mnfDoc._state !== 'ready' && vm.mnfDoc._state !== 'deleted') {
+    vm.hasNotReadyStateItemStateChangeValidator = function(fullStateChanged) {
+      //do not validate if only "after '?' params" are changed (fullStateChanged === true)
+      if(fullStateChanged && vm.mnfDoc._state !== 'ready' && vm.mnfDoc._state !== 'deleted') {
         var confirmed = $window.confirm('Your documents is in ' + vm.mnfDoc._state + ' state. Leaving this page will discard all changes.');
         if(confirmed) {
           vm.mnfDoc._state = 'ready';
