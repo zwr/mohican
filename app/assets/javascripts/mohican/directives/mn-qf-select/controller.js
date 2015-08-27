@@ -30,7 +30,11 @@
       var rememberCurrentSelectedList = vm.model;
       $timeout(function() {
         if(rememberCurrentSelectedList === vm.model) {
-          vm.qfChanged({fieldName: vm.field.name});
+          vm.qfChanged({fieldName: vm.field.name}).then(function() {
+            console.log('resolve');
+          }, function() {
+            console.log('reject');
+          });
         }
       });
     };

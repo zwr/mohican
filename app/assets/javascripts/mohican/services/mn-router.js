@@ -37,6 +37,7 @@
     provider.$get = ['$stateParams', '$state', '$rootScope', '$q', '$urlRouter', function($stateParams, $state, $rootScope, $q, $urlRouter) {
       function createAll() {
         var lcs = $rootScope.$on('$locationChangeStart', function (event, next, current) {
+          // console.log('locationChangeStart');
           if(provider.transitionToValidarionAllreadyDone === false) {
             var nextWithNoParams = next.split('?')[0];
             var currentWithNoParams = current.split('?')[0];
@@ -83,6 +84,7 @@
       function transitionTo(routeName, params, options) {
         var deffered  = $q.defer();
 
+        // console.log('transitionTo');
         var fullStateChanged = routeName !== this.currenRouteName();
         var denyTransitionTo = provider.stateChangeValidators.some(function(validator) {
           return !validator(fullStateChanged, undefined, undefined, params);

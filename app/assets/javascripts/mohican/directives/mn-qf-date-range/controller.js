@@ -23,6 +23,8 @@
       };
     }
 
+    vm.dateRangeBefore = _.cloneDeep(vm.dateRange);
+
     $scope.$watch(function() { return vm.model; }, function (newValue) {
       if(angular.isUndefined(newValue)) {
         vm.dateRange = {
@@ -34,7 +36,7 @@
 
     $scope.$watch(function() { return vm.dateRange; }, function (newValue, oldValue) {
       if(newValue !== oldValue) {
-        if(newValue.startDate === null || newValue.endDate === null) {
+        if(!newValue || newValue.startDate === null || newValue.endDate === null) {
           vm.model = undefined;
         }
         else {
@@ -44,7 +46,26 @@
           };
         }
         $timeout(function() {
-          vm.qfChanged({fieldName: vm.field.name});
+          vm.qfChanged({fieldName: vm.field.name}).then(function() {
+            vm.dateRangeBefore = _.cloneDeep(vm.dateRange);
+          }, function() {
+            if(vm.dateRangeBefore) {
+              if(!vm.model) {
+                vm.model = {};
+              }
+              vm.model.startDate = vm.dateRangeBefore.startDate;
+              vm.model.endDate = vm.dateRangeBefore.endDate;
+              if(!vm.dateRange) {
+                vm.dateRange = {};
+              }
+              vm.dateRange.startDate = vm.dateRangeBefore.startDate;
+              vm.dateRange.endDate = vm.dateRangeBefore.endDate;
+            }
+            else {
+              vm.model = undefined;
+              vm.dateRange = undefined;
+            }
+          });
         });
       }
     });

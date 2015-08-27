@@ -5,9 +5,9 @@
 
   angular
       .module('mohican')
-      .controller('MnGridController', ['mnRouter', '$scope', '$window', MnGridController]);
+      .controller('MnGridController', ['mnRouter', '$scope', '$window', '$q', MnGridController]);
 
-  function MnGridController(mnRouter, $scope, $window) {
+  function MnGridController(mnRouter, $scope, $window, $q) {
     var vm = this;
 
     vm.selectedItemsStateChangeValidator = function(fullStateChanged) {
@@ -134,11 +134,17 @@
     };
 
     vm.filterBy = function() {
-      vm.owner.clientViewChanged(
-        vm.owner.stateMachine.column,
-        vm.owner.stateMachine.direction,
-        vm.owner.stateMachine.filters
-      );
+      var deffered = $q.defer();
+      vm.owner.clientViewChanged(vm.owner.stateMachine.column,
+                                 vm.owner.stateMachine.direction,
+                                 vm.owner.stateMachine.filters
+                               ).
+               then(function() {
+                 deffered.resolve();
+               }, function() {
+                 deffered.reject();
+               });
+      return deffered.promise;
     };
 
     vm.rightClick = function(item, $event) {

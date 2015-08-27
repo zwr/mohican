@@ -27,6 +27,7 @@
 
       initialize: function(service, $injector) {
         this.mnRouter = $injector.get('mnRouter');
+        this.$q = $injector.get('$q');
 
         mohican.redirectDefaultParameters(this.mnRouter);
         mohican.injectDefaultParameters(this.mnRouter);
@@ -218,10 +219,12 @@
       },
 
       clientViewChanged: function(column, direction) {
+        var deffered = this.$q.defer();
         var that = this;
 
         var columnBefore = that.stateMachine.column;
         var directionBefore = that.stateMachine.direction;
+        // var filtersBefore = _.cloneDeep(that.stateMachine.filters);
 
         if(column) {
           that.stateMachine.column = column;
@@ -244,14 +247,21 @@
                           that.pageCount = data.pageCount;
                           that.totalQfCount = data.totalQfCount;
                           mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
+
+                          deffered.resolve();
                         });
                       }, function() {
                         //TODO: make it better
                         //if transitionTo validations is rejected,
                         //rollback stateMachine
+                        // console.log(filtersBefore);
+                        // that.stateMachine.filters = filtersBefore;
                         that.stateMachine.column = columnBefore;
                         that.stateMachine.direction = directionBefore;
+
+                        deffered.reject();
                       });
+        return deffered.promise;
       },
 
       toggleQuickFilter: function() {
