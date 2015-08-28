@@ -1,3 +1,5 @@
+require 'random_hash'
+
 Dir[Rails.root.join('db/seeds/*.rb')].each { |file| load file }
 
 activities = JSON.parse(IO.read(Rails.root.join('db', 'seeds', 'activities.json')))
@@ -154,25 +156,6 @@ HANDLERS_COUNT = { '8': (1..5), '1': (0..0), '1_': (6..20) }
 ORDER_ITEMS_COUNT = { '8': (3..12), '1': (1..2), '1_': (3..200) }
 ITEM_PRODUCT_COUNT = { '9': (1..12), '1': (1..5000) }
 TAG_COUNT = { '1': (0..0), '8': (1..5), '1_': (6..Order::DELIVERY_TAGS.length) }
-
-class Hash
-  def random
-    random_group = rand(1..10)
-    current_sum = 0
-    keys.each do |key|
-      current_sum += key.to_s.to_i
-      return rand self[key] if random_group <= current_sum
-    end
-    # return something is someone defined it wrong
-    rand values.first
-  end
-end
-
-def random(c)
-  @class_hash ||= {}
-  @class_hash[c] = c.all.to_ary if @class_hash[c].nil?
-  @class_hash[c][rand(0..@class_hash[c].count - 1)]
-end
 
 orders = []
 (1..SEED_ORDER_COUNT).each do

@@ -24,9 +24,10 @@ class Order
   field :total, type: Integer
   field :delivery_date, type: Date
   field :actual_delivery_date, type: Date
+  field :cell, type: String
 
   # Status field must be exactly one of the STATUS values
-  STATUS = [:open, :processing, :delivered, :deferred]
+  STATUS = [:created, :open, :closed, :deferred, :processing, :delivered]
   field :status, type: String
 
   # Delvivery tag field is a string of comma-separated values of none, one or

@@ -137,6 +137,13 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           ];
           return retArray;
         };
+
+        ctrl.startProcessingOrder = function() {
+          ctrl.itemForm.edit();
+          ctrl.itemForm._edit.status = 'Processing';
+          ctrl.itemForm._status_changed = true;
+          ctrl.itemForm.commit();
+        };
       }
     ],
 

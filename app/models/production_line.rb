@@ -6,4 +6,12 @@ class ProductionLine
       'Line 3': ['Heino Sahaus', 'Pintaan valmistelu', 'Kuivaus', 'Pakkaus']
     }
   end
+
+  def self.lines
+    all
+  end
+
+  def self.cells
+    lines.values.flatten
+  end
 end

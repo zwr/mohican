@@ -63,6 +63,15 @@ class OrdersController < ApplicationController
                   view: :date
                 },
                 {
+                  name: :cell,
+                  header: 'Cell',
+                  width: 130,
+                  quicksort: true,
+                  values: ProductionLine.cells,
+                  quickfilter: :select,
+                  view: :select # this should be 'select-single'
+                },
+                {
                   name: :actual_delivery_date, # Note that this fate cn be null
                   header: 'Delivered on',
                   width: 210,
@@ -75,9 +84,9 @@ class OrdersController < ApplicationController
                   header: :Status,
                   width: 90,
                   quicksort: true,
-                  values: [:created, :open, :closed, :deferred, :processing, :delivered],
-                  quickfilter: :select, # here should be select one
-                  view: :select
+                  values: Order::STATUS,
+                  quickfilter: :select,
+                  view: :select # this should be 'select-single'
                 },
                 {
                   name: :delivery_tag,
@@ -190,7 +199,7 @@ class OrdersController < ApplicationController
   def order_params
     params.require(:order).permit(:delivery_tag, :delivery_date, :actual_delivery_date,
                                   :created_at, :order_items, :order_handlers,
-                                  :order_number, :status, :total, :creator_name,
+                                  :order_number, :cell, :status, :total, :creator_name,
                                   :creator_ref)
   end
 end
