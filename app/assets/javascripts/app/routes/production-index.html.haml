@@ -21,6 +21,9 @@
   .row
     .col-lg-9
       .row
+        .col-lg-12(ng-if="!lines")
+          %button.btn.btn-lg.btn-warning
+            %span.glyphicon.glyphicon-refresh(animate) Loading production lines...
         .col-lg-12(ng-repeat="(line, cells) in lines")
           .panel.panel-primary
             .panel-heading
