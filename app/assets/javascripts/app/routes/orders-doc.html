@@ -20,6 +20,11 @@
                       allowed-values="['standard', 'urgent', 'insured', 'fragile',
                                        'flammable', 'tax_free', 'export', 'import',
                                        'secret', 'poison', 'large', 'heavy']"></mnf-select>
+          <mnf-select mnf-field="status"
+                      mnf-label="Status:"
+                      mnf-select-type="single"
+                      allowed-values="['created', 'open', 'closed', 'deferred',
+                                       'processing', 'delivered']"></mnf-select>
           <mnf-date mnf-field="actual_delivery_date"
                     mnf-label="Delivered on:"></mnf-date>
           <mnf-date mnf-field="created_at"

@@ -85,8 +85,9 @@
                          read-only="field.readOnly"
                          mnf-field="{{field.name}}"
                          mnf-doc="item"></mnf-text-grid>
-          <mnf-select-grid ng-if="field.view === 'select'"
+          <mnf-select-grid ng-if="field.view === 'select' || field.view === 'select-single'"
                            read-only="field.readOnly"
+                           mnf-select-type="{{field.view === 'select-single' ? 'single' : 'multiple'}}"
                            mnf-field="{{field.name}}"
                            field="field"
                            mnf-doc="item"></mnf-select-grid>

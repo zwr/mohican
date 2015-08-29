@@ -69,7 +69,7 @@ class OrdersController < ApplicationController
                   quicksort: true,
                   values: ProductionLine.cells,
                   quickfilter: :select,
-                  view: :select # this should be 'select-single'
+                  view: 'select-single'
                 },
                 {
                   name: :actual_delivery_date, # Note that this fate cn be null
@@ -86,7 +86,7 @@ class OrdersController < ApplicationController
                   quicksort: true,
                   values: Order::STATUS,
                   quickfilter: :select,
-                  view: :select # this should be 'select-single'
+                  view: 'select-single'
                 },
                 {
                   name: :delivery_tag,

@@ -9,7 +9,8 @@ angular.module('mohican')
           mnfField:      '@',
           mnfLabel:      '@',
           allowedValues: '=',
-          readOnly:      '=?'
+          readOnly:      '=?',
+          mnfSelectType: '@'
         },
         restrict:    'E',
         require:     '^mnfForm',
@@ -36,11 +37,16 @@ angular.module('mohican')
 
           scope.textChanged = function(clickedItem) {
             var index = scope.selectedValues.indexOf(clickedItem);
-            if(index > -1) {
-              scope.selectedValues.splice(index, 1);
+            if(scope.mnfSelectType !== 'single') {
+              if(index > -1) {
+                scope.selectedValues.splice(index, 1);
+              }
+              else {
+                scope.selectedValues.push(clickedItem);
+              }
             }
             else {
-              scope.selectedValues.push(clickedItem);
+              scope.selectedValues = [clickedItem];
             }
             scope.mnfDoc._edit[scope.mnfField] = scope.selectedValues.join(',');
             scope.mnfDoc.change(scope.mnfField);
