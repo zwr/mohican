@@ -2,7 +2,8 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   mnRouterProvider.addSimpleRoute({
     name:       'production',
-    controller: ['$scope', 'productionLinesService', function($scope, productionLinesService) {
+    controller: ['$scope', '$location', 'productionLinesService',
+    function($scope, $location, productionLinesService) {
       productionLinesService.getProductionLines()
       .then(function (data) {
         $scope.lines = data;
@@ -14,6 +15,15 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         'View current active products',
         'View resources'];
       $scope.resources = ['forklifts', 'workers', 'material'];
+      $scope.showStats = function(cellName) {
+        // var loc = '/orders?column=delivery_date&qf=true&filters=cell$' + cellName + '$$status$open';
+        $location.path('/orders')
+                 .search({
+                   column: 'delivery_date',
+                   qf: true,
+                   filters: 'cell$' + cellName + '$$status$open',
+                 })
+      }
     }]
   });
 }])
@@ -21,7 +31,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   return {
     getProductionLines: function() {
-      return $http.get('/api/production_lines.json')
+      return $http.get('/api/production_lines/stats.json')
       .then(function (response) {
         return response.data;
       });

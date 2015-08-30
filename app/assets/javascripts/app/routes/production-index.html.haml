@@ -24,35 +24,27 @@
         .col-lg-12(ng-if="!lines")
           %button.btn.btn-lg.btn-warning
             %span.glyphicon.glyphicon-refresh(animate) Loading production lines...
-        .col-lg-12(ng-repeat="(line, cells) in lines")
+        .col-lg-12(ng-repeat="line in lines")
           .panel.panel-primary
             .panel-heading
-              %h3.panel-title {{line}}
+              %h3.panel-title {{line.name}}
             .panel-body
               .row
-                .col-md-3.col-sm-6(ng-repeat="cell in cells")
-                  .panel.panel-default.production-cell
+                .col-md-3.col-sm-6(ng-repeat="cell in line.cells")
+                  .panel.panel-default.production-cell(ng-click='showStats(cell.name)')
                     .panel-heading.cell-title
                       .pull-left.cell-img
-                      %h3.panel-title {{cell}}
+                      %h3.panel-title {{cell.name}}
                     .panel-body.production-report
                       %table.table
                         %tr
                           %th Orders
                           %th Today
                           %th Week
-                        %tr
-                          %td Total
-                          %td 25
-                          %td 23
-                        %tr
-                          %td Open
-                          %td 22
-                          %td 21
-                        %tr
-                          %td Completed
-                          %td 22
-                          %td 21
+                        %tr(ng-repeat="row_label in ['total', 'open', 'closed', 'processing']")
+                          %td {{row_label}}
+                          %td {{cell.today[row_label]}}
+                          %td {{cell.week[row_label]}}
     .col-lg-3
       .panel.panel-primary
         .panel-heading
@@ -80,6 +72,6 @@
                       %td 21
                     %tr
                       %td Completed
-                      %td 22
-                      %td 21
+                      %td 6
+                      %td 1
     

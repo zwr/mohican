@@ -71,6 +71,7 @@ class OrdersController < ApplicationController
                   quickfilter: :select,
                   view: 'select-single'
                 },
+=begin
                 {
                   name: :actual_delivery_date, # Note that this fate cn be null
                   header: 'Delivered on',
@@ -79,6 +80,7 @@ class OrdersController < ApplicationController
                   quickfilter: 'date-range',
                   view: :date
                 },
+=end
                 {
                   name: :status,
                   header: :Status,
@@ -88,6 +90,7 @@ class OrdersController < ApplicationController
                   quickfilter: :select,
                   view: 'select-single'
                 },
+=begin
                 {
                   name: :delivery_tag,
                   header: 'Delivery Tags',
@@ -99,6 +102,7 @@ class OrdersController < ApplicationController
                   quickfilter: :select, # here should be select zero, one or more
                   view: :select
                 },
+=end
                 {
                   name: :total,
                   header: :Total,
