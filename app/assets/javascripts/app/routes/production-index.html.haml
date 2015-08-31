@@ -3,7 +3,7 @@
     .row
       .col-md-7
         %h1 Celesta
-        %h2 PRODUCTION MONITORING
+        %h2 TUOTANNON SEURANTA
       .hidden-xs.hidden-sm.col-md-5
         .panel.panel-warning
           .panel-heading
@@ -17,7 +17,7 @@
       %span.pull-left
         %h1 Celesta
       %span.pull-right
-        %h2 PRODUCTION MONITORING
+        %h2 TUOTANNON SEURANTA
   .row
     .col-lg-9
       .row
@@ -38,10 +38,10 @@
                     .panel-body.production-report
                       %table.table
                         %tr
-                          %th Orders
-                          %th Today
-                          %th Week
-                        %tr(ng-repeat="row_label in ['total', 'open', 'closed', 'processing']")
+                          %th Tilaukset
+                          %th Tänään
+                          %th Viikko
+                        %tr(ng-repeat="row_label in ['kaikki', 'avoinna', 'valmis', 'tuotannossa']")
                           %td {{row_label}}
                           %td {{cell.today[row_label]}}
                           %td {{cell.week[row_label]}}

@@ -2,12 +2,15 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   mnRouterProvider.addSimpleRoute({
     name:       'production',
-    controller: ['$scope', '$location', 'productionLinesService', 'ordersService',
-    function($scope, $location, productionLinesService, ordersService) {
-      productionLinesService.getProductionLines()
-      .then(function (data) {
-        $scope.lines = data;
-      });
+    controller: ['$scope', '$location', '$interval', 'productionLinesService', 'ordersService',
+    function($scope, $location, $interval, productionLinesService, ordersService) {
+      $scope.reload = function() {
+        productionLinesService.getProductionLines()
+        .then(function (data) {
+          $scope.lines = data;
+        });
+      }
+      $scope.reload();
       $scope.bookmarks = [
         'Pending orders for current and following week',
         'Orders in production (current orders)',
@@ -21,10 +24,16 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
                  .search({
                    column: 'delivery_date',
                    qf: true,
-                   filters: 'cell$' + cellName + '$$status$open',
+                   filters: 'cell$' + cellName + '$$status$avoinna,tuotannossa',
                  })
       }
-      
+      var myInterval = $interval(function(){
+        $scope.reload();
+      }, 2000);
+      $scope.$on("$destroy", function(){
+        $interval.cancel(myInterval);
+        myInterval = undefined;
+      });
     }]
   });
 }])

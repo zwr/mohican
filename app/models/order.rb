@@ -27,7 +27,7 @@ class Order
   field :cell, type: String
 
   # Status field must be exactly one of the STATUS values
-  STATUS = [:created, :open, :closed, :deferred, :processing, :delivered]
+  STATUS = [:created, :avoinna, :valmis, :deferred, :tuotannossa, :delivered]
   field :status, type: String
 
   # Delvivery tag field is a string of comma-separated values of none, one or

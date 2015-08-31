@@ -32,13 +32,13 @@ namespace :db do
       (1..order_count).each do
         x = Order.new
         x.total = rand 1..1000
-        x.delivery_date  = (rand(60) - 5).days.from_now
-        if x.delivery_date < 2.days.ago
-          x.status = :closed
+        x.delivery_date  = Date.today.beginning_of_week + rand(30).days
+        if x.delivery_date < Date.today
+          x.status = :valmis
         elsif x.delivery_date < 2.days.from_now
-          x.status = [:open, :closed, :processing][rand 0..2]
+          x.status = [:avoinna, :valmis, :tuotannossa][rand 0..2]
         else
-          x.status = :open
+          x.status = :avoinna
         end
         x.order_number = rand 10_000..99_999
         x.creator = (random User).id

@@ -139,10 +139,10 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         };
 
         ctrl.startProcessingOrder = function() {
-          ctrl.changeOrderStatus('processing');
+          ctrl.changeOrderStatus('tuotannossa');
         };
         ctrl.stopProcessingOrder = function() {
-          ctrl.changeOrderStatus('closed');
+          ctrl.changeOrderStatus('valmis');
         };
         ctrl.changeOrderStatus = function(newStatus) {
           ctrl.itemForm.edit();

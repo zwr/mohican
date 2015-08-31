@@ -7,13 +7,13 @@
       <button class="btn btn-default" ng-click="ctrl.back()">
         Back to Order List
       </button>
-      <button class="btn btn-primary" ng-click="ctrl.startProcessingOrder()" ng-if="ctrl.itemForm.status == 'open'">
+      <button class="btn btn-primary" ng-click="ctrl.startProcessingOrder()" ng-if="ctrl.itemForm.status == 'avoinna'">
         Start Processing order
       </button>
-      <button class="btn btn-primary" ng-click="ctrl.stopProcessingOrder()" ng-if="ctrl.itemForm.status == 'processing'">
+      <button class="btn btn-primary" ng-click="ctrl.stopProcessingOrder()" ng-if="ctrl.itemForm.status == 'tuotannossa'">
         Stop Processing order
       </button>
-      <button class="btn btn-primary" ng-click="ctrl.startProcessingOrder()" ng-if="ctrl.itemForm.status == 'closed'">
+      <button class="btn btn-primary" ng-click="ctrl.startProcessingOrder()" ng-if="ctrl.itemForm.status == 'valmis'">
         Redo The Order
       </button>
     </div>
@@ -37,8 +37,8 @@
           <mnf-select mnf-field="status"
                       mnf-label="Status:"
                       mnf-select-type="single"
-                      allowed-values="['created', 'open', 'closed', 'deferred',
-                                       'processing', 'delivered']"></mnf-select>
+                      allowed-values="['avoinna', 'valmis',
+                                       'tuotannossa']"></mnf-select>
           <mnf-date mnf-field="actual_delivery_date"
                     mnf-label="Delivered on:"></mnf-date>
           <mnf-date mnf-field="created_at"
@@ -56,9 +56,6 @@
                     mnf-label="Total:"
                     read-only="true"></mnf-text>
           <mn-tabs>
-            <mn-tab heading="Tab 1">
-              tab1
-            </mn-tab>
             <mn-tab heading="Handlers"
                     mn-content-changed="ctrl.itemForm['_order_handlers_changed']"
                     mn-show-add-item-button="ctrl.itemForm._state !== 'ready'"
