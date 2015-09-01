@@ -399,6 +399,31 @@
       trace('data are fully loaded');
     };
 
+    service.preloadAllData = function() {
+      var deffered = $q.defer();
+      service.getPreviewDefinitions().
+              then(function(definition) {
+                var dataFields = [];
+                definition.layouts.forEach(function(layout) {
+                  if(layout.name === 'default') {
+                    dataFields = layout.definition;
+                  }
+                });
+                return dataFields;
+              }).
+              then(function(dataFields) {
+                service.getBackendPageCount(dataFields, 1, 'default').then(function(pageCount) {
+                  service.getBackendPage(1, dataFields, 'default').
+                  then(function() {
+                    service.waitFullyLoaded().then(function() {
+                      deffered.resolve();
+                    });
+                  });
+                });
+              });
+      return deffered.promise;
+    };
+
     return service;
   };
 }(window.mohican));
