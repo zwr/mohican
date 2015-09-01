@@ -61,10 +61,6 @@
               vm.dateRange.startDate = vm.dateRangeBefore.startDate;
               vm.dateRange.endDate = vm.dateRangeBefore.endDate;
             }
-            else {
-              vm.model = undefined;
-              vm.dateRange = undefined;
-            }
           });
         });
       }
