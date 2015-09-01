@@ -182,7 +182,7 @@
     };
 
     vm.fastPreview = function(item) {
-      if(vm.mnFastPreview === 'row') {
+      if(vm.mnFastPreview === 'row' && item._state === 'ready') {
         if(vm.owner.resourceName) {
           mnRouter.transitionTo(vm.owner.resourceName + '-doc', {
             itemPrimaryKeyId: item._mnid
