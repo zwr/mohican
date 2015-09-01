@@ -26,7 +26,7 @@
             scope.openRefDialog = function() {
               scope.owner.refResourceController = {};
               var service = $injector.get(attr.mnfRefResource + 'Service');
-              mohican.extendResourceDriver(scope.owner.refResourceController, service, $injector);
+              mohican.extendResourceDriver(attr.mnfRefResource, scope.owner.refResourceController, service, $injector);
               scope.owner.popDialog('Select from ' + attr.mnfRefResource,
                                     'mohican/directives/mnf-reference/ref-resource-dialog.html',
                                     { hideFooter: true }).

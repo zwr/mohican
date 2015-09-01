@@ -1,10 +1,10 @@
 (function(mohican) {
   'use strict';
 
-  mohican.extendResourcePageController = function(apiResource, ctrl, service, $injector) {
+  mohican.extendResourcePageController = function(resourceName, ctrl, service, $injector) {
     _.assign(ctrl, mohican.createBaseDriver($injector));
     _.assign(ctrl, mohican.createResourcePageController());
-    ctrl.apiResource = apiResource;
+    ctrl.resourceName = resourceName;
     ctrl.initialize(service, $injector);
     ctrl.loadData();
   };
@@ -112,7 +112,7 @@
             that.onCurrentItemChanged.forEach(function(callback) {
               callback(that.itemForm);
             });
-            that.service.prepareNewDoc(that.fields, that.$http, that.$q, that.apiResource,
+            that.service.prepareNewDoc(that.fields, that.$http, that.$q, that.resourceName,
                                       {primaryKeyName: that.primaryKeyName, doctype: that.doctype}, that.itemForm);
           }
           else if(that.stateMachine.itemPrimaryKeyId) {

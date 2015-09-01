@@ -17,13 +17,19 @@
                  mn-on-select="ctrl.onItemSelect(selectedItems)"
                  mn-popup="ctrl.popup(clickedItem, selectedItems)"
                  mn-grid-fill-height="true"
-                 mn-actions-width="140px">
+                 mn-actions-width="140px"
+                 mn-fast-preview="row">
           <mnf-preview-grid mnf-doc="item"
-                            route="orders"></mnf-preview-grid>
-          <mnf-edit-grid mnf-doc="item" class="hidden-xs"></mnf-edit-grid>
-          <mnf-commit-grid mnf-doc="item"></mnf-commit-grid>
-          <mnf-rollback-grid mnf-doc="item"></mnf-rollback-grid>
-          <mnf-delete-grid mnf-doc="item" class="hidden-xs"
+                            route="orders"
+                            class="hidden-xs"></mnf-preview-grid>
+          <mnf-edit-grid mnf-doc="item"
+                         class="hidden-xs"></mnf-edit-grid>
+          <mnf-commit-grid mnf-doc="item"
+                           class="hidden-xs"></mnf-commit-grid>
+          <mnf-rollback-grid mnf-doc="item"
+                             class="hidden-xs"></mnf-rollback-grid>
+          <mnf-delete-grid mnf-doc="item"
+                           class="hidden-xs"
                            mn-on-delete="ctrl.loadMnGridItems()"></mnf-delete-grid>
         </mn-grid>
       </mnf-form-grid>

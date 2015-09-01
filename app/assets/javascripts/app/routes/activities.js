@@ -81,7 +81,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               text:   'link to activity',
               action: function() {
                 ctrl.linkToActivityController = {};
-                mohican.extendResourceDriver(ctrl.linkToActivityController, service, $injector);
+                mohican.extendResourceDriver('activities', ctrl.linkToActivityController, service, $injector);
                 ctrl.popDialog('Selected Orders', 'app/routes/activities-link-to-activity-dialog.html');
               }
             },

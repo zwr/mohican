@@ -118,7 +118,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
               text:   'link to order',
               action: function() {
                 ctrl.linkToOrderController = {};
-                mohican.extendResourceDriver(ctrl.linkToOrderController, service, $injector);
+                mohican.extendResourceDriver('orders', ctrl.linkToOrderController, service, $injector);
                 ctrl.popDialog('Selected Orders', 'app/routes/orders-link-to-order-dialog.html');
               }
             },

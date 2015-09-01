@@ -1,9 +1,10 @@
 (function(mohican) {
   'use strict';
 
-  mohican.extendResourceDriver = function(ctrl, service, $injector) {
+  mohican.extendResourceDriver = function(resourceName, ctrl, service, $injector) {
     _.assign(ctrl, mohican.createBaseDriver($injector));
     _.assign(ctrl, mohican.createResourceDriver());
+    ctrl.resourceName = resourceName;
 
     ctrl.stateMachine.quickFilterShown = true;
     ctrl.stateMachine.page = 1;

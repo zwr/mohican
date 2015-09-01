@@ -74,7 +74,8 @@
           mn-right-click="grid.rightClick(item, $event)"
           ng-class="{'last-selected': grid.isLastSelected(item),
                      'deleted': item._state === 'deleted'}"
-          ng-hide="item._state === 'deleted'">
+          ng-hide="item._state === 'deleted'"
+          ng-click="grid.fastPreview(item)">
         <td ng-show="grid.showSelectColumn">
           <input type="checkbox" class="mn-grid-select-box"
                  ng-checked="grid.isItemSelected(item)"
@@ -117,12 +118,13 @@
       <tr class="mn-grid-data-row"
           ng-class="{'deleted': item._state === 'deleted'}"
           ng-repeat="item in grid.selectedItems"
-          mn-right-click="grid.rightClick(item, $event)">
+          mn-right-click="grid.rightClick(item, $event)"
+          ng-click="grid.fastPreview(item)">
         <td ng-show="grid.showSelectColumn">
           <input type="checkbox"
                  class="mn-grid-select-box"
                  ng-checked="grid.isItemSelected(item)"
-                 ng-click="grid.selectionChanged(item)">
+                 ng-click="grid.selectionChanged(item, $event)">
         </td>
         <td ng-repeat="field in grid.owner.fields" style="overflow: auto;">
           <mnf-text-grid ng-if="field.view === 'text'"

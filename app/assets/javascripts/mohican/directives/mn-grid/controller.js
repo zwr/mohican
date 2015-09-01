@@ -56,7 +56,16 @@
       vm.showSelectColumn = false;
     }
 
+    if(angular.isUndefined(vm.mnFastPreview)) { vm.mnFastPreview = 'none'; }
+    else {
+      if(vm.mnFastPreview !== 'none' &&
+         vm.mnFastPreview !== 'row') {
+        throw 'Invalid mn-grid(mn-fast-preview) parameter';
+      }
+    }
+
     vm.selectionChanged = function(item, $event) {
+      $event.stopPropagation();
       var index = vm.selectedItems.indexOf(item);
 
       if($event && $event.shiftKey && index === -1) {
@@ -170,6 +179,16 @@
     vm.contextMenuAction = function(item) {
       item.action(vm);
       vm.contextMenuVisible = false;
+    };
+
+    vm.fastPreview = function(item) {
+      if(vm.mnFastPreview === 'row') {
+        if(vm.owner.resourceName) {
+          mnRouter.transitionTo(vm.owner.resourceName + '-doc', {
+            itemPrimaryKeyId: item._mnid
+          });
+        }
+      }
     };
   }
 })();
