@@ -37,7 +37,6 @@
     provider.$get = ['$stateParams', '$state', '$rootScope', '$q', '$urlRouter', function($stateParams, $state, $rootScope, $q, $urlRouter) {
       function createAll() {
         var lcs = $rootScope.$on('$locationChangeStart', function (event, next, current) {
-          // console.log('locationChangeStart');
           if(provider.transitionToValidarionAllreadyDone === false) {
             var nextWithNoParams = next.split('?')[0];
             var currentWithNoParams = current.split('?')[0];
@@ -50,7 +49,7 @@
             }
           }
           else {
-            //reset tot false
+            //reset to false
             provider.transitionToValidarionAllreadyDone = false;
           }
         });
