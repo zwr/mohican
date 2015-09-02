@@ -23,19 +23,27 @@
       nothingSelected: 'All'
     };
 
+    vm.modelBefore = _.cloneDeep(vm.model);
+
     vm.inputChanged = function() {
       vm.model = vm.selectedValues.map(function(elem) {
         return elem.name;
       });
-      var rememberCurrentSelectedList = vm.model;
       $timeout(function() {
-        if(rememberCurrentSelectedList === vm.model) {
-          vm.qfChanged({fieldName: vm.field.name}).then(function() {
-            console.log('resolve');
-          }, function() {
-            console.log('reject');
-          });
-        }
+        vm.qfChanged({fieldName: vm.field.name}).
+           then(function() {
+             vm.modelBefore = _.cloneDeep(vm.model);
+           }, function() {
+             vm.selectItems.forEach(function(sItem) {
+               sItem.selected = false;
+               for(var i = 0; i < vm.modelBefore.length; i++) {
+                 if(vm.modelBefore[i] === sItem.name) {
+                   sItem.selected = true;
+                   break;
+                 }
+               }
+             });
+           });
       });
     };
 
