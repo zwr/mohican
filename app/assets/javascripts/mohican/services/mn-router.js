@@ -49,7 +49,6 @@
             }
           }
           else {
-            //reset to false
             provider.transitionToValidarionAllreadyDone = false;
           }
         });
