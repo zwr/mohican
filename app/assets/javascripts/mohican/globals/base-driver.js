@@ -19,7 +19,7 @@
 
       clientLayoutChanged: function() { return $q.when(); },
 
-      getBackendFilter: function() {},
+      getBackendFilter: function() { return $q.when(); },
 
       clientViewChanged: function() {},
 
