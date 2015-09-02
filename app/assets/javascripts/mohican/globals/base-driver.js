@@ -5,6 +5,8 @@
     return {
       modal: $injector.get('$modal'),
 
+      $q: $injector.get('$q'),
+
       stateMachine: mohican.createStateMachine(),
 
       currentItemChanged: function() {},
@@ -15,7 +17,7 @@
 
       pageChanged: function() {},
 
-      clientLayoutChanged: function() {},
+      clientLayoutChanged: function() { return $q.when(); },
 
       getBackendFilter: function() {},
 
@@ -64,7 +66,7 @@
 
           size: options.dialogSize || 'lg'
         });
-        
+
         return modalInstance.result;
       },
     };

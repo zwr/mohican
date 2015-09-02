@@ -181,6 +181,7 @@
       },
 
       clientLayoutChanged: function(newLayoutName) {
+        var deffered = this.$q.defer();
         var that = this;
 
         var fieldsBefore = _.clone(that.fields);
@@ -203,19 +204,29 @@
                             that.stateMachine.layout = newLayoutName;
                           }
                         });
+                        deffered.resolve();
                       }, function() {
-                        //TODO: make it better
-                        //if transitionTo validations is rejected,
-                        //rollback stateMachine
                         that.fields = _.clone(fieldsBefore);
                         that.stateMachine.layout = layoutBefore;
+                        deffered.reject();
                       });
+
+        return deffered.promise;
       },
 
       getBackendFilter: function(backendFilter) {
+        var deffered = this.$q.defer();
+
         var newRouteParams = _.clone(this.mnRouter.$stateParams);
         newRouteParams.backendfilter = backendFilter;
-        this.mnRouter.transitionTo(this.mnRouter.currenRouteName(), mohican.escapeDefaultParameters(newRouteParams));
+        this.mnRouter.transitionTo(this.mnRouter.currenRouteName(), mohican.escapeDefaultParameters(newRouteParams)).
+                      then(function() {
+                        deffered.resolve();
+                      }, function() {
+                        deffered.reject();
+                      });
+
+        return deffered.promise;
       },
 
       clientViewChanged: function(column, direction) {
