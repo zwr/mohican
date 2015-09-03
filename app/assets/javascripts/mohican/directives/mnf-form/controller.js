@@ -13,14 +13,17 @@
     vm.hasNotReadyStateItemStateChangeValidator = function(fullStateChanged) {
       //do not validate if only "after '?' params" are changed (fullStateChanged === true)
       if(fullStateChanged && vm.mnfDoc._state !== 'ready' && vm.mnfDoc._state !== 'deleted') {
-        var confirmed = $window.confirm('Your documents is in ' + vm.mnfDoc._state + ' state. Leaving this page will discard all changes.');
-        if(confirmed) {
-          vm.mnfDoc._state = 'ready';
-        }
-        return confirmed;
+        return {
+          message: 'Your documents is in ' + vm.mnfDoc._state + ' state. Leaving this page will discard all changes.',
+          resolve: function() {
+            vm.mnfDoc._state = 'ready';
+            console.log('resolve');
+          },
+          reject: function() { console.log('reject'); }
+        };
       }
       else {
-        return true;
+        return null;
       }
     };
 

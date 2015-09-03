@@ -29,18 +29,22 @@ angular.module('mohican')
               if(nextUrl && currentUrl) {
                 var currDocPreviewUrl = currentUrl + '/' + vm.currentMnfDoc._mnid;
                 if(currDocPreviewUrl === nextUrl) {
-                  return true;
+                  return null;
                 }
               }
-              var confirmed = $window.confirm('You have one item in ' + vm.currentMnfDoc._state + ' state. Rollback all changes?');
-              if(confirmed) {
-                vm.currentMnfDoc.rollback();
-                vm.currentMnfDoc = null;
-              }
-              return confirmed;
+
+              return {
+                message: 'You have one item in ' + vm.currentMnfDoc._state + ' state. Rollback all changes?',
+                resolve: function() {
+                  vm.currentMnfDoc.rollback();
+                  vm.currentMnfDoc = null;
+                  console.log('resolve');
+                },
+                reject: function() { console.log('reject'); }
+              };
             }
             else {
-              return true;
+              return null;
             }
           };
 

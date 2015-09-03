@@ -34,18 +34,41 @@
       });
     };
 
-    provider.$get = ['$stateParams', '$state', '$rootScope', '$q', '$urlRouter', function($stateParams, $state, $rootScope, $q, $urlRouter) {
+    provider.$get = ['$stateParams', '$state', '$rootScope', '$q', '$urlRouter', '$window', function($stateParams, $state, $rootScope, $q, $urlRouter, $window) {
       function createAll() {
         var lcs = $rootScope.$on('$locationChangeStart', function (event, next, current) {
           if(provider.transitionToValidarionAllreadyDone === false) {
             var nextWithNoParams = next.split('?')[0];
             var currentWithNoParams = current.split('?')[0];
             var fullStateChanged = nextWithNoParams !== currentWithNoParams;
-            var denyTransitionTo = provider.stateChangeValidators.some(function(validator) {
-              return !validator(fullStateChanged, next, current);
+
+            var validationMessages = [];
+            provider.stateChangeValidators.forEach(function(validator) {
+              var validationObject = validator(fullStateChanged, next, current);
+              if(validationObject) {
+                validationMessages.push(validationObject.message);
+              }
             });
-            if (denyTransitionTo) {
-              event.preventDefault();
+            if(validationMessages.length > 0) {
+              var allowTransition = $window.confirm(validationMessages.join('/n'));
+              if(!allowTransition) {
+                event.preventDefault();
+
+                provider.stateChangeValidators.forEach(function(validator) {
+                  var validationObject = validator(fullStateChanged, next, current);
+                  if(validationObject) {
+                    validationObject.reject();
+                  }
+                });
+              }
+              else {
+                provider.stateChangeValidators.forEach(function(validator) {
+                  var validationObject = validator(fullStateChanged, next, current);
+                  if(validationObject) {
+                    validationObject.resolve();
+                  }
+                });
+              }
             }
           }
           else {
@@ -82,15 +105,15 @@
       function transitionTo(routeName, params, options) {
         var deffered  = $q.defer();
 
-        // console.log('transitionTo');
         var fullStateChanged = routeName !== this.currenRouteName();
-        var denyTransitionTo = provider.stateChangeValidators.some(function(validator) {
-          return !validator(fullStateChanged, undefined, undefined, params);
-        });
-        if (denyTransitionTo) {
-          deffered.reject();
-        }
-        else {
+
+        function resolveTransition(fullStateChanged, routeName, params, options) {
+          provider.stateChangeValidators.forEach(function(validator) {
+            var validationObject = validator(fullStateChanged, undefined, undefined, params);
+            if(validationObject) {
+              validationObject.resolve();
+            }
+          });
           if(options) {
             $state.transitionTo(routeName, params, options).then(function() {
               deffered.resolve();
@@ -102,6 +125,34 @@
             });
           }
         }
+
+        var validationMessages = [];
+        provider.stateChangeValidators.forEach(function(validator) {
+          var validationObject = validator(fullStateChanged, undefined, undefined, params);
+          if(validationObject) {
+            validationMessages.push(validationObject.message);
+          }
+        });
+
+        if(validationMessages.length > 0) {
+          var allowTransition = $window.confirm(validationMessages.join('/n'));
+          if(!allowTransition) {
+            provider.stateChangeValidators.forEach(function(validator) {
+              var validationObject = validator(fullStateChanged, undefined, undefined, params);
+              if(validationObject) {
+                validationObject.reject();
+              }
+              deffered.reject();
+            });
+          }
+          else {
+            resolveTransition(fullStateChanged, routeName, params, options);
+          }
+        }
+        else {
+          resolveTransition(fullStateChanged, routeName, params, options);
+        }
+
         provider.transitionToValidarionAllreadyDone = true;
 
         return deffered.promise;
