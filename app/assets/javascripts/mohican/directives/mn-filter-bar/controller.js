@@ -20,9 +20,7 @@
 
     $scope.$watchCollection(function() { return vm.owner.backendFilters; },
                             function(newValue, oldValue) {
-                              if(newValue !== oldValue) {
-                                vm.backendFiltersBefore = _.cloneDeep(vm.owner.backendFilters);
-                              }
+                              vm.backendFiltersBefore = _.cloneDeep(vm.owner.backendFilters);
                             });
 
     vm.changeLayout = function(layoutName) {
