@@ -14,7 +14,7 @@
       //do not validate if only "after '?' params" are changed (fullStateReload === true)
       if(fullStateReload && vm.mnfDoc._state !== 'ready' && vm.mnfDoc._state !== 'deleted') {
         return {
-          message: 'Your documents is in ' + vm.mnfDoc._state + ' state. Leaving this page will discard all changes.',
+          message: 'Your current editing document is in ' + vm.mnfDoc._state + ' state.',
           resolve: function() {
             vm.mnfDoc.rollback();
             console.log('resolve');

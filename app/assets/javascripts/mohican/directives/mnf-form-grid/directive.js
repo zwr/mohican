@@ -34,7 +34,7 @@ angular.module('mohican')
               }
 
               return {
-                message: 'You have one item in ' + vm.currentMnfDoc._state + ' state. Rollback all changes?',
+                message: 'You have one item in ' + vm.currentMnfDoc._state + ' state.',
                 resolve: function() {
                   vm.currentMnfDoc.rollback();
                   vm.currentMnfDoc = null;

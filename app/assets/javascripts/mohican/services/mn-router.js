@@ -50,7 +50,8 @@
               }
             });
             if(validationMessages.length > 0) {
-              var allowTransition = $window.confirm(validationMessages.join('/n'));
+              validationMessages.push('\nLeaving this page all unsaved data and selected document(s) will be lost.');
+              var allowTransition = $window.confirm(validationMessages.join('\n'));
               if(!allowTransition) {
                 event.preventDefault();
 
@@ -107,7 +108,13 @@
 
         var fullStateReload = routeName !== this.currenRouteName();
 
-        function resolveTransition(fullStateReload, routeName, params, options) {
+        //if backend filter is changed, we assume it is fullStateReload
+        //(ex. selected items collection will be destroyed)
+        if(params.backendfilter !== $state.params.backendfilter) {
+          fullStateReload = true;
+        }
+
+        var resolveTransition = function(fullStateReload, routeName, params, options) {
           provider.stateChangeValidators.forEach(function(validator) {
             var validationObject = validator(fullStateReload, undefined, undefined, params);
             if(validationObject) {
@@ -124,7 +131,7 @@
               deffered.resolve();
             });
           }
-        }
+        };
 
         var validationMessages = [];
         provider.stateChangeValidators.forEach(function(validator) {
@@ -135,7 +142,8 @@
         });
 
         if(validationMessages.length > 0) {
-          var allowTransition = $window.confirm(validationMessages.join('/n'));
+          validationMessages.push('Leaving this page all unsaved data and selected document(s) will be lost.');
+          var allowTransition = $window.confirm(validationMessages.join('\n'));
           if(!allowTransition) {
             provider.stateChangeValidators.forEach(function(validator) {
               var validationObject = validator(fullStateReload, undefined, undefined, params);

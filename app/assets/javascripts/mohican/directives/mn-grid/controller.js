@@ -14,7 +14,7 @@
       //do not validate if only "after '?' params" are changed (fullStateReload === true)
       if(fullStateReload && vm.selectedItems.length > 0) {
         return {
-          message: 'You have ' + vm.selectedItems.length + ' selected item(s). Leaving this page will discard the selection.',
+          message: 'You have ' + vm.selectedItems.length + ' selected document(s).',
           resolve: function() { console.log('resolve'); },
           reject:  function() { console.log('reject'); }
         };
