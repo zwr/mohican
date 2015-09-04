@@ -5,7 +5,7 @@
       .module('mohican')
       .provider('mnRouter', [mnRouter]);
 
-  function mnRouter() {
+  function mnRouter($window) {
     var $urlRouterProviderRef = null;
     var $stateProviderRef = null;
 
@@ -36,6 +36,20 @@
 
     provider.$get = ['$stateParams', '$state', '$rootScope', '$q', '$urlRouter', '$window', function($stateParams, $state, $rootScope, $q, $urlRouter, $window) {
       function createAll() {
+        $window.onbeforeunload = function(event) {
+          if(provider.transitionToValidarionAllreadyDone === false) {
+            var validationMessages = [];
+            provider.stateChangeValidators.forEach(function(validator) {
+              var validationObject = validator(true);
+              if(validationObject) {
+                validationMessages.push(validationObject.message);
+              }
+            });
+            if(validationMessages.length > 0) {
+              event.returnValue = validationMessages.join('\n');
+            }
+          }
+        };
         var lcs = $rootScope.$on('$locationChangeStart', function (event, next, current) {
           if(provider.transitionToValidarionAllreadyDone === false) {
             var nextWithNoParams = next.split('?')[0];

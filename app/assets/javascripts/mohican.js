@@ -23,10 +23,6 @@
 (function() {
   'use strict';
 
-  // window.onbeforeunload = function(event) {
-  //   event.returnValue = 'All in-browser state data will be lost';
-  // };
-
   var interceptor = ['$q', function($q) {
     return {
       response: function(response) {
