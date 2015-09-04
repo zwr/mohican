@@ -40,11 +40,11 @@
           if(provider.transitionToValidarionAllreadyDone === false) {
             var nextWithNoParams = next.split('?')[0];
             var currentWithNoParams = current.split('?')[0];
-            var fullStateChanged = nextWithNoParams !== currentWithNoParams;
+            var fullStateReload = nextWithNoParams !== currentWithNoParams;
 
             var validationMessages = [];
             provider.stateChangeValidators.forEach(function(validator) {
-              var validationObject = validator(fullStateChanged, next, current);
+              var validationObject = validator(fullStateReload, next, current);
               if(validationObject) {
                 validationMessages.push(validationObject.message);
               }
@@ -55,7 +55,7 @@
                 event.preventDefault();
 
                 provider.stateChangeValidators.forEach(function(validator) {
-                  var validationObject = validator(fullStateChanged, next, current);
+                  var validationObject = validator(fullStateReload, next, current);
                   if(validationObject) {
                     validationObject.reject();
                   }
@@ -63,7 +63,7 @@
               }
               else {
                 provider.stateChangeValidators.forEach(function(validator) {
-                  var validationObject = validator(fullStateChanged, next, current);
+                  var validationObject = validator(fullStateReload, next, current);
                   if(validationObject) {
                     validationObject.resolve();
                   }
@@ -105,11 +105,11 @@
       function transitionTo(routeName, params, options) {
         var deffered  = $q.defer();
 
-        var fullStateChanged = routeName !== this.currenRouteName();
+        var fullStateReload = routeName !== this.currenRouteName();
 
-        function resolveTransition(fullStateChanged, routeName, params, options) {
+        function resolveTransition(fullStateReload, routeName, params, options) {
           provider.stateChangeValidators.forEach(function(validator) {
-            var validationObject = validator(fullStateChanged, undefined, undefined, params);
+            var validationObject = validator(fullStateReload, undefined, undefined, params);
             if(validationObject) {
               validationObject.resolve();
             }
@@ -128,7 +128,7 @@
 
         var validationMessages = [];
         provider.stateChangeValidators.forEach(function(validator) {
-          var validationObject = validator(fullStateChanged, undefined, undefined, params);
+          var validationObject = validator(fullStateReload, undefined, undefined, params);
           if(validationObject) {
             validationMessages.push(validationObject.message);
           }
@@ -138,7 +138,7 @@
           var allowTransition = $window.confirm(validationMessages.join('/n'));
           if(!allowTransition) {
             provider.stateChangeValidators.forEach(function(validator) {
-              var validationObject = validator(fullStateChanged, undefined, undefined, params);
+              var validationObject = validator(fullStateReload, undefined, undefined, params);
               if(validationObject) {
                 validationObject.reject();
               }
@@ -146,11 +146,11 @@
             });
           }
           else {
-            resolveTransition(fullStateChanged, routeName, params, options);
+            resolveTransition(fullStateReload, routeName, params, options);
           }
         }
         else {
-          resolveTransition(fullStateChanged, routeName, params, options);
+          resolveTransition(fullStateReload, routeName, params, options);
         }
 
         provider.transitionToValidarionAllreadyDone = true;

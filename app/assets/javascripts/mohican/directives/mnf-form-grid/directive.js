@@ -23,7 +23,7 @@ angular.module('mohican')
           vm.mnfCrudShown = angular.isDefined(vm.mnfCrudShown) ? vm.mnfCrudShown : true;
           vm.mnfSubdocumetsGrid = angular.isDefined(vm.mnfSubdocumetsGrid) ? vm.mnfSubdocumetsGrid : false;
 
-          vm.editingCurrentItemStateChangeValidator = function(fullStateChanged, nextUrl, currentUrl, params) {
+          vm.editingCurrentItemStateChangeValidator = function(fullStateReload, nextUrl, currentUrl, params) {
             if(vm.currentMnfDoc) {
               //do not validate if user clicked to preview currentMnfDoc link
               if(nextUrl && currentUrl) {

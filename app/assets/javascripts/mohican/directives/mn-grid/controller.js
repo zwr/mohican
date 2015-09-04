@@ -10,9 +10,9 @@
   function MnGridController(mnRouter, $scope, $window, $q) {
     var vm = this;
 
-    vm.selectedItemsStateChangeValidator = function(fullStateChanged) {
-      //do not validate if only "after '?' params" are changed (fullStateChanged === true)
-      if(fullStateChanged && vm.selectedItems.length > 0) {
+    vm.selectedItemsStateChangeValidator = function(fullStateReload) {
+      //do not validate if only "after '?' params" are changed (fullStateReload === true)
+      if(fullStateReload && vm.selectedItems.length > 0) {
         return {
           message: 'You have ' + vm.selectedItems.length + ' selected item(s). Leaving this page will discard the selection.',
           resolve: function() { console.log('resolve'); },
