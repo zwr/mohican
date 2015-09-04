@@ -218,6 +218,12 @@
         var deffered = this.$q.defer();
 
         var newRouteParams = _.clone(this.mnRouter.$stateParams);
+        newRouteParams.page = undefined;
+        // newRouteParams.layout = undefined;
+        newRouteParams.column = undefined;
+        newRouteParams.direction = undefined;
+        newRouteParams.quickFilterShown = false;
+        newRouteParams.filters = undefined;
         newRouteParams.backendfilter = backendFilter;
         this.mnRouter.transitionTo(this.mnRouter.currenRouteName(), mohican.escapeDefaultParameters(newRouteParams)).
                       then(function() {
