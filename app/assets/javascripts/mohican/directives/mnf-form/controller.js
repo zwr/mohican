@@ -16,7 +16,7 @@
         return {
           message: 'Your documents is in ' + vm.mnfDoc._state + ' state. Leaving this page will discard all changes.',
           resolve: function() {
-            vm.mnfDoc._state = 'ready';
+            vm.mnfDoc.rollback();
             console.log('resolve');
           },
           reject: function() { console.log('reject'); }
