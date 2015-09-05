@@ -163,23 +163,25 @@
   mohican.mixins.crudMixin.prepareSubDocumentsCrudOperations = function($q, mnfDoc, collectionField, dataFields) {
     var that = this;
     var items = mnfDoc[collectionField];
-    //item is just a reference to original item in original mnDoc subcollection
+    //item is just a reference to original item in original mnfDoc subcollection
     items.forEach(function(item, index) {
       mohican.mixins.crudMixin.prepareSubDocumentCrudOperations(item, index, $q, mnfDoc, collectionField, dataFields);
     });
   };
 
-  mohican.mixins.crudMixin.addNewSubitem = function(mnDoc, collectionField, newItem) {
-    mnDoc[collectionField].push(newItem);
-    mnDoc._edit[collectionField].push(newItem);
+  mohican.mixins.crudMixin.addNewSubitem = function($q, mnfDoc, collectionField, newItem) {
+    mnfDoc[collectionField].push(newItem);
+    mnfDoc._edit[collectionField].push(newItem);
     mohican.mixins.crudMixin.prepareSubDocumentCrudOperations(
       newItem,
-      mnDoc[collectionField].length - 1,
-      this.$q,
-      mnDoc,
+      mnfDoc[collectionField].length - 1,
+      $q,
+      mnfDoc,
       collectionField,
       []
     );
+    mnfDoc._state = 'changed';
+    mnfDoc['_' + collectionField + '_changed'] = true;
   };
 
   mohican.mixins.crudMixin.prepareSubDocumentCrudOperations = function(item, index, $q, mnfDoc, collectionField, dataFields) {

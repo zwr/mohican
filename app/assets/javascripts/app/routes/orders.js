@@ -63,7 +63,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             'quantity':     1,
             'state':        'editing'
           };
-          service.addNewSubitem(ctrl.itemForm, 'order_items', newItem);
+          service.addNewSubitem($injector.get('$q'), ctrl.itemForm, 'order_items', newItem);
         };
 
         ctrl.onItemSelect = function(selectedItems) {
