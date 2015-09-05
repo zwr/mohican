@@ -165,63 +165,82 @@
     var items = mnfDoc[collectionField];
     //item is just a reference to original item in original mnDoc subcollection
     items.forEach(function(item, index) {
-      item._edit = mnfDoc._edit[collectionField][index];
-      item._state = 'editing';
-      //initial create _changed fields on every item
-      for(var ifield in item) {
-        if(!that.isMohicanField(ifield)) {
-          item['_' + ifield + '_changed'] = false;
-        }
-      }
+      mohican.mixins.crudMixin.prepareSubDocumentCrudOperations(item, index, $q, mnfDoc, collectionField, dataFields);
+    });
+  };
 
-      item.commit = function() {
-        for(var field in item) {
-          if(_.endsWith(field, '_changed')) {
-            item[field] = false;
-          }
-          if(that.isMohicanField(field)) {
-            //do noting
+  mohican.mixins.crudMixin.addNewSubitem = function(mnDoc, collectionField, newItem) {
+    mnDoc[collectionField].push(newItem);
+    mnDoc._edit[collectionField].push(newItem);
+    mohican.mixins.crudMixin.prepareSubDocumentCrudOperations(
+      newItem,
+      mnDoc[collectionField].length - 1,
+      this.$q,
+      mnDoc,
+      collectionField,
+      []
+    );
+  };
+
+  mohican.mixins.crudMixin.prepareSubDocumentCrudOperations = function(item, index, $q, mnfDoc, collectionField, dataFields) {
+    var that = this;
+
+    item._edit = mnfDoc._edit[collectionField][index];
+    item._state = 'editing';
+    //initial create _changed fields on every item
+    for(var ifield in item) {
+      if(!that.isMohicanField(ifield)) {
+        item['_' + ifield + '_changed'] = false;
+      }
+    }
+
+    item.commit = function() {
+      for(var field in item) {
+        if(_.endsWith(field, '_changed')) {
+          item[field] = false;
+        }
+        if(that.isMohicanField(field)) {
+          //do noting
+        }
+        else {
+          item[field] = item._edit[field];
+          var dataField = that.getDataField(dataFields, field);
+          if(dataField) {
+            that._parseField(item, dataField);
           }
           else {
-            item[field] = item._edit[field];
-            var dataField = that.getDataField(dataFields, field);
-            if(dataField) {
-              that._parseField(item, dataField);
-            }
-            else {
-              that._parseField(item, {name: field});
-            }
+            that._parseField(item, {name: field});
           }
         }
-        item._state = 'ready';
-      };
+      }
+      item._state = 'ready';
+    };
 
-      item.change = function(changedField) {
-        item._state = 'changed';
-        item['_' + changedField + '_changed'] = true;
-        mnfDoc._state = 'changed';
-        mnfDoc['_' + collectionField + '_changed'] = true;
-      };
+    item.change = function(changedField) {
+      item._state = 'changed';
+      item['_' + changedField + '_changed'] = true;
+      mnfDoc._state = 'changed';
+      mnfDoc['_' + collectionField + '_changed'] = true;
+    };
 
-      item.rollback = function() {
-        item._state = 'ready';
-        for(var field in item) {
-          if(_.endsWith(field, '_changed')) {
-            item[field] = false;
-          }
+    item.rollback = function() {
+      item._state = 'ready';
+      for(var field in item) {
+        if(_.endsWith(field, '_changed')) {
+          item[field] = false;
         }
-      };
-      item.delete = function() {
-        for(var field in item) {
-          if(_.endsWith(field, '_changed')) {
-            item[field] = false;
-          }
+      }
+    };
+    item.delete = function() {
+      for(var field in item) {
+        if(_.endsWith(field, '_changed')) {
+          item[field] = false;
         }
-        item._state = 'deleted';
-        mnfDoc._state = 'changed';
-        mnfDoc['_' + collectionField + '_changed'] = true;
-        return $q.when();
-      };
-    });
+      }
+      item._state = 'deleted';
+      mnfDoc._state = 'changed';
+      mnfDoc['_' + collectionField + '_changed'] = true;
+      return $q.when();
+    };
   };
 })(window.mohican);

@@ -46,7 +46,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             refResource:    'products',
             refFieldSource: ['name'],
             width:          350,
-            readOnly:       true
+            readOnly:       false
           },
           {
             header:   'quantity',
@@ -57,7 +57,13 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         ]);
         ctrl.addNewProduct = function() {
-          console.log('addNewProduct');
+          var newItem = {
+            'product_ref':  '55e68ed6774539c26a6f286a',
+            'product_name': 'Pirkka herkkusienileike 200g',
+            'quantity':     1,
+            'state':        'editing'
+          };
+          service.addNewSubitem(ctrl.itemForm, 'order_items', newItem);
         };
 
         ctrl.onItemSelect = function(selectedItems) {
