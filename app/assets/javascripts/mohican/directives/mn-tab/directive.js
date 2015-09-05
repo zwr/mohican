@@ -6,8 +6,10 @@ angular.module('mohican')
       'use strict';
       return {
         scope: {
-          heading:          '@',
-          mnContentChanged: '='
+          heading:             '@',
+          mnContentChanged:    '=',
+          mnShowAddItemButton: '=',
+          addNewItem:          '&'
         },
         restrict:    'E',
         transclude:  true,

@@ -34,6 +34,9 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             width:          200
           }
         ]);
+        ctrl.addNewHandler = function() {
+          console.log('addNewHandler');
+        };
         ctrl.productsDrv = ctrl.createBasicDriver($injector, 'order_items', [
           {
             header:         'Name',
@@ -53,6 +56,9 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             readOnly: false
           }
         ]);
+        ctrl.addNewProduct = function() {
+          console.log('addNewProduct');
+        };
 
         ctrl.onItemSelect = function(selectedItems) {
           console.log(selectedItems);

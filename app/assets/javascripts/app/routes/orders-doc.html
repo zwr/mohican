@@ -31,7 +31,9 @@
               tab1
             </mn-tab>
             <mn-tab heading="Handlers"
-                    mn-content-changed="ctrl.itemForm['_order_handlers_changed']">
+                    mn-content-changed="ctrl.itemForm['_order_handlers_changed']"
+                    mn-show-add-item-button="ctrl.itemForm._state !== 'ready'"
+                    add-new-item="ctrl.addNewHandler()">
               <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed'"
                              mnf-subdocumets-grid="true">
                 <mn-grid owner="ctrl.handlersDrv">
@@ -40,7 +42,9 @@
               </mnf-form-grid>
             </mn-tab>
             <mn-tab heading="Products"
-                    mn-content-changed="ctrl.itemForm['_order_items_changed']">
+                    mn-content-changed="ctrl.itemForm['_order_items_changed']"
+                    mn-show-add-item-button="ctrl.itemForm._state !== 'ready'"
+                    add-new-item="ctrl.addNewProduct()">
               <mnf-form-grid mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed'"
                              mnf-subdocumets-grid="true">
                 <mn-grid owner="ctrl.productsDrv">

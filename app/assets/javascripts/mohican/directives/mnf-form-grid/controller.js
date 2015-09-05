@@ -66,9 +66,5 @@
     $scope.$on('$destroy', function() {
       unwatch();
     });
-
-    vm.addNewItem = function() {
-      console.log('addNewItem');
-    };
   }
 })();

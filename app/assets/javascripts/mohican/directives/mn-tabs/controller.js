@@ -14,6 +14,11 @@
     vm.addTab = function addTab(tab) {
       vm.tabs.push(tab);
     };
+    vm.addNewItem = function(tab) {
+      if(tab.addNewItem) {
+        tab.addNewItem();
+      }
+    };
     vm.setSelectedTab = function(tabIndex) {
       vm.tabs.forEach(function(tab, index) {
         if(index.toString() === tabIndex) {
@@ -36,8 +41,8 @@
 
       selectedTab.active = true;
       vm.owner.mnRouter.transitionTo(vm.owner.mnRouter.$state.current.name,
-                     vm.owner.stateMachine.stateMachineToUrl(),
-                     { notify: false });
+                                     vm.owner.stateMachine.stateMachineToUrl(),
+                                     { notify: false });
     };
   }
 })();
