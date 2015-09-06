@@ -60,8 +60,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           var newItem = {
             'product_ref':  '55e68ed6774539c26a6f286a',
             'product_name': 'Pirkka herkkusienileike 200g',
-            'quantity':     1,
-            'state':        'editing'
+            'quantity':     1
           };
           service.addNewSubitem($injector.get('$q'), ctrl.itemForm, 'order_items', newItem);
         };

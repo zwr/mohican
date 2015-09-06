@@ -178,21 +178,32 @@
       $q,
       mnfDoc,
       collectionField,
-      []
+      [],
+      true
     );
     mnfDoc._state = 'changed';
     mnfDoc['_' + collectionField + '_changed'] = true;
   };
 
-  mohican.mixins.crudMixin.prepareSubDocumentCrudOperations = function(item, index, $q, mnfDoc, collectionField, dataFields) {
+  mohican.mixins.crudMixin.prepareSubDocumentCrudOperations = function(item, index, $q, mnfDoc, collectionField, dataFields, newItem) {
     var that = this;
 
     item._edit = mnfDoc._edit[collectionField][index];
-    item._state = 'editing';
+    if(newItem) {
+      item._state = 'added';
+    }
+    else {
+      item._state = 'editing';
+    }
     //initial create _changed fields on every item
     for(var ifield in item) {
       if(!that.isMohicanField(ifield)) {
-        item['_' + ifield + '_changed'] = false;
+        if(newItem) {
+          item['_' + ifield + '_changed'] = true;
+        }
+        else {
+          item['_' + ifield + '_changed'] = false;
+        }
       }
     }
 

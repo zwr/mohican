@@ -2,7 +2,7 @@
      class="mnf-grid-field-ready">
   <span>{{mnfDoc[mnfField] ? moment(mnfDoc[mnfField]).format('DD.MM.YYYY.') : ''}}</span>
 </div>
-<div ng-if="!readOnly && (mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing')"
+<div ng-if="!readOnly && (mnfDoc._state === 'added' || mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing')"
      class="mnf-grid-field-editing">
   <span>
     <input type="text"
