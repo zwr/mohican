@@ -171,7 +171,7 @@
 
   mohican.mixins.crudMixin.addNewSubitem = function($q, mnfDoc, collectionField, newItem) {
     mnfDoc[collectionField].push(newItem);
-    mnfDoc._edit[collectionField].push(newItem);
+    mnfDoc._edit[collectionField].push(_.cloneDeep(newItem));
     mohican.mixins.crudMixin.prepareSubDocumentCrudOperations(
       newItem,
       mnfDoc[collectionField].length - 1,
