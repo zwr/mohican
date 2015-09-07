@@ -114,7 +114,7 @@
       }
 
       function redirectTo(routeName) {
-        $state.transitionTo(routeName, $stateParams, {location: 'replace'});
+        $state.transitionTo(routeName, {}, {location: 'replace'});
       }
 
       function transitionTo(routeName, params, options) {
@@ -197,6 +197,17 @@
         return $state.current.name;
       }
 
+      function currentRouteIndex() {
+        var returnValue = '';
+        if(_.endsWith($state.current.name, '-doc')) {
+          returnValue = _.trimRight($state.current.name, '-doc');
+        }
+        else {
+          returnValue = $state.current.name;
+        }
+        return returnValue;
+      }
+
       return {
         createAll:    createAll,
         redirectTo:   redirectTo,
@@ -205,7 +216,8 @@
         $stateParams: $stateParams,
         $state:       $state,
 
-        currentRouteName: currentRouteName,
+        currentRouteName:  currentRouteName,
+        currentRouteIndex: currentRouteIndex,
 
         addStateChageValidator:    addStateChageValidator,
         removeStateChageValidator: removeStateChageValidator

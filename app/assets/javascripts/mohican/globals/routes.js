@@ -95,7 +95,7 @@
     else {
       //redirect to index resource route if form have no id passed
       if(_.endsWith(mnRouter.$state.current.name, '-doc') && !mnRouter.$stateParams.itemPrimaryKeyId) {
-        mnRouter.transitionTo(_.trimRight(mnRouter.$state.current.name, '-doc'), {});
+        mnRouter.transitionTo(mnRouter.currentRouteIndex(), {});
       }
     }
   };
