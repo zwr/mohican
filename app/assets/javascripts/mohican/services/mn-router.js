@@ -120,7 +120,7 @@
       function transitionTo(routeName, params, options) {
         var deffered  = $q.defer();
 
-        var fullStateReload = routeName !== this.currenRouteName();
+        var fullStateReload = routeName !== this.currentRouteName();
 
         //if backend filter is changed, we assume it is fullStateReload
         //(ex. selected items collection will be destroyed)
@@ -193,7 +193,7 @@
         provider.stateChangeValidators.splice(index, 1);
       }
 
-      function currenRouteName() {
+      function currentRouteName() {
         return $state.current.name;
       }
 
@@ -205,7 +205,7 @@
         $stateParams: $stateParams,
         $state:       $state,
 
-        currenRouteName: currenRouteName,
+        currentRouteName: currentRouteName,
 
         addStateChageValidator:    addStateChageValidator,
         removeStateChageValidator: removeStateChageValidator

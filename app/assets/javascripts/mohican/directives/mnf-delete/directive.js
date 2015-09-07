@@ -17,7 +17,7 @@ angular.module('mohican')
           scope.confirmDelete = function() {
             if($window.confirm('Are you sure that you want to permanently delete document?')) {
               scope.mnfDoc.delete().then(function() {
-                mnRouter.transitionTo(mnRouter.currenRouteName(),
+                mnRouter.transitionTo(mnRouter.currentRouteName(),
                                       {},
                                       { notify: true });
               });

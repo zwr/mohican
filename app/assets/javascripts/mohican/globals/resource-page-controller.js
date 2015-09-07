@@ -149,14 +149,14 @@
           this.stateMachine.quickFilterShown = false;
           this.stateMachine.filters = undefined;
 
-          this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
+          this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
                          this.stateMachine.stateMachineToUrl(this.fields),
                          { notify: true });
         }
         else {
           var pageBefore = that.stateMachine.page;
           that.stateMachine.page = parseInt(page);
-          this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
+          this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
                          this.stateMachine.stateMachineToUrl(this.fields),
                          { notify: false })
                        .then(function() {
@@ -193,7 +193,7 @@
           }
         });
 
-        this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
+        this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false }).
                       then(function() {
@@ -225,7 +225,7 @@
         newRouteParams.quickFilterShown = false;
         newRouteParams.filters = undefined;
         newRouteParams.backendfilter = backendFilter;
-        this.mnRouter.transitionTo(this.mnRouter.currenRouteName(), mohican.escapeDefaultParameters(newRouteParams)).
+        this.mnRouter.transitionTo(this.mnRouter.currentRouteName(), mohican.escapeDefaultParameters(newRouteParams)).
                       then(function() {
                         deffered.resolve();
                       }, function() {
@@ -250,7 +250,7 @@
           that.stateMachine.direction = direction;
         }
 
-        this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
+        this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false }).
                       then(function() {
@@ -286,7 +286,7 @@
         var quickFilterShownBefore = that.stateMachine.quickFilterShown;
         that.stateMachine.quickFilterShown = !that.stateMachine.quickFilterShown;
 
-        this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
+        this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: false }).
                       then(function() {
@@ -321,7 +321,7 @@
         this.stateMachine.quickFilterShown = false;
         this.stateMachine.filters = undefined;
 
-        this.mnRouter.transitionTo(this.mnRouter.currenRouteName(),
+        this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
                        { notify: true });
       },
