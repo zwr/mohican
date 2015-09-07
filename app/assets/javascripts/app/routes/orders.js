@@ -23,7 +23,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         };
 
-        ctrl.handlersDrv = ctrl.createBasicDriver($injector, 'order_handlers', [
+        ctrl.handlersDrv = ctrl.createSubDocsBasicDriver($injector, 'order_handlers', [
           {
             header:         'Name',
             name:           'user_name',
@@ -37,7 +37,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         ctrl.addNewHandler = function() {
           console.log('addNewHandler');
         };
-        ctrl.productsDrv = ctrl.createBasicDriver($injector, 'order_items', [
+        ctrl.productsDrv = ctrl.createSubDocsBasicDriver($injector, 'order_items', [
           {
             header:         'Name',
             name:           'product_name',
@@ -62,7 +62,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             'product_name': 'Pirkka herkkusienileike 200g',
             'quantity':     1
           };
-          service.addNewSubitem($injector.get('$q'), ctrl.itemForm, 'order_items', newItem);
+          service.addNewSubDoc($injector.get('$q'), ctrl.itemForm, 'order_items', newItem);
         };
 
         ctrl.onItemSelect = function(selectedItems) {

@@ -40,10 +40,10 @@
         for(var cfield in item) {
           if(!that.isMohicanField(cfield)) {
             if(angular.isArray(item[cfield])) {
-              var subItems = item[cfield];
-              for(var i = subItems.length - 1; i >= 0; i--) {
-                if(subItems[i]._state === 'deleted') {
-                  subItems.splice(i, 1);
+              var subDocs = item[cfield];
+              for(var i = subDocs.length - 1; i >= 0; i--) {
+                if(subDocs[i]._state === 'deleted') {
+                  subDocs.splice(i, 1);
                 }
               };
             }
@@ -100,10 +100,10 @@
           }
           if(!that.isMohicanField(field)) {
             if(angular.isArray(item[field])) {
-              var subItems = item[field];
-              for(var i = subItems.length - 1; i >= 0; i--) {
-                if(subItems[i]._state === 'added') {
-                  subItems.splice(i, 1);
+              var subDocs = item[field];
+              for(var i = subDocs.length - 1; i >= 0; i--) {
+                if(subDocs[i]._state === 'added') {
+                  subDocs.splice(i, 1);
                 }
                 else {
                   item[field][i].rollback();
@@ -178,7 +178,7 @@
     });
   };
 
-  mohican.mixins.crudMixin.addNewSubitem = function($q, mnfDoc, collectionField, newItem) {
+  mohican.mixins.crudMixin.addNewSubDoc = function($q, mnfDoc, collectionField, newItem) {
     mnfDoc[collectionField].push(newItem);
     mnfDoc._edit[collectionField].push(_.cloneDeep(newItem));
 

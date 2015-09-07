@@ -326,7 +326,7 @@
                        { notify: true });
       },
 
-      createBasicDriver: function($injector, collectionName, fields) {
+      createSubDocsBasicDriver: function($injector, collectionName, fields) {
         var basicDrv = mohican.createBasicDriver($injector, collectionName, fields);
         _.assign(basicDrv, mohican.mixins.dataFieldsMixin);
 

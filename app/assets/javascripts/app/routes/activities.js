@@ -23,7 +23,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         };
 
-        ctrl.handlersDrv = ctrl.createBasicDriver($injector, 'handlers', [
+        ctrl.handlersDrv = ctrl.createSubDocsBasicDriver($injector, 'handlers', [
           {
             header: 'Name',
             name:   'name',
@@ -49,7 +49,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             width:  100
           }
         ]);
-        ctrl.productsDrv = ctrl.createBasicDriver($injector, 'products', [
+        ctrl.productsDrv = ctrl.createSubDocsBasicDriver($injector, 'products', [
           {
             header: 'EAN',
             name:   'ean',
