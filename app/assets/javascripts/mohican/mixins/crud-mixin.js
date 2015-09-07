@@ -100,9 +100,15 @@
           }
           if(!that.isMohicanField(field)) {
             if(angular.isArray(item[field])) {
-              for(var si = 0; si < item[field].length; si++) {
-                item[field][si].rollback();
-              }
+              var subItems = item[field];
+              for(var i = subItems.length - 1; i >= 0; i--) {
+                if(subItems[i]._state === 'added') {
+                  subItems.splice(i, 1);
+                }
+                else {
+                  item[field][i].rollback();
+                }
+              };
             }
           }
         }
