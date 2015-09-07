@@ -35,7 +35,24 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         ]);
         ctrl.addNewHandler = function() {
-          console.log('addNewHandler');
+          ctrl.refResourceController = {};
+          var usersService = $injector.get('usersService');
+          mohican.extendResourceDriver(ctrl.refResourceController, usersService, $injector);
+          ctrl.popDialog('Select from users',
+                                'mohican/directives/mnf-reference-grid/ref-resource-dialog.html',
+                                { hideFooter: true }).
+                      then(function(selectedItems) {
+                        if(selectedItems.length > 0) {
+                          var userRef = selectedItems[0][ctrl.refResourceController.primaryKeyName];
+                          var userName = selectedItems[0]['name'];
+
+                          var newItem = {
+                            'user_ref':  userRef,
+                            'user_name': userName
+                          };
+                          service.addNewSubDoc($injector.get('$q'), ctrl.itemForm, 'order_handlers', newItem);
+                        }
+                      });
         };
         ctrl.productsDrv = ctrl.createSubDocsBasicDriver($injector, 'order_items', [
           {
