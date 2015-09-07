@@ -331,10 +331,10 @@
         _.assign(basicDrv, mohican.mixins.dataFieldsMixin);
 
         this.onCurrentItemChanged.push(function(newCurrentItem) {
-          basicDrv.items = [];
-          if(newCurrentItem[basicDrv.collectionName]) {
-            basicDrv.items = newCurrentItem[basicDrv.collectionName];
+          if(!newCurrentItem[basicDrv.collectionName]) {
+            newCurrentItem[basicDrv.collectionName] = [];
           }
+          basicDrv.items = newCurrentItem[basicDrv.collectionName];
         });
 
         return basicDrv;

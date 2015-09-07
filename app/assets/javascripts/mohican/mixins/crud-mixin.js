@@ -40,9 +40,12 @@
         for(var cfield in item) {
           if(!that.isMohicanField(cfield)) {
             if(angular.isArray(item[cfield])) {
-              item[cfield] = item[cfield].filter(function(itm) {
-                return itm._state !== 'deleted';
-              });
+              var subItems = item[cfield];
+              for(var i = subItems.length - 1; i >= 0; i--) {
+                if(subItems[i]._state === 'deleted') {
+                  subItems.splice(i, 1);
+                }
+              };
             }
           }
         }
@@ -172,6 +175,7 @@
   mohican.mixins.crudMixin.addNewSubitem = function($q, mnfDoc, collectionField, newItem) {
     mnfDoc[collectionField].push(newItem);
     mnfDoc._edit[collectionField].push(_.cloneDeep(newItem));
+
     mohican.mixins.crudMixin.prepareSubDocumentCrudOperations(
       newItem,
       mnfDoc[collectionField].length - 1,

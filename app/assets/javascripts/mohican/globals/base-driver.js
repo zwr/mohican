@@ -68,7 +68,7 @@
         });
 
         return modalInstance.result;
-      },
+      }
     };
   };
 }(window.mohican));
