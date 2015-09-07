@@ -164,8 +164,8 @@
               if(validationObject) {
                 validationObject.reject();
               }
-              deffered.reject();
             });
+            deffered.reject();
           }
           else {
             resolveTransition(fullStateReload, routeName, params, options);
