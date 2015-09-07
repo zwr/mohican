@@ -46,7 +46,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             refResource:    'products',
             refFieldSource: ['name'],
             width:          350,
-            readOnly:       false
+            readOnly:       true
           },
           {
             header:   'quantity',
@@ -57,12 +57,25 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           }
         ]);
         ctrl.addNewProduct = function() {
-          var newItem = {
-            'product_ref':  '55e68ed6774539c26a6f286a',
-            'product_name': 'Pirkka herkkusienileike 200g',
-            'quantity':     1
-          };
-          service.addNewSubDoc($injector.get('$q'), ctrl.itemForm, 'order_items', newItem);
+          ctrl.refResourceController = {};
+          var productsService = $injector.get('productsService');
+          mohican.extendResourceDriver(ctrl.refResourceController, productsService, $injector);
+          ctrl.popDialog('Select from products',
+                                'mohican/directives/mnf-reference-grid/ref-resource-dialog.html',
+                                { hideFooter: true }).
+                      then(function(selectedItems) {
+                        if(selectedItems.length > 0) {
+                          var productRef = selectedItems[0][ctrl.refResourceController.primaryKeyName];
+                          var productName = selectedItems[0]['name'];
+
+                          var newItem = {
+                            'product_ref':  productRef,
+                            'product_name': productName,
+                            'quantity':     1
+                          };
+                          service.addNewSubDoc($injector.get('$q'), ctrl.itemForm, 'order_items', newItem);
+                        }
+                      });
         };
 
         ctrl.onItemSelect = function(selectedItems) {
