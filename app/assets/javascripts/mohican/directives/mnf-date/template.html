@@ -10,22 +10,14 @@
   <label class="col-sm-4 control-label" for="{{mnfField}}">{{mnfLabel}}</label>
   <div class="col-sm-8">
     <p class="input-group input-group-sm">
-      <!-- <input type="date"
-             class="form-control"
-             datepicker-popup
-             ng-model="mnfDoc._edit[mnfField]"
-             ng-change="textChanged()" /> -->
-     <!-- <input type="text"
-            date-range-picker
-            options="{singleDatePicker: true}"
-            class="form-control date-picker"
-            ng-model="{startDate: mnfDoc._edit[mnfField]}" /> -->
       <input type="text"
              class="form-control"
+             ng-disabled="mnfDoc._state === 'committing'"
              datepicker-popup="dd.MM.yyyy."
              ng-model="mnfDoc._edit[mnfField]"
              ng-change="textChanged()"
              is-open="dialogOpened"
+             ng-class="{'changed': mnfDoc['_' + mnfField + '_changed']}"
              close-text="Close" />
       <span class="input-group-btn">
         <button type="button" class="btn btn-default" ng-click="dialogOpened = true">

@@ -99,13 +99,6 @@
                 }
                 else {
                   item[field] = item._edit[field];
-                  var dataField = that.getDataField(dataFields, field);
-                  if(dataField) {
-                    that._parseField(item, dataField);
-                  }
-                  else {
-                    that._parseField(item, {name: field});
-                  }
                 }
               }
             }
@@ -249,13 +242,6 @@
         }
         else {
           item[field] = item._edit[field];
-          var dataField = that.getDataField(dataFields, field);
-          if(dataField) {
-            that._parseField(item, dataField);
-          }
-          else {
-            that._parseField(item, {name: field});
-          }
         }
       }
       item._state = 'ready';
