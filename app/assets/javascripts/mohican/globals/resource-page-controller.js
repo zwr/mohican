@@ -241,7 +241,7 @@
 
         var columnBefore = that.stateMachine.column;
         var directionBefore = that.stateMachine.direction;
-        // var filtersBefore = _.cloneDeep(that.stateMachine.filters);
+        var pageBefore = that.stateMachine.page;
 
         if(column) {
           that.stateMachine.column = column;
@@ -249,6 +249,7 @@
         if(direction) {
           that.stateMachine.direction = direction;
         }
+        that.stateMachine.page = 1;//for all client side actions reset page to 1
 
         this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
@@ -259,7 +260,6 @@
                                                    that.stateMachine.direction,
                                                    that.stateMachine.filters,
                                                    that.fields).then(function(data) {
-                          that.stateMachine.page = 1;//for all client side actions reset page to 1
                           that.items = data.items;
                           that.pageCount = data.pageCount;
                           that.totalQfCount = data.totalQfCount;
@@ -275,6 +275,7 @@
                         // that.stateMachine.filters = filtersBefore;
                         that.stateMachine.column = columnBefore;
                         that.stateMachine.direction = directionBefore;
+                        that.stateMachine.page = pageBefore;
 
                         deffered.reject();
                       });
@@ -284,7 +285,14 @@
       toggleQuickFilter: function() {
         var that = this;
         var quickFilterShownBefore = that.stateMachine.quickFilterShown;
+        var pageBefore = that.stateMachine.page;
+        var filtersBefore = _.cloneDeep(that.stateMachine.filters);
+
+        that.stateMachine.page = 1;//for all client side actions reset page to 1
         that.stateMachine.quickFilterShown = !that.stateMachine.quickFilterShown;
+        if(!that.stateMachine.quickFilterShown) {
+          that.stateMachine.filters = undefined;
+        }
 
         this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
                        this.stateMachine.stateMachineToUrl(this.fields),
@@ -295,11 +303,6 @@
                                                    that.stateMachine.direction,
                                                    that.stateMachine.filters,
                                                    that.fields).then(function(data) {
-                          if(!that.stateMachine.quickFilterShown) {
-                            that.stateMachine.filters = undefined;
-                          }
-                          that.stateMachine.page = 1;//for all client side actions reset page to 1
-
                           that.items = data.items;
                           that.pageCount = data.pageCount;
                           that.totalQfCount = data.totalQfCount;
@@ -310,6 +313,8 @@
                         //if transitionTo validations is rejected,
                         //rollback stateMachine
                         that.stateMachine.quickFilterShown = quickFilterShownBefore;
+                        that.stateMachine.filters = filtersBefore;
+                        that.stateMachine.page = pageBefore;
                       });
       },
 
