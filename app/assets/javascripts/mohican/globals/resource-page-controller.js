@@ -111,7 +111,7 @@
             that.service.prepareNewDoc(that.fields, that.$http, that.$q, that.apiResource,
                                       {primaryKeyName: that.primaryKeyName, doctype: that.doctype}, that.itemForm);
           }
-          if(that.stateMachine.itemPrimaryKeyId) {
+          else if(that.stateMachine.itemPrimaryKeyId) {
             that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields)
             .then(function(items) {
               that.fullyLoaded = true;
@@ -126,24 +126,25 @@
                 that.mnRouter.pageNotFound();
               }
             });
-            return;
           }
-          mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.mnRouter);
-          that.service.getBackendFilters().then(function(backendFilters) {
-            backendFilters.forEach(function(backendFilter) {
-              that.backendFilters.push({
-                name:     backendFilter.name,
-                show:     'Filter: ' + backendFilter.name,
-                selected: backendFilter.name === that.stateMachine.backendFilter
+          else {
+            mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.mnRouter);
+            that.service.getBackendFilters().then(function(backendFilters) {
+              backendFilters.forEach(function(backendFilter) {
+                that.backendFilters.push({
+                  name:     backendFilter.name,
+                  show:     'Filter: ' + backendFilter.name,
+                  selected: backendFilter.name === that.stateMachine.backendFilter
+                });
               });
+              mohican.validateBackendFilterParameter(that.stateMachine.backendFilter, that.backendFilters, that.mnRouter);
             });
-            mohican.validateBackendFilterParameter(that.stateMachine.backendFilter, that.backendFilters, that.mnRouter);
-          });
-          that.stateMachine.filters = mohican.urlParamToJson(that.mnRouter.$stateParams.filters, that.fields);
+            that.stateMachine.filters = mohican.urlParamToJson(that.mnRouter.$stateParams.filters, that.fields);
 
-          that.fullyLoaded = false;
+            that.fullyLoaded = false;
 
-          that.loadMnGridItems();
+            that.loadMnGridItems();
+          }
         });
       },
 
