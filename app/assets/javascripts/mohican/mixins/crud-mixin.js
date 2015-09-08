@@ -11,170 +11,192 @@
   mohican.mixins.crudMixin.prepareDocumentsCrudOperations = function(items, dataFields, $http, $q, apiResource, layout) {
     var that = this;
     items.forEach(function(item) {
+      that.prepareDocumentCrudOperations(item, dataFields, $http, $q, apiResource, layout);
+    });
+  };
+
+  mohican.mixins.crudMixin.prepareNewDoc = function(dataFields, $http, $q, apiResource, layout, newItem) {
+    this.prepareDocumentCrudOperations(
+      newItem,
+      dataFields,
+      $http,
+      $q,
+      apiResource,
+      layout,
+      true
+    );
+  };
+
+  mohican.mixins.crudMixin.prepareDocumentCrudOperations = function(item, dataFields, $http, $q, apiResource, layout, createNewItem) {
+    var that = this;
+    if(createNewItem) {
+      item._state = 'added';
+    }
+    else {
       item._state = 'ready';
-      //initial create _changed fields on every item
-      for(var ifield in item) {
-        if(!that.isMohicanField(ifield)) {
-          item['_' + ifield + '_changed'] = false;
-          if(angular.isArray(item[ifield])) {
-            for(var i = 0; i < item[ifield].length; i++) {
-              item[ifield][i]._state = 'ready';
-            }
+    }
+    //initial create _changed fields on every item
+    for(var ifield in item) {
+      if(!that.isMohicanField(ifield)) {
+        item['_' + ifield + '_changed'] = false;
+        if(angular.isArray(item[ifield])) {
+          for(var i = 0; i < item[ifield].length; i++) {
+            item[ifield][i]._state = 'ready';
           }
         }
       }
-      item.edit = function() {
-        item._state = 'editing';
-        item._edit = _.cloneDeep(item);
-        for(var efield in item) {
-          if(!that.isMohicanField(efield)) {
-            if(angular.isArray(item[efield])) {
-              that.prepareSubDocumentsCrudOperations($q, item, efield, []);
-            }
+    }
+    item.edit = function() {
+      item._state = 'editing';
+      item._edit = _.cloneDeep(item);
+      for(var efield in item) {
+        if(!that.isMohicanField(efield)) {
+          if(angular.isArray(item[efield])) {
+            that.prepareSubDocumentsCrudOperations($q, item, efield, []);
           }
         }
-      };
+      }
+    };
 
-      item.commit = function() {
-        item._state = 'committing';
-        for(var cfield in item) {
-          if(!that.isMohicanField(cfield)) {
-            if(angular.isArray(item[cfield])) {
-              var subDocs = item[cfield];
-              for(var i = subDocs.length - 1; i >= 0; i--) {
-                if(subDocs[i]._state === 'deleted') {
-                  subDocs.splice(i, 1);
-                }
-              };
-            }
+    item.commit = function() {
+      item._state = 'committing';
+      for(var cfield in item) {
+        if(!that.isMohicanField(cfield)) {
+          if(angular.isArray(item[cfield])) {
+            var subDocs = item[cfield];
+            for(var i = subDocs.length - 1; i >= 0; i--) {
+              if(subDocs[i]._state === 'deleted') {
+                subDocs.splice(i, 1);
+              }
+            };
           }
         }
-        if(that.theCommitPromise) {
-          return that.theCommitPromise.then(function() {
-            item.commit();
-          });
-        } else {
-          var data = {};
-          data[layout.doctype] = item._getDiffs();
-          that.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + item[layout.primaryKeyName] + '.json', data)
-            .then(function() {
-              that.theCommitPromise = null;
-              for(var field in item) {
-                if(_.endsWith(field, '_changed')) {
-                  item[field] = false;
-                }
-                if(angular.isArray(item[field])) {
-                  if(!that.isMohicanField(field)) {
-                    for(var si = 0; si < item[field].length; si++) {
-                      item[field][si].commit();
-                    }
+      }
+      if(that.theCommitPromise) {
+        return that.theCommitPromise.then(function() {
+          item.commit();
+        });
+      } else {
+        var data = {};
+        data[layout.doctype] = item._getDiffs();
+        that.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + item[layout.primaryKeyName] + '.json', data)
+          .then(function() {
+            that.theCommitPromise = null;
+            for(var field in item) {
+              if(_.endsWith(field, '_changed')) {
+                item[field] = false;
+              }
+              if(angular.isArray(item[field])) {
+                if(!that.isMohicanField(field)) {
+                  for(var si = 0; si < item[field].length; si++) {
+                    item[field][si].commit();
                   }
                 }
+              }
+              else {
+                if(that.isMohicanField(field)) {
+                  //do noting
+                }
                 else {
-                  if(that.isMohicanField(field)) {
-                    //do noting
+                  item[field] = item._edit[field];
+                  var dataField = that.getDataField(dataFields, field);
+                  if(dataField) {
+                    that._parseField(item, dataField);
                   }
                   else {
-                    item[field] = item._edit[field];
-                    var dataField = that.getDataField(dataFields, field);
-                    if(dataField) {
-                      that._parseField(item, dataField);
-                    }
-                    else {
-                      that._parseField(item, {name: field});
-                    }
+                    that._parseField(item, {name: field});
                   }
                 }
               }
-              item._state = 'ready';
-            });
-          return that.theCommitPromise;
-        }
-      };
-      item.rollback = function() {
-        delete item._edit;
-        item._state = 'ready';
-        for(var field in item) {
-          if(_.endsWith(field, '_changed')) {
-            item[field] = false;
-          }
-          if(!that.isMohicanField(field)) {
-            if(angular.isArray(item[field])) {
-              var subDocs = item[field];
-              for(var i = subDocs.length - 1; i >= 0; i--) {
-                if(subDocs[i]._state === 'added') {
-                  subDocs.splice(i, 1);
-                }
-                else {
-                  item[field][i].rollback();
-                }
-              };
             }
-          }
-        }
-      };
-      item.delete = function() {
-        item._state = 'deleting';
-        if(that.theDeletePromise) {
-          return that.theDeletePromise.then(function() {
-            item.delete();
+            item._state = 'ready';
           });
-        } else {
-          var data = {};
-          data[layout.doctype] = item._edit;
-          that.theDeletePromise = $http.delete(window.MN_BASE + '/' + apiResource + '/' + item[layout.primaryKeyName] + '.json', data)
-            .then(function() {
-              that.theDeletePromise = null;
-              for(var field in item) {
-                if(_.endsWith(field, '_changed')) {
-                  item[field] = false;
-                }
-              }
-              item._state = 'deleted';
-              var index = that.buffer.indexOf(item);
-              if(index !== -1) {
-                that.buffer.splice(index, 1);
-              }
-              if(that.totalCount && that.totalCount > 0) {
-                that.totalCount--;
-              }
-              if(that.topIndex && that.topIndex > 0) {
-                that.topIndex--;
-              }
-            });
-          return that.theDeletePromise;
+        return that.theCommitPromise;
+      }
+    };
+    item.rollback = function() {
+      delete item._edit;
+      item._state = 'ready';
+      for(var field in item) {
+        if(_.endsWith(field, '_changed')) {
+          item[field] = false;
         }
-      };
-
-      item.change = function(mnfField) {
-        item['_' + mnfField + '_changed'] = true;
-        item._state = 'changed';
-      };
-
-      item._getDiffs = function() {
-        var diffObject = {};
-        for(var field in item) {
-          if(!that.isMohicanField(field) &&
-             item['_' + field + '_changed']) {
-            if(angular.isArray(item[field])) {
-              diffObject[field] = item[field];
-            }
-            else {
-              diffObject[field] = item._edit[field];
-            }
+        if(!that.isMohicanField(field)) {
+          if(angular.isArray(item[field])) {
+            var subDocs = item[field];
+            for(var i = subDocs.length - 1; i >= 0; i--) {
+              if(subDocs[i]._state === 'added') {
+                subDocs.splice(i, 1);
+              }
+              else {
+                item[field][i].rollback();
+              }
+            };
           }
         }
-        return diffObject;
-      };
-    });
+      }
+    };
+    item.delete = function() {
+      item._state = 'deleting';
+      if(that.theDeletePromise) {
+        return that.theDeletePromise.then(function() {
+          item.delete();
+        });
+      } else {
+        var data = {};
+        data[layout.doctype] = item._edit;
+        that.theDeletePromise = $http.delete(window.MN_BASE + '/' + apiResource + '/' + item[layout.primaryKeyName] + '.json', data)
+          .then(function() {
+            that.theDeletePromise = null;
+            for(var field in item) {
+              if(_.endsWith(field, '_changed')) {
+                item[field] = false;
+              }
+            }
+            item._state = 'deleted';
+            var index = that.buffer.indexOf(item);
+            if(index !== -1) {
+              that.buffer.splice(index, 1);
+            }
+            if(that.totalCount && that.totalCount > 0) {
+              that.totalCount--;
+            }
+            if(that.topIndex && that.topIndex > 0) {
+              that.topIndex--;
+            }
+          });
+        return that.theDeletePromise;
+      }
+    };
+
+    item.change = function(mnfField) {
+      item['_' + mnfField + '_changed'] = true;
+      item._state = 'changed';
+    };
+
+    item._getDiffs = function() {
+      var diffObject = {};
+      for(var field in item) {
+        if(!that.isMohicanField(field) &&
+           item['_' + field + '_changed']) {
+          if(angular.isArray(item[field])) {
+            diffObject[field] = item[field];
+          }
+          else {
+            diffObject[field] = item._edit[field];
+          }
+        }
+      }
+      return diffObject;
+    };
   };
 
   mohican.mixins.crudMixin.prepareSubDocumentsCrudOperations = function($q, mnfDoc, collectionField, dataFields) {
     var that = this;
     var items = mnfDoc[collectionField];
-    //item is just a reference to original item in original mnfDoc subcollection
+    //item is just a reference to original item in original mnfDoc's subcollection
     items.forEach(function(item, index) {
-      mohican.mixins.crudMixin.prepareSubDocumentCrudOperations(item, index, $q, mnfDoc, collectionField, dataFields);
+      that.prepareSubDocumentCrudOperations(item, index, $q, mnfDoc, collectionField, dataFields);
     });
   };
 
@@ -182,7 +204,7 @@
     mnfDoc[collectionField].push(newItem);
     mnfDoc._edit[collectionField].push(_.cloneDeep(newItem));
 
-    mohican.mixins.crudMixin.prepareSubDocumentCrudOperations(
+    this.prepareSubDocumentCrudOperations(
       newItem,
       mnfDoc[collectionField].length - 1,
       $q,
@@ -195,11 +217,11 @@
     mnfDoc['_' + collectionField + '_changed'] = true;
   };
 
-  mohican.mixins.crudMixin.prepareSubDocumentCrudOperations = function(item, index, $q, mnfDoc, collectionField, dataFields, newItem) {
+  mohican.mixins.crudMixin.prepareSubDocumentCrudOperations = function(item, index, $q, mnfDoc, collectionField, dataFields, createNewItem) {
     var that = this;
 
     item._edit = mnfDoc._edit[collectionField][index];
-    if(newItem) {
+    if(createNewItem) {
       item._state = 'added';
     }
     else {
@@ -208,7 +230,7 @@
     //initial create _changed fields on every item
     for(var ifield in item) {
       if(!that.isMohicanField(ifield)) {
-        if(newItem) {
+        if(createNewItem) {
           item['_' + ifield + '_changed'] = true;
         }
         else {

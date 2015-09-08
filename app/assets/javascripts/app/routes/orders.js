@@ -7,7 +7,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
 
     controller: ['service', '$injector',
       function(service, $injector) {
-        mohican.extendResourcePageController(this, service, $injector);
+        mohican.extendResourcePageController('orders', this, service, $injector);
         var ctrl = this;
         ctrl.reportLocation = '/reports';
         ctrl.attached = false;

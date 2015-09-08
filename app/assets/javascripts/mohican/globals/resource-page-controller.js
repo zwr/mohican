@@ -1,9 +1,10 @@
 (function(mohican) {
   'use strict';
 
-  mohican.extendResourcePageController = function(ctrl, service, $injector) {
+  mohican.extendResourcePageController = function(apiResource, ctrl, service, $injector) {
     _.assign(ctrl, mohican.createBaseDriver($injector));
     _.assign(ctrl, mohican.createResourcePageController());
+    ctrl.apiResource = apiResource;
     ctrl.initialize(service, $injector);
     ctrl.loadData();
   };
@@ -28,6 +29,7 @@
       initialize: function(service, $injector) {
         this.mnRouter = $injector.get('mnRouter');
         this.$q = $injector.get('$q');
+        this.$http = $injector.get('$http');
 
         mohican.redirectDefaultParameters(this.mnRouter);
         mohican.injectDefaultParameters(this.mnRouter);
@@ -89,6 +91,7 @@
         that.service.getPreviewDefinitions().
         then(function(definition) {
           that.primaryKeyName = definition.primaryKeyName;
+          that.doctype = definition.doctype;
           that.layoutDefs = definition.layouts;
           that.layoutDefs.forEach(function(layout) {
             that.layouts.push({
@@ -103,6 +106,11 @@
           });
         }).
         then(function() {
+          if(_.endsWith(that.mnRouter.currentRouteName(), '-new')) {
+            that.itemForm = {};
+            that.service.prepareNewDoc(that.fields, that.$http, that.$q, that.apiResource,
+                                      {primaryKeyName: that.primaryKeyName, doctype: that.doctype}, that.itemForm);
+          }
           if(that.stateMachine.itemPrimaryKeyId) {
             that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields)
             .then(function(items) {

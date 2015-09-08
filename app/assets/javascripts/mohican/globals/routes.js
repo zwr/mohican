@@ -4,12 +4,15 @@
   mohican._createMohicanResourceRoute = function(routeName, controller, defaultRoute, $stateProvider, redirectTo, template) {
     var url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
     var urlForm = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}?activetab';
+    var urlNew = '/' + mohican.toHyphen(routeName) + '/new?activetab';
     var templateUrl = 'app/routes/' + mohican.toHyphen(routeName) + '-index.html';
     var templateUrlForm = 'app/routes/' + mohican.toHyphen(routeName) + '-doc.html';
+    var templateUrlNew = 'app/routes/' + mohican.toHyphen(routeName) + '-doc.html';
 
     if(redirectTo && angular.isUndefined(template) || template === null) {
       templateUrl = undefined;
       templateUrlForm = undefined;
+      templateUrlNew = undefined;
     }
 
     if(redirectTo) {
@@ -21,6 +24,13 @@
     $stateProvider.state(mohican.toHyphen(routeName), {
       url:          defaultRoute ? '/' : url,
       templateUrl:  templateUrl,
+      controller:   controller,
+      controllerAs: 'ctrl'
+    });
+
+    $stateProvider.state(mohican.toHyphen(routeName) + '-new', {
+      url:          urlNew,
+      templateUrl:  templateUrlNew,
       controller:   controller,
       controllerAs: 'ctrl'
     });

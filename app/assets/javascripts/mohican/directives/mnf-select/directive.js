@@ -20,9 +20,11 @@ angular.module('mohican')
           scope.selectItems = [];
           scope.selectedValues = [];
 
-          scope.mnfDoc[scope.mnfField].split(',').forEach(function(value) {
-            scope.selectedValues.push(value);
-          });
+          if(scope.mnfDoc[scope.mnfField]) {
+            scope.mnfDoc[scope.mnfField].split(',').forEach(function(value) {
+              scope.selectedValues.push(value);
+            });
+          }
 
           scope.allowedValues.forEach(function(value) {
             scope.selectItems.push({
