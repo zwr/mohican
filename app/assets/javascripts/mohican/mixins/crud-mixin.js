@@ -60,6 +60,10 @@
     };
 
     item.commit = function() {
+      var addingNew = false;
+      if(item._state === 'added') {
+        addingNew = true;
+      }
       item._state = 'committing';
       for(var cfield in item) {
         if(!that.isMohicanField(cfield)) {
@@ -80,7 +84,8 @@
       } else {
         var data = {};
         data[layout.doctype] = item._getDiffs();
-        that.theCommitPromise = $http.put(window.MN_BASE + '/' + apiResource + '/' + item[layout.primaryKeyName] + '.json', data)
+        var commitRemoteCommand = $http.put(window.MN_BASE + '/' + apiResource + '/' + item[layout.primaryKeyName] + '.json', data);
+        that.theCommitPromise = commitRemoteCommand
           .then(function() {
             that.theCommitPromise = null;
             for(var field in item) {
@@ -165,7 +170,7 @@
 
     item.change = function(mnfField) {
       item['_' + mnfField + '_changed'] = true;
-      if(item._state === 'edit') {
+      if(item._state === 'editing') {
         item._state = 'changed';
       }
     };
@@ -250,11 +255,11 @@
     };
 
     item.change = function(changedField) {
-      if(item._state === 'edit') {
+      if(item._state === 'editing') {
         item._state = 'changed';
       }
       item['_' + changedField + '_changed'] = true;
-      if(mnfDoc._state === 'edit') {
+      if(mnfDoc._state === 'editing') {
         mnfDoc._state = 'changed';
       }
       mnfDoc['_' + collectionField + '_changed'] = true;
@@ -275,7 +280,7 @@
         }
       }
       item._state = 'deleted';
-      if(item._state === 'edit') {
+      if(item._state === 'editing') {
         mnfDoc._state = 'changed';
       }
       mnfDoc['_' + collectionField + '_changed'] = true;
