@@ -16,6 +16,7 @@
   };
 
   mohican.mixins.crudMixin.prepareNewDoc = function(dataFields, $http, $q, apiResource, layout, newItem) {
+    newItem._edit = _.cloneDeep(newItem);
     this.prepareDocumentCrudOperations(
       newItem,
       dataFields,
@@ -164,7 +165,9 @@
 
     item.change = function(mnfField) {
       item['_' + mnfField + '_changed'] = true;
-      item._state = 'changed';
+      if(item._state === 'edit') {
+        item._state = 'changed';
+      }
     };
 
     item._getDiffs = function() {
@@ -206,8 +209,7 @@
       [],
       true
     );
-    mnfDoc._state = 'changed';
-    mnfDoc['_' + collectionField + '_changed'] = true;
+    mnfDoc.change(collectionField);
   };
 
   mohican.mixins.crudMixin.prepareSubDocumentCrudOperations = function(item, index, $q, mnfDoc, collectionField, dataFields, createNewItem) {
@@ -248,9 +250,13 @@
     };
 
     item.change = function(changedField) {
-      item._state = 'changed';
+      if(item._state === 'edit') {
+        item._state = 'changed';
+      }
       item['_' + changedField + '_changed'] = true;
-      mnfDoc._state = 'changed';
+      if(mnfDoc._state === 'edit') {
+        mnfDoc._state = 'changed';
+      }
       mnfDoc['_' + collectionField + '_changed'] = true;
     };
 
@@ -269,7 +275,9 @@
         }
       }
       item._state = 'deleted';
-      mnfDoc._state = 'changed';
+      if(item._state === 'edit') {
+        mnfDoc._state = 'changed';
+      }
       mnfDoc['_' + collectionField + '_changed'] = true;
       return $q.when();
     };

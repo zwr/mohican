@@ -16,8 +16,7 @@ angular.module('mohican')
         link: function(scope, elem, attr, mnfFormCtrl) {
           scope.mnfDoc = mnfFormCtrl.mnfDoc;
           scope.textChanged = function() {
-            scope.mnfDoc['_' + scope.mnfField + '_changed'] = true;
-            scope.mnfDoc._state = 'changed';
+            scope.mnfDoc.change(scope.mnfField);
           };
         }
       };

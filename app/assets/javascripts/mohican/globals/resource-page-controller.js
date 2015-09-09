@@ -107,7 +107,11 @@
         }).
         then(function() {
           if(_.endsWith(that.mnRouter.currentRouteName(), '-new')) {
+            that.fullyLoaded = true;
             that.itemForm = {};
+            that.onCurrentItemChanged.forEach(function(callback) {
+              callback(that.itemForm);
+            });
             that.service.prepareNewDoc(that.fields, that.$http, that.$q, that.apiResource,
                                       {primaryKeyName: that.primaryKeyName, doctype: that.doctype}, that.itemForm);
           }
