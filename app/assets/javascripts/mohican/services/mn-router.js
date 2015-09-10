@@ -202,6 +202,9 @@
         if(_.endsWith($state.current.name, '-doc')) {
           returnValue = _.trimRight($state.current.name, '-doc');
         }
+        if(_.endsWith($state.current.name, '-new')) {
+          returnValue = _.trimRight($state.current.name, '-new');
+        }
         else {
           returnValue = $state.current.name;
         }

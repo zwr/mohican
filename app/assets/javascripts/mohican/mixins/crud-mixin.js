@@ -63,8 +63,11 @@
       var addingNew = false;
       if(item._state === 'added') {
         addingNew = true;
+        item._state = 'creating';
       }
-      item._state = 'committing';
+      else {
+        item._state = 'committing';
+      }
       for(var cfield in item) {
         if(!that.isMohicanField(cfield)) {
           if(angular.isArray(item[cfield])) {
@@ -83,8 +86,15 @@
         });
       } else {
         var data = {};
-        data[layout.doctype] = item._getDiffs();
-        var commitRemoteCommand = $http.put(window.MN_BASE + '/' + apiResource + '/' + item[layout.primaryKeyName] + '.json', data);
+        var commitRemoteCommand;
+        if(addingNew) {
+          data[layout.doctype] = item._edit;
+          commitRemoteCommand = $http.post(window.MN_BASE + '/' + apiResource + '.json', data);
+        }
+        else {
+          data[layout.doctype] = item._getDiffs();
+          commitRemoteCommand = $http.put(window.MN_BASE + '/' + apiResource + '/' + item[layout.primaryKeyName] + '.json', data);
+        }
         that.theCommitPromise = commitRemoteCommand
           .then(function() {
             that.theCommitPromise = null;
@@ -107,6 +117,10 @@
                   item[field] = item._edit[field];
                 }
               }
+            }
+            if(addingNew) {
+              item._added = true;
+              // that.buffer.push(item);
             }
             item._state = 'ready';
           });

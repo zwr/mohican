@@ -1,11 +1,10 @@
 <button class="btn btn-primary"
         ng-disabled="mnfDoc._state === 'editing' || mnfDoc._state === 'committing'"
         ng-if="mnfFormCtrl.mnfCrudShown && (mnfDoc._state === 'added' || mnfDoc._state === 'changed' || mnfDoc._state === 'editing' || mnfDoc._state === 'committing')"
-        ng-click="mnfDoc.commit()">
+        ng-click="commitDoc()">
   <span ng-style="mnfDoc._state === 'committing' ? {float: 'left'} : {}">save</span>
   <span class="loader"
         ng-show="mnfDoc._state === 'committing'"
         style="float: left; margin: 0px 0px 0px 8px;">
   </span>
 </button>
-{{mnfFormCtrl.mnfCrudShown}} - {{mnfDoc._state}}
