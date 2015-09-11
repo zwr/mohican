@@ -6,7 +6,7 @@
         <mnf-form mnf-doc="ctrl.itemForm">
           <div class="col-xs-12 mn-buttons-group">
             <mnf-edit></mnf-edit>
-            <mnf-commit></mnf-commit>
+            <mnf-commit on-commit-success="ctrl.commitSuccess()"></mnf-commit>
             <mnf-rollback></mnf-rollback>
             <mnf-delete></mnf-delete>
           </div>

@@ -7,7 +7,9 @@ angular.module('mohican')
       return {
         restrict: 'E',
         scope:    {
-          mnfDoc: '=?'
+          mnfDoc:          '=?',
+          onCommitSuccess: '&',
+          onCommitFail:    '&'
         },
         require:     '^mnfFormGrid',
         templateUrl: 'mohican/directives/mnf-commit-grid/template.html',
@@ -16,7 +18,15 @@ angular.module('mohican')
           scope.mnfFormGridCtrl = mnfFormGridCtrl;
           scope.commitItem = function() {
             if(scope.mnfDoc._state === 'changed') {
-              scope.mnfDoc.commit();
+              scope.mnfDoc.commit().then(function() {
+                if(scope.onCommitSuccess) {
+                  scope.onCommitSuccess();
+                }
+              }, function() {
+                if(scope.onCommitFail) {
+                  scope.onCommitFail();
+                }
+              });
               mnfFormGridCtrl.currentMnfDoc = null;
             }
           };

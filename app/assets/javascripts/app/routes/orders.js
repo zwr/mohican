@@ -5,8 +5,8 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   mnRouterProvider.addResouceRoute({
     name: 'orders',
 
-    controller: ['service', '$injector',
-      function(service, $injector) {
+    controller: ['service', '$injector', 'mnRouter',
+      function(service, $injector, mnRouter) {
         mohican.extendResourcePageController('orders', this, service, $injector);
         var ctrl = this;
         ctrl.reportLocation = '/reports';
@@ -93,6 +93,10 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
                           service.addNewSubDoc($injector.get('$q'), ctrl.itemForm, 'order_items', newItem);
                         }
                       });
+        };
+
+        ctrl.commitSuccess = function() {
+          mnRouter.redirectTo(mnRouter.currentRouteIndex());
         };
 
         ctrl.onItemSelect = function(selectedItems) {

@@ -5,7 +5,10 @@ angular.module('mohican')
   .directive('mnfCommit', [function() {
       'use strict';
       return {
-        scope:       {},
+        scope: {
+          onCommitSuccess: '&',
+          onCommitFail:    '&'
+        },
         restrict:    'E',
         require:     '^mnfForm',
         templateUrl: 'mohican/directives/mnf-commit/template.html',
@@ -13,17 +16,19 @@ angular.module('mohican')
         link: function(scope, elem, attr, mnfFormCtrl) {
           scope.mnfDoc = mnfFormCtrl.mnfDoc;
           scope.mnfFormCtrl = mnfFormCtrl;
-        },
 
-        controller: ['$scope', 'mnRouter', function($scope, mnRouter) {
-          $scope.commitDoc = function() {
-            $scope.mnfDoc.commit().then(function() {
-              if(!$scope.mnfDoc._mnid) {
-                mnRouter.redirectTo(mnRouter.currentRouteIndex());
+          scope.commitDoc = function() {
+            scope.mnfDoc.commit().then(function() {
+              if(scope.onCommitSuccess) {
+                scope.onCommitSuccess();
+              }
+            }, function() {
+              if(scope.onCommitFail) {
+                scope.onCommitFail();
               }
             });
           };
-        }]
+        }
       };
     }
   ]);
