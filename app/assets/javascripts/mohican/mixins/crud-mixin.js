@@ -60,14 +60,7 @@
     };
 
     item.commit = function() {
-      var addingNew = false;
-      if(item._state === 'added') {
-        addingNew = true;
-        item._state = 'creating';
-      }
-      else {
-        item._state = 'committing';
-      }
+      item._state = 'committing';
       for(var cfield in item) {
         if(!that.isMohicanField(cfield)) {
           if(angular.isArray(item[cfield])) {
@@ -87,7 +80,7 @@
       } else {
         var data = {};
         var commitRemoteCommand;
-        if(addingNew) {
+        if(!item._mnid) {
           data[layout.doctype] = item._edit;
           commitRemoteCommand = $http.post(window.MN_BASE + '/' + apiResource + '.json', data);
         }
@@ -118,8 +111,7 @@
                 }
               }
             }
-            if(addingNew) {
-              item._added = true;
+            if(!item._mnid) {
               // that.buffer.push(item);
             }
             item._state = 'ready';

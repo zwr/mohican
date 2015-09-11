@@ -18,8 +18,7 @@ angular.module('mohican')
         controller: ['$scope', 'mnRouter', function($scope, mnRouter) {
           $scope.commitDoc = function() {
             $scope.mnfDoc.commit().then(function() {
-              console.log($scope.mnfDoc);
-              if($scope.mnfDoc._added) {
+              if(!$scope.mnfDoc._mnid) {
                 mnRouter.redirectTo(mnRouter.currentRouteIndex());
               }
             });
