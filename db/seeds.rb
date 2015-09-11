@@ -10,7 +10,9 @@ User.delete_all
 Product.delete_all
 Order.delete_all
 
-User.create! email: 'mohican@zwr.fi', password: 'mohican123'
+User.create! email: 'mohican@zwr.fi',
+             password: 'mohican123',
+             name: 'Jessica Mongo'
 
 puts "Seeding #{activities['items'].length} activities"
 

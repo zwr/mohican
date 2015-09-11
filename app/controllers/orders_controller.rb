@@ -145,14 +145,11 @@ class OrdersController < ApplicationController
 
   def create
     @order = Order.new(order_params)
-    creator = User.new
-    creator.id = @order.creator_ref
-    creator.name = @order.creator_name
-    @order.creator = creator
+    @order.creator = current_user
     respond_to do |format|
       if @order.save
         format.html { redirect_to @order, notice: 'Order was successfully created.' }
-        format.json { render json: @order }
+        format.json { render json: @order.as_json }
       else
         format.html { render :new }
         format.json { render json: @order.errors, status: :unprocessable_entity }
