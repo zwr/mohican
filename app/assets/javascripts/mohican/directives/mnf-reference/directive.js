@@ -11,7 +11,8 @@
             mnfRefResource: '@',
             mnfRefId:       '@',
             mnfField:       '@',
-            mnfFieldSource: '='
+            mnfFieldSource: '=',
+            readOnly:       '=?'
           },
           restrict:    'E',
           require:     '^mnfForm',
