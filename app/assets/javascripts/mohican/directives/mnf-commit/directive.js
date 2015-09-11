@@ -18,9 +18,9 @@ angular.module('mohican')
           scope.mnfFormCtrl = mnfFormCtrl;
 
           scope.commitDoc = function() {
-            scope.mnfDoc.commit().then(function() {
+            scope.mnfDoc.commit().then(function(mnfDoc) {
               if(scope.onCommitSuccess) {
-                scope.onCommitSuccess();
+                scope.onCommitSuccess({mnfDoc: mnfDoc});
               }
             }, function() {
               if(scope.onCommitFail) {

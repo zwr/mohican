@@ -95,7 +95,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
                       });
         };
 
-        ctrl.commitSuccess = function() {
+        ctrl.commitSuccess = function(mnfDoc) {
           mnRouter.redirectTo(mnRouter.currentRouteIndex());
         };
 

@@ -60,6 +60,7 @@
     };
 
     item.commit = function() {
+      var deffered = $q.defer();
       item._state = 'committing';
       for(var cfield in item) {
         if(!that.isMohicanField(cfield)) {
@@ -89,7 +90,7 @@
           commitRemoteCommand = $http.put(window.MN_BASE + '/' + apiResource + '/' + item[layout.primaryKeyName] + '.json', data);
         }
         that.theCommitPromise = commitRemoteCommand
-          .then(function() {
+          .then(function(response) {
             that.theCommitPromise = null;
             for(var field in item) {
               if(_.endsWith(field, '_changed')) {
@@ -115,8 +116,11 @@
               // that.buffer.push(item);
             }
             item._state = 'ready';
+            deffered.resolve(response.data);
+          }, function() {
+            deffered.reject();
           });
-        return that.theCommitPromise;
+        return deffered.promise;
       }
     };
     item.rollback = function() {
