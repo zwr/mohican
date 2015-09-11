@@ -7,7 +7,8 @@ angular.module('mohican')
       return {
         scope: {
           mnfField: '@',
-          mnfLabel: '@'
+          mnfLabel: '@',
+          readOnly: '=?'
         },
         restrict:    'E',
         require:     '^mnfForm',

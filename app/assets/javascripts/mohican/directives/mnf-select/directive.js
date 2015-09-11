@@ -8,7 +8,8 @@ angular.module('mohican')
         scope: {
           mnfField:      '@',
           mnfLabel:      '@',
-          allowedValues: '='
+          allowedValues: '=',
+          readOnly:      '=?'
         },
         restrict:    'E',
         require:     '^mnfForm',

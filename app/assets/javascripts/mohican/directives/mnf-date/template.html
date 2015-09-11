@@ -1,11 +1,11 @@
-<div ng-if="mnfDoc._state === 'ready' || mnfDoc._state === 'deleting'"
+<div ng-if="readOnly || mnfDoc._state === 'ready' || mnfDoc._state === 'deleting'"
      class="form-group form-group-sm mn-form-group">
   <label class="col-sm-4 control-label" for="formGroupInputLarge">{{mnfLabel}}</label>
   <div class="col-sm-8 state-ready-field-value">
     <span>{{mnfDoc[mnfField] ? moment(mnfDoc[mnfField]).format('DD.MM.YYYY.') : ''}}</span>
   </div>
 </div>
-<div ng-if="mnfDoc._state === 'added' || mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing'"
+<div ng-if="!readOnly && (mnfDoc._state === 'added' || mnfDoc._state === 'editing' || mnfDoc._state === 'changed' || mnfDoc._state === 'committing')"
      class="form-group form-group-sm mn-form-group">
   <label class="col-sm-4 control-label" for="{{mnfField}}">{{mnfLabel}}</label>
   <div class="col-sm-8">

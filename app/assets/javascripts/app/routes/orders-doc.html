@@ -17,6 +17,9 @@
                                        'secret', 'poison', 'large', 'heavy']"></mnf-select>
           <mnf-date mnf-field="actual_delivery_date"
                     mnf-label="Delivered on:"></mnf-date>
+          <mnf-date mnf-field="created_at"
+                    mnf-label="Created at:"
+                    read-only="true"></mnf-date>
           <mnf-reference mnf-label="Creator:"
                          mnf-ref-resource="users"
                          mnf-ref-id="creator_ref"
@@ -26,7 +29,8 @@
           <mnf-text mnf-field="order_number"
                     mnf-label="Order number:"></mnf-text>
           <mnf-text mnf-field="total"
-                    mnf-label="Total:"></mnf-text>
+                    mnf-label="Total:"
+                    read-only="true"></mnf-text>
           <mn-tabs>
             <mn-tab heading="Tab 1">
               tab1
