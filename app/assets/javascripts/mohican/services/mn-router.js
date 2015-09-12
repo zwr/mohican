@@ -208,6 +208,10 @@
         return returnValue;
       }
 
+      function currentRouteDoc() {
+        return currentRouteIndex() + '-doc';
+      }
+
       return {
         createAll:    createAll,
         redirectTo:   redirectTo,
@@ -218,6 +222,7 @@
 
         currentRouteName:  currentRouteName,
         currentRouteIndex: currentRouteIndex,
+        currentRouteDoc:   currentRouteDoc,
 
         addStateChageValidator:    addStateChageValidator,
         removeStateChageValidator: removeStateChageValidator

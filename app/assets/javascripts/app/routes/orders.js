@@ -96,7 +96,9 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         };
 
         ctrl.commitSuccess = function(mnfDoc) {
-          mnRouter.redirectTo(mnRouter.currentRouteIndex());
+          mnRouter.transitionTo(mnRouter.currentRouteDoc(), {
+            itemPrimaryKeyId: mnfDoc._mnid
+          });
         };
 
         ctrl.onItemSelect = function(selectedItems) {

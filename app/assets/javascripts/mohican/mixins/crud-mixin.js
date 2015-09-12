@@ -16,7 +16,6 @@
   };
 
   mohican.mixins.crudMixin.prepareNewDoc = function(dataFields, $http, $q, apiResource, layout, newItem) {
-    newItem._edit = _.cloneDeep(newItem);
     this.prepareDocumentCrudOperations(
       newItem,
       dataFields,
@@ -26,6 +25,8 @@
       layout,
       true
     );
+    newItem.edit();
+    newItem.change();
   };
 
   mohican.mixins.crudMixin.prepareDocumentCrudOperations = function(item, dataFields, $http, $q, apiResource, layout, createNewItem) {
@@ -96,26 +97,41 @@
               if(_.endsWith(field, '_changed')) {
                 item[field] = false;
               }
-              if(angular.isArray(item[field])) {
-                if(!that.isMohicanField(field)) {
-                  for(var si = 0; si < item[field].length; si++) {
-                    item[field][si].commit();
+              if(!that.isMohicanField(field)) {
+                if(angular.isArray(item[field])) {
+                  if(!that.isMohicanField(field)) {
+                    for(var si = 0; si < item[field].length; si++) {
+                      item[field][si].commit();
+                    }
                   }
-                }
-              }
-              else {
-                if(that.isMohicanField(field)) {
-                  //do noting
                 }
                 else {
                   item[field] = item._edit[field];
                 }
               }
             }
-            if(!item._mnid) {
-              // that.buffer.push(item);
+            for(var field in item._edit) {
+              if(_.endsWith(field, '_changed')) {
+                item[field] = false;
+              }
+              if(!that.isMohicanField(field)) {
+                if(!angular.isArray(item._edit[field])) {
+                  item[field] = item._edit[field];
+                }
+              }
             }
+            that.prepareNewDoc(dataFields, $http, $q, apiResource,
+                                      {primaryKeyName: layout.primaryKeyName, doctype: layout.doctype}, item);
             item._state = 'ready';
+            if(!item._mnid) {
+              item._mnid = response.data._mnid;
+              if(that.buffer) {
+                that.buffer.push(item);
+              }
+              else {
+                that.buffer = [item];
+              }
+            }
             deffered.resolve(response.data);
           }, function() {
             deffered.reject();
@@ -179,15 +195,20 @@
     };
 
     item.change = function(mnfField) {
-      item['_' + mnfField + '_changed'] = true;
-      if(item._state === 'editing') {
+      if(mnfField) {
+        item['_' + mnfField + '_changed'] = true;
+        if(item._state === 'editing') {
+          item._state = 'changed';
+        }
+      }
+      else {
         item._state = 'changed';
       }
     };
 
     item._getDiffs = function() {
       var diffObject = {};
-      for(var field in item) {
+      for(var field in item._edit) {
         if(!that.isMohicanField(field) &&
            item['_' + field + '_changed']) {
           if(angular.isArray(item[field])) {
