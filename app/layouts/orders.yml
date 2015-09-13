@@ -1,0 +1,97 @@
+---
+layout:
+  doctype: order
+  primaryKeyName: _mnid
+  layouts:
+  - name: default
+    definition:
+    - name: order_number
+      header: Order No.
+      width: 130
+      quicksort: true
+      quickfilter: text
+      view: text
+    - name: delivery_date
+      header: Delivery date
+      width: 210
+      quicksort: true
+      quickfilter: date-range
+      view: date
+    - name: cell
+      header: Cell
+      width: 130
+      quicksort: true
+      values:
+      - Sahaus
+      - Oksien poisto
+      - Höyläys
+      - Maalaus
+      - Kuorinta
+      - Särmäys
+      - Rajaus
+      - Lajittelu
+      - Heino Sahaus
+      - Pintaan valmistelu
+      - Kuivaus
+      - Pakkaus
+      quickfilter: select
+      view: select-single
+    # - name: actual_delivery_date
+    #   header: Delivered on
+    #   width: 210
+    #   quicksort: true
+    #   quickfilter: date-range
+    #   view: date
+    - name: status
+      header: Status
+      width: 90
+      quicksort: true
+      values:
+      - created
+      - avoinna
+      - valmis
+      - deferred
+      - tuotannossa
+      - delivered
+      quickfilter: select
+      view: select-single
+    - name: delivery_tag
+      header: Delivery Tags
+      width: 320
+      quicksort: true
+      values:
+      - standard
+      - urgent
+      - insured
+      - fragile
+      - flammable
+      - tax_free
+      - export
+      - import
+      - secret
+      - poison
+      - large
+      - heavy
+      quickfilter: select
+      view: select
+    - name: total
+      header: Total
+      width: 80
+      quicksort: true
+      quickfilter: text
+      view: text
+  - name: short
+    definition:
+    - name: order_number
+      header: Order No.
+      width: 130
+      quicksort: true
+      quickfilter: text
+      view: text
+    - name: delivery_date
+      header: Delivery date
+      width: 210
+      quicksort: true
+      quickfilter: date-range
+      view: date
+:filter: []
