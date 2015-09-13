@@ -82,7 +82,9 @@
       } else {
         var data = {};
         var commitRemoteCommand;
+        var isNewDoc = false;
         if(!item._mnid) {
+          isNewDoc = true;
           data[layout.doctype] = item._edit;
           commitRemoteCommand = $http.post(window.MN_BASE + '/' + apiResource + '.json', data);
         }
@@ -92,38 +94,15 @@
         }
         that.theCommitPromise = commitRemoteCommand
           .then(function(response) {
+            var itemFromBackend = response.data;
             that.theCommitPromise = null;
-            for(var field in item) {
-              if(_.endsWith(field, '_changed')) {
-                item[field] = false;
-              }
+            for(var field in itemFromBackend) {
               if(!that.isMohicanField(field)) {
-                if(angular.isArray(item[field])) {
-                  if(!that.isMohicanField(field)) {
-                    for(var si = 0; si < item[field].length; si++) {
-                      item[field][si].commit();
-                    }
-                  }
-                }
-                else {
-                  item[field] = item._edit[field];
-                }
+                item[field] = itemFromBackend[field];
               }
             }
-            for(var field in item._edit) {
-              if(_.endsWith(field, '_changed')) {
-                item[field] = false;
-              }
-              if(!that.isMohicanField(field)) {
-                if(!angular.isArray(item._edit[field])) {
-                  item[field] = item._edit[field];
-                }
-              }
-            }
-            that.prepareNewDoc(dataFields, $http, $q, apiResource,
-                                      {primaryKeyName: layout.primaryKeyName, doctype: layout.doctype}, item);
-            item._state = 'ready';
-            if(!item._mnid) {
+
+            if(isNewDoc) {
               item._mnid = response.data._mnid;
               if(that.buffer) {
                 that.buffer.push(item);
@@ -132,6 +111,8 @@
                 that.buffer = [item];
               }
             }
+
+            item._state = 'ready';
             deffered.resolve(response.data);
           }, function() {
             deffered.reject();
