@@ -102,7 +102,6 @@ class OrdersController < ApplicationController
                   quickfilter: :select, # here should be select zero, one or more
                   view: :select
                 },
-=end
                 {
                   name: :total,
                   header: :Total,
@@ -111,6 +110,7 @@ class OrdersController < ApplicationController
                   quickfilter: :text,
                   view: :text
                 }
+=end
               ]
             },
             {

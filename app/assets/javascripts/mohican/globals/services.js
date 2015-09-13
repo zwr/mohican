@@ -48,7 +48,7 @@
     service.nextEagerGrowthForward = false;
     // Following constant shows the size of fetch. It must by all means be
     // larger than pageSize
-    service.fetchSize = 100;
+    service.fetchSize = 1000;
     service.firstFetchSize = 200;
 
     service.waitFullyLoaded = function() {

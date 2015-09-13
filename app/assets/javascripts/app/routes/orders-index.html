@@ -20,23 +20,11 @@
                  mn-actions-width="140px">
           <mnf-preview-grid mnf-doc="item"
                             route="orders"></mnf-preview-grid>
-          <mnf-edit-grid mnf-doc="item"></mnf-edit-grid>
+          <mnf-edit-grid mnf-doc="item" class="hidden-xs"></mnf-edit-grid>
           <mnf-commit-grid mnf-doc="item"></mnf-commit-grid>
           <mnf-rollback-grid mnf-doc="item"></mnf-rollback-grid>
-          <mnf-delete-grid mnf-doc="item"
+          <mnf-delete-grid mnf-doc="item" class="hidden-xs"
                            mn-on-delete="ctrl.loadMnGridItems()"></mnf-delete-grid>
-          <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.pdf">
-            <span class="mn-action-icon glyphicon glyphicon-paperclip"></span>
-          </a>
-          <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.xls">
-            <span class="mn-action-icon glyphicon glyphicon-stats"></span>
-          </a>
-          <a target="_blank" ng-href="{{ctrl.reportLocation}}/report_{{item.Order_ID}}.xml">
-            <span class="mn-action-icon glyphicon glyphicon-cloud-download"></span>
-          </a>
-          <a target="_blank" ng-click="ctrl.printMe(item)">
-            <span class="mn-action-icon glyphicon glyphicon-print"></span>
-          </a>
         </mn-grid>
       </mnf-form-grid>
     </div>

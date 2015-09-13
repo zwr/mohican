@@ -17,6 +17,17 @@ $screen-lg-min: 1500px;
   border-radius: 6px;
 }
 
+.pd-order-actions {
+  button {
+    margin-right: 12px;
+    margin-bottom: 16px;
+    @media (max-width: $screen-xs-max) {
+      display: block;
+      clear: both;
+    }
+  }
+}
+
 .production-cell {
   .cell-title {
     position: relative;

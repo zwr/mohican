@@ -2,8 +2,8 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   mnRouterProvider.addSimpleRoute({
     name:       'production',
-    controller: ['$scope', '$location', 'productionLinesService',
-    function($scope, $location, productionLinesService) {
+    controller: ['$scope', '$location', 'productionLinesService', 'ordersService',
+    function($scope, $location, productionLinesService, ordersService) {
       productionLinesService.getProductionLines()
       .then(function (data) {
         $scope.lines = data;
@@ -24,6 +24,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
                    filters: 'cell$' + cellName + '$$status$open',
                  })
       }
+      
     }]
   });
 }])

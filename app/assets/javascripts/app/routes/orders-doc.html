@@ -1,15 +1,29 @@
 <div class="container-fluid">
-  <div class="row">
-    <div class="col-xs-12 mn-content-panel">
-      <button class="btn btn-default" ng-click="ctrl.startProcessingOrder()">
+  <div class="row" style="margin-bottom: 12px">
+    <div class="col-xs-12 mn-content-panel pd-order-actions">
+      <button class="btn btn-default" ng-click="ctrl.dashboard()">
+        Back to Dashboard
+      </button>
+      <button class="btn btn-default" ng-click="ctrl.back()">
+        Back to Order List
+      </button>
+      <button class="btn btn-primary" ng-click="ctrl.startProcessingOrder()" ng-if="ctrl.itemForm.status == 'open'">
         Start Processing order
       </button>
+      <button class="btn btn-primary" ng-click="ctrl.stopProcessingOrder()" ng-if="ctrl.itemForm.status == 'processing'">
+        Stop Processing order
+      </button>
+      <button class="btn btn-primary" ng-click="ctrl.startProcessingOrder()" ng-if="ctrl.itemForm.status == 'closed'">
+        Redo The Order
+      </button>
     </div>
-    <div class="col-xs-12 mn-content-panel hidden-xs">
+  </div>
+  <div class="row"> 
+    <div class="col-xs-12 mn-content-panel">
       <span class="loader block" ng-if="!ctrl.itemForm" style="margin: 0px 0px 0px 8px;">Loading...</span>
       <div ng-if="ctrl.itemForm" class="container-fluid">
         <mnf-form mnf-doc="ctrl.itemForm">
-          <div class="col-xs-12 mn-buttons-group">
+          <div class="col-xs-12 mn-buttons-group hidden-xs">
             <mnf-edit></mnf-edit>
             <mnf-commit on-commit-success="ctrl.commitSuccess(mnfDoc)"></mnf-commit>
             <mnf-rollback></mnf-rollback>

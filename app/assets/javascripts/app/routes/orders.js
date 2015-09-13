@@ -5,8 +5,8 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   mnRouterProvider.addResouceRoute({
     name: 'orders',
 
-    controller: ['service', '$injector', 'mnRouter',
-      function(service, $injector, mnRouter) {
+    controller: ['service', '$injector', 'mnRouter', '$window', '$location',
+      function(service, $injector, mnRouter, $window, $location) {
         mohican.extendResourcePageController('orders', this, service, $injector);
         var ctrl = this;
         ctrl.reportLocation = '/reports';
@@ -139,10 +139,22 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         };
 
         ctrl.startProcessingOrder = function() {
+          ctrl.changeOrderStatus('processing');
+        };
+        ctrl.stopProcessingOrder = function() {
+          ctrl.changeOrderStatus('closed');
+        };
+        ctrl.changeOrderStatus = function(newStatus) {
           ctrl.itemForm.edit();
-          ctrl.itemForm._edit.status = 'Processing';
+          ctrl.itemForm._edit.status = newStatus;
           ctrl.itemForm._status_changed = true;
           ctrl.itemForm.commit();
+        };
+        ctrl.dashboard = function() {
+          $location.path('/production');
+        };
+        ctrl.back = function() {
+          $window.history.back();
         };
       }
     ],
