@@ -1,0 +1,20 @@
+---
+layout:
+  doctype: 'user'
+  primaryKeyName: '_mnid'
+  layouts:
+  - name: 'default'
+    definition:
+    - name: :name
+      header: Name
+      width: 160
+      quicksort: true
+      quickfilter: :text
+      view: :text
+    - name: :email
+      header: Email
+      width: 420
+      quicksort: true
+      quickfilter: :text
+      view: :text
+filter: []

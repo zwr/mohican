@@ -94,4 +94,4 @@ layout:
       quicksort: true
       quickfilter: date-range
       view: date
-:filter: []
+filter: []

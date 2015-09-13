@@ -1,0 +1,20 @@
+---
+layout:
+  doctype: 'product'
+  primaryKeyName: '_mnid'
+  layouts:
+  - name: 'default'
+    definition:
+    - name: :name
+      header: :name
+      width: 420
+      quicksort: true
+      quickfilter: :text
+      view: :text
+    - name: :ean
+      header: :EAN
+      width: 130
+      quicksort: true
+      quickfilter: :text
+      view: :text
+filter: []
