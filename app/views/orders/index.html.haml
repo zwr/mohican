@@ -19,7 +19,7 @@
         %td= order.creator.name unless order.creator.nil?
         %td= order.status
         %td= order.total
-        %td= order.items
+        %td
         %td= link_to 'Show', order
         %td= link_to 'Edit', edit_order_path(order)
         %td= link_to 'Destroy', order, :method => :delete, :data => { :confirm => 'Are you sure?' }
