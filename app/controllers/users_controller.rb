@@ -4,7 +4,7 @@ class UsersController < ApplicationController
 
   private
 
-  def document_params
+  def request_params
     params.require(:user).permit(:name, :email, :password, :password_confirmation, :admin)
   end
 end

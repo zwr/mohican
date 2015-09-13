@@ -3,7 +3,7 @@ class ProductsController < ApplicationController
 
   private
 
-  def document_params
+  def request_params
     params.require(:product).permit(:name, :ean)
   end
 end

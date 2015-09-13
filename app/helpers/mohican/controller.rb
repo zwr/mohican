@@ -83,7 +83,7 @@ module Mohican::Controller
   end
 
   def create
-    @document = model.new(document_params)
+    @document = model.new(request_params)
     @document.creator = current_user
     respond_to do |format|
       if @document.save
@@ -98,7 +98,7 @@ module Mohican::Controller
 
   def update
     respond_to do |format|
-      if @document.update(document_params)
+      if @document.update(request_params)
         format.html { redirect_to @document, notice: "#{doc_name} was successfully updated." }
         format.json { render json: @document.as_json }
       else
