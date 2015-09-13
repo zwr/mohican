@@ -18,6 +18,7 @@ end
 class Order
   include Mongoid::Document
   include Mongoid::Timestamps
+  include Mohican::Document
 
   field :order_number, type: Integer
   field :status, type: String
@@ -47,13 +48,6 @@ class Order
 
   before_create :remember_referenced_object_data
   before_save :remember_references
-
-  def as_json(options = nil)
-    j = super.as_json(options)
-    j[:_mnid] = id.to_s
-    j.reject! { |k, _v| k.to_s.starts_with? '__' }
-    j
-  end
 
   private
 

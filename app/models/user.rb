@@ -1,5 +1,7 @@
 class User
   include Mongoid::Document
+  include Mohican::Document
+
   # Include default devise modules. Others available are:
   # :confirmable, :lockable, :timeoutable and :omniauthable
   devise :database_authenticatable, :registerable,
@@ -50,10 +52,4 @@ class User
   field :telnum, type: String
   field :username, type: String
   field :date_of_birth, type: Date
-
-  def as_json(options = nil)
-    j = super.as_json(options)
-    j[:_mnid] = id.to_s
-    j
-  end
 end
