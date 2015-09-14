@@ -37,7 +37,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         ctrl.addNewHandler = function() {
           ctrl.refResourceController = {};
           var usersService = $injector.get('usersService');
-          mohican.extendResourceDriver(ctrl.refResourceController, usersService, $injector);
+          mohican.extendResourceDriver('users', ctrl.refResourceController, usersService, $injector);
           ctrl.popDialog('Select from users',
                                 'mohican/directives/mnf-reference-grid/ref-resource-dialog.html',
                                 { hideFooter: true }).
@@ -76,7 +76,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         ctrl.addNewProduct = function() {
           ctrl.refResourceController = {};
           var productsService = $injector.get('productsService');
-          mohican.extendResourceDriver(ctrl.refResourceController, productsService, $injector);
+          mohican.extendResourceDriver('products', ctrl.refResourceController, productsService, $injector);
           ctrl.popDialog('Select from products',
                                 'mohican/directives/mnf-reference-grid/ref-resource-dialog.html',
                                 { hideFooter: true }).
