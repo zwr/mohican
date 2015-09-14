@@ -106,6 +106,9 @@
               item._mnid = response.data._mnid;
               if(that.buffer) {
                 that.buffer.push(item);
+                if(that.totalCount) {
+                  that.totalCount++;
+                }
               }
               else {
                 that.buffer = [item];
