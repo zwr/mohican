@@ -18,7 +18,7 @@
       </button>
     </div>
   </div>
-  <div class="row"> 
+  <div class="row">
     <div class="col-xs-12 mn-content-panel">
       <span class="loader block" ng-if="!ctrl.itemForm" style="margin: 0px 0px 0px 8px;">Loading...</span>
       <div ng-if="ctrl.itemForm" class="container-fluid">
@@ -27,7 +27,7 @@
             <mnf-edit></mnf-edit>
             <mnf-commit on-commit-success="ctrl.commitSuccess(mnfDoc)"></mnf-commit>
             <mnf-rollback></mnf-rollback>
-            <mnf-delete></mnf-delete>
+            <mnf-delete on-delete-success="ctrl.deleteSuccess()"></mnf-delete>
           </div>
           <mnf-select mnf-field="delivery_tag"
                       mnf-label="Delivery tag:"

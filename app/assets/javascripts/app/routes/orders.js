@@ -1,5 +1,11 @@
 //= require_self
 
+angular.module('id5').filter('reverse', [function() {
+  return function(items) {
+    return items.slice().reverse();
+  };
+}]);
+
 angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   mnRouterProvider.addResouceRoute({
@@ -102,6 +108,11 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           });
         };
 
+        ctrl.deleteSuccess = function(mnfDoc) {
+          ctrl.mnNotify.create('Document has been deleted successfully', 'warning');
+          mnRouter.redirectTo(mnRouter.currentRouteIndex());
+        };
+
         ctrl.onItemSelect = function(selectedItems) {
           console.log(selectedItems);
         };
@@ -158,10 +169,10 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           $window.history.back();
         };
         ctrl.addDangerNotif = function() {
-          ctrl.mnNotify.create('new danger notification' + ctrl.mnNotify.get().length + 1, 'danger');
+          ctrl.mnNotify.create('new danger notification ' + (ctrl.mnNotify.get().length + 1), 'danger');
         };
         ctrl.addSuccessNotif = function() {
-          ctrl.mnNotify.create('new success notification' + ctrl.mnNotify.get().length + 1, 'success');
+          ctrl.mnNotify.create('new success notification ' + (ctrl.mnNotify.get().length + 1), 'success');
         };
       }
     ],
