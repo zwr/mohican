@@ -63,6 +63,7 @@
     item.commit = function() {
       var deffered = $q.defer();
       item._state = 'committing';
+
       for(var cfield in item) {
         if(!that.isMohicanField(cfield)) {
           if(angular.isArray(item[cfield])) {
@@ -71,10 +72,14 @@
               if(subDocs[i]._state === 'deleted') {
                 subDocs.splice(i, 1);
               }
+              else {
+                subDocs[i].commit();
+              }
             };
           }
         }
       }
+
       if(that.theCommitPromise) {
         return that.theCommitPromise.then(function() {
           item.commit();
@@ -101,6 +106,8 @@
                 item[field] = itemFromBackend[field];
               }
             }
+
+            that.prepareDocumentCrudOperations(item, dataFields, $http, $q, apiResource, layout);
 
             if(isNewDoc) {
               item._mnid = response.data._mnid;
@@ -295,9 +302,8 @@
         }
       }
       item._state = 'deleted';
-      if(item._state === 'editing') {
-        mnfDoc._state = 'changed';
-      }
+      mnfDoc._state = 'changed';
+
       mnfDoc['_' + collectionField + '_changed'] = true;
       return $q.when();
     };
