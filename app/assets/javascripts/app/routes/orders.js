@@ -5,10 +5,11 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   mnRouterProvider.addResouceRoute({
     name: 'orders',
 
-    controller: ['service', '$injector', 'mnRouter', '$window', '$location',
-      function(service, $injector, mnRouter, $window, $location) {
+    controller: ['service', '$injector', 'mnRouter', 'mnNotify', '$window', '$location',
+      function(service, $injector, mnRouter, mnNotify, $window, $location) {
         mohican.extendResourcePageController('orders', this, service, $injector);
         var ctrl = this;
+        ctrl.mnNotify = mnNotify;
         ctrl.reportLocation = '/reports';
         ctrl.attached = false;
         ctrl.printMe = function(item) {
@@ -155,6 +156,12 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         };
         ctrl.back = function() {
           $window.history.back();
+        };
+        ctrl.addDangerNotif = function() {
+          ctrl.mnNotify.create('new danger notification' + ctrl.mnNotify.get().length + 1, 'danger');
+        };
+        ctrl.addSuccessNotif = function() {
+          ctrl.mnNotify.create('new success notification' + ctrl.mnNotify.get().length + 1, 'success');
         };
       }
     ],

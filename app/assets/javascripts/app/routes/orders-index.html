@@ -5,8 +5,20 @@
     </div>
   </div>
   <div class="row">
-    <div class="col-xs-12">
+    <div class="col-xs-2">
       <a href="#/orders/new" class="btn btn-primary">New Order</a>
+    </div>
+    <div class="col-xs-10">
+      <script type="text/ng-template" id="myPopoverTemplate.html">
+        <alert ng-repeat="notif in ctrl.mnNotify.get()"
+               type="{{notif.type}}">{{notif.text}}</alert>
+      </script>
+      <button class="btn btn-primary" ng-click="ctrl.addSuccessNotif()">success</button>
+      <button class="btn btn-primary" ng-click="ctrl.addDangerNotif()">danger</button>
+      <button class="btn btn-primary"
+              popover-placement="bottom"
+              popover-title="Notifications"
+              popover-template="'myPopoverTemplate.html'">notifications ({{ctrl.mnNotify.get().length}})</button>
     </div>
   </div>
   <div class="mn-grid-layout-row row">
