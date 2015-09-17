@@ -174,6 +174,10 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         ctrl.addSuccessNotif = function() {
           ctrl.mnNotify.create('new success notification ' + (ctrl.mnNotify.get().length + 1), 'success');
         };
+
+        ctrl.fxn = function() {
+          alert('It works');
+        };
       }
     ],
 
