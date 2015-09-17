@@ -9,10 +9,6 @@
       <a href="#/orders/new" class="btn btn-primary">New Order</a>
     </div>
     <div class="col-xs-10">
-      <script type="text/ng-template" id="myPopoverTemplate.html">
-        <alert ng-repeat="notif in ctrl.mnNotify.get() | reverse"
-               type="{{notif.type}}">{{notif.message}}</alert>
-      </script>
       <button class="btn btn-success" ng-click="ctrl.addSuccessNotif()">success</button>
       <button class="btn btn-danger" ng-click="ctrl.addDangerNotif()">danger</button>
       <button class="btn btn-primary"
