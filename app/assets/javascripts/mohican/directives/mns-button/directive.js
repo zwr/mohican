@@ -5,7 +5,7 @@
 //of possible template's <script> ids collision
 
 angular.module('mohican')
-  .directive('mnsButton', ['$compile', function($compile) {
+  .directive('mnsButton', ['$compile', 'mnNotify', function($compile, mnNotify) {
       'use strict';
       return {
         restrict:    'A',
@@ -21,6 +21,24 @@ angular.module('mohican')
 
           return {
             post: function postLink(scope, elem, attrs, controller, transclusionFn) {
+              scope.mnNotify = mnNotify;
+
+              function removeAlertClasses() {
+                elem.removeClass('btn-success');
+                elem.removeClass('btn-info');
+                elem.removeClass('btn-warning');
+                elem.removeClass('btn-danger');
+              }
+
+              removeAlertClasses();
+
+              scope.$watchCollection(function() {
+                return mnNotify.get();
+              }, function(newValue) {
+                removeAlertClasses();
+                elem.addClass('btn-' + mnNotify.getMostCriticalMessageType());
+              });
+
               scope.showDefaultContent = true;
               transclusionFn(function(clone) {
                 if(clone.length > 0) {

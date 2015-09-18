@@ -9,8 +9,11 @@
       <a href="#/orders/new" class="btn btn-primary">New Order</a>
     </div>
     <div class="col-xs-10">
-      <button class="btn btn-success" ng-click="ctrl.addSuccessNotif()">success</button>
-      <button class="btn btn-danger" ng-click="ctrl.addDangerNotif()">danger</button>
+      <button class="btn btn-success" ng-click="ctrl.addNotif('success')">success</button>
+      <button class="btn btn-info" ng-click="ctrl.addNotif('info')">info</button>
+      <button class="btn btn-warning" ng-click="ctrl.addNotif('warning')">warning</button>
+      <button class="btn btn-danger" ng-click="ctrl.addNotif('danger')">danger</button>
+      <button class="btn btn-primary" ng-click="ctrl.mnNotify.clear()">clear</button>
       <button class="btn"
               mns-button></button>
     </div>

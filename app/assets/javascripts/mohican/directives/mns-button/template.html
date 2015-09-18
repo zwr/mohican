@@ -1,5 +1,5 @@
-<span ng-if="showDefaultContent">notifications ({{ctrl.mnNotify.get().length}})</span>
+<span ng-if="showDefaultContent">notifications ({{mnNotify.get().length}})</span>
 <script type="text/ng-template" id="mnPopoverTpl.html">
-  <alert ng-repeat="notif in ctrl.mnNotify.get() | reverse"
+  <alert ng-repeat="notif in mnNotify.get() | reverse"
          type="{{notif.type}}">{{notif.message}}</alert>
 </script>

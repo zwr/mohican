@@ -168,11 +168,8 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         ctrl.back = function() {
           $window.history.back();
         };
-        ctrl.addDangerNotif = function() {
-          ctrl.mnNotify.create('new danger notification ' + (ctrl.mnNotify.get().length + 1), 'danger');
-        };
-        ctrl.addSuccessNotif = function() {
-          ctrl.mnNotify.create('new success notification ' + (ctrl.mnNotify.get().length + 1), 'success');
+        ctrl.addNotif = function(type) {
+          ctrl.mnNotify.create('new ' + type + ' notification ' + (ctrl.mnNotify.get().length + 1), type, 'long description abot ' + type + ' notification');
         };
       }
     ],
