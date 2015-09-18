@@ -1,6 +1,9 @@
 //= require ./template
 //= require_self
 
+//TODO: there can be only one instance because
+//of possible template's <script> ids collision
+
 angular.module('mohican')
   .directive('mnsButton', ['$compile', function($compile) {
       'use strict';
