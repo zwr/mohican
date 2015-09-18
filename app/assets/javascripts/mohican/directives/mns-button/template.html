@@ -1,5 +1,3 @@
-<div ng-transclude>
-</div>
 <script type="text/ng-template" id="mnPopoverTpl.html">
   <alert ng-repeat="notif in ctrl.mnNotify.get() | reverse"
          type="{{notif.type}}">{{notif.message}}</alert>
