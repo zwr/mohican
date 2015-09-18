@@ -1,5 +1,13 @@
 <span ng-if="showDefaultContent">notifications ({{mnNotify.get().length}})</span>
 <script type="text/ng-template" id="mnPopoverTpl.html">
+  <div ng-if="mnNotify.get().length === 0">
+    There is no new notifications
+  </div>
   <alert ng-repeat="notif in mnNotify.get() | reverse"
-         type="{{notif.type}}">{{notif.message}}</alert>
+         type="{{notif.type}}">
+    <strong>{{notif.message}}</strong>
+    <div>
+      {{notif.details}}
+    </div>
+  </alert>
 </script>
