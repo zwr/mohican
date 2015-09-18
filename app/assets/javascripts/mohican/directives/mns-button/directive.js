@@ -21,8 +21,12 @@ angular.module('mohican')
 
           return {
             post: function postLink(scope, elem, attrs, controller, transclusionFn) {
+              scope.showDefaultContent = true;
               transclusionFn(function(clone) {
-                elem.append(clone);
+                if(clone.length > 0) {
+                  scope.showDefaultContent = false;
+                  elem.append(clone);
+                }
               });
               $compile(elem)(scope);
             }
