@@ -3,7 +3,8 @@
   <div ng-if="mnNotify.get().length === 0">
     There is no new notifications
   </div>
-  <alert ng-repeat="notif in mnNotify.get() | reverse"
+  <alert close="notif.clear()"
+         ng-repeat="notif in mnNotify.get() | reverse"
          type="{{notif.type}}">
     <strong>{{notif.message}}</strong>
     <div>

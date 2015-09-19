@@ -3,9 +3,9 @@
 
   angular
       .module('mohican')
-      .factory('mnNotify', [mnNotify]);
+      .factory('mnNotify', ['$q', mnNotify]);
 
-  function mnNotify() {
+  function mnNotify($q) {
     var service = {};
     service.notifications = [];
     service.create = function(message, type, details) {
@@ -13,18 +13,21 @@
         type:    type,
         message: message,
         buffer:  service.notifications,
-        details: details
+        details: details,
+        q:       $q.defer()
       });
       service.notifications.push(msg);
     };
     service.get = function() {
       return service.notifications;
     };
-    service.clear = function() {
-      service.notifications = [];
-      // for(var i = service.notifications.length - 1; i >= 0; i--) {
-      //   service.notifications.splice(i, 1);
-      // };
+    service.clearAll = function() {
+      //service.notifications = [];
+      for(var i = service.notifications.length - 1; i >= 0; i--) {
+        if(service.notifications.length) {
+          service.notifications[0].clear();
+        }
+      };
     };
     service.getMostCriticalMessageType = function() {
       var types = ['success', 'info', 'warning', 'danger'];
