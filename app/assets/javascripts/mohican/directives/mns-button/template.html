@@ -1,4 +1,9 @@
-<span ng-if="showDefaultContent">notifications ({{mnNotify.get().length}})</span>
+<span ng-if="showDefaultContent && mnNotify.get().length === 0">
+  No notifications
+</span>
+<span ng-if="showDefaultContent && mnNotify.get().length > 0">
+  notifications ({{mnNotify.get().length}})
+</span>
 <script type="text/ng-template" id="mnPopoverTpl.html">
   <div ng-if="mnNotify.get().length === 0">
     There is no new notifications
