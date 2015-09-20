@@ -1,15 +1,38 @@
 (function(mohican) {
   'use strict';
 
-  angular
-      .module('mohican')
-      .factory('mnNotify', ['$q', mnNotify]);
+  angular.module('mohican')
+         .factory('mnNotify', ['$q', mnNotify]);
+
+  var defaultParams = {
+    type:           undefined,
+    dismissable:    true,
+    delay:          false,
+    message:        undefined,
+    details:        undefined,
+    fullyClickable: false,
+    buffer:         []
+  };
+
+  var mnsMessage = {
+    create: function(options) {
+      var msg = _.assign({}, defaultParams, options);
+
+      msg.clear = function(reason) {
+        var index = this.buffer.indexOf(this);
+        this.buffer.splice(index, 1);
+        this.q.resolve(reason);
+      };
+
+      return msg;
+    }
+  };
 
   function mnNotify($q) {
     var service = {};
     service.notifications = [];
     service.create = function(message, type, details) {
-      var msg = mohican.mnsMessage.create({
+      var msg = mnsMessage.create({
         type:    type,
         message: message,
         buffer:  service.notifications,
@@ -22,7 +45,6 @@
       return service.notifications;
     };
     service.clearAll = function() {
-      //service.notifications = [];
       for(var i = service.notifications.length - 1; i >= 0; i--) {
         if(service.notifications.length) {
           service.notifications[0].clear();
