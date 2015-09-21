@@ -125,7 +125,8 @@
           if(!etarget.hasClass('popover-trigger-element') &&
              !(etarget.hasClass('popover-stay-opened') ||
                etarget.hasClass('popover-title') ||
-               etarget.hasClass('popover-content'))
+               etarget.hasClass('popover-content') ||
+               etarget.hasClass('notifications-holder'))
             ) {
             for(var i = 0; i < tlength; i++) {
               closeTrigger(trigger, i);
