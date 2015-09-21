@@ -145,6 +145,11 @@ a.navbar-brand {
   margin-bottom: $mn-filter-bar-btmPad;
 }
 
+.notifications-holder {
+  overflow-y: scroll;
+  height: 200px;
+}
+
 mnf-form, mnf-form-grid {
   .changed {
     background-color: yellow;
