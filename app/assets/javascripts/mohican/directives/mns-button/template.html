@@ -3,18 +3,18 @@ notifications ({{mnNotify.get().length}})
   <alert template-url="mnAlert.html"
          ng-repeat="notif in mnNotify.get() | reverse"
          type="{{notif.type}}">
-    <div class="alert alert-{{notif.type}} popoverStayOpened" role="alert">
+    <div class="alert alert-{{notif.type}} popover-stay-opened" role="alert">
       <button class="close"
-              ng-click="clearNotif(notif, $event)">
-        <span class="popoverStayOpened" aria-hidden="true">×</span>
+              ng-click="notif.clear();">
+        <span class="popover-stay-opened" aria-hidden="true">×</span>
       </button>
-      <strong class="popoverStayOpened">{{notif.message}}</strong>
-      <div class="popoverStayOpened">
+      <strong class="popover-stay-opened">{{notif.message}}</strong>
+      <div class="popover-stay-opened">
         {{notif.details}}
       </div>
     </div>
   </alert>
 </script>
 <script type="text/ng-template" id="mnAlert.html">
-  <div class="popoverStayOpened" ng-transclude></div>
+  <div class="popover-stay-opened" ng-transclude></div>
 </script>
