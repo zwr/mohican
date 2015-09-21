@@ -1,19 +1,20 @@
-<span ng-if="showDefaultContent && mnNotify.get().length === 0">
-  No notifications
-</span>
-<span ng-if="showDefaultContent && mnNotify.get().length > 0">
-  notifications ({{mnNotify.get().length}})
-</span>
+notifications ({{mnNotify.get().length}})
 <script type="text/ng-template" id="mnPopoverTpl.html">
-  <div ng-if="mnNotify.get().length === 0">
-    There is no new notifications
-  </div>
-  <alert close="notif.clear()"
+  <alert template-url="mnAlert.html"
          ng-repeat="notif in mnNotify.get() | reverse"
          type="{{notif.type}}">
-    <strong>{{notif.message}}</strong>
-    <div>
-      {{notif.details}}
+    <div class="alert alert-{{notif.type}} popoverStayOpened" role="alert">
+      <button class="close"
+              ng-click="clearNotif(notif, $event)">
+        <span class="popoverStayOpened" aria-hidden="true">×</span>
+      </button>
+      <strong class="popoverStayOpened">{{notif.message}}</strong>
+      <div class="popoverStayOpened">
+        {{notif.details}}
+      </div>
     </div>
   </alert>
+</script>
+<script type="text/ng-template" id="mnAlert.html">
+  <div class="popoverStayOpened" ng-transclude></div>
 </script>
