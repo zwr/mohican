@@ -15,28 +15,40 @@ angular.module('mohican')
           $scope.popoverOpened = false;
         }],
         compile: function compile(element, attrs) {
-          if(!element.attr('popover-placement')) {
-            element.attr('popover-placement', 'bottom');
-          }
-          if(!element.attr('popover-title')) {
-            element.attr('popover-title', 'Notifications');
-          }
-          if(!element.attr('popover-template')) {
-            element.attr('popover-template', '"mnPopoverTpl.html"');
-          }
-          if(!element.attr('popover-animation')) {
-            element.attr('popover-animation', 'false');
-          }
-          if(!element.attr('id')) {
-            element.attr('id', 'btnNotif');
-          }
-          if(!element.attr('popover-elem')) {
-            element.attr('popover-elem', 'true');
+          var attributesList = [
+            {
+              name:  'popover-placement',
+              value: 'bottom'
+            },
+            {
+              name:  'popover-title',
+              value: 'Notifications'
+            },
+            {
+              name:  'popover-template',
+              value: '"mnPopoverTpl.html"'
+            },
+            {
+              name:  'popover-animation',
+              value: 'false'
+            },
+            {
+              name:  'id',
+              value: 'btnNotif'
+            },
+            {
+              name:  'popover-elem',
+              value: 'true'
+            }
+          ];
+
+          for (var i = 0; i < attributesList.length; i++) {
+            if(!element.attr(attributesList[i].name)) {
+              element.attr(attributesList[i].name, attributesList[i].value);
+            }
           }
 
           element.removeAttr('mns-button');
-
-          element.addClass('hidden');
 
           return {
             post: function postLink(scope, elem, attrs, controller, transclusionFn) {
