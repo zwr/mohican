@@ -13,9 +13,15 @@ angular.module('mohican')
         templateUrl: 'mohican/directives/mns-button/template.html',
 
         compile: function compile(element, attrs) {
-          element.attr('popover-placement', 'bottom');
-          element.attr('popover-title', 'Notifications');
-          element.attr('popover-template', '"mnPopoverTpl.html"');
+          if(!element.attr('popover-placement')) {
+            element.attr('popover-placement', 'bottom');
+          }
+          if(!element.attr('popover-title', 'Notifications')) {
+            element.attr('popover-title', 'Notifications');
+          }
+          if(!element.attr('popover-template', '"mnPopoverTpl.html"')) {
+            element.attr('popover-template', '"mnPopoverTpl.html"');
+          }
 
           element.removeAttr('mns-button');
 
