@@ -14,10 +14,10 @@
       <button class="btn btn-warning" ng-click="ctrl.addNotif('warning')">warning</button>
       <button class="btn btn-warning" ng-click="ctrl.addNotif('warning', true)">fully clickable warning</button>
       <button class="btn btn-danger" ng-click="ctrl.addNotif('danger')">danger</button>
+      <button class="btn btn-danger" ng-click="ctrl.addNotif('danger', false, ['yes', 'no', 'cancel'])">danger [yes, no, cancel]</button>
       <button class="btn btn-primary" ng-click="ctrl.mnNotify.dismissAll()">clear</button>
       <button class="btn"
-              mns-button
-              popover-placement="right"></button>
+              mns-button></button>
     </div>
   </div>
   <div class="mn-grid-layout-row row">

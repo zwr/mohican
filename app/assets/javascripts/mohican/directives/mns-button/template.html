@@ -9,12 +9,19 @@
       <div class="alert alert-{{notif.type}} popover-stay-opened" role="alert">
         <button class="close"
                 ng-if="!notif.fullyClickable"
-                ng-click="notif.dismiss();">
+                ng-click="notif.dismiss('close button');">
           <span class="popover-stay-opened" aria-hidden="true">×</span>
         </button>
         <strong class="popover-stay-opened">{{notif.message}}</strong>
         <div class="popover-stay-opened">
           {{notif.details}}
+        </div>
+        <div class="btn-group"
+             role="group"
+             ng-if="notif.actions.length > 0">
+          <button class="btn btn-default popover-stay-opened"
+                  ng-repeat="action in notif.actions"
+                  ng-click="notif.dismiss(action)">{{action}}</button>
         </div>
       </div>
     </alert>

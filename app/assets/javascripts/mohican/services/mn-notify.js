@@ -11,7 +11,8 @@
     message:        undefined,
     details:        undefined,
     fullyClickable: false,
-    buffer:         []
+    buffer:         [],
+    actions:        []
   };
 
   var alertTypes = [
@@ -58,6 +59,7 @@
         buffer:  service.notifications,
         details: options.details,
         q:       deffered,
+        actions: options.actions,
 
         fullyClickable: options.fullyClickable
       });
