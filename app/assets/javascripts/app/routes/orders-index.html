@@ -12,8 +12,9 @@
       <button class="btn btn-success" ng-click="ctrl.addNotif('success')">success</button>
       <button class="btn btn-info" ng-click="ctrl.addNotif('info')">info</button>
       <button class="btn btn-warning" ng-click="ctrl.addNotif('warning')">warning</button>
+      <button class="btn btn-warning" ng-click="ctrl.addNotif('warning', true)">fully clickable warning</button>
       <button class="btn btn-danger" ng-click="ctrl.addNotif('danger')">danger</button>
-      <button class="btn btn-primary" ng-click="ctrl.mnNotify.clearAll()">clear</button>
+      <button class="btn btn-primary" ng-click="ctrl.mnNotify.dismissAll()">clear</button>
       <button class="btn"
               mns-button
               popover-placement="right"></button>

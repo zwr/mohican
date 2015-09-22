@@ -2,11 +2,14 @@
 <script type="text/ng-template" id="mnPopoverTpl.html">
   <div class="notifications-holder">
     <alert template-url="mnAlert.html"
+           ng-click="notif.fullClick()"
+           style="{{notif.fullyClickable ? 'pointer' : 'cursor: default'}}"
            ng-repeat="notif in mnNotify.get() | reverse"
            type="{{notif.type}}">
       <div class="alert alert-{{notif.type}} popover-stay-opened" role="alert">
         <button class="close"
-                ng-click="notif.clear();">
+                ng-if="!notif.fullyClickable"
+                ng-click="notif.dismiss();">
           <span class="popover-stay-opened" aria-hidden="true">×</span>
         </button>
         <strong class="popover-stay-opened">{{notif.message}}</strong>

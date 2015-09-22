@@ -31,10 +31,16 @@
       }
       var msg = _.assign({}, defaultParams, options);
 
-      msg.clear = function(reason) {
+      msg.dismiss = function(reason) {
         var index = this.buffer.indexOf(this);
         this.buffer.splice(index, 1);
         this.q.resolve(reason);
+      };
+
+      msg.fullClick = function() {
+        if(this.fullyClickable) {
+          this.dismiss('full click');
+        }
       };
 
       return msg;
@@ -44,15 +50,20 @@
   function mnNotify($q) {
     var service = {};
     service.notifications = [];
-    service.create = function(message, type, details) {
+    service.create = function(options) {
+      var deffered = $q.defer();
       var msg = mnsMessage.create({
-        type:    type,
-        message: message,
+        type:    options.type,
+        message: options.message,
         buffer:  service.notifications,
-        details: details,
-        q:       $q.defer()
+        details: options.details,
+        q:       deffered,
+
+        fullyClickable: options.fullyClickable
       });
       service.notifications.push(msg);
+
+      return deffered.promise;
     };
     service.get = function() {
       return service.notifications;
@@ -66,10 +77,10 @@
       });
       return count;
     };
-    service.clearAll = function() {
+    service.dismissAll = function() {
       for(var i = service.notifications.length - 1; i >= 0; i--) {
         if(service.notifications.length) {
-          service.notifications[0].clear();
+          service.notifications[0].dismiss('dismiss all');
         }
       };
     };

@@ -168,8 +168,14 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         ctrl.back = function() {
           $window.history.back();
         };
-        ctrl.addNotif = function(type) {
-          ctrl.mnNotify.create('new ' + type + ' notification ' + (ctrl.mnNotify.get().length + 1), type, 'long description abot ' + type + ' notification');
+        ctrl.addNotif = function(type, fullyClickable) {
+          ctrl.mnNotify.create({
+            message: 'new ' + type + ' notification ' + (ctrl.mnNotify.get().length + 1),
+            type:    type,
+            details: 'long description abot ' + type + ' notification',
+
+            fullyClickable: fullyClickable
+          });
         };
       }
     ],
