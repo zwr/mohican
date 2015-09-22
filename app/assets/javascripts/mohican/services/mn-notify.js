@@ -14,8 +14,21 @@
     buffer:         []
   };
 
+  var alertTypes = [
+    'success',
+    'info',
+    'warning',
+    'danger'
+  ];
+
   var mnsMessage = {
     create: function(options) {
+      if(!options.type) {
+        throw 'message type is required';
+      }
+      if(alertTypes.indexOf(options.type) === -1) {
+        throw 'unknown message type';
+      }
       var msg = _.assign({}, defaultParams, options);
 
       msg.clear = function(reason) {
@@ -43,6 +56,15 @@
     };
     service.get = function() {
       return service.notifications;
+    };
+    service.countByMessageType = function(type) {
+      var count = 0;
+      service.notifications.forEach(function(message) {
+        if(message.type === type) {
+          count++;
+        }
+      });
+      return count;
     };
     service.clearAll = function() {
       for(var i = service.notifications.length - 1; i >= 0; i--) {

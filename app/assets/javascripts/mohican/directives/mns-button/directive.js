@@ -34,11 +34,11 @@
     }
   ];
 
-  var alertClasses = [
-    'btn-success',
-    'btn-info',
-    'btn-warning',
-    'btn-danger'
+  var alertTypes = [
+    'success',
+    'info',
+    'warning',
+    'danger'
   ];
 
   angular.module('mohican')
@@ -62,8 +62,8 @@
                 scope.mnNotify = mnNotify;
 
                 function removeAlertClasses() {
-                  alertClasses.forEach(function(klass) {
-                    elem.removeClass(klass);
+                  alertTypes.forEach(function(type) {
+                    elem.removeClass('btn-' + type);
                   });
                 }
 
@@ -72,11 +72,25 @@
                 scope.$watchCollection(function() {
                   return mnNotify.get();
                 }, function(newValue) {
-                  if(newValue.length === 0) {
-                    element.addClass('hidden');
+                  if(newValue.length === 1) {
+                    scope.buttonCaption = newValue[0].message;
                   }
                   else {
-                    element.removeClass('hidden');
+                    var messageSummary = [];
+                    alertTypes.forEach(function(type) {
+                      var count = mnNotify.countByMessageType(type);
+                      if(count > 0) {
+                        messageSummary.push(type + '(s): ' + count);
+                      }
+                    });
+                    scope.buttonCaption = messageSummary.join(', ');
+                  }
+
+                  if(newValue.length === 0) {
+                    elem.addClass('hidden');
+                  }
+                  else {
+                    elem.removeClass('hidden');
                     removeAlertClasses();
                     elem.addClass('btn-' + mnNotify.getMostCriticalMessageType());
                   }
