@@ -1,38 +1,31 @@
 <div class="btn-toolbar">
-      <div isteven-multi-select ng-show="filterBar.owner.layouts.length > 1"
-           class="primary pull-left"
-           input-model="filterBar.owner.layouts"
-           on-item-click="filterBar.changeLayout(data.name)"
-           output-model="filterBar.outputBrowsers"
-           button-label="show"
-           item-label="name desc"
-           tick-property="selected"
-           selection-mode="single"
-           helper-elements="">
-      </div>
-      <div isteven-multi-select ng-show="filterBar.owner.backendFilters.length > 1"
-           class="primary pull-left"
-           input-model="filterBar.owner.backendFilters"
-           on-item-click="filterBar.changeBackendFilter(data.name)"
-           output-model="filterBar.outputBrowsers"
-           button-label="show"
-           item-label="name"
-           tick-property="selected"
-           selection-mode="single"
-           helper-elements="">
-      </div>
-      <button type="button"
-              class="btn {{filterBar.owner.stateMachine.quickFilterShown ? '' : 'btn-primary'}}"
-              ng-click="filterBar.owner.toggleQuickFilter()"
-              ng-disabled="!filterBar.owner.fullyLoaded">
-        <span class="pull-left">Quick Filter</span>
-        <span class="loader pull-left" ng-show="!filterBar.owner.fullyLoaded" style="margin: 0px 0px 0px 8px;"></span>
-      </button>
-      <div class="alert alert-warning"
-           role="alert"
-           ng-show="!filterBar.owner.fullyLoaded && filterBar.owner.clientViewLoadingNotification">
-        <strong>Warning!</strong> You will be shown filtered and sorted data when
-        fully loaded or you can clear requested fiter and sort parameters
-        <button ng-click="filterBar.owner.clearClientSortAndFilter()">here</button>
-      </div>
+  <div isteven-multi-select ng-show="filterBar.owner.layouts.length > 1"
+       class="primary pull-left"
+       input-model="filterBar.owner.layouts"
+       on-item-click="filterBar.changeLayout(data.name)"
+       output-model="filterBar.outputBrowsers"
+       button-label="show"
+       item-label="name desc"
+       tick-property="selected"
+       selection-mode="single"
+       helper-elements="">
+  </div>
+  <div isteven-multi-select ng-show="filterBar.owner.backendFilters.length > 1"
+       class="primary pull-left"
+       input-model="filterBar.owner.backendFilters"
+       on-item-click="filterBar.changeBackendFilter(data.name)"
+       output-model="filterBar.outputBrowsers"
+       button-label="show"
+       item-label="name"
+       tick-property="selected"
+       selection-mode="single"
+       helper-elements="">
+  </div>
+  <button type="button"
+          class="btn {{filterBar.owner.stateMachine.quickFilterShown ? '' : 'btn-primary'}}"
+          ng-click="filterBar.owner.toggleQuickFilter()"
+          ng-disabled="!filterBar.owner.fullyLoaded">
+    <span class="pull-left">Quick Filter</span>
+    <span class="loader pull-left" ng-show="!filterBar.owner.fullyLoaded" style="margin: 0px 0px 0px 8px;"></span>
+  </button>
 </div>

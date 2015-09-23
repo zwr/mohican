@@ -27,9 +27,11 @@
       clientViewLoadingNotification: undefined,
 
       initialize: function(service, $injector) {
+        var that = this;
         this.mnRouter = $injector.get('mnRouter');
         this.$q = $injector.get('$q');
         this.$http = $injector.get('$http');
+        this.mnNotify = $injector.get('mnNotify');
 
         mohican.redirectDefaultParameters(this.mnRouter);
         mohican.injectDefaultParameters(this.mnRouter);
@@ -40,6 +42,21 @@
               angular.isDefined(this.mnRouter.$stateParams.qf) ||
               angular.isDefined(this.mnRouter.$stateParams.filters)) {
           this.clientViewLoadingNotification = true;
+          this.mnNotify.create({
+            message: 'Filtered data eager loading...',
+            type:    'warning',
+            details: 'You will be shown filtered and sorted data when fully loaded or you can clear requested fiter and sort parameters',
+            actions: ['clear'],
+
+            dismissable: false,
+            getMessage:  function(message) {
+              that.eagerLoadingMessage = message;
+            }
+          }).then(function(action) {
+            if(action === 'clear') {
+              that.clearClientSortAndFilter();
+            }
+          });
         }
         else {
           this.clientViewLoadingNotification = false;
@@ -65,6 +82,9 @@
               // is ongoing.
               that.service.waitFullyLoaded().then(function() {
                 that.fullyLoaded = true;
+                if(that.eagerLoadingMessage) {
+                  that.eagerLoadingMessage.dismiss();
+                }
                 if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
                   that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$state.params.page) ? 1 : parseInt(that.mnRouter.$state.params.page));
 

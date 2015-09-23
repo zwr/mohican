@@ -175,6 +175,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             details: 'long description abot ' + type + ' notification',
             actions: actions,
 
+            dismissable:    !fullyClickable,
             fullyClickable: fullyClickable
           });
         };

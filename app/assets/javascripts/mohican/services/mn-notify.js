@@ -12,7 +12,8 @@
     details:        undefined,
     fullyClickable: false,
     buffer:         [],
-    actions:        []
+    actions:        [],
+    getMessage:     function() {}
   };
 
   var alertTypes = [
@@ -32,10 +33,16 @@
       }
       var msg = _.assign({}, defaultParams, options);
 
+      if(options.fullyClickable === true) {
+        msg.dismissable = false;
+      }
+
       msg.dismiss = function(reason) {
         var index = this.buffer.indexOf(this);
-        this.buffer.splice(index, 1);
-        this.q.resolve(reason);
+        if(index !== -1) {
+          this.buffer.splice(index, 1);
+          this.q.resolve(reason);
+        }
       };
 
       msg.fullClick = function() {
@@ -43,6 +50,10 @@
           this.dismiss('full click');
         }
       };
+
+      if(_.isFunction(options.getMessage)) {
+        options.getMessage(msg);
+      }
 
       return msg;
     }
@@ -61,6 +72,8 @@
         q:       deffered,
         actions: options.actions,
 
+        dismissable:    options.dismissable,
+        getMessage:     options.getMessage,
         fullyClickable: options.fullyClickable
       });
       service.notifications.push(msg);

@@ -1,6 +1,9 @@
 {{buttonCaption}}
 <script type="text/ng-template" id="mnPopoverTpl.html">
   <div class="notifications-holder">
+    <div ng-if="bufferLength === 0">
+      No messages
+    </div>
     <alert template-url="mnAlert.html"
            ng-click="notif.fullClick()"
            style="{{notif.fullyClickable ? 'pointer' : 'cursor: default'}}"
@@ -8,7 +11,7 @@
            type="{{notif.type}}">
       <div class="alert alert-{{notif.type}} popover-stay-opened" role="alert">
         <button class="close"
-                ng-if="!notif.fullyClickable"
+                ng-if="notif.dismissable"
                 ng-click="notif.dismiss('close button');">
           <span class="popover-stay-opened" aria-hidden="true">×</span>
         </button>
