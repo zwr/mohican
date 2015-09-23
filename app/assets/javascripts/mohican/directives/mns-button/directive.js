@@ -54,11 +54,13 @@
                 element.attr(attributesList[i].name, attributesList[i].value);
               }
             }
-
+            if(attrs.mnsButton !== '') {
+              element.attr('style', element.attr('style') + ';width: 200px');
+            }
             element.removeAttr('mns-button');
 
             return {
-              post: function postLink(scope, elem, attrs, controller, transclusionFn) {
+              post: function postLink(scope, elem, linkAttrs, controller, transclusionFn) {
                 scope.mnNotify = mnNotify;
 
                 function removeAlertClasses() {
@@ -84,6 +86,10 @@
                       }
                     });
                     scope.buttonCaption = messageSummary.join(', ');
+                    if(linkAttrs.mnsButton !== '' &&
+                       scope.buttonCaption.length > 30) {
+                         scope.buttonCaption = 'messages: ' + newValue.length;
+                    }
                   }
 
                   if(newValue.length === 0) {
