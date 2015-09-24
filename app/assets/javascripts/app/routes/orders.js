@@ -168,15 +168,18 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         ctrl.back = function() {
           $window.history.back();
         };
-        ctrl.addNotif = function(type, fullyClickable, actions) {
+        ctrl.addNotif = function(type, fullyClickable, actions, delay) {
           ctrl.mnNotify.create({
             message: 'new ' + type + ' notification ' + (ctrl.mnNotify.get().length + 1),
             type:    type,
             details: 'long description abot ' + type + ' notification',
             actions: actions,
+            delay:   delay,
 
             dismissable:    !fullyClickable,
             fullyClickable: fullyClickable
+          }).then(function(result) {
+            console.log(result);
           });
         };
         ctrl.addModalNotif = function() {

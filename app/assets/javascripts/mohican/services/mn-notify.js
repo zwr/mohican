@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('mohican')
-         .factory('mnNotify', ['$q', '$modal', mnNotify]);
+         .factory('mnNotify', ['$q', '$modal', '$timeout', mnNotify]);
 
   var defaultParams = {
     type:           undefined,
@@ -59,7 +59,7 @@
     }
   };
 
-  function mnNotify($q, $modal) {
+  function mnNotify($q, $modal, $timeout) {
     var service = {};
     service.notifications = [];
     service.message = function(message, type, actions) {
@@ -136,6 +136,13 @@
         getMessage:     options.getMessage,
         fullyClickable: options.fullyClickable
       });
+
+      if(options.delay) {
+        $timeout(function() {
+          msg.dismiss(options.delay);
+        }, options.delay * 1000);
+      }
+
       service.notifications.push(msg);
 
       return deffered.promise;
