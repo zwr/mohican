@@ -2,7 +2,7 @@
   'use strict';
 
   angular.module('mohican')
-         .factory('mnNotify', ['$q', mnNotify]);
+         .factory('mnNotify', ['$q', '$modal', mnNotify]);
 
   var defaultParams = {
     type:           undefined,
@@ -59,9 +59,69 @@
     }
   };
 
-  function mnNotify($q) {
+  function mnNotify($q, $modal) {
     var service = {};
     service.notifications = [];
+    service.message = function(message, type, actions) {
+      var deffered = $q.defer();
+      var options = {};
+      options.ctrl = {
+        message: message,
+        type:    type,
+        actions: actions ? actions : []
+      };
+      var modalInstance = $modal.open({
+        animation: true,
+
+        template: '<div class="modal-header">                                   \
+          <button type="button" class="close"                                   \
+                  data-dismiss="modal" ng-if="!options.hideHeaderX"             \
+                  ng-click="resolveAction()">&times;</button>                   \
+          <h3 class="modal-title">{{mnDialogActiveTitle}}</h3>                  \
+        </div>                                                                  \
+        <div class="modal-body" modal-fit-in-window>                            \
+          <div class="alert alert-{{ctrl.type}}">{{ctrl.message}}</div>         \
+        </div>                                                                  \
+        <div class="modal-footer" ng-if="!options.hideFooter">                  \
+          <button ng-repeat="action in options.ctrl.actions"                         \
+                  class="btn btn-primary"                                       \
+                  ng-click="resolveAction(action)">{{action}}</button>          \
+        </div>',
+
+        controller: ['$scope', '$modalInstance', function($scope, $modalInstance) {
+          $scope.resolveAction = function(result) {
+            $modalInstance.close(result);
+          };
+          switch (type) {
+            case 'success':
+              $scope.mnDialogActiveTitle = 'Success';
+              break;
+            case 'info':
+              $scope.mnDialogActiveTitle = 'Info';
+              break;
+            case 'warning':
+              $scope.mnDialogActiveTitle = 'Warning!';
+              break;
+            case 'danger':
+              $scope.mnDialogActiveTitle = 'Attention!';
+              break;
+            default:
+
+          }
+          $scope.ctrl = options.ctrl;
+          $scope.options = options;
+        }],
+
+        backdrop: options.backdrop || 'static',
+
+        size: options.dialogSize || 'lg'
+      });
+
+      modalInstance.result.then(function(result) {
+        deffered.resolve(result);
+      });
+      return deffered.promise;
+    };
     service.create = function(options) {
       var deffered = $q.defer();
       var msg = mnsMessage.create({

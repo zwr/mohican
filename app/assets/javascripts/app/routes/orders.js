@@ -179,6 +179,12 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
             fullyClickable: fullyClickable
           });
         };
+        ctrl.addModalNotif = function() {
+          ctrl.mnNotify.message('Do you want to save this change before continuing?', 'danger', ['yes', 'no', 'cancel'])
+                       .then(function(result) {
+                          console.log('User has chosen button with text ' + result);
+                        });
+        };
       }
     ],
 
