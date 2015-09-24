@@ -138,9 +138,18 @@
       });
 
       if(options.delay) {
+        var delayMiliseconds;
+        if(options.delay === true ||
+           options.delay === -1 ||
+           !_.isNumber(options.delay)) {
+          delayMiliseconds = 2000;//default value
+        }
+        else {
+          delayMiliseconds = options.delay * 1000;
+        }
         $timeout(function() {
-          msg.dismiss(options.delay);
-        }, options.delay * 1000);
+          msg.dismiss(delayMiliseconds);
+        }, delayMiliseconds);
       }
 
       service.notifications.push(msg);
