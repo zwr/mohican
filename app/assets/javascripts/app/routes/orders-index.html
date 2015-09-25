@@ -10,13 +10,37 @@
     </div>
     <div class="col-xs-10">
       <button class="btn btn-danger" ng-click="ctrl.addModalNotif()">danger modal</button>
-      <button class="btn btn-success" ng-click="ctrl.addNotif('success')">success</button>
-      <button class="btn btn-info" ng-click="ctrl.addNotif('info')">info</button>
-      <button class="btn btn-warning" ng-click="ctrl.addNotif('warning')">warning</button>
-      <button class="btn btn-success" ng-click="ctrl.addNotif('success', false, [], -1)">success self dissmis</button>
-      <button class="btn btn-warning" ng-click="ctrl.addNotif('warning', true)">fully clickable warning</button>
-      <button class="btn btn-danger" ng-click="ctrl.addNotif('danger')">danger</button>
-      <button class="btn btn-danger" ng-click="ctrl.addNotif('danger', false, ['yes', 'no', 'cancel'])">danger [yes, no, cancel]</button>
+      <button class="btn btn-success" ng-click="ctrl.mnNotify.create({
+        type: 'success',
+        message: 'success message',
+        details: 'long description about success notification'
+      }).then(ctrl.logFromTemplate)">success</button>
+      <button class="btn btn-info" ng-click="ctrl.mnNotify.create({
+        type: 'info',
+        message: 'info message',
+        details: 'long description about info notification'
+      }).then(ctrl.logFromTemplate)">info</button>
+      <button class="btn btn-warning" ng-click="ctrl.mnNotify.create({
+        type: 'warning',
+        message: 'warning message',
+        details: 'long description about warning notification'
+      }).then(ctrl.logFromTemplate)">warning</button>
+      <button class="btn btn-success" ng-click="ctrl.mnNotify.create({
+        type: 'success',
+        message: 'self dissmised success',
+        delay: -1
+      }).then(ctrl.logFromTemplate)">success self dissmis</button>
+      <button class="btn btn-warning" ng-click="ctrl.mnNotify.create({
+        type: 'warning',
+        message: 'fully clickable warning',
+        fullyClickable: true
+      }).then(ctrl.logFromTemplate)">fully clickable warning</button>
+      <button class="btn btn-danger" ng-click="ctrl.mnNotify.create({
+        type: 'danger',
+        message: 'are you sure?',
+        details: 'click you answer',
+        actions: ['yes', 'no', 'cancel']
+      }).then(ctrl.logFromTemplate)">danger [yes, no, cancel]</button>
       <button class="btn btn-primary" ng-click="ctrl.mnNotify.dismissAll()">clear</button>
     </div>
   </div>
