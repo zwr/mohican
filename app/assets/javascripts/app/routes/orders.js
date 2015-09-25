@@ -109,7 +109,10 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         };
 
         ctrl.deleteSuccess = function(mnfDoc) {
-          ctrl.mnNotify.create('Document has been deleted successfully', 'warning');
+          ctrl.mnNotify.create({
+            message: 'Document has been deleted successfully',
+            type:    'warning'
+          });
           mnRouter.redirectTo(mnRouter.currentRouteIndex());
         };
 

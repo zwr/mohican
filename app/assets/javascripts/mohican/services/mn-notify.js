@@ -31,7 +31,12 @@
       if(alertTypes.indexOf(options.type) === -1) {
         throw 'unknown message type';
       }
-      var msg = _.assign({}, defaultParams, options);
+      var msg = _.assign({}, defaultParams);
+      for(var prop in options) {
+        if(angular.isDefined(options[prop])) {
+          msg[prop] = options[prop];
+        }
+      }
 
       if(options.fullyClickable === true) {
         msg.dismissable = false;
