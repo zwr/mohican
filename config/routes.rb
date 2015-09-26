@@ -1,5 +1,8 @@
 Rails.application.routes.draw do
   get 'ping', to: 'ping#index'
+  devise_scope :user do
+    get 'logout', to: 'devise/sessions#destroy'
+  end
 
   devise_for :users
   scope '/admin' do
