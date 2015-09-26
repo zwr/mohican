@@ -44,6 +44,21 @@ a.navbar-brand {
   background:$mn-brand-bg;
 }
 
+.mns-navbar {
+  @media (max-width: $grid-float-breakpoint-max) {
+    width: 100% !important;
+    margin-bottom: 6px;
+  }
+  @media (min-width: $grid-float-breakpoint) {
+    margin-top: 8px;
+  }
+}
+
+.mns-button {
+  overflow: hidden;
+}
+
+
 /////////////////////////////////////////
 //
 // All the CSS for the grid (not footer, but yes qf bar)
@@ -146,10 +161,6 @@ a.navbar-brand {
 .notifications-holder {
   // overflow-y: scroll;
   // height: 500px;
-}
-
-.mns-button {
-  overflow: hidden;
 }
 
 mnf-form, mnf-form-grid {
