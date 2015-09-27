@@ -7,12 +7,12 @@
   .row.demo-feature
     .col-xs-10
       %button.btn.btn-danger(ng-click='ctrl.addModalNotif()') danger modal
-      %button.btn.btn-success(ng-click="ctrl.mnNotify.create({ type: 'success', message: 'success message', details: 'long description about success notification' }).promise.then(ctrl.logFromTemplate)") success
-      %button.btn.btn-info(ng-click="ctrl.mnNotify.create({ type: 'info', message: 'info message', details: 'long description about info notification' }).promise.then(ctrl.logFromTemplate)") info
-      %button.btn.btn-warning(ng-click="ctrl.mnNotify.create({ type: 'warning', message: 'warning message', details: 'long description about warning notification' }).promise.then(ctrl.logFromTemplate)") warning
-      %button.btn.btn-success(ng-click="ctrl.mnNotify.create({ type: 'success', message: 'self dissmised success', delay: -1 }).promise.then(ctrl.logFromTemplate)") success self dissmis
-      %button.btn.btn-warning(ng-click="ctrl.mnNotify.create({ type: 'warning', message: 'fully clickable warning', fullyClickable: true }).promise.then(ctrl.logFromTemplate)") fully clickable warning
-      %button.btn.btn-danger(ng-click="ctrl.mnNotify.create({ type: 'danger', message: 'are you sure?', details: 'click you answer', actions: ['yes', 'no', 'cancel'] }).promise.then(ctrl.logFromTemplate)") danger [yes, no, cancel]
+      %button.btn.btn-success(ng-click="ctrl.mnNotify.success({ message: 'success message', details: 'long description about success notification' }).promise.then(ctrl.logFromTemplate)") success
+      %button.btn.btn-info(ng-click="ctrl.mnNotify.info({ message: 'info message', details: 'long description about info notification' }).promise.then(ctrl.logFromTemplate)") info
+      %button.btn.btn-warning(ng-click="ctrl.mnNotify.warning({ message: 'warning message', details: 'long description about warning notification' }).promise.then(ctrl.logFromTemplate)") warning
+      %button.btn.btn-success(ng-click="ctrl.mnNotify.success({ message: 'self dissmised success', delay: -1 }).promise.then(ctrl.logFromTemplate)") success self dissmis
+      %button.btn.btn-warning(ng-click="ctrl.mnNotify.warning({ message: 'fully clickable warning', fullyClickable: true }).promise.then(ctrl.logFromTemplate)") fully clickable warning
+      %button.btn.btn-danger(ng-click="ctrl.mnNotify.danger({ message: 'are you sure?', details: 'click you answer', actions: ['yes', 'no', 'cancel'] }).promise.then(ctrl.logFromTemplate)") danger [yes, no, cancel]
       %button.btn.btn-primary(ng-click='ctrl.mnNotify.dismissAll()') clear
   .mn-grid-layout-row.row
     .col-xs-12(style='position: static;')

@@ -127,6 +127,22 @@
       });
       return deffered.promise;
     };
+    service.success = function(options) {
+      options.type = 'success';
+      return service.create(options);
+    };
+    service.info = function(options) {
+      options.type = 'info';
+      return service.create(options);
+    };
+    service.warning = function(options) {
+      options.type = 'warning';
+      return service.create(options);
+    };
+    service.danger = function(options) {
+      options.type = 'danger';
+      return service.create(options);
+    };
     service.create = function(options) {
       var deffered = $q.defer();
       var msg = mnsMessage.create({

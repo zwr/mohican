@@ -42,9 +42,8 @@
               angular.isDefined(this.mnRouter.$stateParams.qf) ||
               angular.isDefined(this.mnRouter.$stateParams.filters)) {
           this.clientViewLoadingNotification = true;
-          var notif = this.mnNotify.create({
+          var notif = this.mnNotify.warning({
             message: 'Filtered data eager loading...',
-            type:    'warning',
             details: 'You will be shown filtered and sorted data when fully loaded or you can clear requested fiter and sort parameters',
             actions: ['clear'],
 
