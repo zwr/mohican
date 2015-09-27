@@ -159,7 +159,10 @@
 
       service.notifications.push(msg);
 
-      return deffered.promise;
+      return {
+        promise: deffered.promise,
+        message: msg
+      };
     };
     service.get = function() {
       return service.notifications;

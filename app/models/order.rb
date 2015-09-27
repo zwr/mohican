@@ -30,7 +30,7 @@ class Order
   include_into_json :cell_name, label: :cell
 
   def cell_name
-    cell.name
+    # cell.name
   end
 
   def cell
