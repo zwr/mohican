@@ -78,17 +78,17 @@
       var modalInstance = $modal.open({
         animation: true,
 
-        template: '<div class="modal-header">                                   \
+        template: '<div class="modal-header bg-{{ctrl.type}}">                  \
           <button type="button" class="close"                                   \
                   data-dismiss="modal" ng-if="!options.hideHeaderX"             \
                   ng-click="resolveAction()">&times;</button>                   \
           <h3 class="modal-title">{{mnDialogActiveTitle}}</h3>                  \
         </div>                                                                  \
-        <div class="modal-body" modal-fit-in-window>                            \
-          <div class="alert alert-{{ctrl.type}}">{{ctrl.message}}</div>         \
+        <div class="modal-body bg-{{ctrl.type}}" modal-fit-in-window>           \
+          {{ctrl.message}}                                                      \
         </div>                                                                  \
-        <div class="modal-footer" ng-if="!options.hideFooter">                  \
-          <button ng-repeat="action in options.ctrl.actions"                         \
+        <div class="modal-footer bg-{{ctrl.type}}" ng-if="!options.hideFooter"> \
+          <button ng-repeat="action in options.ctrl.actions"                    \
                   class="btn btn-primary"                                       \
                   ng-click="resolveAction(action)">{{action}}</button>          \
         </div>',
