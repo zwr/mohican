@@ -1,0 +1,46 @@
+%nav.navbar.navbar-static-top.navbar-inverse.container-fluid(role='navigation')
+  / Brand and toggle get grouped for better mobile display
+  .navbar-header
+    %button.navbar-toggle(ng-click='navCollapsed = !navCollapsed' ng-init='navCollapsed = true' type='button')
+      %span.sr-only Toggle navigation
+      %span.icon-bar
+      %span.icon-bar
+      %span.icon-bar
+    %a.navbar-brand(href='/#/begin')
+  %button.navbar-right.mns-navbar.btn(mns-button='30' style='width: 200px;')
+  / Collect the nav links, forms, and other content for toggling
+  .collapse.navbar-collapse(collapse='navCollapsed')
+    %ul.nav.navbar-nav
+      %li.dropdown(dropdown='')
+        %a.dropdown-toggle(data-toggle='dropdown' dropdown-toggle='' href='#')
+          Main Menu
+          %b.caret
+        %ul.dropdown-menu(role='menu')
+          %li
+            %a(href='#/users') Users
+          %li
+            %a(href='#/products') Products
+          %li
+            %a(href='#/orders') Orders
+      %li
+        %a(href='#/production') Production Dashboard
+    %form.navbar-form.navbar-left.demo-feature(role='search')
+      .form-group
+        %input.form-control(placeholder='Search' type='text')
+      %button.btn.btn-default(type='submit') Submit
+    %ul.nav.navbar-nav.navbar-right.demo-feature
+      %li
+        %a(href='#') Right
+      %li.dropdown(dropdown='')
+        %a.dropdown-toggle(data-toggle='dropdown' dropdown-toggle='' href='#')
+          Right drop
+          %b.caret
+        %ul.dropdown-menu(role='menu')
+          %li
+            %a(href='#') Right drop 1
+          %li
+            %a(href='#') Right drop 2
+          %li
+            %a(href='#') Right drop 3
+          %li
+            %a(href='#') Right drop4

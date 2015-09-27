@@ -1,0 +1,31 @@
+.container-fluid
+  .row
+    .col-xs-10
+      %mn-filter-bar
+    .col-xs-2
+      %a.btn.btn-primary(href='#/orders/new') New Order
+  .row.demo-feature
+    .col-xs-10
+      %button.btn.btn-danger(ng-click='ctrl.addModalNotif()') danger modal
+      %button.btn.btn-success(ng-click="ctrl.mnNotify.create({ type: 'success', message: 'success message', details: 'long description about success notification' }).then(ctrl.logFromTemplate)") success
+      %button.btn.btn-info(ng-click="ctrl.mnNotify.create({ type: 'info', message: 'info message', details: 'long description about info notification' }).then(ctrl.logFromTemplate)") info
+      %button.btn.btn-warning(ng-click="ctrl.mnNotify.create({ type: 'warning', message: 'warning message', details: 'long description about warning notification' }).then(ctrl.logFromTemplate)") warning
+      %button.btn.btn-success(ng-click="ctrl.mnNotify.create({ type: 'success', message: 'self dissmised success', delay: -1 }).then(ctrl.logFromTemplate)") success self dissmis
+      %button.btn.btn-warning(ng-click="ctrl.mnNotify.create({ type: 'warning', message: 'fully clickable warning', fullyClickable: true }).then(ctrl.logFromTemplate)") fully clickable warning
+      %button.btn.btn-danger(ng-click="ctrl.mnNotify.create({ type: 'danger', message: 'are you sure?', details: 'click you answer', actions: ['yes', 'no', 'cancel'] }).then(ctrl.logFromTemplate)") danger [yes, no, cancel]
+      %button.btn.btn-primary(ng-click='ctrl.mnNotify.dismissAll()') clear
+  .mn-grid-layout-row.row
+    .col-xs-12(style='position: static;')
+      %mnf-form-grid
+        %mn-grid(mn-actions-width='140px'
+                 mn-fast-preview='row'
+                 mn-grid-fill-height='true'
+                 mn-on-select='ctrl.onItemSelect(selectedItems)'
+                 mn-popup='ctrl.popup(clickedItem, selectedItems)'
+                 mn-select='multiple'
+                 mn-select-type='check')
+          %mnf-preview-grid.hidden-xs(mnf-doc='item' route='orders')
+          %mnf-edit-grid.hidden-xs(mnf-doc='item')
+          %mnf-commit-grid.hidden-xs(mnf-doc='item')
+          %mnf-rollback-grid.hidden-xs(mnf-doc='item')
+          %mnf-delete-grid.hidden-xs(mn-on-delete='ctrl.loadMnGridItems()' mnf-doc='item')
