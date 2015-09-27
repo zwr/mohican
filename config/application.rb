@@ -29,3 +29,5 @@ module Id5
     config.i18n.fallbacks = { 'fi' => 'en' }
   end
 end
+
+Moped.logger.level = 1

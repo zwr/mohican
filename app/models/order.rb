@@ -25,7 +25,25 @@ class Order
   field :total, type: Integer
   field :delivery_date, type: Date
   field :actual_delivery_date, type: Date
-  field :cell, type: String
+  field :cell_id, type: BSON::ObjectId
+
+  include_into_json :cell_name, label: :cell
+
+  def cell_name
+    cell.name
+  end
+
+  def cell
+    ProductionLine.cells.select { |c| c.id == cell_id }[0]
+  end
+
+  def cell=(cell)
+    self.cell_id = cell.id
+  end
+
+  def production_cell
+    ProductionLine.cells.select { |c| c.id == cell_id }[0]
+  end
 
   # Status field must be exactly one of the STATUS values
   STATUS = [:created, :avoinna, :valmis, :deferred, :tuotannossa, :delivered]

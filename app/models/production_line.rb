@@ -1,31 +1,48 @@
+class ProductionCell
+  include Mongoid::Document
+  field :name, type: String
+  embedded_in :production_line
+end
+
 class ProductionLine
-  def self.all
-    {
+  include Mongoid::Document
+
+  field :name, type: String
+  embeds_many :production_cells
+
+  def self.seed
+    lines = {
       'Line 1': ['Sahaus', 'Oksien poisto', 'Höyläys', 'Maalaus'],
       'Line 2': %w(Kuorinta Särmäys Rajaus Lajittelu),
       'Line 3': ['Heino Sahaus', 'Pintaan valmistelu', 'Kuivaus', 'Pakkaus']
     }
+    ProductionLine.delete_all
+    lines.each do |name, cells|
+      p = ProductionLine.new name: name
+      cells.each { |c| p.production_cells.new name: c }
+      p.save!
+    end
   end
 
   def self.lines_order_status
     this_week = Date.today.prev_week..(Date.today.next_week - 1.day)
-    all.map do |line, cell_list|
+    all.map do |line|
       {
-        name: line,
-        cells: cell_list.map do |cell_name|
+        name: line.name,
+        cells: line.production_cells.map do |cell|
           {
-            name: cell_name,
+            name: cell.name,
             today: {
-              kaikki: Order.where(cell: cell_name, delivery_date: Date.today).count,
-              avoinna: Order.where(cell: cell_name, delivery_date: Date.today, status: :avoinna).count,
-              valmis: Order.where(cell: cell_name, delivery_date: Date.today, status: :valmis).count,
-              tuotannossa: Order.where(cell: cell_name, delivery_date: Date.today, status: :tuotannossa).count
+              kaikki: Order.where(cell_id: cell.id, delivery_date: Date.today).count,
+              avoinna: Order.where(cell_id: cell.id, delivery_date: Date.today, status: :avoinna).count,
+              valmis: Order.where(cell_id: cell.id, delivery_date: Date.today, status: :valmis).count,
+              tuotannossa: Order.where(cell_id: cell.id, delivery_date: Date.today, status: :tuotannossa).count
             },
             week: {
-              kaikki: Order.where(cell: cell_name, delivery_date: this_week).count,
-              avoinna: Order.where(cell: cell_name, delivery_date: this_week, status: :avoinna).count,
-              valmis: Order.where(cell: cell_name, delivery_date: this_week, status: :valmis).count,
-              tuotannossa: Order.where(cell: cell_name, delivery_date: this_week, status: :tuotannossa).count
+              kaikki: Order.where(cell_id: cell.id, delivery_date: this_week).count,
+              avoinna: Order.where(cell_id: cell.id, delivery_date: this_week, status: :avoinna).count,
+              valmis: Order.where(cell_id: cell.id, delivery_date: this_week, status: :valmis).count,
+              tuotannossa: Order.where(cell_id: cell.id, delivery_date: this_week, status: :tuotannossa).count
             }
           }
         end
@@ -38,6 +55,6 @@ class ProductionLine
   end
 
   def self.cells
-    lines.values.flatten
+    ProductionLine.all.map(&:production_cells).flatten
   end
 end

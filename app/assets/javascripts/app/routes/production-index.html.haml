@@ -27,15 +27,19 @@
         .col-lg-12(ng-repeat="line in lines")
           .panel.panel-primary
             .panel-heading
-              %h3.panel-title {{line.name}}
+              %h3.panel-title
+                %span {{line.name}}
+                %span.pull-right.glyphicon.glyphicon-edit(ng-click='ctrl.editLine(line)')
             .panel-body
               .row
                 .col-md-3.col-sm-6(ng-repeat="cell in line.cells")
-                  .panel.panel-default.production-cell(ng-click='showStats(cell.name)')
+                  .panel.panel-default.production-cell
                     .panel-heading.cell-title
-                      .pull-left.cell-img
-                      %h3.panel-title {{cell.name}}
-                    .panel-body.production-report
+                      .pull-left.cell-img(ng-click='showStats(cell.name)')
+                      %h3.panel-title
+                        %span(ng-click='showStats(cell.name)') {{cell.name}}
+                        %span.pull-right.glyphicon.glyphicon-edit(ng-click='ctrl.editCell(line, cell)')
+                    .panel-body.production-report(ng-click='showStats(cell.name)')
                       %table.table
                         %tr
                           %th Tilaukset
