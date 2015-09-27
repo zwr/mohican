@@ -2,7 +2,7 @@
   'use strict';
 
   mohican.extendResourceDriver = function(resourceName, ctrl, service, $injector) {
-    _.assign(ctrl, mohican.createBaseDriver($injector));
+    mohican.extendBaseDriver(ctrl, $injector);
     _.assign(ctrl, mohican.createResourceDriver());
     ctrl.resourceName = resourceName;
 

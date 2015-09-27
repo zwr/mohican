@@ -5,12 +5,12 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
     controller: ['$scope', '$location', '$interval', '$injector', 'productionLinesService', 'mnDataPreloader',
       function($scope, $location, $interval, $injector, productionLinesService, mnDataPreloader) {
         var ctrl = this;
-        ctrl.driver = mohican.createBaseDriver($injector);
+        mohican.extendBaseDriver(ctrl, $injector);
         ctrl.editLine = function(line) {
-          ctrl.driver.popDialog('Rename line ' + line.name, 'app/routes/production_update_line_dialog.html', { line: line, hideFooter: true });
+          ctrl.popDialog('Rename line ' + line.name, 'app/routes/production_update_line_dialog.html', { line: line, hideFooter: true });
         };
         ctrl.editCell = function(line, cell) {
-          ctrl.driver.popDialog('Rename cell ' + cell.name, 'app/routes/production_update_cell_dialog.html', { line: line, cell: cell, hideFooter: true });
+          ctrl.popDialog('Rename cell ' + cell.name, 'app/routes/production_update_cell_dialog.html', { line: line, cell: cell, hideFooter: true });
         };
         $scope.reload = function() {
           productionLinesService.getProductionLines()

@@ -2,7 +2,7 @@
   'use strict';
 
   mohican.extendResourcePageController = function(resourceName, ctrl, service, $injector) {
-    _.assign(ctrl, mohican.createBaseDriver($injector));
+    mohican.extendBaseDriver(ctrl, $injector);
     _.assign(ctrl, mohican.createResourcePageController());
     ctrl.resourceName = resourceName;
     ctrl.initialize(service, $injector);

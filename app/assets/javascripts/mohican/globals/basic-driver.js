@@ -2,7 +2,7 @@
   'use strict';
 
   mohican.extendBasicDriver = function(ctrl, $injector, collectionName, fields) {
-    _.assign(ctrl, mohican.createBaseDriver($injector));
+    mohican.extendBaseDriver(ctrl, $injector);
 
     ctrl.collectionName = collectionName;
     ctrl.fields = [];

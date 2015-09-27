@@ -1,8 +1,8 @@
 (function(mohican) {
   'use strict';
 
-  mohican.createBaseDriver = function($injector) {
-    return {
+  mohican.extendBaseDriver = function(ctrl, $injector) {
+    _.assign(ctrl, {
       modal: $injector.get('$modal'),
 
       $q: $injector.get('$q'),
@@ -69,6 +69,6 @@
 
         return modalInstance.result;
       }
-    };
+    });
   };
 }(window.mohican));
