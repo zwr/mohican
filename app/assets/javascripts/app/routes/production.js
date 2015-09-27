@@ -8,10 +8,10 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         ctrl.driver = mohican.createBaseDriver($injector);
         ctrl.editLine = function(line) {
           ctrl.driver.popDialog('Rename line ' + line.name, 'app/routes/production_update_line_dialog.html', { line: line, hideFooter: true });
-        }
+        };
         ctrl.editCell = function(line, cell) {
           ctrl.driver.popDialog('Rename cell ' + cell.name, 'app/routes/production_update_cell_dialog.html', { line: line, cell: cell, hideFooter: true });
-        }
+        };
         $scope.reload = function() {
           productionLinesService.getProductionLines()
           .then(function (data) {

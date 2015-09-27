@@ -365,7 +365,8 @@
       },
 
       createSubDocsBasicDriver: function($injector, collectionName, fields) {
-        var basicDrv = mohican.createBasicDriver($injector, collectionName, fields);
+        var basicDrv = {};
+        mohican.extendBasicDriver(basicDrv, $injector, collectionName, fields);
         _.assign(basicDrv, mohican.mixins.dataFieldsMixin);
 
         this.onCurrentItemChanged.push(function(newCurrentItem) {

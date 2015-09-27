@@ -1,19 +1,16 @@
 (function(mohican) {
   'use strict';
 
-  mohican.createBasicDriver = function($injector, collectionName, fields) {
-    var basicDriver = {};
-    _.assign(basicDriver, mohican.createBaseDriver($injector));
+  mohican.extendBasicDriver = function(ctrl, $injector, collectionName, fields) {
+    _.assign(ctrl, mohican.createBaseDriver($injector));
 
-    basicDriver.collectionName = collectionName;
-    basicDriver.fields = [];
+    ctrl.collectionName = collectionName;
+    ctrl.fields = [];
 
     fields.forEach(function(field) {
-      basicDriver.fields.push(
+      ctrl.fields.push(
         _.cloneDeep(field)
       );
     });
-
-    return basicDriver;
   };
 }(window.mohican));
