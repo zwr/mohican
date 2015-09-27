@@ -7,10 +7,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         var ctrl = this;
         mohican.extendBaseDriver(ctrl, $injector);
         ctrl.editLine = function(line) {
-          ctrl.popDialog('Rename line ' + line.name, 'app/routes/production_update_line_dialog.html', { line: line, hideFooter: true });
-        };
-        ctrl.editCell = function(line, cell) {
-          ctrl.popDialog('Rename cell ' + cell.name, 'app/routes/production_update_cell_dialog.html', { line: line, cell: cell, hideFooter: true });
+          $location.path('/lines/' + line.id.$oid);
         };
         $scope.reload = function() {
           productionLinesService.getProductionLines()
@@ -50,7 +47,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   return {
     getProductionLines: function() {
-      return $http.get('/api/production_lines/stats.json')
+      return $http.get('/api/lines/stats.json')
       .then(function (response) {
         return response.data;
       });

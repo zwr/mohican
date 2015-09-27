@@ -1,0 +1,17 @@
+.container-fluid
+  .row
+    .col-xs-10
+      %mn-filter-bar
+    -# .col-xs-2
+      %a.btn.btn-primary(href='#/orders/new') New Order
+  .mn-grid-layout-row.row
+    .col-xs-12(style='position: static;')
+      %mnf-form-grid
+        %mn-grid(mn-actions-width='140px'
+                 mn-fast-preview='row'
+                 mn-grid-fill-height='true'
+                 mn-on-select='ctrl.onItemSelect(selectedItems)'
+                 mn-popup='ctrl.popup(clickedItem, selectedItems)'
+                 mn-select='multiple'
+                 mn-select-type='check')
+          %mnf-preview-grid.hidden-xs(mnf-doc='item' route='lines')

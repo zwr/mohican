@@ -1,0 +1,15 @@
+.container-fluid
+  .row
+    .col-xs-12.mn-content-panel
+      %span.loader.block(ng-if="!ctrl.itemForm" style="margin: 0px 0px 0px 8px;") Loading...
+      .container-fluid(ng-if="ctrl.itemForm")
+        %mnf-form(mnf-doc="ctrl.itemForm")
+          .col-xs-12.mn-buttons-group
+            %mnf-edit
+            %mnf-commit
+            %mnf-rollback
+            %mnf-delete
+          %mnf-text(mnf-field="name" mnf-label="Name:")
+          %mnf-form-grid(mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed' || ctrl.itemForm._state === 'added'" mnf-subdocumets-grid="true")
+            %mn-grid(owner="ctrl.cellsDrv")
+              %mnf-delete-grid(mnf-doc="item")

@@ -6,6 +6,7 @@ end
 
 class ProductionLine
   include Mongoid::Document
+  include Mohican::Document
 
   field :name, type: String
   embeds_many :production_cells
@@ -28,6 +29,7 @@ class ProductionLine
     this_week = Date.today.prev_week..(Date.today.next_week - 1.day)
     all.map do |line|
       {
+        id: line.id,
         name: line.name,
         cells: line.production_cells.map do |cell|
           {
@@ -48,6 +50,14 @@ class ProductionLine
         end
       }
     end
+  end
+
+  def update(params)
+    self.name = params[:name] if params[:name]
+    params[:production_cells].each do |cell_params|
+      production_cells.find(cell_params[:_id][:$oid]).name = cell_params[:name]
+    end if params[:production_cells]
+    save
   end
 
   def self.lines

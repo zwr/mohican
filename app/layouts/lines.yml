@@ -1,0 +1,14 @@
+---
+layout:
+  doctype: 'line'
+  primaryKeyName: '_mnid'
+  layouts:
+  - name: 'default'
+    definition:
+    - name: :name
+      header: :name
+      width: 420
+      quicksort: true
+      quickfilter: :text
+      view: :text
+filter: []

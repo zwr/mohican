@@ -60,7 +60,7 @@ module Mohican::Controller
   def layout
     respond_to do |format|
       format.json do
-        render json: YAML.load(File.read(Rails.root.join('app', 'layouts', "#{resource_name.downcase}.yml")))
+        render json: YAML.load(File.read(Rails.root.join('app', 'layouts', "#{resource_name.underscore}.yml")))
       end
     end
   end

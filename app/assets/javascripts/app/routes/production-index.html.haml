@@ -33,13 +33,12 @@
             .panel-body
               .row
                 .col-md-3.col-sm-6(ng-repeat="cell in line.cells")
-                  .panel.panel-default.production-cell
+                  .panel.panel-default.production-cell(ng-click='showStats(cell.name)')
                     .panel-heading.cell-title
-                      .pull-left.cell-img(ng-click='showStats(cell.name)')
+                      .pull-left.cell-img
                       %h3.panel-title
-                        %span(ng-click='showStats(cell.name)') {{cell.name}}
-                        %span.pull-right.glyphicon.glyphicon-edit(ng-click='ctrl.editCell(line, cell)')
-                    .panel-body.production-report(ng-click='showStats(cell.name)')
+                        {{cell.name}}
+                    .panel-body.production-report
                       %table.table
                         %tr
                           %th Tilaukset

@@ -13,8 +13,10 @@ Rails.application.routes.draw do
   end
 
   scope '/api' do
-    get 'production_lines', to: 'production_lines#index'
-    get 'production_lines/stats', to: 'production_lines#stats'
+    resources :lines, as: 'lines', defaults: { format: 'json' } do
+      get 'layout', on: :collection
+      get 'stats', on: :collection
+    end
     resources :orders, defaults: { format: 'json' } do
       get 'layout', on: :collection
     end

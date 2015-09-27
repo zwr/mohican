@@ -1,0 +1,39 @@
+.container-fluid
+  .row(style="margin-bottom: 12px")
+    .col-xs-12.mn-content-panel.pd-order-actions
+      %button.btn.btn-default(ng-click="ctrl.dashboard()")
+        Back to Dashboard
+      %button.btn.btn-default(ng-click="ctrl.back()")
+        Back to Order List
+      %button.btn.btn-primary(ng-click="ctrl.startProcessingOrder()" ng-if="ctrl.itemForm.status == 'avoinna'")
+        Start Processing order
+      %button.btn.btn-primary(ng-click="ctrl.stopProcessingOrder()" ng-if="ctrl.itemForm.status == 'tuotannossa'")
+        Stop Processing order
+      %button.btn.btn-primary(ng-click="ctrl.startProcessingOrder()" ng-if="ctrl.itemForm.status == 'valmis'")
+        Redo The Order
+  .row
+    .col-xs-12.mn-content-panel
+      %span.loader.block(ng-if="!ctrl.itemForm" style="margin: 0px 0px 0px 8px;") Loading...
+      .container-fluid(ng-if="ctrl.itemForm")
+        %mnf-form(mnf-doc="ctrl.itemForm")
+          .col-xs-12.mn-buttons-group.hidden-xs
+            %mnf-edit
+            %mnf-commit(on-commit-success="ctrl.commitSuccess(mnfDoc)")
+            %mnf-rollback
+            %mnf-delete(on-delete-success="ctrl.deleteSuccess()")
+          %mnf-select(allowed-values="['standard', 'urgent', 'insured', 'fragile',\n                                       'flammable', 'tax_free', 'export', 'import',\n                                       'secret', 'poison', 'large', 'heavy']" mnf-field="delivery_tag" mnf-label="Delivery tag:")
+          %mnf-select(allowed-values="['avoinna', 'valmis',\n                                       'tuotannossa']" mnf-field="status" mnf-label="Status:" mnf-select-type="single")
+          %mnf-date(mnf-field="actual_delivery_date" mnf-label="Delivered on:")
+          %mnf-date(mnf-field="created_at" mnf-label="Created at:" read-only="true")
+          %mnf-reference(mnf-field="creator_name" mnf-field-source="['name', 'gender']" mnf-label="Creator:" mnf-ref-id="creator_ref" mnf-ref-resource="users" read-only="true")
+          %mnf-text(mnf-field="order_number" mnf-label="Order number:")
+          %mnf-text(mnf-field="total" mnf-label="Total:" read-only="true")
+          %mn-tabs
+            %mn-tab(add-new-item="ctrl.addNewHandler()" heading="Handlers" mn-content-changed="ctrl.itemForm['_order_handlers_changed']" mn-show-add-item-button="ctrl.itemForm._state !== 'ready'")
+              %mnf-form-grid(mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed' || ctrl.itemForm._state === 'added'" mnf-subdocumets-grid="true")
+                %mn-grid(owner="ctrl.handlersDrv")
+                  %mnf-delete-grid(mnf-doc="item")
+            %mn-tab(add-new-item="ctrl.addNewProduct()" heading="Products" mn-content-changed="ctrl.itemForm['_order_items_changed']" mn-show-add-item-button="ctrl.itemForm._state !== 'ready'")
+              %mnf-form-grid(mnf-crud-shown="ctrl.itemForm._state === 'editing' || ctrl.itemForm._state === 'changed' || ctrl.itemForm._state === 'added'" mnf-subdocumets-grid="true")
+                %mn-grid(owner="ctrl.productsDrv")
+                  %mnf-delete-grid(mnf-doc="item")
