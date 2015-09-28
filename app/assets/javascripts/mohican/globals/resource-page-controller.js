@@ -24,8 +24,6 @@
 
       onCurrentItemChanged: undefined,
 
-      clientViewLoadingNotification: undefined,
-
       initialize: function(service, $injector) {
         var that = this;
         this.mnRouter = $injector.get('mnRouter');
@@ -41,23 +39,32 @@
         if(angular.isDefined(this.mnRouter.$stateParams.column) ||
               angular.isDefined(this.mnRouter.$stateParams.qf) ||
               angular.isDefined(this.mnRouter.$stateParams.filters)) {
-          this.clientViewLoadingNotification = true;
-          var notif = this.mnNotify.warning({
-            message: 'Filtered data eager loading...',
-            details: 'You will be shown filtered and sorted data when fully loaded or you can clear requested fiter and sort parameters',
-            actions: ['clear'],
+          if(!that.eagerLoadingMessage && that.mnRouter.currentRouteName() === that.resourceName) {
+            var notif = this.mnNotify.warning({
+              message: 'Filtered data eager loading...',
+              details: 'You will be shown filtered and sorted data when fully loaded or you can clear requested fiter and sort parameters',
+              actions: ['clear'],
 
-            dismissable: false
-          });
-          that.eagerLoadingMessage = notif.message;
-          notif.promise.then(function(action) {
-            if(action === 'clear') {
-              that.clearClientSortAndFilter();
-            }
-          });
+              dismissable: false
+            });
+            that.eagerLoadingMessage = notif.message;
+            notif.promise.then(function(action) {
+              if(action === 'clear') {
+                that.clearClientSortAndFilter();
+              }
+            });
+          }
         }
         else {
-          this.clientViewLoadingNotification = false;
+          if(!that.eagerLoadingMessage && that.mnRouter.currentRouteName() === that.resourceName) {
+            var notif = this.mnNotify.info({
+              message: 'Eager data loading...',
+              details: 'You will be able to see all data after eager loading finish',
+
+              dismissable: false
+            });
+            that.eagerLoadingMessage = notif.message;
+          }
         }
         this.fullyLoaded = false;
         this.layouts = [];
@@ -82,6 +89,11 @@
                 that.fullyLoaded = true;
                 if(that.eagerLoadingMessage) {
                   that.eagerLoadingMessage.dismiss();
+                  that.eagerLoadingMessage = undefined;
+                  that.mnNotify.success({
+                    message: 'Eager data has been loaded',
+                    delay:   -1
+                  });
                 }
                 if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
                   that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$state.params.page) ? 1 : parseInt(that.mnRouter.$state.params.page));

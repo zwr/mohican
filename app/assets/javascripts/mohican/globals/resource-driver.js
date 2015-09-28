@@ -27,8 +27,6 @@
       primaryKeyName: undefined,
       itemForm:       undefined,
 
-      clientViewLoadingNotification: undefined,
-
       initialize: function(service) {
         this.fullyLoaded = false;
         this.layouts = [];
