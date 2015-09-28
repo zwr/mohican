@@ -50,6 +50,9 @@
             }
           }
         };
+        var lcsuccess = $rootScope.$on('$locationChangeSuccess', function (event, next, current) {
+          $window.scrollTo(0,0);
+        });
         var lcs = $rootScope.$on('$locationChangeStart', function (event, next, current) {
           if(provider.transitionToValidarionAllreadyDone === false) {
             var nextWithNoParams = next.split('?')[0];
