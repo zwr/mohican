@@ -361,7 +361,8 @@
             }
             var dataField = service.getDataField(dataFields, key);
             if(dataField && dataField.quickfilter === 'date-range') {
-              filtered = filtered && (value >= filter.startDate && value <= filter.endDate);
+              var dateValue = moment(value);
+              filtered = filtered && (dateValue >= filter.startDate && dateValue <= filter.endDate);
             }
             else if(dataField && dataField.quickfilter === 'select') {
               if(filter.length === 0) {
