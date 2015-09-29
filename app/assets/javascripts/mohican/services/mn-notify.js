@@ -253,7 +253,8 @@
             </div>\
             <button type="submit" class="btn btn-default">Sign in</button>\
           </form>\
-        </div>'
+        </div>',
+        backdrop: 'static'
       });
 
       service.reportModalInstance.result.then(function() {
@@ -271,7 +272,8 @@
         </div>                                                                  \
         <div class="modal-body bg-danger" modal-fit-in-window>                  \
           connectivity problem                                                  \
-        </div>'
+        </div>',
+        backdrop: 'static'
       });
 
       service.reportModalInstance.result.then(function() {
