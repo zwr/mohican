@@ -211,6 +211,32 @@
       });
       return mostCrType;
     };
+    service.clear = function() {
+      if(service.reportModalInstance) {
+        service.reportModalInstance.close();
+        service.reportModalInstance = undefined;
+      }
+    };
+    service.report = function(status) {
+      if(!service.reportModalInstance) {
+        service.reportModalDeffered = $q.defer();
+        service.reportModalInstance = $modal.open({
+          animation: true,
+
+          template: '<div class="modal-header bg-danger">                         \
+            <h3 class="modal-title">Attention!</h3>                               \
+          </div>                                                                  \
+          <div class="modal-body bg-danger" modal-fit-in-window>                  \
+            connectivity problem                                                  \
+          </div>'
+        });
+
+        service.reportModalInstance.result.then(function() {
+          service.reportModalDeffered.resolve();
+        });
+      }
+      return service.reportModalDeffered.promise;
+    };
 
     return service;
   }

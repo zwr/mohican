@@ -67,9 +67,10 @@
                 constant: $provide.constant
             };
     }
-  ]).run(['mnRouter', function(mnRouter) {
+  ]).run(['mnRouter', 'mnPing', function(mnRouter, mnPing) {
     //in app run phase when we have all dependencies available for injecting
     //router can creates all previously added resource routes
     mnRouter.createAll();
+    mnPing.start();
   }]);
 })();
