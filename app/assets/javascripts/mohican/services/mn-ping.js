@@ -11,7 +11,6 @@
       $interval(function() {
         $http.get('/ping.json').
               then(function (response) {
-                console.log(response);
                 if(response.status === 200) {
                   mnNotify.clear();
                 }
