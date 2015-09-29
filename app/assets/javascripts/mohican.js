@@ -23,26 +23,6 @@
 (function() {
   'use strict';
 
-  var interceptor = ['$q', function($q) {
-    return {
-      response: function(response) {
-            if (response.status === 401) {
-              window.location.replace(window.MN_LOGIN);
-              return null;
-            }
-            return response || $q.when(response);
-        },
-      responseError: function(rejection) {
-        // do something on error
-        if (rejection.status === 401) {
-          window.location.replace(window.MN_LOGIN);
-          return null;
-        }
-        return $q.reject(rejection);
-      }
-    };
-  }];
-
   angular.module('mohican', [
     'ngAnimate',
     'ui.bootstrap',
@@ -50,10 +30,8 @@
     'ui.router',
     'isteven-multi-select',
     'daterangepicker'
-  ]).config(['$httpProvider', '$provide', 'mnRouterProvider', '$urlRouterProvider', '$stateProvider',
-    function($httpProvider, $provide, mnRouter, $urlRouterProvider, $stateProvider) {
-      $httpProvider.interceptors.push(interceptor);
-
+  ]).config(['$provide', 'mnRouterProvider', '$urlRouterProvider', '$stateProvider',
+    function($provide, mnRouter, $urlRouterProvider, $stateProvider) {
       //mnRouter needs references to state and route providers only available
       //from config phase
       mnRouter.init($urlRouterProvider, $stateProvider);

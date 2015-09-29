@@ -217,26 +217,67 @@
         service.reportModalInstance = undefined;
       }
     };
-    service.report = function(status) {
-      if(!service.reportModalInstance) {
-        service.reportModalDeffered = $q.defer();
-        service.reportModalInstance = $modal.open({
-          animation: true,
-
-          template: '<div class="modal-header bg-danger">                         \
-            <h3 class="modal-title">Attention!</h3>                               \
-          </div>                                                                  \
-          <div class="modal-body bg-danger" modal-fit-in-window>                  \
-            connectivity problem                                                  \
-          </div>'
-        });
-
-        service.reportModalInstance.result.then(function() {
-          service.reportModalDeffered.resolve();
-        });
+    service.report = function(code) {
+      if(service.reportModalInstance) {
+        //TODO handle reports priority if there is one already shown
       }
+      else {
+        if(code === 401) {
+          reportAuthProblem();
+        }
+        else {
+          reportConnectivityProblem(code);
+        }
+      }
+
       return service.reportModalDeffered.promise;
     };
+    function reportAuthProblem() {
+      service.reportModalCode = 401;
+      service.reportModalDeffered = $q.defer();
+      service.reportModalInstance = $modal.open({
+        animation: true,
+
+        template: '<div class="modal-header bg-danger">\
+          <h3 class="modal-title">Please Sign In</h3>\
+        </div>\
+        <div class="modal-body bg-danger" modal-fit-in-window>\
+          <form>\
+            <div class="form-group">\
+              <label for="username">Username</label>\
+              <input type="text" class="form-control" id="username" placeholder="username">\
+            </div>\
+            <div class="form-group">\
+              <label for="password">Password</label>\
+              <input type="password" class="form-control" id="password" placeholder="password">\
+            </div>\
+            <button type="submit" class="btn btn-default">Sign in</button>\
+          </form>\
+        </div>'
+      });
+
+      service.reportModalInstance.result.then(function() {
+        service.reportModalDeffered.resolve();
+      });
+    }
+    function reportConnectivityProblem(code) {
+      service.reportModalCode = code;
+      service.reportModalDeffered = $q.defer();
+      service.reportModalInstance = $modal.open({
+        animation: true,
+
+        template: '<div class="modal-header bg-danger">                         \
+          <h3 class="modal-title">Attention!</h3>                               \
+        </div>                                                                  \
+        <div class="modal-body bg-danger" modal-fit-in-window>                  \
+          connectivity problem                                                  \
+        </div>'
+      });
+
+      service.reportModalInstance.result.then(function() {
+        service.reportModalDeffered.resolve();
+      });
+    }
 
     return service;
   }
