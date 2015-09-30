@@ -15,11 +15,15 @@
                   mnNotify.clear();
                 }
                 else {
-                  mnNotify.report(response.status);
+                  mnNotify.report(response.status).then(function() {
+                    console.log('ping resolve success');
+                  });
                 }
               }).
               catch(function(error) {
-                mnNotify.report(error.status);
+                mnNotify.report(error.status).then(function() {
+                  console.log('ping resolve error');
+                });
               });
       }, 1000);
     };

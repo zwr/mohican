@@ -215,10 +215,12 @@
       if(service.reportModalInstance) {
         service.reportModalInstance.close();
         service.reportModalInstance = undefined;
+        service.reportModalDeffered.resolve();
       }
     };
     service.report = function(code) {
       if(service.reportModalInstance) {
+        console.log('modal already exist');
         //TODO handle reports priority if there is one already shown
       }
       else {

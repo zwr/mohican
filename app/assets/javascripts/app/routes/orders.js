@@ -183,8 +183,8 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
       }
     ],
 
-    service: ['$http', '$q', function ($http, $q) {
-      var service = mohican.constructBaseService('orders', $http, $q);
+    service: ['$http', '$q', 'mnNotify', function ($http, $q, mnNotify) {
+      var service = mohican.constructBaseService('orders', $http, $q, mnNotify);
       // do a lot of stuff
       return service;
     }]

@@ -1,10 +1,11 @@
 (function(mohican) {
   'use strict';
 
-  mohican.constructBaseService = function(apiResource, $http, $q) {
+  mohican.constructBaseService = function(apiResource, $http, $q, mnNotify) {
     var service = {};
     _.assign(service, mohican.mixins.dataFieldsMixin);
     _.assign(service, mohican.mixins.crudMixin);
+    service.mnNotify = mnNotify;
     mohican.extendBaseService(service, apiResource, $http, $q);
     return service;
   };
@@ -138,6 +139,14 @@
               /* loading has been restarted, possibly backend filter changed */
               return null;
             }
+          })
+          .catch(function(errorCode) {
+            console.log('error fetchEagerly');
+            var promise = service.mnNotify.report(errorCode.status);
+            promise.then(function() {
+              console.log('fetchEagerly');
+              service.thePromise = service.fetchEagerly(startIndex, dataFields, backendFilter);
+            });
           });
         return service.thePromise;
       }
@@ -194,6 +203,12 @@
               }
               service._continueEagerly(dataFields, backendFilter);
             }
+          })
+          .catch(function(errorCode) {
+            var promise = service.mnNotify.report(errorCode.status);
+            promise.then(function() {
+              service.thePromise = service._continueEagerly(dataFields, backendFilter);
+            });
           });
       }
     };
