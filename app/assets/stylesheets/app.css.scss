@@ -2,7 +2,7 @@
 *= require_self
 */
 
-$grid-float-breakpoint: 700px;
+$grid-float-breakpoint: 750px;
 $jumbotron-padding: 10px;
 
 
@@ -11,6 +11,31 @@ $screen-md-min: 1100px;
 $screen-lg-min: 1500px;
 
 @import "mohican/mohican";
+
+.menu-bar-trigger-1 {
+  @media (min-width: $grid-float-breakpoint) {
+    display: none;
+  }
+  padding-bottom: 0px;
+  margin-bottom: 0px;
+  margin-top: 8px;
+  span {
+    font-size: 32px;
+    margin-right: 64px;
+  }
+}
+
+.menu-bar-trigger-2 {
+  @media (max-width: $grid-float-breakpoint-max) {
+    display: none;
+  }
+  span {
+    font-size: 32px;
+    margin-right: 12px;
+    margin-top: 8px;
+    margin-left: 16px;
+  }
+}
 
 // Following line is a fix to Bootstrap, which is likely to be included in the nxt release
 .container-fluid .jumbotron {
