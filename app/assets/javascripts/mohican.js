@@ -11,6 +11,7 @@
 //= require ./mohican/lib/daterangepicker
 //= require ./mohican/lib/angular-daterangepicker
 //= require ./mohican/lib/angular-multi-select
+//= require ./mohican/lib/angular-devise
 
 //= require_tree ./mohican/templates
 //= require ./mohican/globals/base.globals
@@ -29,7 +30,8 @@
     'templates',
     'ui.router',
     'isteven-multi-select',
-    'daterangepicker'
+    'daterangepicker',
+    'Devise'
   ]).config(['$provide', 'mnRouterProvider', '$urlRouterProvider', '$stateProvider',
     function($provide, mnRouter, $urlRouterProvider, $stateProvider) {
       //mnRouter needs references to state and route providers only available

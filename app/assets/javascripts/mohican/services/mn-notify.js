@@ -244,16 +244,31 @@
         <div class="modal-body bg-danger" modal-fit-in-window>\
           <form>\
             <div class="form-group">\
-              <label for="username">Username</label>\
-              <input type="text" class="form-control" id="username" placeholder="username">\
+              <label for="email">Email</label>\
+              <input type="text" ng-model="email" class="form-control" id="email" placeholder="email">\
             </div>\
             <div class="form-group">\
               <label for="password">Password</label>\
-              <input type="password" class="form-control" id="password" placeholder="password">\
+              <input type="password" ng-model="password" class="form-control" id="password" placeholder="password">\
             </div>\
-            <button type="submit" class="btn btn-default">Sign in</button>\
+            <button ng-click="signIn()" class="btn btn-default">Sign in</button>\
           </form>\
         </div>',
+        controller: ['$scope', 'Auth', function($scope, Auth) {
+          $scope.signIn = function() {
+            console.log('sign in user', $scope.email, $scope.password);
+
+            Auth.login({
+              email:    $scope.email,
+              password: $scope.password
+            }).then(function(user) {
+              console.log(user);
+              // service.reportModalDeffered.resolve();
+            }, function(error) {
+              console.log(error);
+            });
+          };
+        }],
         backdrop: 'static'
       });
 
