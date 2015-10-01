@@ -3,6 +3,7 @@
 //= require angular
 //= require angular-animate
 //= require angular-rails-templates
+//= require angular-devise
 
 //= require ./mohican/lib/lodash
 //= require ./mohican/lib/angular-ui-router
@@ -11,7 +12,6 @@
 //= require ./mohican/lib/daterangepicker
 //= require ./mohican/lib/angular-daterangepicker
 //= require ./mohican/lib/angular-multi-select
-//= require ./mohican/lib/angular-devise
 
 //= require_tree ./mohican/templates
 //= require ./mohican/globals/base.globals

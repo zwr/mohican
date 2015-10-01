@@ -54,6 +54,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'tzinfo', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'devise'
 
+source 'https://rails-assets.org' do
+  gem 'rails-assets-angular-devise'
+end
+
 gem 'rest-client'
 gem 'pry-rails', group: :development
 
