@@ -1,5 +1,5 @@
 angular.module('mohican')
-  .directive('mnQr', ['$window', function($window) {
+  .directive('mnQr', ['$window', '$location', function($window, $location) {
       'use strict';
       return {
         restrict: 'E',
@@ -12,7 +12,9 @@ angular.module('mohican')
           catch(err) {
             scope.chromeOnAndroid = false;
           }
-          scope.mnQfHref = 'http://zxing.appspot.com/scan?ret=http%3A%2F%2Fdemo.mohican.zwr.fi%2F%23%2Fproducts%2F%7BCODE%7D%2Fdescription&SCAN_FORMATS=QR';
+          var retUrl = 'http://' + $location.host();
+          if($location.port() && $location.port() !== '80') { retUrl = retUrl + ':' + $location.port(); }
+          scope.mnQfHref = 'http://zxing.appspot.com/scan?ret=' + encodeURIComponent(retUrl + '/#/barcode/{CODE}') + '&SCAN_FORMATS=QR';
         }
       };
     }
