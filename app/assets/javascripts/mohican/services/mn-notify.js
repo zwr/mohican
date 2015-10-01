@@ -227,9 +227,6 @@
         if(code === 401) {
           reportAuthProblem();
         }
-        else {
-          reportConnectivityProblem(code);
-        }
       }
 
       return service.reportModalDeffered.promise;
@@ -246,6 +243,9 @@
         <div class="modal-body bg-danger" modal-fit-in-window>\
           <form>\
             <div class="form-group">\
+              <div ng-show="errorMessage">{{errorMessage}}</div>\
+            </div>\
+            <div class="form-group">\
               <label for="email">Email</label>\
               <input type="text" ng-model="email" class="form-control" id="email" placeholder="email">\
             </div>\
@@ -258,39 +258,24 @@
         </div>',
         controller: ['$scope', 'Auth', function($scope, Auth) {
           $scope.signIn = function() {
-            console.log('sign in user', $scope.email, $scope.password);
-
             Auth.login({
               email:    $scope.email,
               password: $scope.password
             }).then(function(user) {
-              console.log(user);
-              // service.reportModalDeffered.resolve();
+              service.reportModalDeffered.resolve();
             }, function(error) {
-              console.log(error);
+              if(error.data) {
+                $scope.errorMessage = error.data.error;
+              }
+              else {
+                $scope.errorMessage = 'no connectivity';
+              }
+              $scope.password = '';
             });
           };
         }],
-        backdrop: 'static'
-      });
-
-      service.reportModalInstance.result.then(function() {
-        service.reportModalDeffered.resolve();
-      });
-    }
-    function reportConnectivityProblem(code) {
-      service.reportModalCode = code;
-      service.reportModalDeffered = $q.defer();
-      service.reportModalInstance = $modal.open({
-        animation: true,
-
-        template: '<div class="modal-header bg-danger">                         \
-          <h3 class="modal-title">Attention!</h3>                               \
-        </div>                                                                  \
-        <div class="modal-body bg-danger" modal-fit-in-window>                  \
-          connectivity problem                                                  \
-        </div>',
-        backdrop: 'static'
+        backdrop: 'static',
+        keyboard: false
       });
 
       service.reportModalInstance.result.then(function() {

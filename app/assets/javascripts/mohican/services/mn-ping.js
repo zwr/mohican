@@ -17,20 +17,17 @@
                     service.offlineWarning.dismiss();
                     service.offlineWarning = undefined;
                   }
-                  mnNotify.clear();
-                }
-                else {
-                  console.log('no 200 response');
-                  // mnNotify.report(response.status).then(function() {
-                  //   console.log('ping resolve success');
-                  // });
                 }
               }).
               catch(function(error) {
                 if(error.status === 401) {
                   mnNotify.report(error.status).then(function() {
-                    console.log('ping resolve error');
+                    mnNotify.clear();
                   });
+                  if(service.offlineWarning) {
+                    service.offlineWarning.dismiss();
+                    service.offlineWarning = undefined;
+                  }
                 }
                 else {
                   if(!service.offlineWarning) {
