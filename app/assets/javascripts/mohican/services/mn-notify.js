@@ -12,8 +12,7 @@
     details:        undefined,
     fullyClickable: false,
     buffer:         [],
-    actions:        [],
-    getMessage:     function() {}
+    actions:        []
   };
 
   var alertTypes = [
@@ -55,10 +54,6 @@
           this.dismiss('full click');
         }
       };
-
-      if(_.isFunction(options.getMessage)) {
-        options.getMessage(msg);
-      }
 
       return msg;
     }
@@ -154,7 +149,6 @@
         actions: options.actions,
 
         dismissable:    options.dismissable,
-        getMessage:     options.getMessage,
         fullyClickable: options.fullyClickable
       });
 
