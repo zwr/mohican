@@ -256,7 +256,7 @@
               email:    $scope.email,
               password: $scope.password
             }).then(function(user) {
-              service.reportModalDeffered.resolve();
+              service.reportModalDeffered.resolve(user);
             }, function(error) {
               if(error.data) {
                 $scope.errorMessage = error.data.error;
@@ -272,9 +272,9 @@
         keyboard: false
       });
 
-      service.reportModalInstance.result.then(function() {
-        service.reportModalDeffered.resolve();
-      });
+      // service.reportModalInstance.result.then(function() {
+      //   service.reportModalDeffered.resolve();
+      // });
     }
 
     return service;
