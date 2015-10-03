@@ -67,6 +67,7 @@ class Order
 
   before_create :remember_referenced_object_data
   before_save :remember_references
+  after_save :create_order_for_next_step
 
   private
 
@@ -90,5 +91,16 @@ class Order
       item.product_ref = item.product.id.to_s
       item
     end
+  end
+
+  def create_order_for_next_step
+    return unless status_changed? && (status_was == 'tuotannossa') &&
+                  (status == 'valmis') && next_cells.present?
+    x = dup
+    x.status = 'avoinna'
+    x.cell_id = x.next_cells.slice!(0)
+    x.save!
+    puts "Closed order in cell #{cell.name}"
+    puts "Created a new order for cell #{x.cell.name}"
   end
 end
