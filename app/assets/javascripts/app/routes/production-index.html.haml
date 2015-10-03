@@ -33,7 +33,10 @@
             .panel-body
               .row
                 .col-md-3.col-sm-6(ng-repeat="cell in line.cells")
-                  .panel.panel-default.production-cell
+                  .panel.panel-default.production-cell(mn-highlight-on-change='cell'
+                                                       mn-highlight-on-change-object='true'
+                                                       mn-highlight-on-change-remove-class='panel-default'
+                                                       mn-highlight-on-change-add-class='panel-warning')
                     .panel-heading.cell-title(ng-click='showStats(cell.name)')
                       .pull-left.cell-img
                       %h3.panel-title

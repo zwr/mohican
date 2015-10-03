@@ -12,7 +12,11 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         $scope.reload = function() {
           productionLinesService.getProductionLines()
           .then(function (data) {
-            $scope.lines = data;
+            if($scope.lines) {
+              angular.merge($scope.lines, data);
+            } else {
+              $scope.lines = data;
+            }
           });
         };
         $scope.reload();
