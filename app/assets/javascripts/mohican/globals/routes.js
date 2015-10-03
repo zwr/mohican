@@ -18,8 +18,8 @@
     if(redirectTo) {
       controller = ['mnRouter', '$location', '$injector', function(mnRouter, $location, $injector) {
         if(_.isFunction(redirectTo)) {
-          redirectTo = redirectTo($location, $injector);
-          mnRouter.setLocation(redirectTo);
+          var redirectToResolvedObject = redirectTo($location, $injector);
+          mnRouter.transitionTo(redirectToResolvedObject.resource, redirectToResolvedObject.params, {location: 'replace'});
         }
         else {
           mnRouter.transitionTo(redirectTo, mnRouter.$stateParams, {location: 'replace'});

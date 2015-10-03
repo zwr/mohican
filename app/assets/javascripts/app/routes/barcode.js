@@ -36,6 +36,11 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   // mnRouterProvider.addRedirecRoute('barcode', function($location, $injector) {
   //   var barcode = $location.path().split('/')[2];
   //   var cellIndex = parseInt(barcode.replace('CELL',''));
-  //   return '/orders?qf=true&page=' + cellIndex;
+  //   return {
+  //     resource: 'orders',
+  //     params:   {
+  //       page: cellIndex
+  //     }
+  //   };
   // });
 }]);
