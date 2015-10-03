@@ -5,7 +5,7 @@
       .module('mohican')
       .provider('mnRouter', [mnRouter]);
 
-  function mnRouter($window) {
+  function mnRouter() {
     var $urlRouterProviderRef = null;
     var $stateProviderRef = null;
 
@@ -27,14 +27,26 @@
       provider.addResouceRoute(definition);
     };
 
-    provider.addRedirecRoute = function(definition) {
+    provider.addRedirecRoute = function() {
+      var definition = {};
+      if(arguments.length === 1) {
+        definition.name = arguments[0].name;
+        definition.redirectTo = arguments[0].redirectTo;
+      }
+      else if(arguments.length === 2) {
+        definition.name = arguments[0];
+        definition.redirectTo = arguments[1];
+      }
+      else {
+        throw 'invalid addRedirecRoute parameters';
+      }
       provider.routes.push({
         name:       definition.name,
         redirectTo: definition.redirectTo
       });
     };
 
-    provider.$get = ['$stateParams', '$state', '$rootScope', '$q', '$urlRouter', '$window', function($stateParams, $state, $rootScope, $q, $urlRouter, $window) {
+    provider.$get = ['$stateParams', '$state', '$rootScope', '$q', '$urlRouter', '$window', '$location', function($stateParams, $state, $rootScope, $q, $urlRouter, $window, $location) {
       function createAll() {
         $window.onbeforeunload = function(event) {
           if(provider.transitionToValidarionAllreadyDone === false) {
@@ -114,6 +126,10 @@
         });
 
         $urlRouterProviderRef.otherwise('/404');
+      }
+
+      function setLocation(location) {
+        $location.url(location);
       }
 
       function redirectTo(routeName) {
@@ -217,6 +233,7 @@
 
       return {
         createAll:    createAll,
+        setLocation:  setLocation,
         redirectTo:   redirectTo,
         transitionTo: transitionTo,
         pageNotFound: pageNotFound,
