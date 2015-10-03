@@ -33,21 +33,21 @@
             .panel-body
               .row
                 .col-md-3.col-sm-6(ng-repeat="cell in line.cells")
-                  .panel.panel-default.production-cell(ng-click='showStats(cell.name)')
-                    .panel-heading.cell-title
+                  .panel.panel-default.production-cell
+                    .panel-heading.cell-title(ng-click='showStats(cell.name)')
                       .pull-left.cell-img
                       %h3.panel-title
                         {{cell.name}}
                     .panel-body.production-report
                       %table.table
                         %tr
-                          %th Tilaukset
-                          %th Tänään
-                          %th Viikko
+                          %th(ng-click='showStats(cell.name)') Tilaukset
+                          %th(ng-click='showStats(cell.name, "kaikki", "today")') Tänään
+                          %th(ng-click='showStats(cell.name, "kaikki", "this_week")') Viikko
                         %tr(ng-repeat="row_label in ['kaikki', 'avoinna', 'valmis', 'tuotannossa']")
-                          %td {{row_label}}
-                          %td {{cell.today[row_label]}}
-                          %td {{cell.week[row_label]}}
+                          %td(ng-click='showStats(cell.name, row_label)') {{row_label}}
+                          %td(ng-click='showStats(cell.name, row_label, "today")') {{cell.today[row_label]}}
+                          %td(ng-click='showStats(cell.name, row_label, "this_week")') {{cell.week[row_label]}}
     .col-lg-3
       .panel.panel-primary
         .panel-heading

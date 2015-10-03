@@ -24,13 +24,29 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           'View current active products',
           'View resources'];
         $scope.resources = ['forklifts', 'workers', 'material'];
-        $scope.showStats = function(cellName) {
-          // var loc = '/orders?column=delivery_date&qf=true&filters=cell$' + cellName + '$$status$open';
+        $scope.showStats = function(cellName, status, timeframe) {
+          if(!status || status === 'kaikki') { status = 'avoinna,valmis,tuotannossa'; }
+          // '$$delivery_date$Sat_Oct_03_2015_00:00:00_GMT%2B0300---Sat_Oct_03_2015_23:59:59_GMT%2B0300'
+          var format_the_timeframe = function(start, end) {
+            var fstart = start.toString().replace(/ /g,'_').replace(/\d\d\:\d\d\:\d\d/,'00:00:00');
+            var fend = end.toString().replace(/ /g,'_').replace(/\d\d\:\d\d\:\d\d/,'23:59:59');
+            return '$$delivery_date$' + fstart + '---' + fend;
+          }
+          if(timeframe === 'today') { timeframe = format_the_timeframe(new Date(), new Date()); }
+          if(timeframe === 'this_week') {
+            var curr = new Date; // get current date
+            var first = curr.getDate() - curr.getDay() + 1; // First day is the day of the month - the day of the week
+            var last = first + 6;
+
+            var lastday = new Date(curr.setDate(last)).toString();
+            var firstday = new Date(curr.setDate(first)).toString();
+            timeframe = format_the_timeframe(firstday, lastday);
+          }
           $location.path('/orders')
                    .search({
                      column:  'delivery_date',
                      qf:      true,
-                     filters: 'cell$' + cellName + '$$status$avoinna,tuotannossa'
+                     filters: 'cell$' + cellName + '$$status$' + status + timeframe
                    });
         };
         var myInterval = $interval(function() {
