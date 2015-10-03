@@ -55,8 +55,37 @@ namespace :db do
           x.order_items << y
         end
 
+        trukit = ProductionLine.all[1].production_cells[0..2]
+        varasto = ProductionLine.all[1].production_cells[3]
+        nontrukit = ProductionLine.cells - trukit - [varasto]
+
+        # Start in a random cell
         x.cell = ProductionLine.cells.sample
 
+        x.next_cells = []
+        # if cell is a trukki, add (not trukki) (trukki) (varasto)
+        if trukit.include? x.cell
+          x.next_cells << nontrukit.sample.id << (trukit - [x.cell]).sample.id << varasto.id
+        else
+          next_cells_rule = rand(10)
+          if next_cells_rule < 4
+            # for 40 percent: Select 2 more cells: (trukki) (varasto)
+            x.next_cells << trukit.sample.id << varasto.id
+          elsif next_cells_rule < 7
+            # for 30 percent, select 5 more cells: (not trukki) (trukki) (not trukki) (trukki) (varasto)
+            x.next_cells << (nontrukit - [x.cell]).sample.id <<
+              trukit.sample.id <<
+              (nontrukit - [x.cell] - x.next_cells).sample.id <<
+              (trukit - x.next_cells).sample.id <<
+              varasto.id
+          else
+            # for 30 remaining percent, select 4 more cells: (trukki) (not trukki) (trukki) (varasto)
+            x.next_cells << trukit.sample.id <<
+              (nontrukit - [x.cell] - x.next_cells).sample.id <<
+              (trukit - x.next_cells).sample.id <<
+              varasto.id
+          end
+        end
         orders << x
       end
 

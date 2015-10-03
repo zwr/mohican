@@ -26,6 +26,7 @@ class Order
   field :delivery_date, type: Date
   field :actual_delivery_date, type: Date
   field :cell_id, type: BSON::ObjectId
+  field :next_cells, type: Array
 
   include_into_json :cell_name, label: :cell
 

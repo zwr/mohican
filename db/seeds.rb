@@ -109,7 +109,7 @@ Bookmark.create! name: 'Employees',
                  url: 'users',
                  bookmark_order: 3
 
-puts 'Seeding 2000 production orders, this can take up to 1o sedonds'
-`rake db:seed:wood skip_products=yes order_count=2000`
+# puts 'Seeding 2000 production orders, this can take up to 1o sedonds'
+# `rake db:seed:wood skip_products=yes order_count=2000`
 
 puts 'Seeded.'
