@@ -5,7 +5,7 @@ module Mohican::Document
 
   module ClassMethods
     def include_into_json(method, label: nil)
-      additinial_json_fields << { method: method, name: label || field_symbol }
+      additinial_json_fields << { method: method, name: label || method }
     end
 
     def additinial_json_fields

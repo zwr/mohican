@@ -29,6 +29,7 @@ class Order
   field :next_cells, type: Array
 
   include_into_json :cell_name, label: :cell
+  include_into_json :next_cell_names
 
   def cell_name
     cell.name if cell.present?
@@ -40,6 +41,10 @@ class Order
 
   def cell=(cell)
     self.cell_id = cell.id
+  end
+
+  def next_cell_names
+    (next_cells || []).map { |cid| ProductionLine.cells.select { |c| c.id == cid }[0] }.map(&:name).join(', ')
   end
 
   def production_cell
