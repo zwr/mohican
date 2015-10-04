@@ -13,9 +13,9 @@ class ProductionLine
 
   def self.seed
     lines = {
-      'Line 1': ['Sahaus', 'Oksien poisto', 'Höyläys', 'Maalaus'],
+      'Line 1': ['Sahaus', 'Oksien poisto', 'Rajaus', 'Maalaus'],
       'Trukit ja varastot': ['Trukki 1', 'Trukki 2', 'Trukki 3', 'Varasto'],
-      'Line 2': %w(Kuorinta Särmäys Rajaus Lajittelu),
+      'Line 2': %w(Kuorinta Särmäys Höyläys Lajittelu),
       'Line 3': ['Heino Sahaus', 'Pintaan valmistelu', 'Kuivaus', 'Pakkaus']
     }
     ProductionLine.delete_all

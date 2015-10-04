@@ -63,9 +63,17 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
       }]
   });
 }])
-.service('productionLinesService', ['$http', function($http) {
+.service('productionLinesService', ['$http', '$q', function($http, $q) {
   'use strict';
   return {
+    lastKnownProductionLines: null,
+    getKnownProductionLines: function() {
+      if(this.lastKnownProductionLines) {
+        return $q.when(lastKnownProductionLines);
+      } else {
+        return this.getProductionLines();
+      }
+    },
     getProductionLines: function() {
       return $http.get('/api/lines/stats.json')
       .then(function (response) {
