@@ -10,7 +10,7 @@ angular.module('mohican')
               $timeout(function() {
                 element.addClass(attrs.mnHighlightOnChangeRemoveClass);
                 element.removeClass(attrs.mnHighlightOnChangeAddClass);
-              }, 1000).then(function() {
+              }, 2000).then(function() {
                 $timeout(function() {
                   element.removeClass(attrs.mnHighlightOnChangeRemoveClass);
                   element.addClass(attrs.mnHighlightOnChangeAddClass);

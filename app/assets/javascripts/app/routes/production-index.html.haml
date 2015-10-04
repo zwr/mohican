@@ -1,5 +1,5 @@
 .container-fluid
-  .jumbotron.hidden-sm.hidden-xs
+  .mini-jumbotron.hidden-sm.hidden-xs
     .row
       .col-md-7
         %h1 Celesta
@@ -7,7 +7,7 @@
       .hidden-xs.hidden-sm.col-md-5
         .panel.panel-warning
           .panel-heading
-            %h3.panel-title Bookmarks
+            %h3.panel-title Quick links
           .panel-body
             %ul
               %li(ng-repeat="bookmark in bookmarks")
@@ -24,7 +24,7 @@
         .col-lg-12(ng-if="!lines")
           %button.btn.btn-lg.btn-warning
             %span.glyphicon.glyphicon-refresh(animate) Loading production lines...
-        .col-lg-12(ng-repeat="line in lines")
+        .col-lg-12(ng-repeat="line in lines" ng-class='{"hidden-lg": $index == 1}')
           .panel.panel-primary
             .panel-heading
               %h3.panel-title
@@ -35,8 +35,8 @@
                 .col-md-3.col-sm-6(ng-repeat="cell in line.cells")
                   .panel.panel-default.production-cell(mn-highlight-on-change='cell'
                                                        mn-highlight-on-change-object='true'
-                                                       mn-highlight-on-change-remove-class='panel-default'
-                                                       mn-highlight-on-change-add-class='panel-warning')
+                                                       mn-highlight-on-change-remove-class=''
+                                                       mn-highlight-on-change-add-class='panel-highlight')
                     .panel-heading.cell-title(ng-click='showStats(cell.name)')
                       .pull-left.cell-img
                       %h3.panel-title
@@ -51,33 +51,32 @@
                           %td(ng-click='showStats(cell.name, row_label)') {{row_label}}
                           %td(ng-click='showStats(cell.name, row_label, "today")') {{cell.today[row_label]}}
                           %td(ng-click='showStats(cell.name, row_label, "this_week")') {{cell.week[row_label]}}
-    .col-lg-3
-      .panel.panel-primary
-        .panel-heading
-          %h3.panel-title Rsources
-        .panel-body
-          .row
-            .col-xs-12.col-sm-6.col-md-4.col-lg-12(ng-repeat="resource in resources")
-              .panel.panel-default.production-cell
-                .panel-heading.cell-title
-                  .pull-left.cell-img
-                  %h3.panel-title {{resource}}
-                .panel-body.production-report
-                  %table.table
-                    %tr
-                      %th Orders
-                      %th Today
-                      %th Week
-                    %tr
-                      %td Total
-                      %td 25
-                      %td 23
-                    %tr
-                      %td Open
-                      %td 22
-                      %td 21
-                    %tr
-                      %td Completed
-                      %td 6
-                      %td 1
-    
+    .col-lg-3.hidden-xs.hidden-sm.hidden-md
+      .row
+        .col-lg-12(ng-if="lines && lines.length > 1")
+          .panel.panel-primary
+            .panel-heading
+              %h3.panel-title
+                %span {{lines[1].name}}
+                %span.pull-right.glyphicon.glyphicon-edit(ng-click='ctrl.editLine(lines[1])')
+            .panel-body
+              .row
+                .col-xs-12(ng-repeat="cell in lines[1].cells")
+                  .panel.panel-default.production-cell(mn-highlight-on-change='cell'
+                                                       mn-highlight-on-change-object='true'
+                                                       mn-highlight-on-change-remove-class=''
+                                                       mn-highlight-on-change-add-class='panel-highlight')
+                    .panel-heading.cell-title(ng-click='showStats(cell.name)')
+                      .pull-left.cell-img
+                      %h3.panel-title
+                        {{cell.name}}
+                    .panel-body.production-report
+                      %table.table
+                        %tr
+                          %th(ng-click='showStats(cell.name)') Tilaukset
+                          %th(ng-click='showStats(cell.name, "kaikki", "today")') Tänään
+                          %th(ng-click='showStats(cell.name, "kaikki", "this_week")') Viikko
+                        %tr(ng-repeat="row_label in ['kaikki', 'avoinna', 'valmis', 'tuotannossa']")
+                          %td(ng-click='showStats(cell.name, row_label)') {{row_label}}
+                          %td(ng-click='showStats(cell.name, row_label, "today")') {{cell.today[row_label]}}
+                          %td(ng-click='showStats(cell.name, row_label, "this_week")') {{cell.week[row_label]}}

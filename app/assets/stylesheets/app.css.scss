@@ -10,6 +10,11 @@ $screen-sm-min: 650px;
 $screen-md-min: 1100px;
 $screen-lg-min: 1500px;
 
+$panel-heading-padding: 4px 12px;
+$panel-footer-padding: 2px 12px;
+$panel-body-padding: 6px;
+$panel-border-radius: 3px;
+
 @import "mohican/mohican";
 
 .menu-bar-trigger-1 {
@@ -54,6 +59,7 @@ $screen-lg-min: 1500px;
 }
 
 .production-cell {
+  margin-bottom: 0px !important;
   .cell-title {
     position: relative;
     
@@ -65,7 +71,7 @@ $screen-lg-min: 1500px;
         content: '';
         position: absolute;
         width: 34px;
-        height: 35px;
+        height: 22px;
         background-image: url(../production-140.png);
         background-attachment: absolute;
         background-position: right -35px bottom 35px;
@@ -90,4 +96,23 @@ $screen-lg-min: 1500px;
       }
     }
   }
+}
+
+// Correction of the list inside of panel, do not have bottom margin
+.panel {
+  margin-bottom: 12px;
+  ul {
+    margin-bottom: 0px;
+  }
+}
+
+.panel-highlight {
+  .panel-heading {
+    background-color: $state-info-bg !important;
+    border-color: $state-info-border !important;
+    color: $state-info-text !important;
+  }
+  background-color: $state-danger-bg !important;
+  border-color: $state-danger-border !important;
+  color: $state-danger-text !important;
 }
