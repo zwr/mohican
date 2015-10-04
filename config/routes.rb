@@ -20,9 +20,6 @@ Rails.application.routes.draw do
     resources :orders, defaults: { format: 'json' } do
       get 'layout', on: :collection
     end
-    resources :activities, defaults: { format: 'json' } do
-      get 'layout', on: :collection
-    end
     resources :users, as: 'users', defaults: { format: 'json' } do
       get 'layout', on: :collection
     end

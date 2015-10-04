@@ -14,16 +14,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           console.log(selectedItems);
         };
         ctrl.popup = function(/*clickedItem, selectedItems*/) {
-          var retArray = [/*
-            {
-              text:   'pop me up',
-              action: function() {
-                ctrl.clickedItem = clickedItem;
-                ctrl.selectedItems = selectedItems;
-                ctrl.popDialog('Selected Orders', 'app/routes/activities-example-dialog.html');
-              }
-            }
-          */];
+          var retArray = [];
           return retArray;
         };
       }

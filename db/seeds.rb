@@ -2,11 +2,8 @@ require 'random_hash'
 
 Dir[Rails.root.join('db/seeds/*.rb')].each { |file| load file }
 
-activities = JSON.parse(IO.read(Rails.root.join('db', 'seeds', 'activities.json')))
-
 puts 'Clearing the database'
 
-Activity.delete_all
 Layout.delete_all
 User.delete_all
 Product.delete_all
@@ -17,8 +14,6 @@ User.create! email: 'mohican@zwr.fi',
              name: 'Jessica Mongo'
 
 ProductionLine.seed
-
-puts "Seeding #{activities['items'].length} activities"
 
 array_of_users = []
 File.open(Rails.root.join 'db', 'seeds', 'users.csv').each do |line|
