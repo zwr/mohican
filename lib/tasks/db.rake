@@ -14,7 +14,13 @@ namespace :db do
         Nokogiri::HTML(File.open(Rails.root.join 'puut', 'puutavara-k--rauta.fi.html'))
           .css('div.product div.image a')
           .each do |link_element|
-            p = Nokogiri::HTML(open(link_element.attribute('href').value))
+            begin
+              sleep 1
+              p = Nokogiri::HTML(open(link_element.attribute('href').value))
+            rescue
+              puts "retrying #{link_element.attribute('href').value}"
+              redo
+            end
             pinfo = p.css('h3.sku')
                     .text
                     .gsub(/[\n\t]+/, ' ')
