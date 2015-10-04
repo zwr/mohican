@@ -15,6 +15,9 @@
 /log/*.log
 /tmp
 
+# ignore the bundle
+/vendor/bundle
+
 # Ignore generated JS files.
 public/assets/**/*
 
