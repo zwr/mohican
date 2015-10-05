@@ -334,6 +334,8 @@
             } else {
               return null;
             }
+          }, function(error) {
+            throw(error);
           });
           return service.thePromise;
         }

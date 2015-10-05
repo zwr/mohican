@@ -159,6 +159,8 @@
               else {
                 that.mnRouter.pageNotFound();
               }
+            }, function() {
+              that.mnRouter.pageNotFound();
             });
           }
           else {

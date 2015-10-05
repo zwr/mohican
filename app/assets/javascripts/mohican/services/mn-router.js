@@ -122,10 +122,13 @@
         }
 
         var scr = $rootScope.$on('$stateChangeError', function() {
-          $state.transitionTo('404', {});
+          $state.transitionTo('404', {}, {location: false});
+          this.pageNotFound();
         });
 
-        $urlRouterProviderRef.otherwise('/404');
+        $urlRouterProviderRef.otherwise(function($injector, $location) {
+          $state.transitionTo('404', {}, {location: false});
+        });
       }
 
       function setLocation(location) {
@@ -200,7 +203,7 @@
       }
 
       function pageNotFound() {
-        $state.transitionTo('404', {}, {location: 'replace'});
+        $state.transitionTo('404', {}, {location: false});
       }
 
       function addStateChageValidator(validator) {
