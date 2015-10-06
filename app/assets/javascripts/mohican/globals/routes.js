@@ -2,7 +2,7 @@
   'use strict';
 
   mohican._createMohicanResourceRoute = function(routeName, controller, defaultRoute, $stateProvider, redirectTo, template) {
-    var url = '/' + mohican.toHyphen(routeName) + '?documentfilter&page&layout&column&direction&qf&filters';
+    var url = '/' + mohican.toHyphen(routeName) + '?documentfilter&openfilters&page&layout&column&direction&qf&filters';
     var urlForm = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}?activetab';
     var urlNew = '/' + mohican.toHyphen(routeName) + '/new?activetab';
     var templateUrl = 'app/routes/' + mohican.toHyphen(routeName) + '-index.html';

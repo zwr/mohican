@@ -259,7 +259,7 @@
         return deffered.promise;
       },
 
-      getBackendFilter: function(documentFilter) {
+      getBackendFilter: function(documentFilter, dataRange, statuses) {
         var deffered = this.$q.defer();
 
         var newRouteParams = _.clone(this.mnRouter.$stateParams);

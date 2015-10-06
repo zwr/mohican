@@ -10,6 +10,11 @@
   function MnFilterBarController($scope) {
     var vm = this;
 
+    vm.statuses = [{name: 'created'}, {name: 'avoinna'}, {name: 'valmis'}, {name: 'deferred'}, {name: 'tuotannossa'}, {name: 'delivered'}];
+    vm.statusesLabels = {
+      nothingSelected: 'All'
+    };
+
     $scope.$watchCollection(function() { return vm.owner.layouts; },
                             function(newValue, oldValue) {
                               if(newValue !== oldValue) {
@@ -33,8 +38,10 @@
                     });
     };
 
-    vm.changeBackendFilter = function(documentFilterName) {
-      vm.owner.getBackendFilter(documentFilterName).
+    vm.changeDocumentFilter = function() {
+      vm.owner.getBackendFilter(vm.seletedDocumentFilters[0].name,
+                                vm.deliveryDateRange,
+                                _.map(vm.selectedStatuses, 'name')).
                then(function() {
                       vm.documentFiltersBefore = _.cloneDeep(vm.owner.documentFilters);
                     },

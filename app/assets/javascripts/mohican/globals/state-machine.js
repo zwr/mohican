@@ -5,7 +5,7 @@
     return {
       page:             undefined,
       layout:           undefined,
-      documentfilter:    undefined,
+      documentfilter:   undefined,
       column:           undefined,
       direction:        undefined,
       quickFilterShown: undefined,
@@ -57,7 +57,7 @@
         return mohican.escapeDefaultParameters({
           page:             this.page,
           layout:           this.layout,
-          documentfilter:    this.documentFilter,
+          documentfilter:   this.documentFilter,
           column:           this.column,
           direction:        this.direction,
           qf:               this.quickFilterShown,
