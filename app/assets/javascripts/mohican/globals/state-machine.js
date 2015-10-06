@@ -5,7 +5,7 @@
     return {
       page:             undefined,
       layout:           undefined,
-      backendfilter:    undefined,
+      documentfilter:    undefined,
       column:           undefined,
       direction:        undefined,
       quickFilterShown: undefined,
@@ -15,8 +15,8 @@
       activetab: undefined,
 
       stateMachineFromUrl: function($stateParams, service) {
-        if (!$stateParams.backendfilter) {
-          this.backendfilter = 'default';
+        if (!$stateParams.documentfilter) {
+          this.documentfilter = 'default';
         }
         if (!$stateParams.page) {
           this.page = 1;
@@ -41,7 +41,7 @@
           this.page = parseInt($stateParams.page);
         }
         this.layout = $stateParams.layout;
-        this.backendFilter = $stateParams.backendfilter;
+        this.documentFilter = $stateParams.documentfilter;
         this.column = $stateParams.column;
         this.direction = $stateParams.direction;
         this.itemPrimaryKeyId = $stateParams.itemPrimaryKeyId;
@@ -57,7 +57,7 @@
         return mohican.escapeDefaultParameters({
           page:             this.page,
           layout:           this.layout,
-          backendfilter:    this.backendFilter,
+          documentfilter:    this.documentFilter,
           column:           this.column,
           direction:        this.direction,
           qf:               this.quickFilterShown,

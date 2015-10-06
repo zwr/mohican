@@ -2,7 +2,7 @@
   'use strict';
 
   mohican._createMohicanResourceRoute = function(routeName, controller, defaultRoute, $stateProvider, redirectTo, template) {
-    var url = '/' + mohican.toHyphen(routeName) + '?backendfilter&page&layout&column&direction&qf&filters';
+    var url = '/' + mohican.toHyphen(routeName) + '?documentfilter&page&layout&column&direction&qf&filters';
     var urlForm = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}?activetab';
     var urlNew = '/' + mohican.toHyphen(routeName) + '/new?activetab';
     var templateUrl = 'app/routes/' + mohican.toHyphen(routeName) + '-index.html';
@@ -69,8 +69,8 @@
   var _checkDefaultParams = function(params) {
     var newParams = _.clone(params);
     var dirty = false;
-    if (newParams.backendfilter === 'default') {
-      newParams.backendfilter = undefined;
+    if (newParams.documentfilter === 'default') {
+      newParams.documentfilter = undefined;
       dirty = true;
     }
     if (newParams.page === '1' || newParams.page === 1) {
@@ -117,8 +117,8 @@
   };
 
   mohican.injectDefaultParameters = function(mnRouter) {
-    if (!mnRouter.$stateParams.backendfilter) {
-      mnRouter.$stateParams.backendfilter = 'default';
+    if (!mnRouter.$stateParams.documentfilter) {
+      mnRouter.$stateParams.documentfilter = 'default';
     }
     if (!mnRouter.$stateParams.page) {
       mnRouter.$stateParams.page = '1';

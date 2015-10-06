@@ -9,7 +9,7 @@
     ctrl.stateMachine.quickFilterShown = true;
     ctrl.stateMachine.page = 1;
     ctrl.stateMachine.layout = 'default';
-    ctrl.stateMachine.backendFilter = 'default';
+    ctrl.stateMachine.documentFilter = 'default';
 
     ctrl.initialize(service);
     ctrl.loadData();
@@ -17,7 +17,7 @@
 
   mohican.createResourceDriver = function() {
     return {
-      backendFilters: undefined,
+      documentFilters: undefined,
       layouts:        undefined,
       layoutDefs:     undefined,
       service:        undefined,
@@ -31,7 +31,7 @@
         this.fullyLoaded = false;
         this.layouts = [];
         this.layoutDefs = [];
-        this.backendFilters = [];
+        this.documentFilters = [];
         this.service = service;
       },
 
@@ -49,9 +49,9 @@
           });
         }).
         then(function() {
-          that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.backendFilter).then(function(pageCount) {
+          that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter).then(function(pageCount) {
             that.pageCount = pageCount;
-            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
+            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentFilter).then(function(items) {
               that.items = items;
               that.service.waitFullyLoaded().then(function() {
                 that.fullyLoaded = true;

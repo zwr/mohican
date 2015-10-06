@@ -18,9 +18,9 @@
                             });
 
 
-    $scope.$watchCollection(function() { return vm.owner.backendFilters; },
+    $scope.$watchCollection(function() { return vm.owner.documentFilters; },
                             function(newValue, oldValue) {
-                              vm.backendFiltersBefore = _.cloneDeep(vm.owner.backendFilters);
+                              vm.documentFiltersBefore = _.cloneDeep(vm.owner.documentFilters);
                             });
 
     vm.changeLayout = function(layoutName) {
@@ -33,13 +33,13 @@
                     });
     };
 
-    vm.changeBackendFilter = function(backendFilterName) {
-      vm.owner.getBackendFilter(backendFilterName).
+    vm.changeBackendFilter = function(documentFilterName) {
+      vm.owner.getBackendFilter(documentFilterName).
                then(function() {
-                      vm.backendFiltersBefore = _.cloneDeep(vm.owner.backendFilters);
+                      vm.documentFiltersBefore = _.cloneDeep(vm.owner.documentFilters);
                     },
                     function() {
-                      vm.owner.backendFilters = vm.backendFiltersBefore;
+                      vm.owner.documentFilters = vm.documentFiltersBefore;
                     });
     };
   }

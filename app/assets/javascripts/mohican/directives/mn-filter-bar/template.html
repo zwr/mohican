@@ -10,9 +10,9 @@
        selection-mode="single"
        helper-elements="">
   </div>
-  <div isteven-multi-select ng-show="filterBar.owner.backendFilters.length > 1"
+  <div isteven-multi-select ng-show="filterBar.owner.documentFilters.length > 1"
        class="primary pull-left"
-       input-model="filterBar.owner.backendFilters"
+       input-model="filterBar.owner.documentFilters"
        on-item-click="filterBar.changeBackendFilter(data.name)"
        output-model="filterBar.outputBrowsers"
        button-label="show"

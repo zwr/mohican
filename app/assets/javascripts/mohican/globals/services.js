@@ -76,10 +76,10 @@
     };
 
     // pageNumber is 1 based!
-    service.getBackendPage = function(pageNumber, dataFields, backendFilter) {
-      if(service.bufferBackendFilter !== backendFilter) {
+    service.getBackendPage = function(pageNumber, dataFields, documentFilter) {
+      if(service.bufferBackendFilter !== documentFilter) {
         service.resetLoading();
-        service.bufferBackendFilter = backendFilter;
+        service.bufferBackendFilter = documentFilter;
       }
 
       // If we have the page, return the page
@@ -94,20 +94,20 @@
       } else {
         if(service.thePromise) {
           return service.thePromise.then(function() {
-            return service.getBackendPage(pageNumber, dataFields, backendFilter);
+            return service.getBackendPage(pageNumber, dataFields, documentFilter);
           });
         } else {
           // Here we start the new eager loading
           service._fullyLoadedPromise = $q.defer();
-          return service.fetchEagerly((pageNumber - 1) * service.pageSize, dataFields, backendFilter)
+          return service.fetchEagerly((pageNumber - 1) * service.pageSize, dataFields, documentFilter)
           .then(function() {
-            return service.getBackendPage(pageNumber, dataFields, backendFilter);
+            return service.getBackendPage(pageNumber, dataFields, documentFilter);
           });
         }
       }
     };
 
-    service.fetchEagerly = function(startIndex, dataFields, backendFilter) {
+    service.fetchEagerly = function(startIndex, dataFields, documentFilter) {
       //reset the buffer with the following command
       //service.fullyLoaded = false;
       // if there is an ongoing promise, wait for it to complete after making
@@ -115,7 +115,7 @@
       if(service.thePromise != null) {
         service.beEager = false;
         return service.thePromise.then(function() {
-          return service.fetchEagerly(startIndex, dataFields, backendFilter);
+          return service.fetchEagerly(startIndex, dataFields, documentFilter);
         });
       } else {
         // fetch now, and then continue eagerly
@@ -123,17 +123,17 @@
         trace('get  offset = ' + startIndex
           + ' count = ' + service.firstFetchSize);
         service.thePromise = $http.get(window.MN_BASE + '/' + apiResource + '?offset=' +
-            startIndex + '&count=' + service.firstFetchSize + '&filter=' + backendFilter)
+            startIndex + '&count=' + service.firstFetchSize + '&filter=' + documentFilter)
           .then(function(resp) {
             service.thePromise = null;
-            if(service.bufferBackendFilter === backendFilter) {
+            if(service.bufferBackendFilter === documentFilter) {
               service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, $q, apiResource, service.layout);
               service.buffer = resp.data.items;
               service.totalCount = resp.data.total_count;
               service.bottomIndex = resp.data.offset;
               // topIndex is not the index of top document, but one beyond!
               service.topIndex = service.bottomIndex + resp.data.items.length;
-              service._continueEagerly(dataFields, backendFilter);
+              service._continueEagerly(dataFields, documentFilter);
               return service.buffer;
             } else {
               /* loading has been restarted, possibly backend filter changed */
@@ -145,14 +145,14 @@
             var promise = service.mnNotify.report(errorCode.status);
             promise.then(function() {
               console.log('fetchEagerly');
-              service.thePromise = service.fetchEagerly(startIndex, dataFields, backendFilter);
+              service.thePromise = service.fetchEagerly(startIndex, dataFields, documentFilter);
             });
           });
         return service.thePromise;
       }
     };
 
-    service._continueEagerly = function(dataFields, backendFilter) {
+    service._continueEagerly = function(dataFields, documentFilter) {
       if(service.beEager) {
         if(service.bottomIndex === 0) {
           service.nextEagerGrowthForward = true;
@@ -188,7 +188,7 @@
         trace('get  offset = ' + start
           + ' count = ' + count);
         service.thePromise = $http.get(window.MN_BASE + '/' + apiResource + '?offset='
-            + start + '&count=' + count + '&filter=' + backendFilter)
+            + start + '&count=' + count + '&filter=' + documentFilter)
           .then(function(resp) {
             service.thePromise = null;
             // if we were told to stop, just do nothing
@@ -201,20 +201,20 @@
                 service.bottomIndex -= resp.data.items.length;
                 service.buffer = resp.data.items.append(service.buffer);
               }
-              service._continueEagerly(dataFields, backendFilter);
+              service._continueEagerly(dataFields, documentFilter);
             }
           })
           .catch(function(errorCode) {
             var promise = service.mnNotify.report(errorCode.status);
             promise.then(function() {
-              service.thePromise = service._continueEagerly(dataFields, backendFilter);
+              service.thePromise = service._continueEagerly(dataFields, documentFilter);
             });
           });
       }
     };
 
-    service.getBackendPageCount = function(dataFields, tip, backendFilter) {
-      if(service.bufferBackendFilter !== backendFilter) {
+    service.getBackendPageCount = function(dataFields, tip, documentFilter) {
+      if(service.bufferBackendFilter !== documentFilter) {
         service.resetLoading();
       }
       if(service.buffer) {
@@ -226,12 +226,12 @@
           // Somebody is already getting something, which will probably
           // do what we need, so just wait for that promise to fullfil and
           // then try again the same.
-          return service.getBackendPageCount(dataFields, tip, backendFilter);
+          return service.getBackendPageCount(dataFields, tip, documentFilter);
         });
       } else {
-        return service.getBackendPage(tip || 1, dataFields, backendFilter)
+        return service.getBackendPage(tip || 1, dataFields, documentFilter)
           .then(function() {
-            return service.getBackendPageCount(dataFields, tip, backendFilter);
+            return service.getBackendPageCount(dataFields, tip, documentFilter);
           });
       }
     };
@@ -258,24 +258,24 @@
       }
     };
 
-    // backendFilters getting is completelly independent
-    service.backendFilters = null;
+    // documentFilters getting is completelly independent
+    service.documentFilters = null;
     service.getBackendFilterPromise = null;
     service.getBackendFilters = function() {
-      if(service.backendFilters) {
-        return $q.when(service.backendFilters);
+      if(service.documentFilters) {
+        return $q.when(service.documentFilters);
       } else if(service.getBackendFilterPromise) {
         return service.getBackendFilterPromise.then(function() {
           service.getBackendFilters();
         });
       } else {
-        trace('get  backendFilters');
+        trace('get  documentFilters');
 
         var mockHttp = $q.defer();
         service.getBackendFilterPromise = mockHttp.promise;
 
-        service.backendFilters = [{name: 'default'}, {name: 'first'}, {name: 'second'}];
-        mockHttp.resolve(service.backendFilters);
+        service.documentFilters = [{name: 'default'}, {name: 'first'}, {name: 'second'}];
+        mockHttp.resolve(service.documentFilters);
 
         return service.getBackendFilterPromise;
       }

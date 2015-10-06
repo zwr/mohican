@@ -11,7 +11,7 @@
 
   mohican.createResourcePageController = function() {
     return {
-      backendFilters: undefined,
+      documentFilters: undefined,
       layouts:        undefined,
       layoutDefs:     undefined,
       service:        undefined,
@@ -69,18 +69,18 @@
         this.fullyLoaded = false;
         this.layouts = [];
         this.layoutDefs = [];
-        this.backendFilters = [];
+        this.documentFilters = [];
         this.service = service;
         this.onCurrentItemChanged = [];
       },
 
       loadMnGridItems: function() {
         var that = this;
-        that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.backendFilter).then(function(pageCount) {
+        that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter).then(function(pageCount) {
           that.pageCount = pageCount;
 
           if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter)) {
-            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.backendFilter).then(function(items) {
+            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentFilter).then(function(items) {
               that.items = items;
               // We want to be careful to call waitFullyLoaded only when the
               // initial promise has returned! Now we are sure the eager loading
@@ -165,15 +165,15 @@
           }
           else {
             mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.mnRouter);
-            that.service.getBackendFilters().then(function(backendFilters) {
-              backendFilters.forEach(function(backendFilter) {
-                that.backendFilters.push({
-                  name:     backendFilter.name,
-                  show:     'Filter: ' + backendFilter.name,
-                  selected: backendFilter.name === that.stateMachine.backendFilter
+            that.service.getBackendFilters().then(function(documentFilters) {
+              documentFilters.forEach(function(documentFilter) {
+                that.documentFilters.push({
+                  name:     documentFilter.name,
+                  show:     'Filter: ' + documentFilter.name,
+                  selected: documentFilter.name === that.stateMachine.documentFilter
                 });
               });
-              mohican.validateBackendFilterParameter(that.stateMachine.backendFilter, that.backendFilters, that.mnRouter);
+              mohican.validateBackendFilterParameter(that.stateMachine.documentFilter, that.documentFilters, that.mnRouter);
             });
             that.stateMachine.filters = mohican.urlParamToJson(that.mnRouter.$stateParams.filters, that.fields);
 
@@ -259,7 +259,7 @@
         return deffered.promise;
       },
 
-      getBackendFilter: function(backendFilter) {
+      getBackendFilter: function(documentFilter) {
         var deffered = this.$q.defer();
 
         var newRouteParams = _.clone(this.mnRouter.$stateParams);
@@ -269,7 +269,7 @@
         newRouteParams.direction = undefined;
         newRouteParams.quickFilterShown = false;
         newRouteParams.filters = undefined;
-        newRouteParams.backendfilter = backendFilter;
+        newRouteParams.documentfilter = documentFilter;
         this.mnRouter.transitionTo(this.mnRouter.currentRouteName(), mohican.escapeDefaultParameters(newRouteParams)).
                       then(function() {
                         deffered.resolve();

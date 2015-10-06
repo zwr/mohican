@@ -29,10 +29,10 @@
     return false;
   };
 
-  mohican.validateBackendFilterParameter = function(backendFilter, backendFilters, mnRouter) {
+  mohican.validateBackendFilterParameter = function(documentFilter, documentFilters, mnRouter) {
     var isInList = false;
-    backendFilters.forEach(function(fter) {
-      if(backendFilter === fter.name) {
+    documentFilters.forEach(function(fter) {
+      if(documentFilter === fter.name) {
         isInList = true;
         return;
       }

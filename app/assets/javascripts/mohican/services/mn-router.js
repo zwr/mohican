@@ -146,7 +146,7 @@
 
         //if backend filter is changed, we assume it is fullStateReload
         //(ex. selected items collection will be destroyed)
-        if(params.backendfilter !== $state.params.backendfilter) {
+        if(params.documentfilter !== $state.params.documentfilter) {
           fullStateReload = true;
         }
 
