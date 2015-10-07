@@ -12,15 +12,15 @@
   mohican.createResourcePageController = function() {
     return {
       documentFilters: undefined,
-      layouts:        undefined,
-      layoutDefs:     undefined,
-      service:        undefined,
-      fields:         undefined,
-      pageCount:      undefined,
-      totalQfCount:   undefined,
-      primaryKeyName: undefined,
-      itemForm:       undefined,
-      mnRouter:       undefined,
+      layouts:         undefined,
+      layoutDefs:      undefined,
+      service:         undefined,
+      fields:          undefined,
+      pageCount:       undefined,
+      totalQfCount:    undefined,
+      primaryKeyName:  undefined,
+      itemForm:        undefined,
+      mnRouter:        undefined,
 
       onCurrentItemChanged: undefined,
 
