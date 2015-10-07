@@ -259,7 +259,7 @@
         return deffered.promise;
       },
 
-      getBackendFilter: function(documentFilter, dataRange, statuses) {
+      getBackendFilter: function(documentFilter, openfilters) {
         var deffered = this.$q.defer();
 
         var newRouteParams = _.clone(this.mnRouter.$stateParams);
@@ -270,6 +270,7 @@
         newRouteParams.quickFilterShown = false;
         newRouteParams.filters = undefined;
         newRouteParams.documentfilter = documentFilter;
+        newRouteParams.openfilters = mohican.openfiltersToUrlParam(openfilters);
         this.mnRouter.transitionTo(this.mnRouter.currentRouteName(), mohican.escapeDefaultParameters(newRouteParams)).
                       then(function() {
                         deffered.resolve();

@@ -156,6 +156,33 @@
     return _.snakeCase(string);
   };
 
+  mohican.urlParamToOpenfilters = function(urlParamString) {
+    var params = urlParamString.split('$$');
+    var openfilters = [];
+    params.forEach(function(param) {
+      var att = param.split('$');
+      openfilters.push({field: att[0], value: att[1]});
+    });
+    return openfilters;
+  };
+
+  mohican.openfiltersToUrlParam = function(openfilters) {
+    var paramStrings = [];
+    openfilters.forEach(function(filter) {
+      if(filter.value instanceof Date) {
+        paramStrings.push(filter.field + '$' + filter.value.toString().split(' ').join('-'));
+      }
+      if(filter.value instanceof Array && filter.value.length > 0) {
+        var values = [];
+        filter.value.forEach(function(val) {
+          values.push(val);
+        });
+        paramStrings.push(filter.field + '$' + values.join(','));
+      }
+    });
+    return paramStrings.join('$$');
+  };
+
   mohican.jsonToUrlParam = function(filters, dataFields) {
     var filterObjects = [];
     for (var key in filters) {

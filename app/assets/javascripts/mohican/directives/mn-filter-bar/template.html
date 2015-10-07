@@ -14,14 +14,21 @@
         </div>
       </div>
       <div class="form-group">
-        <label for="delivery-date-range">Delivery date</label>
-        <input id="delivery-date-range"
-               type="text"
-               date-range-picker
-               clearable="true"
-               class="form-control date-picker"
-               ng-model="filterBar.deliveryDateRange"
-               style="width: 200px" />
+        <label class="pull-left" for="date-from" style="margin-top: 5px;">Delivery date from</label>
+        <p class="input-group input-group-sm" style="margin: 0;">
+          <input type="text"
+                 id="date-from"
+                 class="form-control"
+                 datepicker-popup="dd.MM.yyyy."
+                 ng-model="filterBar.dateFrom"
+                 is-open="dialogOpened"
+                 close-text="Close" />
+          <span class="input-group-btn">
+            <button type="button" class="btn btn-default" ng-click="dialogOpened = true">
+              <i class="glyphicon glyphicon-calendar"></i>
+            </button>
+          </span>
+        </p>
       </div>
       <div class="form-group">
         <label for="status">Status</label>
