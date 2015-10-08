@@ -28,6 +28,24 @@
                               vm.documentFiltersBefore = _.cloneDeep(vm.owner.documentFilters);
                             });
 
+    $scope.$watch(function() { return vm.owner.stateMachine.openfilters; },
+                            function(newValue, oldValue) {
+                              console.log(newValue);
+                              vm.dateFrom = newValue.delivery_date ? new Date(newValue.delivery_date) : undefined;
+                              console.log(vm.statuses);
+                              vm.statuses.forEach(function(status) {
+                                status.selected = false;
+                              });
+                              vm.statuses.forEach(function(status) {
+                                newValue.status.forEach(function(stateMachineStatus) {
+                                  console.log(status, stateMachineStatus);
+                                  if(stateMachineStatus === status.name) {
+                                    status.selected = true;
+                                  }
+                                });
+                              });
+                            });
+
     vm.changeLayout = function(layoutName) {
       vm.owner.clientLayoutChanged(layoutName).
                then(function() {
@@ -40,14 +58,10 @@
 
     vm.changeDocumentFilter = function() {
       vm.owner.getBackendFilter(vm.seletedDocumentFilters[0].name,
-                                [{
-                                  field: 'delivery_date',
-                                  value: vm.dateFrom
-                                },
                                 {
-                                  field: 'status',
-                                  value: _.map(vm.selectedStatuses, 'name')
-                                }]).
+                                  'delivery_date': vm.dateFrom,
+                                  'status':        _.map(vm.selectedStatuses, 'name')
+                                }).
                then(function() {
                       vm.documentFiltersBefore = _.cloneDeep(vm.owner.documentFilters);
                     },

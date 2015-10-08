@@ -156,30 +156,39 @@
     return _.snakeCase(string);
   };
 
-  mohican.urlParamToOpenfilters = function(urlParamString) {
-    var params = urlParamString.split('$$');
-    var openfilters = [];
-    params.forEach(function(param) {
-      var att = param.split('$');
-      openfilters.push({field: att[0], value: att[1]});
-    });
+  mohican.urlParamToOpenfilters = function(urlParamString, openfiltersFields) {
+    var openfilters = {};
+    if(urlParamString) {
+      var params = urlParamString.split('$$');
+      params.forEach(function(param) {
+        var att = param.split('$');
+        if(openfiltersFields[att[0]] === 'Date') {
+          openfilters[att[0]] = new Date(att[1]);
+        }
+        if(openfiltersFields[att[0]] === 'Array') {
+          openfilters[att[0]] = att[1].split(',');
+        }
+
+      });
+    }
     return openfilters;
   };
 
-  mohican.openfiltersToUrlParam = function(openfilters) {
+  mohican.openfiltersToUrlParam = function(openfilters, openfiltersFields) {
     var paramStrings = [];
-    openfilters.forEach(function(filter) {
-      if(filter.value instanceof Date) {
-        paramStrings.push(filter.field + '$' + filter.value.toString().split(' ').join('-'));
+    for(var key in openfilters) {
+      var filter = openfilters[key];
+      if(filter instanceof Date) {
+        paramStrings.push(key + '$' + filter.toString().split(' ').join('-'));
       }
-      if(filter.value instanceof Array && filter.value.length > 0) {
+      if(filter instanceof Array && filter.length > 0) {
         var values = [];
-        filter.value.forEach(function(val) {
+        filter.forEach(function(val) {
           values.push(val);
         });
-        paramStrings.push(filter.field + '$' + values.join(','));
+        paramStrings.push(key + '$' + values.join(','));
       }
-    });
+    };
     return paramStrings.join('$$');
   };
 

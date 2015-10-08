@@ -34,7 +34,7 @@
         mohican.redirectDefaultParameters(this.mnRouter);
         mohican.injectDefaultParameters(this.mnRouter);
 
-        this.stateMachine.stateMachineFromUrl(this.mnRouter.$stateParams, service);
+        this.stateMachine.stateMachineFromUrl(this.mnRouter.$stateParams, service, {'delivery_date': 'Date', 'status': 'Array'});
 
         if(angular.isDefined(this.mnRouter.$stateParams.column) ||
               angular.isDefined(this.mnRouter.$stateParams.qf) ||
@@ -270,7 +270,7 @@
         newRouteParams.quickFilterShown = false;
         newRouteParams.filters = undefined;
         newRouteParams.documentfilter = documentFilter;
-        newRouteParams.openfilters = mohican.openfiltersToUrlParam(openfilters);
+        newRouteParams.openfilters = mohican.openfiltersToUrlParam(openfilters, {'delivery_date': 'Date', 'status': 'Array'});
         this.mnRouter.transitionTo(this.mnRouter.currentRouteName(), mohican.escapeDefaultParameters(newRouteParams)).
                       then(function() {
                         deffered.resolve();
