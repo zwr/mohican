@@ -30,20 +30,20 @@
 
     $scope.$watch(function() { return vm.owner.stateMachine.openfilters; },
                             function(newValue, oldValue) {
-                              console.log(newValue);
                               vm.dateFrom = newValue.delivery_date ? new Date(newValue.delivery_date) : undefined;
-                              console.log(vm.statuses);
                               vm.statuses.forEach(function(status) {
                                 status.selected = false;
                               });
-                              vm.statuses.forEach(function(status) {
-                                newValue.status.forEach(function(stateMachineStatus) {
-                                  console.log(status, stateMachineStatus);
-                                  if(stateMachineStatus === status.name) {
-                                    status.selected = true;
-                                  }
+                              if(newValue.status && vm.statuses) {
+                                vm.statuses.forEach(function(status) {
+                                  newValue.status.forEach(function(stateMachineStatus) {
+                                    console.log(status, stateMachineStatus);
+                                    if(stateMachineStatus === status.name) {
+                                      status.selected = true;
+                                    }
+                                  });
                                 });
-                              });
+                              }
                             });
 
     vm.changeLayout = function(layoutName) {
