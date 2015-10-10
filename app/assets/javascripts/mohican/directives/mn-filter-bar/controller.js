@@ -37,7 +37,6 @@
                               if(newValue.status && vm.statuses) {
                                 vm.statuses.forEach(function(status) {
                                   newValue.status.forEach(function(stateMachineStatus) {
-                                    console.log(status, stateMachineStatus);
                                     if(stateMachineStatus === status.name) {
                                       status.selected = true;
                                     }
