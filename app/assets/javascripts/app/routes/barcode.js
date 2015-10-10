@@ -43,4 +43,23 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   //     }
   //   };
   // });
+
+  // mnRouterProvider.addRedirecRoute('barcode', function($location, $injector) {
+  //   var deffered = $injector.get('$q').defer();
+  //   var barcode = $location.path().split('/')[2];
+  //   var cellIndex = parseInt(barcode.replace('CELL',''));
+  //
+  //   var $timeout = $injector.get('$timeout');
+  //
+  //   $timeout(function() {
+  //     deffered.resolve({
+  //       resource: 'orders',
+  //       params:   {
+  //         page: cellIndex
+  //       }
+  //     });
+  //   }, 2000);
+  //
+  //   return deffered.promise;
+  // });
 }]);
