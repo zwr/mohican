@@ -212,7 +212,14 @@
         service.reportModalDeffered.resolve();
       }
     };
+    service.clearReportConnectivityProblem = function() {
+      if(service.connectivityWarning) {
+        service.connectivityWarning.message.dismiss();
+        service.connectivityWarning = undefined;
+      }
+    };
     service.reportConnectivityProblem = function() {
+      console.log('report connectivity problem');
       if(!service.connectivityWarning) {
         service.connectivityWarning = service.warning({
           message:     'connectivity problem',

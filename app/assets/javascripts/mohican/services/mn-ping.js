@@ -10,10 +10,8 @@
     service.offlineWarning = undefined;
     service.lastResponseStatus = 200;//initially assume that everything is ok
     service.start = function() {
-      console.log('ping started');
 
       $interval(function() {
-        console.log('ping');
         if(service.lastResponseStatus !== 401) {
           $http.get('/ping.json').
                 then(function (response) {
@@ -22,6 +20,7 @@
                     if(service.offlineWarning) {
                       service.offlineWarning.dismiss();
                       service.offlineWarning = undefined;
+                      mnNotify.clearReportConnectivityProblem();
                     }
                   }
                 }).
@@ -36,6 +35,7 @@
                     if(service.offlineWarning) {
                       service.offlineWarning.dismiss();
                       service.offlineWarning = undefined;
+                      mnNotify.clearReportConnectivityProblem();
                     }
                   }
                   else {

@@ -1,5 +1,5 @@
 <button class="btn btn-primary"
-        ng-disabled="mnfDoc._state === 'editing' || mnfDoc._state === 'committing'"
+        ng-disabled="mnPing.offlineWarning || mnfDoc._state === 'editing' || mnfDoc._state === 'committing'"
         ng-if="mnfFormCtrl.mnfCrudShown && (mnfDoc._state === 'added' || mnfDoc._state === 'changed' || mnfDoc._state === 'editing' || mnfDoc._state === 'committing')"
         ng-click="commitDoc()">
   <span ng-style="mnfDoc._state === 'committing' ? {float: 'left'} : {}">save</span>

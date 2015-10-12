@@ -12,6 +12,9 @@ angular.module('mohican')
         restrict:    'E',
         require:     '^mnfForm',
         templateUrl: 'mohican/directives/mnf-delete/template.html',
+        controller:  ['mnPing', '$scope', function(mnPing, $scope) {
+          $scope.mnPing = mnPing;
+        }],
 
         link: function(scope, elem, attr, mnfFormCtrl) {
           scope.mnfDoc = mnfFormCtrl.mnfDoc;

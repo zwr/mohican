@@ -13,6 +13,9 @@ angular.module('mohican')
         },
         require:     '^mnfFormGrid',
         templateUrl: 'mohican/directives/mnf-commit-grid/template.html',
+        controller:  ['mnPing', '$scope', function(mnPing, $scope) {
+          $scope.mnPing = mnPing;
+        }],
 
         link: function(scope, elem, attr, mnfFormGridCtrl) {
           scope.mnfFormGridCtrl = mnfFormGridCtrl;

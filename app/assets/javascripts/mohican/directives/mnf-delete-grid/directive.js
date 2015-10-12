@@ -12,6 +12,9 @@ angular.module('mohican')
         },
         require:     '^mnfFormGrid',
         templateUrl: 'mohican/directives/mnf-delete-grid/template.html',
+        controller:  ['mnPing', '$scope', function(mnPing, $scope) {
+          $scope.mnPing = mnPing;
+        }],
 
         link: function(scope, elem, attrs, mnfFormGridCtrl) {
           scope.mnfFormGridCtrl = mnfFormGridCtrl;
@@ -23,9 +26,11 @@ angular.module('mohican')
               mnfFormGridCtrl.currentMnfDoc = null;
             }
             if(scope.mnfFormGridCtrl.mnfSubdocumetsGrid === false && scope.mnfDoc._state === 'ready') {
-              if($window.confirm('Are you sure that you want to permanently delete document?')) {
-                scope.mnfDoc.delete().then(scope.mnOnDelete);
-                mnfFormGridCtrl.currentMnfDoc = null;
+              if(!scope.mnPing.offlineWarning) {
+                if($window.confirm('Are you sure that you want to permanently delete document?')) {
+                  scope.mnfDoc.delete().then(scope.mnOnDelete);
+                  mnfFormGridCtrl.currentMnfDoc = null;
+                }
               }
             }
           };

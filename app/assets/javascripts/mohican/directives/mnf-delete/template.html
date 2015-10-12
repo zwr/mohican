@@ -1,5 +1,5 @@
 <button class="btn btn-danger"
-        ng-disabled="mnfDoc._state === 'deleting'"
+        ng-disabled="mnPing.offlineWarning || mnfDoc._state === 'deleting'"
         ng-if="mnfFormCtrl.mnfCrudShown && (mnfDoc._state === 'ready' || mnfDoc._state === 'deleting')"
         ng-click="confirmDelete()">
   <span ng-style="mnfDoc._state === 'deleting' ? {float: 'left'} : {}">delete</span>

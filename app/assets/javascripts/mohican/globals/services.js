@@ -146,6 +146,7 @@
             console.log(warn);
             warn.promise.then(function() {
               console.log('fetchEagerly');
+              warn.clearReportConnectivityProblem();
               service.thePromise = service.fetchEagerly(startIndex, dataFields, documentFilter);
             });
           });
@@ -208,6 +209,7 @@
           .catch(function(errorCode) {
             var warn = service.mnNotify.reportConnectivityProblem(errorCode.status);
             warn.promise.then(function() {
+              service.mnNotify.clearReportConnectivityProblem();
               service.thePromise = service._continueEagerly(dataFields, documentFilter);
             });
           });
