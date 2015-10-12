@@ -212,6 +212,16 @@
         service.reportModalDeffered.resolve();
       }
     };
+    service.reportConnectivityProblem = function() {
+      if(!service.connectivityWarning) {
+        service.connectivityWarning = service.warning({
+          message:     'connectivity problem',
+          dismissable: false
+        });
+      }
+
+      return service.connectivityWarning;
+    };
     service.report = function(code) {
       if(service.reportModalInstance) {
         console.log('modal already exist');

@@ -142,8 +142,9 @@
           })
           .catch(function(errorCode) {
             console.log('error fetchEagerly');
-            var promise = service.mnNotify.report(errorCode.status);
-            promise.then(function() {
+            var warn = service.mnNotify.reportConnectivityProblem(errorCode.status);
+            console.log(warn);
+            warn.promise.then(function() {
               console.log('fetchEagerly');
               service.thePromise = service.fetchEagerly(startIndex, dataFields, documentFilter);
             });
@@ -205,8 +206,8 @@
             }
           })
           .catch(function(errorCode) {
-            var promise = service.mnNotify.report(errorCode.status);
-            promise.then(function() {
+            var warn = service.mnNotify.reportConnectivityProblem(errorCode.status);
+            warn.promise.then(function() {
               service.thePromise = service._continueEagerly(dataFields, documentFilter);
             });
           });
