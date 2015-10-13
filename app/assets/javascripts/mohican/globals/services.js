@@ -221,7 +221,6 @@
     };
 
     service.getBackendPageCount = function(dataFields, tip, documentFilter, openfilters) {
-      console.log(openfilters);
       if(service.bufferBackendFilter !== documentFilter) {
         service.resetLoading();
       }
