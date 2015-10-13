@@ -41,6 +41,8 @@
     // wait for it to fulfill and only .then set our own promise.
     service.thePromise = null;
 
+    service.bufferMax = 3000;
+
     // Following is used to calculate the actual index of the required element
     service.pageSize = 20;
     // Following points out in which direction to grow the buffer. First it will
@@ -49,7 +51,7 @@
     service.nextEagerGrowthForward = false;
     // Following constant shows the size of fetch. It must by all means be
     // larger than pageSize
-    service.fetchSize = 1000;
+    service.fetchSize = 200;
     service.firstFetchSize = 200;
 
     service.waitFullyLoaded = function() {
@@ -130,7 +132,7 @@
             if(service.bufferBackendFilter === documentFilter) {
               service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, $q, apiResource, service.layout);
               service.buffer = resp.data.items;
-              service.totalCount = resp.data.total_count;
+              service.totalCount = resp.data.total_count > service.bufferMax ? service.bufferMax : resp.data.total_count;
               service.bottomIndex = resp.data.offset;
               // topIndex is not the index of top document, but one beyond!
               service.topIndex = service.bottomIndex + resp.data.items.length;
