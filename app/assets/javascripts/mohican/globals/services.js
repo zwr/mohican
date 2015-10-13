@@ -76,7 +76,7 @@
     };
 
     // pageNumber is 1 based!
-    service.getBackendPage = function(pageNumber, dataFields, documentFilter) {
+    service.getBackendPage = function(pageNumber, dataFields, documentFilter, openfilters) {
       if(service.bufferBackendFilter !== documentFilter) {
         service.resetLoading();
         service.bufferBackendFilter = documentFilter;
@@ -94,20 +94,20 @@
       } else {
         if(service.thePromise) {
           return service.thePromise.then(function() {
-            return service.getBackendPage(pageNumber, dataFields, documentFilter);
+            return service.getBackendPage(pageNumber, dataFields, documentFilter, openfilters);
           });
         } else {
           // Here we start the new eager loading
           service._fullyLoadedPromise = $q.defer();
-          return service.fetchEagerly((pageNumber - 1) * service.pageSize, dataFields, documentFilter)
+          return service.fetchEagerly((pageNumber - 1) * service.pageSize, dataFields, documentFilter, openfilters)
           .then(function() {
-            return service.getBackendPage(pageNumber, dataFields, documentFilter);
+            return service.getBackendPage(pageNumber, dataFields, documentFilter, openfilters);
           });
         }
       }
     };
 
-    service.fetchEagerly = function(startIndex, dataFields, documentFilter) {
+    service.fetchEagerly = function(startIndex, dataFields, documentFilter, openfilters) {
       //reset the buffer with the following command
       //service.fullyLoaded = false;
       // if there is an ongoing promise, wait for it to complete after making
@@ -115,7 +115,7 @@
       if(service.thePromise != null) {
         service.beEager = false;
         return service.thePromise.then(function() {
-          return service.fetchEagerly(startIndex, dataFields, documentFilter);
+          return service.fetchEagerly(startIndex, dataFields, documentFilter, openfilters);
         });
       } else {
         // fetch now, and then continue eagerly
@@ -123,7 +123,8 @@
         trace('get  offset = ' + startIndex
           + ' count = ' + service.firstFetchSize);
         service.thePromise = $http.get(window.MN_BASE + '/' + apiResource + '?offset=' +
-            startIndex + '&count=' + service.firstFetchSize + '&filter=' + documentFilter)
+            startIndex + '&count=' + service.firstFetchSize + '&filter=' + documentFilter +
+            '&openfilters=' + openfilters)
           .then(function(resp) {
             service.thePromise = null;
             if(service.bufferBackendFilter === documentFilter) {
@@ -133,7 +134,7 @@
               service.bottomIndex = resp.data.offset;
               // topIndex is not the index of top document, but one beyond!
               service.topIndex = service.bottomIndex + resp.data.items.length;
-              service._continueEagerly(dataFields, documentFilter);
+              service._continueEagerly(dataFields, documentFilter, openfilters);
               return service.buffer;
             } else {
               /* loading has been restarted, possibly backend filter changed */
@@ -147,14 +148,14 @@
             warn.promise.then(function() {
               console.log('fetchEagerly');
               warn.clearReportConnectivityProblem();
-              service.thePromise = service.fetchEagerly(startIndex, dataFields, documentFilter);
+              service.thePromise = service.fetchEagerly(startIndex, dataFields, documentFilter, openfilters);
             });
           });
         return service.thePromise;
       }
     };
 
-    service._continueEagerly = function(dataFields, documentFilter) {
+    service._continueEagerly = function(dataFields, documentFilter, openfilters) {
       if(service.beEager) {
         if(service.bottomIndex === 0) {
           service.nextEagerGrowthForward = true;
@@ -190,7 +191,8 @@
         trace('get  offset = ' + start
           + ' count = ' + count);
         service.thePromise = $http.get(window.MN_BASE + '/' + apiResource + '?offset='
-            + start + '&count=' + count + '&filter=' + documentFilter)
+            + start + '&count=' + count + '&filter=' + documentFilter +
+            '&openfilters=' + openfilters)
           .then(function(resp) {
             service.thePromise = null;
             // if we were told to stop, just do nothing
@@ -203,20 +205,21 @@
                 service.bottomIndex -= resp.data.items.length;
                 service.buffer = resp.data.items.append(service.buffer);
               }
-              service._continueEagerly(dataFields, documentFilter);
+              service._continueEagerly(dataFields, documentFilter, openfilters);
             }
           })
           .catch(function(errorCode) {
             var warn = service.mnNotify.reportConnectivityProblem(errorCode.status);
             warn.promise.then(function() {
               service.mnNotify.clearReportConnectivityProblem();
-              service.thePromise = service._continueEagerly(dataFields, documentFilter);
+              service.thePromise = service._continueEagerly(dataFields, documentFilter, openfilters);
             });
           });
       }
     };
 
-    service.getBackendPageCount = function(dataFields, tip, documentFilter) {
+    service.getBackendPageCount = function(dataFields, tip, documentFilter, openfilters) {
+      console.log(openfilters);
       if(service.bufferBackendFilter !== documentFilter) {
         service.resetLoading();
       }
@@ -229,12 +232,12 @@
           // Somebody is already getting something, which will probably
           // do what we need, so just wait for that promise to fullfil and
           // then try again the same.
-          return service.getBackendPageCount(dataFields, tip, documentFilter);
+          return service.getBackendPageCount(dataFields, tip, documentFilter, openfilters);
         });
       } else {
-        return service.getBackendPage(tip || 1, dataFields, documentFilter)
+        return service.getBackendPage(tip || 1, dataFields, documentFilter, openfilters)
           .then(function() {
-            return service.getBackendPageCount(dataFields, tip, documentFilter);
+            return service.getBackendPageCount(dataFields, tip, documentFilter, openfilters);
           });
       }
     };

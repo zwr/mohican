@@ -18,14 +18,14 @@
   mohican.createResourceDriver = function() {
     return {
       documentFilters: undefined,
-      layouts:        undefined,
-      layoutDefs:     undefined,
-      service:        undefined,
-      fields:         undefined,
-      pageCount:      undefined,
-      totalQfCount:   undefined,
-      primaryKeyName: undefined,
-      itemForm:       undefined,
+      layouts:         undefined,
+      layoutDefs:      undefined,
+      service:         undefined,
+      fields:          undefined,
+      pageCount:       undefined,
+      totalQfCount:    undefined,
+      primaryKeyName:  undefined,
+      itemForm:        undefined,
 
       initialize: function(service) {
         this.fullyLoaded = false;
@@ -49,9 +49,9 @@
           });
         }).
         then(function() {
-          that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter).then(function(pageCount) {
+          that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter, mohican.openfiltersToUrlParam(that.stateMachine.openfilters, {'delivery_date': 'Date', 'status': 'Array'})).then(function(pageCount) {
             that.pageCount = pageCount;
-            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentFilter).then(function(items) {
+            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentFilter, mohican.openfiltersToUrlParam(that.stateMachine.openfilters, {'delivery_date': 'Date', 'status': 'Array'})).then(function(items) {
               that.items = items;
               that.service.waitFullyLoaded().then(function() {
                 that.fullyLoaded = true;

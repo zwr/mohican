@@ -76,11 +76,11 @@
 
       loadMnGridItems: function() {
         var that = this;
-        that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter).then(function(pageCount) {
+        that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter, mohican.openfiltersToUrlParam(that.stateMachine.openfilters, {'delivery_date': 'Date', 'status': 'Array'})).then(function(pageCount) {
           that.pageCount = pageCount;
 
           if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter)) {
-            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentFilter).then(function(items) {
+            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentFilter, mohican.openfiltersToUrlParam(that.stateMachine.openfilters, {'delivery_date': 'Date', 'status': 'Array'})).then(function(items) {
               that.items = items;
               // We want to be careful to call waitFullyLoaded only when the
               // initial promise has returned! Now we are sure the eager loading
