@@ -1,10 +1,11 @@
 (function(mohican) {
   'use strict';
 
-  mohican.extendResourcePageController = function(resourceName, ctrl, service, $injector) {
+  mohican.extendResourcePageController = function(resourceName, routeName, ctrl, service, $injector) {
     mohican.extendBaseDriver(ctrl, $injector);
     _.assign(ctrl, mohican.createResourcePageController());
     ctrl.resourceName = resourceName;
+    ctrl.routeName = routeName;
     ctrl.initialize(service, $injector);
     ctrl.loadData();
   };
@@ -39,7 +40,7 @@
         if(angular.isDefined(this.mnRouter.$stateParams.column) ||
               angular.isDefined(this.mnRouter.$stateParams.qf) ||
               angular.isDefined(this.mnRouter.$stateParams.filters)) {
-          if(!that.eagerLoadingMessage && that.mnRouter.currentRouteName() === that.resourceName) {
+          if(!that.eagerLoadingMessage && that.mnRouter.currentRouteName() === that.routeName) {
             var notif = this.mnNotify.warning({
               message: 'Filtered data eager loading...',
               details: 'You will be shown filtered and sorted data when fully loaded or you can clear requested fiter and sort parameters',
@@ -56,7 +57,7 @@
           }
         }
         else {
-          if(!that.eagerLoadingMessage && that.mnRouter.currentRouteName() === that.resourceName) {
+          if(!that.eagerLoadingMessage && that.mnRouter.currentRouteName() === that.routeName) {
             var notif = this.mnNotify.info({
               message: 'Eager data loading...',
               details: 'You will be able to see all data after eager loading finish',

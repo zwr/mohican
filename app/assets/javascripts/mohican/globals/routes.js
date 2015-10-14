@@ -1,7 +1,7 @@
 (function(mohican) {
   'use strict';
 
-  mohican._createMohicanResourceRoute = function(routeName, controller, defaultRoute, $stateProvider, redirectTo, template, $injector) {
+  mohican._createMohicanResourceRoute = function(routeName, controller, defaultRoute, $stateProvider, redirectTo, template, $injector, resourceName) {
     var url = '/' + mohican.toHyphen(routeName) + '?documentfilter&openfilters&page&layout&column&direction&qf&filters';
     var urlForm = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}?activetab';
     var urlNew = '/' + mohican.toHyphen(routeName) + '/new?activetab';
@@ -34,8 +34,8 @@
       }];
     }
     else {
-      if($injector.has(routeName + 'Service')) {
-        controller.$inject = [routeName + 'Service', '$injector'];
+      if($injector.has(resourceName + 'Service')) {
+        controller.$inject = [resourceName + 'Service', '$injector'];
       }
       else {
         controller.$inject = ['$scope', '$injector'];
@@ -70,15 +70,20 @@
       if(definition.controller && angular.isArray(definition.controller)) {
         for(i = 0; i < definition.controller.length; i++) {
           if(definition.controller[i] === 'service') {
-            definition.controller[i] = definition.routeName + 'Service';
+            definition.controller[i] = definition.resourceName + 'Service';
           }
         }
       }
 
-      angular.module('mohican').register.
-          factory(definition.routeName + 'Service', ['$injector', definition.service]);
+      if(!$injector.has(definition.resourceName + 'Service')) {
+        angular.module('mohican').register.
+                factory(definition.resourceName + 'Service', ['$injector', definition.service]);
+      }
+      else {
+        throw definition.resourceName + 'Service ' + 'is already defined';
+      }
     }
-    mohican._createMohicanResourceRoute(definition.routeName, definition.controller, definition.default, $stateProvider, definition.redirectTo, definition.template, $injector);
+    mohican._createMohicanResourceRoute(definition.routeName, definition.controller, definition.default, $stateProvider, definition.redirectTo, definition.template, $injector, definition.resourceName);
   };
 
   var _checkDefaultParams = function(params) {

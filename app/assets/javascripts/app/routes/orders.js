@@ -10,8 +10,9 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
 
   var resourceName = 'orders';
+  var routeName = 'orders';
   mnRouterProvider.addResouceRoute({
-    routeName:    resourceName,
+    routeName:    routeName,
     resourceName: resourceName,
 
     controller: function(service, $injector) {
@@ -19,7 +20,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
       var mnNotify = $injector.get('mnNotify');
       var $window = $injector.get('$window');
       var $location = $injector.get('$location');
-      mohican.extendResourcePageController(resourceName, this, service, $injector);
+      mohican.extendResourcePageController(resourceName, routeName, this, service, $injector);
       var ctrl = this;
       ctrl.mnNotify = mnNotify;
       ctrl.reportLocation = '/reports';
