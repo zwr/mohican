@@ -2,10 +2,10 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   mnRouterProvider.addSimpleRoute({
     routeName:  'production',
-    controller: function($injector, $scope) {
+    controller: function(service, $injector, $scope) {
       var $location = $injector.get('$location');
       var $interval = $injector.get('$interval');
-      var productionLinesService = $injector.get('productionLinesService');
+      var productionLinesService = service;
       var mnDataPreloader = $injector.get('mnDataPreloader');
       var ctrl = this;
       mohican.extendBaseDriver(ctrl, $injector);
@@ -63,25 +63,28 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         $interval.cancel(myInterval);
         myInterval = undefined;
       });
+    },
+    service: function($injector) {
+      var $http = $injector.get('$http');
+      var $q = $injector.get('$q');
+      var service = {
+        lastKnownProductionLines: null,
+        getKnownProductionLines:  function() {
+          if(this.lastKnownProductionLines) {
+            return $q.when(lastKnownProductionLines);
+          } else {
+            return this.getProductionLines();
+          }
+        },
+        getProductionLines: function() {
+          return $http.get('/api/lines/stats.json')
+          .then(function (response) {
+            return response.data;
+          });
+        }
+      };
+
+      return service;
     }
   });
-}])
-.service('productionLinesService', ['$http', '$q', function($http, $q) {
-  'use strict';
-  return {
-    lastKnownProductionLines: null,
-    getKnownProductionLines:  function() {
-      if(this.lastKnownProductionLines) {
-        return $q.when(lastKnownProductionLines);
-      } else {
-        return this.getProductionLines();
-      }
-    },
-    getProductionLines: function() {
-      return $http.get('/api/lines/stats.json')
-      .then(function (response) {
-        return response.data;
-      });
-    }
-  };
 }]);
