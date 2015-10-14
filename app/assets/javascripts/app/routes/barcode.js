@@ -1,7 +1,7 @@
 angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   mnRouterProvider.addSimpleRoute({
-    name:       'barcode',
+    routeName:  'barcode',
     controller: ['$scope', '$location', '$injector', 'productionLinesService', 'mnRouter',
       function($scope, $location, $injector, productionLinesService, mnRouter) {
         var ctrl = this;

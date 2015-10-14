@@ -9,7 +9,7 @@ angular.module('id5').filter('reverse', [function() {
 angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   mnRouterProvider.addResouceRoute({
-    name: 'orders',
+    routeName: 'orders',
 
     controller: ['service', '$injector', 'mnRouter', 'mnNotify', '$window', '$location',
       function(service, $injector, mnRouter, mnNotify, $window, $location) {

@@ -62,15 +62,15 @@
       if(definition.controller && angular.isArray(definition.controller)) {
         for(i = 0; i < definition.controller.length; i++) {
           if(definition.controller[i] === 'service') {
-            definition.controller[i] = definition.name + 'Service';
+            definition.controller[i] = definition.routeName + 'Service';
           }
         }
       }
 
       angular.module('mohican').register.
-          factory(definition.name + 'Service', definition.service);
+          factory(definition.routeName + 'Service', definition.service);
     }
-    mohican._createMohicanResourceRoute(definition.name, definition.controller, definition.default, $stateProvider, definition.redirectTo, definition.template);
+    mohican._createMohicanResourceRoute(definition.routeName, definition.controller, definition.default, $stateProvider, definition.redirectTo, definition.template);
   };
 
   var _checkDefaultParams = function(params) {

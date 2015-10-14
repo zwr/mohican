@@ -3,7 +3,7 @@
 angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   mnRouterProvider.addResouceRoute({
-    name: 'products',
+    routeName: 'products',
 
     controller: ['service', '$injector',
       function(service, $injector) {

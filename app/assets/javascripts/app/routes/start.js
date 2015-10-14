@@ -3,7 +3,7 @@
 angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   mnRouterProvider.addSimpleRoute({
-    name:       'Start',
+    routeName:  'Start',
     default:    true,
     controller: function() {}
   });

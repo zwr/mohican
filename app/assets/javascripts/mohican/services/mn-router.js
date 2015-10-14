@@ -30,18 +30,18 @@
     provider.addRedirecRoute = function() {
       var definition = {};
       if(arguments.length === 1) {
-        definition.name = arguments[0].name;
+        definition.routeName = arguments[0].routeName;
         definition.redirectTo = arguments[0].redirectTo;
       }
       else if(arguments.length === 2) {
-        definition.name = arguments[0];
+        definition.routeName = arguments[0];
         definition.redirectTo = arguments[1];
       }
       else {
         throw 'invalid addRedirecRoute parameters';
       }
       provider.routes.push({
-        name:       definition.name,
+        routeName:  definition.routeName,
         redirectTo: definition.redirectTo
       });
     };

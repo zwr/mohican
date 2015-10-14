@@ -1,7 +1,7 @@
 angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   mnRouterProvider.addSimpleRoute({
-    name:       'production',
+    routeName:  'production',
     controller: ['$scope', '$location', '$interval', '$injector', 'productionLinesService', 'mnDataPreloader',
       function($scope, $location, $interval, $injector, productionLinesService, mnDataPreloader) {
         var ctrl = this;
