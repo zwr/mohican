@@ -1,7 +1,7 @@
 (function(mohican) {
   'use strict';
 
-  mohican._createMohicanResourceRoute = function(routeName, controller, defaultRoute, $stateProvider, redirectTo, template) {
+  mohican._createMohicanResourceRoute = function(routeName, controller, defaultRoute, $stateProvider, redirectTo, template, $injector) {
     var url = '/' + mohican.toHyphen(routeName) + '?documentfilter&openfilters&page&layout&column&direction&qf&filters';
     var urlForm = '/' + mohican.toHyphen(routeName) + '/{itemPrimaryKeyId}?activetab';
     var urlNew = '/' + mohican.toHyphen(routeName) + '/new?activetab';
@@ -33,6 +33,14 @@
         }
       }];
     }
+    else {
+      if($injector.has(routeName + 'Service')) {
+        controller.$inject = [routeName + 'Service', '$injector'];
+      }
+      else {
+        controller.$inject = ['$scope', '$injector'];
+      }
+    }
 
     $stateProvider.state(mohican.toHyphen(routeName), {
       url:          defaultRoute ? '/' : url,
@@ -56,7 +64,7 @@
     });
   };
 
-  mohican.defineMohicanRoute = function(definition, $stateProvider) {
+  mohican.defineMohicanRoute = function(definition, $stateProvider, $injector) {
     var i;
     if(definition.service) {
       if(definition.controller && angular.isArray(definition.controller)) {
@@ -68,9 +76,9 @@
       }
 
       angular.module('mohican').register.
-          factory(definition.routeName + 'Service', definition.service);
+          factory(definition.routeName + 'Service', ['$injector', definition.service]);
     }
-    mohican._createMohicanResourceRoute(definition.routeName, definition.controller, definition.default, $stateProvider, definition.redirectTo, definition.template);
+    mohican._createMohicanResourceRoute(definition.routeName, definition.controller, definition.default, $stateProvider, definition.redirectTo, definition.template, $injector);
   };
 
   var _checkDefaultParams = function(params) {

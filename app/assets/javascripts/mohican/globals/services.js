@@ -1,8 +1,11 @@
 (function(mohican) {
   'use strict';
 
-  mohican.constructBaseService = function(apiResource, $http, $q, mnNotify) {
+  mohican.constructBaseService = function(apiResource, $injector) {
     var service = {};
+    var $q = $injector.get('$q');
+    var $http = $injector.get('$http');
+    var mnNotify = $injector.get('mnNotify');
     _.assign(service, mohican.mixins.dataFieldsMixin);
     _.assign(service, mohican.mixins.crudMixin);
     service.mnNotify = mnNotify;

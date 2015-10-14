@@ -46,7 +46,8 @@
       });
     };
 
-    provider.$get = ['$stateParams', '$state', '$rootScope', '$q', '$urlRouter', '$window', '$location', function($stateParams, $state, $rootScope, $q, $urlRouter, $window, $location) {
+    provider.$get = ['$stateParams', '$state', '$rootScope', '$q', '$urlRouter', '$window', '$location', '$injector',
+                    function($stateParams, $state, $rootScope, $q, $urlRouter, $window, $location, $injector) {
       function createAll() {
         $window.onbeforeunload = function(event) {
           if(provider.transitionToValidarionAllreadyDone === false) {
@@ -111,7 +112,7 @@
         var has404 = false;
         provider.routes.forEach(function(route) {
           if(route.name === '404') { has404 = true; }
-          mohican.defineMohicanRoute(route, $stateProviderRef);
+          mohican.defineMohicanRoute(route, $stateProviderRef, $injector);
         });
 
         if(!has404) {
