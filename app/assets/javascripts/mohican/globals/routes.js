@@ -34,11 +34,21 @@
       }];
     }
     else {
-      if($injector.has(resourceName + 'Service')) {
-        controller.$inject = [resourceName + 'Service', '$injector'];
+      if(resourceName) {
+        if($injector.has(resourceName + 'Service')) {
+          controller.$inject = [resourceName + 'Service', '$injector', '$scope'];
+        }
+        else {
+          controller.$inject = ['$injector', '$scope'];
+        }
       }
       else {
-        controller.$inject = ['$scope', '$injector'];
+        if($injector.has(routeName + 'Service')) {
+          controller.$inject = [routeName + 'Service', '$injector', '$scope'];
+        }
+        else {
+          controller.$inject = ['$injector', '$scope'];
+        }
       }
     }
 
@@ -75,12 +85,23 @@
         }
       }
 
-      if(!$injector.has(definition.resourceName + 'Service')) {
-        angular.module('mohican').register.
-                factory(definition.resourceName + 'Service', ['$injector', definition.service]);
+      if(definition.resourceName) {
+        if(!$injector.has(definition.resourceName + 'Service')) {
+          angular.module('mohican').register.
+                  factory(definition.resourceName + 'Service', ['$injector', definition.service]);
+        }
+        else {
+          throw definition.resourceName + 'Service ' + 'is already defined';
+        }
       }
       else {
-        throw definition.resourceName + 'Service ' + 'is already defined';
+        if(!$injector.has(definition.routeName + 'Service')) {
+          angular.module('mohican').register.
+                  factory(definition.routeName + 'Service', ['$injector', definition.service]);
+        }
+        else {
+          throw definition.routeName + 'Service ' + 'is already defined';
+        }
       }
     }
     mohican._createMohicanResourceRoute(definition.routeName, definition.controller, definition.default, $stateProvider, definition.redirectTo, definition.template, $injector, definition.resourceName);

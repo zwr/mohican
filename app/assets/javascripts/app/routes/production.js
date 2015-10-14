@@ -2,7 +2,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   mnRouterProvider.addSimpleRoute({
     routeName:  'production',
-    controller: function($scope, $injector) {
+    controller: function($injector, $scope) {
       var $location = $injector.get('$location');
       var $interval = $injector.get('$interval');
       var productionLinesService = $injector.get('productionLinesService');
