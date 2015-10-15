@@ -429,6 +429,12 @@
 
     service.preloadAllData = function() {
       var deffered = $q.defer();
+      var notif = service.mnNotify.info({
+        message: apiResource + ' eager data loading...',
+        details: 'You will be able to see all data after eager loading finish',
+
+        dismissable: false
+      });
       service.getPreviewDefinitions().
               then(function(definition) {
                 var dataFields = [];
@@ -444,6 +450,11 @@
                   service.getBackendPage(1, dataFields, 'default').
                   then(function() {
                     service.waitFullyLoaded().then(function() {
+                      notif.message.dismiss();
+                      service.mnNotify.success({
+                        message: apiResource + ' eager data has been loaded',
+                        delay:   -1
+                      });
                       deffered.resolve();
                     });
                   });
