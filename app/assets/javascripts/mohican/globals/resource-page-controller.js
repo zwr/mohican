@@ -79,6 +79,7 @@
                     notif.promise.then(function(action) {
                       if(action === 'filter') {
                         console.log('filter');
+                        that.service.getCurrentBufferSnapshot();
                       }
                       if(action === 'clear') {
                         console.log('clear');
@@ -103,33 +104,47 @@
               // initial promise has returned! Now we are sure the eager loading
               // is ongoing.
               that.service.waitFullyLoaded().then(function() {
-                that.fullyLoaded = true;
-                if(that.eagerLoadingMessage) {
-                  that.eagerLoadingMessage.dismiss();
-                  that.eagerLoadingMessage = undefined;
-                  that.mnNotify.success({
-                    message: 'Eager data has been loaded',
-                    delay:   -1
-                  });
-                }
-                if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
-                  that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$state.params.page) ? 1 : parseInt(that.mnRouter.$state.params.page));
-
-                  that.service.getClientPage(that.stateMachine.page,
-                                             that.stateMachine.column,
-                                             that.stateMachine.direction,
-                                             that.stateMachine.filters,
-                                             that.fields).then(function(data) {
-                    that.items = data.items;
-                    that.pageCount = data.pageCount;
-                    that.totalQfCount = data.totalQfCount;
-                    mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
-                  });
-                }
+                that.loadQuickFiltersAndSort();
+              }, function(error) {
+                console.log(error);
+              }, function(notification) {
+                console.log('more data has arrived');
               });
+              that.service.waitSnapshotLoaded().then(function() {
+                that.loadQuickFiltersAndSort();
+              });
+            }, function(error) {
+              console.log(error);
             });
           }
         });
+      },
+
+      loadQuickFiltersAndSort: function() {
+        var that = this;
+        that.fullyLoaded = true;
+        if(that.eagerLoadingMessage) {
+          that.eagerLoadingMessage.dismiss();
+          that.eagerLoadingMessage = undefined;
+          that.mnNotify.success({
+            message: 'Eager data has been loaded',
+            delay:   -1
+          });
+        }
+        if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
+          that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$state.params.page) ? 1 : parseInt(that.mnRouter.$state.params.page));
+
+          that.service.getClientPage(that.stateMachine.page,
+                                     that.stateMachine.column,
+                                     that.stateMachine.direction,
+                                     that.stateMachine.filters,
+                                     that.fields).then(function(data) {
+            that.items = data.items;
+            that.pageCount = data.pageCount;
+            that.totalQfCount = data.totalQfCount;
+            mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
+          });
+        }
       },
 
       loadData: function() {

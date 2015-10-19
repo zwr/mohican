@@ -16,6 +16,8 @@
   mohican.extendBaseService = function(service, apiResource, $http, $q) {
     service.resetLoading = function() {
       service.buffer = null;
+      service.loadingBuffer = null;
+      service.bufferSnapshotActive = false;
       service.bufferBackendFilter = null;
       service.bufferView = null;
 
@@ -35,6 +37,11 @@
         service._fullyLoadedPromise.reject();
       }
       service._fullyLoadedPromise = null;
+
+      if(service._snapshotLoadedPromise) {
+        service._snapshotLoadedPromise.reject();
+      }
+      service._snapshotLoadedPromise = null;
     };
 
     service.resetLoading();
@@ -44,7 +51,7 @@
     // wait for it to fulfill and only .then set our own promise.
     service.thePromise = null;
 
-    service.bufferMax = 1000;
+    service.bufferMax = 5000;
 
     // Following is used to calculate the actual index of the required element
     service.pageSize = 20;
@@ -59,6 +66,10 @@
 
     service.waitFullyLoaded = function() {
       return service._fullyLoadedPromise.promise;
+    };
+
+    service.waitSnapshotLoaded = function() {
+      return service._snapshotLoadedPromise.promise;
     };
 
     service.getClientPage = function(pageNumber, column, direction, filters, dataFields) {
@@ -104,12 +115,20 @@
         } else {
           // Here we start the new eager loading
           service._fullyLoadedPromise = $q.defer();
+          service._snapshotLoadedPromise = $q.defer();
           return service.fetchEagerly((pageNumber - 1) * service.pageSize, dataFields, documentFilter, openfilters)
           .then(function() {
             return service.getBackendPage(pageNumber, dataFields, documentFilter, openfilters);
           });
         }
       }
+    };
+
+    service.getCurrentBufferSnapshot = function() {
+      service.bufferSnapshotActive = true;
+      service.loadingBuffer = _.clone(service.buffer);
+      service._snapshotLoadedPromise.resolve();
+      return service.buffer;
     };
 
     service.fetchEagerly = function(startIndex, dataFields, documentFilter, openfilters) {
@@ -131,6 +150,8 @@
             startIndex + '&count=' + service.firstFetchSize + '&filter=' + documentFilter +
             '&openfilters=' + openfilters)
           .then(function(resp) {
+            // console.log('fetch');
+            service._fullyLoadedPromise.notify(resp.data.items);
             service.thePromise = null;
             if(service.bufferBackendFilter === documentFilter) {
               service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, $q, apiResource, service.layout);
@@ -199,6 +220,8 @@
             + start + '&count=' + count + '&filter=' + documentFilter +
             '&openfilters=' + openfilters)
           .then(function(resp) {
+            // console.log('continue');
+            service._fullyLoadedPromise.notify(resp.data.items);
             service.thePromise = null;
             // if we were told to stop, just do nothing
             if(service.beEager) {
@@ -208,7 +231,12 @@
                 service.buffer.append(resp.data.items);
               } else {
                 service.bottomIndex -= resp.data.items.length;
-                service.buffer = resp.data.items.append(service.buffer);
+                if(service.bufferSnapshotActive) {
+                  service.loadingBuffer = resp.data.items.append(service.buffer);
+                }
+                else {
+                  service.buffer = resp.data.items.append(service.buffer);
+                }
               }
               service._continueEagerly(dataFields, documentFilter, openfilters);
             }
@@ -423,6 +451,7 @@
 
     service._completeFullLoading = function() {
       service._fullyLoadedPromise.resolve();
+      service._snapshotLoadedPromise.resolve();
       service.nextCloned = 1;
       trace('data are fully loaded');
     };
