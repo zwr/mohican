@@ -37,36 +37,14 @@
 
         this.stateMachine.stateMachineFromUrl(this.mnRouter.$stateParams, service, {'delivery_date': 'Date', 'status': 'Array'});
 
-        if(angular.isDefined(this.mnRouter.$stateParams.column) ||
-              angular.isDefined(this.mnRouter.$stateParams.qf) ||
-              angular.isDefined(this.mnRouter.$stateParams.filters)) {
-          if(!that.eagerLoadingMessage && that.mnRouter.currentRouteName() === that.routeName) {
-            var notif = this.mnNotify.warning({
-              message: 'Filtered data eager loading...',
-              details: 'You will be shown filtered and sorted data when fully loaded or you can clear requested fiter and sort parameters',
-              actions: ['clear'],
+        var notif = this.mnNotify.info({
+          message: 'Loading ' + this.resourceName + '...',
+          details: 'Loading ' + this.resourceName + '...',
 
-              dismissable: false
-            });
-            that.eagerLoadingMessage = notif.message;
-            notif.promise.then(function(action) {
-              if(action === 'clear') {
-                that.clearClientSortAndFilter();
-              }
-            });
-          }
-        }
-        else {
-          if(!that.eagerLoadingMessage && that.mnRouter.currentRouteName() === that.routeName) {
-            var notif = this.mnNotify.info({
-              message: 'Eager data loading...',
-              details: 'You will be able to see all data after eager loading finish',
+          dismissable: false
+        });
+        this.startLoadingMessage = notif.message;
 
-              dismissable: false
-            });
-            that.eagerLoadingMessage = notif.message;
-          }
-        }
         this.fullyLoaded = false;
         this.layouts = [];
         this.layoutDefs = [];
@@ -83,6 +61,44 @@
           if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter)) {
             that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentFilter, mohican.openfiltersToUrlParam(that.stateMachine.openfilters, {'delivery_date': 'Date', 'status': 'Array'})).then(function(items) {
               that.items = items;
+              if(that.startLoadingMessage) {
+                that.startLoadingMessage.dismiss();
+                that.startLoadingMessage = undefined;
+                if(angular.isDefined(that.mnRouter.$stateParams.column) ||
+                      angular.isDefined(that.mnRouter.$stateParams.qf) ||
+                      angular.isDefined(that.mnRouter.$stateParams.filters)) {
+                  if(that.mnRouter.currentRouteName() === that.routeName) {
+                    var notif = that.mnNotify.warning({
+                      message: 'Data arriving, filtering postponed',
+                      details: 'Click \'filter\ to apply filter and sorting to the arrived data, or \'clear\' to show all data',
+                      actions: ['filter', 'clear'],
+
+                      dismissable: false
+                    });
+                    that.eagerLoadingMessage = notif.message;
+                    notif.promise.then(function(action) {
+                      if(action === 'filter') {
+                        console.log('filter');
+                      }
+                      if(action === 'clear') {
+                        console.log('clear');
+                        that.clearClientSortAndFilter();
+                      }
+                    });
+                  }
+                }
+                else {
+                  if(that.mnRouter.currentRouteName() === that.routeName) {
+                    var notif = that.mnNotify.info({
+                      message: 'Data arriving...',
+                      details: 'You will be able to see all data after eager loading finish',
+
+                      dismissable: false
+                    });
+                    that.eagerLoadingMessage = notif.message;
+                  }
+                }
+              }
               // We want to be careful to call waitFullyLoaded only when the
               // initial promise has returned! Now we are sure the eager loading
               // is ongoing.
