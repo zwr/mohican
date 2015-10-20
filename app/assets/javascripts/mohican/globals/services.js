@@ -227,14 +227,21 @@
             if(service.beEager) {
               service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, $q, apiResource, service.layout);
               if(service.nextEagerGrowthForward) {
-                service.topIndex += resp.data.items.length;
-                service.buffer.append(resp.data.items);
-              } else {
-                service.bottomIndex -= resp.data.items.length;
                 if(service.bufferSnapshotActive) {
-                  service.loadingBuffer = resp.data.items.append(service.buffer);
+                  service.loadingBufferTopIndex += resp.data.items.length;
+                  service.loadingBuffer.append(resp.data.items);
                 }
                 else {
+                  service.topIndex += resp.data.items.length;
+                  service.buffer.append(resp.data.items);
+                }
+              } else {
+                if(service.bufferSnapshotActive) {
+                  service.loadingBuffer = resp.data.items.append(service.buffer);
+                  service.bottomIndex -= resp.data.items.length;
+                }
+                else {
+                  service.loadingBufferBottomIndex -= resp.data.items.length;
                   service.buffer = resp.data.items.append(service.buffer);
                 }
               }

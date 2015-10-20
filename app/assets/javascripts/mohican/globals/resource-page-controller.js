@@ -218,7 +218,7 @@
 
       pageChanged: function(page) {
         var that = this;
-        if(this.service.thePromise !== null) {
+        if(!this.fullyLoaded) {
           this.stateMachine.page = parseInt(page);
           // this.stateMachine.layout = undefined;
           this.stateMachine.column = undefined;
