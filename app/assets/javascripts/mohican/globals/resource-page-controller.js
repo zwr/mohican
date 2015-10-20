@@ -104,14 +104,38 @@
               // initial promise has returned! Now we are sure the eager loading
               // is ongoing.
               that.service.waitFullyLoaded().then(function() {
+                console.log('full load');
                 that.loadQuickFiltersAndSort();
               }, function(error) {
                 console.log(error);
               }, function(notification) {
                 console.log('more data has arrived');
+                if(!that.moreDataLoadedMessage && !that.eagerLoadingMessage) {
+                  var notif = that.mnNotify.warning({
+                    message: 'More data has arrived',
+                    details: 'More data has arrived, click \'apply\' to load new arrived data to current filter.',
+                    actions: ['apply'],
+
+                    dismissable: false
+                  });
+                  that.moreDataLoadedMessage = notif.message;
+                  notif.promise.then(function(action) {
+                    if(action === 'apply') {
+                      console.log('apply');
+                      that.service.refreshCurrentBufferSnapshot();
+                      that.loadQuickFiltersAndSort();
+                    }
+                  });
+                }
               });
               that.service.waitSnapshotLoaded().then(function() {
+                // that.loadQuickFiltersAndSort();
+                // console.log('snapshot loaded');
+              }, function(error) {
+                console.log(error);
+              }, function() {
                 that.loadQuickFiltersAndSort();
+                console.log('snapshot loaded notification');
               });
             }, function(error) {
               console.log(error);

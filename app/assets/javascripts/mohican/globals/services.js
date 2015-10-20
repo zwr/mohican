@@ -25,6 +25,8 @@
       // when it is completelly loaded, these two will be 0 and totalCount.
       service.bottomIndex = undefined;
       service.topIndex = undefined;
+      service.loadingBufferBottomIndex = undefined;
+      service.loadingBufferTopIndex = undefined;
       service.totalCount = undefined;
       // Following is set to true when eager loading starts. Setting this to false
       // interupts eager loading, so that we can start it all over again. See
@@ -51,7 +53,7 @@
     // wait for it to fulfill and only .then set our own promise.
     service.thePromise = null;
 
-    service.bufferMax = 5000;
+    service.bufferMax = 1000;
 
     // Following is used to calculate the actual index of the required element
     service.pageSize = 20;
@@ -127,7 +129,18 @@
     service.getCurrentBufferSnapshot = function() {
       service.bufferSnapshotActive = true;
       service.loadingBuffer = _.clone(service.buffer);
-      service._snapshotLoadedPromise.resolve();
+      service.loadingBufferBottomIndex = service.bottomIndex;
+      service.loadingBufferTopIndex = service.topIndex;
+      service._snapshotLoadedPromise.notify();
+      return service.buffer;
+    };
+
+    service.refreshCurrentBufferSnapshot = function() {
+      service.bufferSnapshotActive = true;
+      service.buffer = _.clone(service.loadingBuffer);
+      service.bottomIndex = service.loadingBufferBottomIndex;
+      service.topIndex = service.loadingBufferTopIndex;
+      service._snapshotLoadedPromise.notify();
       return service.buffer;
     };
 
@@ -150,8 +163,6 @@
             startIndex + '&count=' + service.firstFetchSize + '&filter=' + documentFilter +
             '&openfilters=' + openfilters)
           .then(function(resp) {
-            // console.log('fetch');
-            service._fullyLoadedPromise.notify(resp.data.items);
             service.thePromise = null;
             if(service.bufferBackendFilter === documentFilter) {
               service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, $q, apiResource, service.layout);
@@ -182,14 +193,21 @@
     };
 
     service._continueEagerly = function(dataFields, documentFilter, openfilters) {
+      var topIndexVariable = 'topIndex';
+      var bottomIndexVariable = 'bottomIndex';
+      if(service.bufferSnapshotActive) {
+        topIndexVariable = 'loadingBufferTopIndex';
+        bottomIndexVariable = 'loadingBufferBottomIndex';
+      }
+
       if(service.beEager) {
-        if(service.bottomIndex === 0) {
+        if(service[bottomIndexVariable] === 0) {
           service.nextEagerGrowthForward = true;
-          if(service.topIndex === service.totalCount) {
+          if(service[topIndexVariable] === service.totalCount) {
             service._completeFullLoading();
             return;
           }
-        } else if(service.topIndex === service.totalCount) {
+        } else if(service[topIndexVariable] === service.totalCount) {
           service.nextEagerGrowthForward = false;
         } else {
           service.nextEagerGrowthForward = !service.nextEagerGrowthForward;
@@ -198,12 +216,12 @@
         var count = service.fetchSize;
         var start;
         if(service.nextEagerGrowthForward) {
-          start = service.topIndex;
-          if(service.totalCount - service.topIndex < count) {
-            count = service.totalCount - service.topIndex;
+          start = service[topIndexVariable];
+          if(service.totalCount - service[topIndexVariable] < count) {
+            count = service.totalCount - service[topIndexVariable];
           }
         } else {
-          start = service.bottomIndex - service.fetchSize;
+          start = service[bottomIndexVariable] - service.fetchSize;
           if(start < 0) {
             // note that start is negative, so this lowers the count
             count += start;
@@ -220,7 +238,6 @@
             + start + '&count=' + count + '&filter=' + documentFilter +
             '&openfilters=' + openfilters)
           .then(function(resp) {
-            // console.log('continue');
             service._fullyLoadedPromise.notify(resp.data.items);
             service.thePromise = null;
             // if we were told to stop, just do nothing
@@ -229,6 +246,7 @@
               if(service.nextEagerGrowthForward) {
                 if(service.bufferSnapshotActive) {
                   service.loadingBufferTopIndex += resp.data.items.length;
+                  console.log(service.loadingBufferTopIndex);
                   service.loadingBuffer.append(resp.data.items);
                 }
                 else {
@@ -238,10 +256,10 @@
               } else {
                 if(service.bufferSnapshotActive) {
                   service.loadingBuffer = resp.data.items.append(service.buffer);
-                  service.bottomIndex -= resp.data.items.length;
+                  service.loadingBufferBottomIndex -= resp.data.items.length;
                 }
                 else {
-                  service.loadingBufferBottomIndex -= resp.data.items.length;
+                  service.bottomIndex -= resp.data.items.length;
                   service.buffer = resp.data.items.append(service.buffer);
                 }
               }
@@ -458,7 +476,6 @@
 
     service._completeFullLoading = function() {
       service._fullyLoadedPromise.resolve();
-      service._snapshotLoadedPromise.resolve();
       service.nextCloned = 1;
       trace('data are fully loaded');
     };
