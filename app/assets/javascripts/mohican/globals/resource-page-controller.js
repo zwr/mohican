@@ -104,12 +104,34 @@
               // initial promise has returned! Now we are sure the eager loading
               // is ongoing.
               that.service.waitFullyLoaded().then(function() {
-                console.log('full load');
+                if(!that.moreDataLoadedMessage) {
+                  that.mnNotify.success({
+                    message: 'Eager data has been loaded',
+                    delay:   -1
+                  });
+                }
+                else {
+                  that.moreDataLoadedMessage.dismiss();
+                  var notif = that.mnNotify.warning({
+                    message: 'Loading is compelted',
+                    details: 'Loading is compelted but not all the data is merged. Click \'apply\' to merge them in.',
+                    actions: ['apply'],
+
+                    dismissable: false
+                  });
+                  that.moreDataLoadedMessage = notif.message;
+                  notif.promise.then(function(action) {
+                    if(action === 'apply') {
+                      that.moreDataLoadedMessage = undefined;
+                      that.service.refreshCurrentBufferSnapshot();
+                      that.loadQuickFiltersAndSort();
+                    }
+                  });
+                }
                 that.loadQuickFiltersAndSort();
               }, function(error) {
                 console.log(error);
               }, function(notification) {
-                console.log('more data has arrived');
                 if(!that.moreDataLoadedMessage && !that.eagerLoadingMessage) {
                   var notif = that.mnNotify.warning({
                     message: 'More data has arrived',
@@ -121,7 +143,7 @@
                   that.moreDataLoadedMessage = notif.message;
                   notif.promise.then(function(action) {
                     if(action === 'apply') {
-                      console.log('apply');
+                      that.moreDataLoadedMessage = undefined;
                       that.service.refreshCurrentBufferSnapshot();
                       that.loadQuickFiltersAndSort();
                     }
@@ -135,7 +157,6 @@
                 console.log(error);
               }, function() {
                 that.loadQuickFiltersAndSort();
-                console.log('snapshot loaded notification');
               });
             }, function(error) {
               console.log(error);
@@ -150,23 +171,23 @@
         if(that.eagerLoadingMessage) {
           that.eagerLoadingMessage.dismiss();
           that.eagerLoadingMessage = undefined;
-          that.mnNotify.success({
-            message: 'Eager data has been loaded',
-            delay:   -1
-          });
         }
         if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
-          that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$state.params.page) ? 1 : parseInt(that.mnRouter.$state.params.page));
-
-          that.service.getClientPage(that.stateMachine.page,
-                                     that.stateMachine.column,
-                                     that.stateMachine.direction,
-                                     that.stateMachine.filters,
-                                     that.fields).then(function(data) {
-            that.items = data.items;
-            that.pageCount = data.pageCount;
-            that.totalQfCount = data.totalQfCount;
-            mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
+          that.stateMachine.page = 1;
+          that.mnRouter.transitionTo(that.mnRouter.currentRouteName(),
+                         that.stateMachine.stateMachineToUrl(that.fields),
+                         { notify: false })
+                       .then(function() {
+            that.service.getClientPage(1,
+                                       that.stateMachine.column,
+                                       that.stateMachine.direction,
+                                       that.stateMachine.filters,
+                                       that.fields).then(function(data) {
+              that.items = data.items;
+              that.pageCount = data.pageCount;
+              that.totalQfCount = data.totalQfCount;
+              mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
+            });
           });
         }
       },

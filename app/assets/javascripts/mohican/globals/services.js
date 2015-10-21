@@ -53,7 +53,7 @@
     // wait for it to fulfill and only .then set our own promise.
     service.thePromise = null;
 
-    service.bufferMax = 1000;
+    service.bufferMax = 3000;
 
     // Following is used to calculate the actual index of the required element
     service.pageSize = 20;
@@ -246,7 +246,6 @@
               if(service.nextEagerGrowthForward) {
                 if(service.bufferSnapshotActive) {
                   service.loadingBufferTopIndex += resp.data.items.length;
-                  console.log(service.loadingBufferTopIndex);
                   service.loadingBuffer.append(resp.data.items);
                 }
                 else {
