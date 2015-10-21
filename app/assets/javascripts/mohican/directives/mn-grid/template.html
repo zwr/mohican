@@ -175,12 +175,6 @@
     <span ng-if="!grid.owner.service.totalCount">
        {{grid.owner.items.filter(grid.isItemVisible).length}}
     </span>
-    <span ng-if="!(grid.selectedItems.length > 0)">
-      loaded {{isObject(grid.owner.service.totalCount)}}
-    </span>
-    <span ng-if="grid.selectedItems.length > 0"
-          class="fa fa-list"
-          title="{{grid.owner.service.totalCount}} loaded"></span>
   </div>
 </div>
 
