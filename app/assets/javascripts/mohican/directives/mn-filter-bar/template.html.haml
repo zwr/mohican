@@ -3,9 +3,7 @@
     %form.form-inline
       %mn-filter-selector(seleted-document-filters="filterBar.seletedDocumentFilters")
       %mn-filter-bar-date-selector(date-from="filterBar.dateFrom")
-      .form-group
-        %label{:for => "status"} Status
-        %span.success{"button-label" => "name", "helper-elements" => "", "input-model" => "filterBar.statuses", "isteven-multi-select" => "", "item-label" => "name", "output-model" => "filterBar.selectedStatuses", "tick-property" => "selected", :translation => "filterBar.statusesLabels"}
+      %mn-filter-bar-multi-selector(selected-statuses="filterBar.selectedStatuses")
       %button.btn.btn-primary{"ng-click" => "filterBar.changeDocumentFilter()"} Change
 .row
   .col-xs-12.btn-toolbar

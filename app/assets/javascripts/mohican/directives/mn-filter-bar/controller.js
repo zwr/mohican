@@ -10,32 +10,10 @@
   function MnFilterBarController($scope) {
     var vm = this;
 
-    vm.statuses = [{name: 'created'}, {name: 'avoinna'}, {name: 'valmis'}, {name: 'deferred'}, {name: 'tuotannossa'}, {name: 'delivered'}];
-    vm.statusesLabels = {
-      nothingSelected: 'All'
-    };
-
     $scope.$watchCollection(function() { return vm.owner.layouts; },
                             function(newValue, oldValue) {
                               if(newValue !== oldValue) {
                                 vm.layoutsBefore = _.cloneDeep(vm.owner.layouts);
-                              }
-                            });
-
-    $scope.$watch(function() { return vm.owner.stateMachine.openfilters; },
-                            function(newValue, oldValue) {
-                              vm.dateFrom = newValue.delivery_date ? new Date(newValue.delivery_date) : undefined;
-                              vm.statuses.forEach(function(status) {
-                                status.selected = false;
-                              });
-                              if(newValue.status && vm.statuses) {
-                                vm.statuses.forEach(function(status) {
-                                  newValue.status.forEach(function(stateMachineStatus) {
-                                    if(stateMachineStatus === status.name) {
-                                      status.selected = true;
-                                    }
-                                  });
-                                });
                               }
                             });
 
