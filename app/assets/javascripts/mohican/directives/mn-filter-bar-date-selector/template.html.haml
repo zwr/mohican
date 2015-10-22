@@ -1,0 +1,12 @@
+.form-group
+  %label.pull-left(for="date-from"
+                   style="margin-top: 5px;") Delivery date from
+  %p.input-group.input-group-sm(style="margin: 0;")
+    %input#date-from.form-control(close-text="Close"
+                                  datepicker-popup="dd.MM.yyyy."
+                                  is-open="dialogOpened"
+                                  ng-model="filterBarDateSelector.dateFrom"
+                                  type="text")
+    %span.input-group-btn
+      %button.btn.btn-default{"ng-click" => "dialogOpened = true", :type => "button"}
+        %i.glyphicon.glyphicon-calendar

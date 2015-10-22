@@ -2,18 +2,7 @@
   .col-xs-12.btn-toolbar
     %form.form-inline
       %mn-filter-selector(seleted-document-filters="filterBar.seletedDocumentFilters")
-      .form-group
-        %label.pull-left(for="date-from"
-                         style="margin-top: 5px;") Delivery date from
-        %p.input-group.input-group-sm(style="margin: 0;")
-          %input#date-from.form-control(close-text="Close"
-                                        datepicker-popup="dd.MM.yyyy."
-                                        is-open="dialogOpened"
-                                        ng-model="filterBar.dateFrom"
-                                        type="text")
-          %span.input-group-btn
-            %button.btn.btn-default{"ng-click" => "dialogOpened = true", :type => "button"}
-              %i.glyphicon.glyphicon-calendar
+      %mn-filter-bar-date-selector(date-from="filterBar.dateFrom")
       .form-group
         %label{:for => "status"} Status
         %span.success{"button-label" => "name", "helper-elements" => "", "input-model" => "filterBar.statuses", "isteven-multi-select" => "", "item-label" => "name", "output-model" => "filterBar.selectedStatuses", "tick-property" => "selected", :translation => "filterBar.statusesLabels"}
