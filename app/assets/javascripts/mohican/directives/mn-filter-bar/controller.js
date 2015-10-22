@@ -22,12 +22,6 @@
                               }
                             });
 
-
-    $scope.$watchCollection(function() { return vm.owner.documentFilters; },
-                            function(newValue, oldValue) {
-                              vm.documentFiltersBefore = _.cloneDeep(vm.owner.documentFilters);
-                            });
-
     $scope.$watch(function() { return vm.owner.stateMachine.openfilters; },
                             function(newValue, oldValue) {
                               vm.dateFrom = newValue.delivery_date ? new Date(newValue.delivery_date) : undefined;
@@ -45,16 +39,6 @@
                               }
                             });
 
-    vm.changeLayout = function(layoutName) {
-      vm.owner.clientLayoutChanged(layoutName).
-               then(function() {
-                      vm.layoutsBefore = _.cloneDeep(vm.owner.layouts);
-                    },
-                    function() {
-                      vm.owner.layouts = vm.layoutsBefore;
-                    });
-    };
-
     vm.changeDocumentFilter = function() {
       vm.owner.getBackendFilter(vm.seletedDocumentFilters[0].name,
                                 {
@@ -66,6 +50,16 @@
                     },
                     function() {
                       vm.owner.documentFilters = vm.documentFiltersBefore;
+                    });
+    };
+
+    vm.changeLayout = function(layoutName) {
+      vm.owner.clientLayoutChanged(layoutName).
+               then(function() {
+                      vm.layoutsBefore = _.cloneDeep(vm.owner.layouts);
+                    },
+                    function() {
+                      vm.owner.layouts = vm.layoutsBefore;
                     });
     };
   }
