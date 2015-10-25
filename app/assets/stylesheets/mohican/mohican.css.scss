@@ -21,21 +21,13 @@
   @extend .btn-#{$variant};
 }
 
-// TODO: why different size of buttons? Why all this?????
-// reseting positioning & box model for isteven-multi-select existing vendor component style
-@mixin multi-select-reset-pbm($pad,$lmargin) {
-  padding: $pad + px ($pad * 4) + px $pad + px ($pad * 4) + px; // compensate for the inner .multiSelect .buttonLabel padding
-  margin-left: $lmargin + px;
-}
-
-.success .multiSelect button {
-  @include multi-select-reset-pbm(2,2);
-  @include bs-btnize("success");
-}
-
-.primary .multiSelect button {
-  @include multi-select-reset-pbm(1,5);
-  @include bs-btnize("primary");
+.multiSelect button{
+  @extend .btn;
+  // uncomment this line to add green color to multiSelect
+  //@extend .btn-success;
+  .buttonLabel{
+    padding: 0 !Important;
+  }
 }
 
 /* title bar logo */
