@@ -1,7 +1,8 @@
-/*
-*= require_tree ./includes
-*/
-
+// @import "includes/angular-multi-select";
+// @import "includes/animate";
+// @import "includes/css-spinner";
+// @import "includes/daterangepicker-bs3";
+@import "includes/*";
 @import "bootstrap-sprockets";
 @import "bootstrap";
 @import "mn-config";
