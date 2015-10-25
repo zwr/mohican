@@ -4,10 +4,19 @@
       %mn-filter-selector(seleted-document-filters="filterBar.seletedDocumentFilters")
       %mn-filter-bar-date-selector(date-from="filterBar.dateFrom")
       %mn-filter-bar-multi-selector(selected-statuses="filterBar.selectedStatuses")
-      %button.btn.btn-primary{"ng-click" => "filterBar.changeDocumentFilter()"} Change
+      %button.btn.btn-primary(ng-click="filterBar.changeDocumentFilter()") Change
 .row
   .col-xs-12.btn-toolbar
-    .primary.pull-left{"button-label" => "show", "helper-elements" => "", "input-model" => "filterBar.owner.layouts", "isteven-multi-select" => "", "item-label" => "name desc", "ng-show" => "filterBar.owner.layouts.length > 1", "on-item-click" => "filterBar.changeLayout(data.name)", "output-model" => "filterBar.outputBrowsers", "selection-mode" => "single", "tick-property" => "selected"}
-    %button.btn.:{:class => "{{filterBar.owner.stateMachine.quickFilterShown ? '' 'btn-primary'}}", "ng-click" => "filterBar.owner.toggleQuickFilter()", "ng-disabled" => "!filterBar.owner.fullyLoaded", :type => "button"}
+    .primary.pull-left(button-label="show" helper-elements=""
+                       input-model="filterBar.owner.layouts" isteven-multi-select=""
+                       item-label="name desc" ng-show="filterBar.owner.layouts.length > 1"
+                       on-item-click="filterBar.changeLayout(data.name)"
+                       output-model="filterBar.outputBrowsers"
+                       selection-mode="single" tick-property="selected")
+    %button.btn(ng-class="{'btn-primary': filterBar.owner.stateMachine.quickFilterShown}"
+                ng-click="filterBar.owner.toggleQuickFilter()"
+                ng-disabled="!filterBar.owner.fullyLoaded"
+                type="button")
       %span.pull-left Quick Filter
-      %span.loader.pull-left{"ng-show" => "!filterBar.owner.fullyLoaded", :style => "margin: 0px 0px 0px 8px;"}
+      %span.loader.pull-left(ng-show="!filterBar.owner.fullyLoaded"
+                             style="margin: 0px 0px 0px 8px;")
