@@ -80,6 +80,20 @@ a.navbar-brand {
   .table > thead > tr.mn-grid-header > th {
     border-bottom: none;
   }
+
+  .mnf-grid-field-editing {
+    padding-top: 1px;
+    input, .multiSelect button, .btn{
+      height: 26px;
+      padding: 5px 12px;
+      margin-top: 1px;
+      line-height: 1;
+      }
+      .glyphicon{
+          margin-top: -1px;
+      }
+  }
+
   .mn-grid-data-row {
     height: 45px;
     .input-sm {
