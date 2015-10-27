@@ -139,40 +139,56 @@
       return service.create(options);
     };
     service.create = function(options) {
-      var deffered = $q.defer();
-      var msg = mnsMessage.create({
-        type:    options.type,
-        message: options.message,
-        buffer:  service.notifications,
-        details: options.details,
-        q:       deffered,
-        actions: options.actions,
-
-        dismissable:    options.dismissable,
-        fullyClickable: options.fullyClickable
+      var existingMessage;
+      service.notifications.forEach(function(msg) {
+        if(msg.type === options.type &&
+           msg.message === options.message &&
+           msg.details === options.details) {
+          existingMessage = msg;
+        }
       });
-
-      if(options.delay) {
-        var delayMiliseconds;
-        if(options.delay === true ||
-           options.delay === -1 ||
-           !_.isNumber(options.delay)) {
-          delayMiliseconds = 2000;//default value
-        }
-        else {
-          delayMiliseconds = options.delay * 1000;
-        }
-        $timeout(function() {
-          msg.dismiss(delayMiliseconds);
-        }, delayMiliseconds);
+      if(existingMessage) {
+        return {
+          promise: existingMessage.q.promise,
+          message: existingMessage
+        };
       }
+      else {
+        var deffered = $q.defer();
+        var msg = mnsMessage.create({
+          type:    options.type,
+          message: options.message,
+          buffer:  service.notifications,
+          details: options.details,
+          q:       deffered,
+          actions: options.actions,
 
-      service.notifications.push(msg);
+          dismissable:    options.dismissable,
+          fullyClickable: options.fullyClickable
+        });
 
-      return {
-        promise: deffered.promise,
-        message: msg
-      };
+        if(options.delay) {
+          var delayMiliseconds;
+          if(options.delay === true ||
+             options.delay === -1 ||
+             !_.isNumber(options.delay)) {
+            delayMiliseconds = 2000;//default value
+          }
+          else {
+            delayMiliseconds = options.delay * 1000;
+          }
+          $timeout(function() {
+            msg.dismiss(delayMiliseconds);
+          }, delayMiliseconds);
+        }
+
+        service.notifications.push(msg);
+
+        return {
+          promise: deffered.promise,
+          message: msg
+        };
+      }
     };
     service.get = function() {
       return service.notifications;
