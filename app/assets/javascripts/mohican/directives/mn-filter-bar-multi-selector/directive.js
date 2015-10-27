@@ -9,7 +9,7 @@
           scope: {
             owner: '=?',
 
-            selectedStatuses: '=?'
+            selectedStatus: '=?'
           },
           restrict:     'E',
           templateUrl:  'mohican/directives/mn-filter-bar-multi-selector/template.html',

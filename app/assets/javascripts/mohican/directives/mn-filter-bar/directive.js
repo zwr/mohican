@@ -4,7 +4,7 @@
 (function(mohican) {
   'use strict';
   angular.module('mohican')
-    .directive('mnFilterBar', [function() {
+    .directive('mnFilterBar', ['$compile', function($compile) {
         return {
           scope: {
             owner: '=?'
@@ -17,14 +17,44 @@
 
           bindToController: true,
 
-          link: function(scope, element, attrs, ctrl, transclusionFn) {
-            ctrl.owner = scope.owner = mohican.scopeLookup(scope);
-            transclusionFn(scope, function(clone) {
-              console.log(angular.element(clone[1])[0]);
-              angular.element(clone[1]).attr('seleted-document-filters', 'filterBar.seletedDocumentFilters');
-              angular.element(element.find('.mn-translude')[0]).append(clone);
-            });
+          compile: function(el, attributes) {
+            return {
+              post: function(scope, element, attrs, ctrl, transclusionFn) {
+
+                ctrl.owner = scope.owner = mohican.scopeLookup(scope);
+                transclusionFn(scope, function(clone) {
+                  for(var i = 0; i < clone.length; i++) {
+                    var elem = clone[i];
+
+                    if(elem.nodeName === 'MN-FB-DOCUMENT-FILTER-SELECTOR') {
+                      var mnDirective = angular.element('<mn-filter-selector>');
+                      mnDirective.attr('seleted-document-filters', 'filterBar.seletedDocumentFilters');
+                      $compile(mnDirective)(scope);
+
+                      angular.element(element.find('.mn-translude')[0]).append(mnDirective);
+                    }
+                    if(elem.nodeName === 'MN-FB-DATE-SELECTOR') {
+                      var mnDirective = angular.element('<mn-filter-bar-date-selector>');
+                      var field = elem.getAttribute('field');
+                      mnDirective.attr(_.kebabCase(field), 'filterBar.' + field);
+                      $compile(mnDirective)(scope);
+
+                      angular.element(element.find('.mn-translude')[0]).append(mnDirective);
+                    }
+                    if(elem.nodeName === 'MN-FB-MULTI-SELECTOR') {
+                      var mnDirective = angular.element('<mn-filter-bar-multi-selector>');
+                      var field = elem.getAttribute('field');
+                      mnDirective.attr('selected-' + _.kebabCase(field), 'filterBar.selected' + _.capitalize(field));
+                      $compile(mnDirective)(scope);
+
+                      angular.element(element.find('.mn-translude')[0]).append(mnDirective);
+                    }
+                  }
+                });
+              }
+            };
           }
+
         };
       }
     ]);

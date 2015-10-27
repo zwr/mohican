@@ -2,9 +2,9 @@
   .row
     .col-xs-9
       %mn-filter-bar
-        %mn-filter-selector(seleted-document-filters="filterBar.seletedDocumentFilters")
-        %mn-filter-bar-date-selector(date-from="filterBar.dateFrom")
-        %mn-filter-bar-multi-selector(selected-statuses="filterBar.selectedStatuses")
+        %mn-fb-document-filter-selector
+        %mn-fb-date-selector(field='dateFrom')
+        %mn-fb-multi-selector(field='status')
     .col-xs-3
       %a.btn.btn-primary(href='#/orders/new') New Order
       %a.btn(href='#/special-orders') Special Orders

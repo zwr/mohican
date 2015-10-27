@@ -21,7 +21,7 @@
       vm.owner.getBackendFilter(vm.seletedDocumentFilters[0].name,
                                 {
                                   'delivery_date': vm.dateFrom,
-                                  'status':        _.map(vm.selectedStatuses, 'name')
+                                  'status':        _.map(vm.selectedStatus, 'name')
                                 }).
                then(function() {
                       vm.documentFiltersBefore = _.cloneDeep(vm.owner.documentFilters);
