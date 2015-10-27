@@ -1,4 +1,4 @@
-<span ng-click="rollbackItem()"
+<span ng-click="rollbackItem($event)"
       ng-if="mnfFormGridCtrl.mnfSubdocumetsGrid === false &&
              mnfFormGridCtrl.mnfCrudShown &&
              (mnfDoc._state === 'changed' || mnfDoc._state === 'editing' || mnfDoc._state === 'committing')"

@@ -14,7 +14,8 @@ angular.module('mohican')
 
         link: function(scope, elem, attr, mnfFormGridCtrl) {
           scope.mnfFormGridCtrl = mnfFormGridCtrl;
-          scope.rollbackItem = function() {
+          scope.rollbackItem = function($event) {
+            $event.stopPropagation();
             if(scope.mnfDoc._state === 'editing' ||
                scope.mnfDoc._state === 'changed') {
               scope.mnfDoc.rollback();
