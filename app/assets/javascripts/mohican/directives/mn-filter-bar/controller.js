@@ -18,7 +18,26 @@
                             });
 
     vm.changeDocumentFilter = function() {
-      vm.owner.getBackendFilter(vm.seletedDocumentFilters[0].name,
+      console.log($scope.fbControls);
+
+      var docFilter = 'default';
+      var openFilters = {};
+
+      $scope.fbControls.forEach(function(ctr) {
+        if(ctr.nodeName === 'MN-FB-DOCUMENT-FILTER-SELECTOR') {
+          docFilter = vm.seletedDocumentFilters[0].name;
+        }
+        if(ctr.nodeName === 'MN-FB-DATE-SELECTOR') {
+          openFilters[ctr.field] = vm[_.camelCase(ctr.field)];
+        }
+        if(ctr.nodeName === 'MN-FB-MULTI-SELECTOR') {
+          openFilters[ctr.field] = _.map(vm['selected' + _.capitalize(_.camelCase(ctr.field))], 'name');
+        }
+      });
+
+      console.log(openFilters);
+
+      vm.owner.getBackendFilter(docFilter,
                                 {
                                   'delivery_date': vm.dateFrom,
                                   'status':        _.map(vm.selectedStatus, 'name')
