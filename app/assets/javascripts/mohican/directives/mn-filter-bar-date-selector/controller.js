@@ -13,7 +13,7 @@
     $scope.$watch(function() {
       return vm.owner.stateMachine.openfilters;
     }, function(newValue, oldValue) {
-      vm.dateFrom = newValue.delivery_date ? new Date(newValue.delivery_date) : undefined;
+      vm.dateFrom = newValue[vm.field] ? new Date(newValue[vm.field]) : undefined;
     });
   }
 })();

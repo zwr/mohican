@@ -8,7 +8,8 @@
         return {
           scope: {
             owner:    '=?',
-            dateFrom: '=?'
+            dateFrom: '=?',
+            field:    '@'
           },
           restrict:     'E',
           templateUrl:  'mohican/directives/mn-filter-bar-date-selector/template.html',
