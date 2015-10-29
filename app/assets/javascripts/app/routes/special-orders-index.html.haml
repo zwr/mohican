@@ -3,8 +3,11 @@
     .col-xs-9
       %mn-filter-bar
         %mn-fb-document-filter-selector
-        %mn-fb-date-selector(field='dateFrom')
-        %mn-fb-multi-selector(field='status')
+        %mn-fb-date-selector(field='delivery_date'
+                             label='Delivery Date')
+        %mn-fb-multi-selector(field='status'
+                              label='Status'
+                              values='created,avoinna,valmis,deferred,tuotannossa,delivered')
     .col-xs-3
       %a.btn.btn-primary(href='#/orders/new') New Order
       %a.btn(href='#/orders') Orders
