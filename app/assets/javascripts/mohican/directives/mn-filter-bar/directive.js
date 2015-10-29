@@ -59,6 +59,7 @@
                       mnDirective.attr('selected-' + _.kebabCase(field), 'filterBar.selected' + _.capitalize(_.camelCase(field)));
                       mnDirective.attr('values', values);
                       mnDirective.attr('label', label);
+                      mnDirective.attr('field', field);
                       $compile(mnDirective)(scope);
 
                       angular.element(element.find('.mn-translude')[0]).append(mnDirective);

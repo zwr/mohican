@@ -22,14 +22,14 @@
     $scope.$watch(function() {
       return vm.owner.stateMachine.openfilters;
     }, function(newValue, oldValue) {
-      vm.selectValues.forEach(function(status) {
-        status.selected = false;
+      vm.selectValues.forEach(function(sVal) {
+        sVal.selected = false;
       });
-      if(newValue.status && vm.selectValues) {
-        vm.selectValues.forEach(function(status) {
-          newValue.status.forEach(function(stateMachineStatus) {
-            if(stateMachineStatus === status.name) {
-              status.selected = true;
+      if(newValue[vm.field] && vm.selectValues) {
+        vm.selectValues.forEach(function(sVal) {
+          newValue[vm.field].forEach(function(stateMachineStatus) {
+            if(stateMachineStatus === sVal.name) {
+              sVal.selected = true;
             }
           });
         });

@@ -10,6 +10,7 @@
             owner:  '=?',
             values: '@',
             label:  '@',
+            field:  '@',
 
             selectedStatus: '=?'
           },

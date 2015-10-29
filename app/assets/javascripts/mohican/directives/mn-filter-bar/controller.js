@@ -18,8 +18,6 @@
                             });
 
     vm.changeDocumentFilter = function() {
-      console.log($scope.fbControls);
-
       var docFilter = 'default';
       var openFilters = {};
 
@@ -34,8 +32,6 @@
           openFilters[ctr.field] = _.map(vm['selected' + _.capitalize(_.camelCase(ctr.field))], 'name');
         }
       });
-
-      console.log(openFilters);
 
       vm.owner.getBackendFilter(docFilter, openFilters).
                then(function() {
