@@ -7,7 +7,8 @@
     .directive('mnFilterBarMultiSelector', [function() {
         return {
           scope: {
-            owner: '=?',
+            owner:  '=?',
+            values: '@',
 
             selectedStatus: '=?'
           },

@@ -4,7 +4,8 @@
       %mn-filter-bar
         %mn-fb-document-filter-selector
         %mn-fb-date-selector(field='delivery_date')
-        %mn-fb-multi-selector(field='status')
+        %mn-fb-multi-selector(field='status'
+                              values='created,avoinna,valmis,deferred,tuotannossa,delivered')
     .col-xs-3
       %a.btn.btn-primary(href='#/orders/new') New Order
       %a.btn(href='#/special-orders') Special Orders

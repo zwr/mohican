@@ -52,7 +52,9 @@
                     if(elem.nodeName === 'MN-FB-MULTI-SELECTOR') {
                       var mnDirective = angular.element('<mn-filter-bar-multi-selector>');
                       var field = elem.getAttribute('field');
+                      var values = elem.getAttribute('values');
                       mnDirective.attr('selected-' + _.kebabCase(field), 'filterBar.selected' + _.capitalize(_.camelCase(field)));
+                      mnDirective.attr('values', values);
                       $compile(mnDirective)(scope);
 
                       angular.element(element.find('.mn-translude')[0]).append(mnDirective);

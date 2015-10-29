@@ -10,7 +10,11 @@
   function MnFilterBarMultiSelectorController($scope) {
     var vm = this;
 
-    vm.statuses = [{name: 'created'}, {name: 'avoinna'}, {name: 'valmis'}, {name: 'deferred'}, {name: 'tuotannossa'}, {name: 'delivered'}];
+    vm.statuses = [];
+    var vals = vm.values.split(',');
+    vals.forEach(function(v) {
+      vm.statuses.push({name: _.trim(v)});
+    });
     vm.statusesLabels = {
       nothingSelected: 'All'
     };
