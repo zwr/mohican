@@ -1,10 +1,10 @@
 .form-group
-  %label(for="status") Status
-  %span.success(button-label="name"
-                helper-elements=""
-                input-model="filterBarMultiSelector.selectValues"
-                isteven-multi-select=""
-                item-label="name"
-                output-model="filterBarMultiSelector.selectedStatus"
-                tick-property="selected"
-                translation="filterBarMultiSelector.selectValuesLabels")
+  %label {{filterBarMultiSelector.label}}
+  %span(button-label="name"
+        helper-elements=""
+        input-model="filterBarMultiSelector.selectValues"
+        isteven-multi-select=""
+        item-label="name"
+        output-model="filterBarMultiSelector.selectedStatus"
+        tick-property="selected"
+        translation="filterBarMultiSelector.selectValuesLabels")

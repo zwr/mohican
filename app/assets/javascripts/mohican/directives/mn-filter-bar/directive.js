@@ -43,7 +43,9 @@
                     if(elem.nodeName === 'MN-FB-DATE-SELECTOR') {
                       var mnDirective = angular.element('<mn-filter-bar-date-selector>');
                       var field = elem.getAttribute('field');
+                      var label = elem.getAttribute('label');
                       mnDirective.attr('date-from', 'filterBar.' + _.camelCase(field));
+                      mnDirective.attr('label', label);
                       mnDirective.attr('field', field);
                       $compile(mnDirective)(scope);
 
@@ -53,8 +55,10 @@
                       var mnDirective = angular.element('<mn-filter-bar-multi-selector>');
                       var field = elem.getAttribute('field');
                       var values = elem.getAttribute('values');
+                      var label = elem.getAttribute('label');
                       mnDirective.attr('selected-' + _.kebabCase(field), 'filterBar.selected' + _.capitalize(_.camelCase(field)));
                       mnDirective.attr('values', values);
+                      mnDirective.attr('label', label);
                       $compile(mnDirective)(scope);
 
                       angular.element(element.find('.mn-translude')[0]).append(mnDirective);

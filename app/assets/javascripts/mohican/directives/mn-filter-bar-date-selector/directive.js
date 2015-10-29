@@ -9,7 +9,8 @@
           scope: {
             owner:    '=?',
             dateFrom: '=?',
-            field:    '@'
+            field:    '@',
+            label:    '@'
           },
           restrict:     'E',
           templateUrl:  'mohican/directives/mn-filter-bar-date-selector/template.html',

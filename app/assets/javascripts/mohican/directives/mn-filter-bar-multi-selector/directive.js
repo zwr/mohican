@@ -9,6 +9,7 @@
           scope: {
             owner:  '=?',
             values: '@',
+            label:  '@',
 
             selectedStatus: '=?'
           },
