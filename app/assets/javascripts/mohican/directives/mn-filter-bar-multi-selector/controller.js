@@ -10,23 +10,23 @@
   function MnFilterBarMultiSelectorController($scope) {
     var vm = this;
 
-    vm.statuses = [];
+    vm.selectValues = [];
     var vals = vm.values.split(',');
     vals.forEach(function(v) {
-      vm.statuses.push({name: _.trim(v)});
+      vm.selectValues.push({name: _.trim(v)});
     });
-    vm.statusesLabels = {
+    vm.selectValuesLabels = {
       nothingSelected: 'All'
     };
 
     $scope.$watch(function() {
       return vm.owner.stateMachine.openfilters;
     }, function(newValue, oldValue) {
-      vm.statuses.forEach(function(status) {
+      vm.selectValues.forEach(function(status) {
         status.selected = false;
       });
-      if(newValue.status && vm.statuses) {
-        vm.statuses.forEach(function(status) {
+      if(newValue.status && vm.selectValues) {
+        vm.selectValues.forEach(function(status) {
           newValue.status.forEach(function(stateMachineStatus) {
             if(stateMachineStatus === status.name) {
               status.selected = true;
