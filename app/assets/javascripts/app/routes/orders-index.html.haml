@@ -8,6 +8,9 @@
         %mn-fb-multi-selector(field='status'
                               label='Status'
                               values='created,avoinna,valmis,deferred,tuotannossa,delivered')
+        %mn-fb-multi-selector(field='delivery_tag'
+                              label='Delivery Tag'
+                              values='large,urgent,tax_free,export,import,secret,poison,heavy,fragile,insured,standard,flammable')
     .col-xs-3
       %a.btn.btn-primary(href='#/orders/new') New Order
       %a.btn(href='#/special-orders') Special Orders

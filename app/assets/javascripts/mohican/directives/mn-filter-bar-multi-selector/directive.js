@@ -12,7 +12,7 @@
             label:  '@',
             field:  '@',
 
-            selectedStatus: '=?'
+            selectedValues: '=?'
           },
           restrict:     'E',
           templateUrl:  'mohican/directives/mn-filter-bar-multi-selector/template.html',

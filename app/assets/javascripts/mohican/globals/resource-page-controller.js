@@ -35,7 +35,7 @@
         mohican.redirectDefaultParameters(this.mnRouter);
         mohican.injectDefaultParameters(this.mnRouter);
 
-        this.stateMachine.stateMachineFromUrl(this.mnRouter.$stateParams, service, {'delivery_date': 'Date', 'status': 'Array'});
+        this.stateMachine.stateMachineFromUrl(this.mnRouter.$stateParams, service, {'delivery_date': 'Date', 'status': 'Array', 'delivery_tag': 'Array'});
 
         var notif = this.mnNotify.info({
           message: 'Loading ' + this.resourceName + '...',
@@ -55,11 +55,11 @@
 
       loadMnGridItems: function() {
         var that = this;
-        that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter, mohican.openfiltersToUrlParam(that.stateMachine.openfilters, {'delivery_date': 'Date', 'status': 'Array'})).then(function(pageCount) {
+        that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter, mohican.openfiltersToUrlParam(that.stateMachine.openfilters, {'delivery_date': 'Date', 'status': 'Array', 'delivery_tag': 'Array'})).then(function(pageCount) {
           that.pageCount = pageCount;
 
           if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter)) {
-            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentFilter, mohican.openfiltersToUrlParam(that.stateMachine.openfilters, {'delivery_date': 'Date', 'status': 'Array'})).then(function(items) {
+            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentFilter, mohican.openfiltersToUrlParam(that.stateMachine.openfilters, {'delivery_date': 'Date', 'status': 'Array', 'delivery_tag': 'Array'})).then(function(items) {
               that.items = items;
               if(that.startLoadingMessage) {
                 that.startLoadingMessage.dismiss();
@@ -347,7 +347,7 @@
         newRouteParams.quickFilterShown = false;
         newRouteParams.filters = undefined;
         newRouteParams.documentfilter = documentFilter;
-        newRouteParams.openfilters = mohican.openfiltersToUrlParam(openfilters, {'delivery_date': 'Date', 'status': 'Array'});
+        newRouteParams.openfilters = mohican.openfiltersToUrlParam(openfilters, {'delivery_date': 'Date', 'status': 'Array', 'delivery_tag': 'Array'});
         this.mnRouter.transitionTo(this.mnRouter.currentRouteName(), mohican.escapeDefaultParameters(newRouteParams)).
                       then(function() {
                         deffered.resolve();

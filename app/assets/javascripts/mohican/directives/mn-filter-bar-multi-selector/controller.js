@@ -27,8 +27,8 @@
       });
       if(newValue[vm.field] && vm.selectValues) {
         vm.selectValues.forEach(function(sVal) {
-          newValue[vm.field].forEach(function(stateMachineStatus) {
-            if(stateMachineStatus === sVal.name) {
+          newValue[vm.field].forEach(function(stateMachineValue) {
+            if(stateMachineValue === sVal.name) {
               sVal.selected = true;
             }
           });

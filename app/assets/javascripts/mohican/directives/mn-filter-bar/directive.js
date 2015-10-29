@@ -56,7 +56,7 @@
                       var field = elem.getAttribute('field');
                       var values = elem.getAttribute('values');
                       var label = elem.getAttribute('label');
-                      mnDirective.attr('selected-' + _.kebabCase(field), 'filterBar.selected' + _.capitalize(_.camelCase(field)));
+                      mnDirective.attr('selected-values', 'filterBar.selected' + _.capitalize(_.camelCase(field)));
                       mnDirective.attr('values', values);
                       mnDirective.attr('label', label);
                       mnDirective.attr('field', field);
