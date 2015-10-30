@@ -202,11 +202,13 @@
     if(urlParamString) {
       var params = urlParamString.split('$$');
       params.forEach(function(param) {
-        var att = param.split('$');
-        if(openfiltersFields[att[0]] === 'Date') {
+        var type = param.substring(0, 3);
+        var val = param.substring(3, param.length);
+        var att = val.split('$');
+        if(type === 'D--') {
           openfilters[att[0]] = new Date(att[1]);
         }
-        if(openfiltersFields[att[0]] === 'Array') {
+        if(type === 'A--') {
           openfilters[att[0]] = att[1].split(',');
         }
 
@@ -215,19 +217,24 @@
     return openfilters;
   };
 
-  mohican.openfiltersToUrlParam = function(openfilters, openfiltersFields) {
+  mohican.openfiltersToBackendUrlParam = function(openfilters) {
+    var urlParams = mohican.openfiltersToUrlParam(openfilters);
+    return urlParams.replace('A--', '').replace('D--', '');
+  };
+
+  mohican.openfiltersToUrlParam = function(openfilters) {
     var paramStrings = [];
     for(var key in openfilters) {
       var filter = openfilters[key];
       if(filter instanceof Date) {
-        paramStrings.push(key + '$' + filter.toString().split(' ').join('-'));
+        paramStrings.push('D--' + key + '$' + filter.toString().split(' ').join('-'));
       }
       if(filter instanceof Array && filter.length > 0) {
         var values = [];
         filter.forEach(function(val) {
           values.push(val);
         });
-        paramStrings.push(key + '$' + values.join(','));
+        paramStrings.push('A--' + key + '$' + values.join(','));
       }
     };
     return paramStrings.join('$$');

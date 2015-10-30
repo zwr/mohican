@@ -15,7 +15,7 @@
 
       activetab: undefined,
 
-      stateMachineFromUrl: function($stateParams, service, openfiltersFields) {
+      stateMachineFromUrl: function($stateParams, service) {
         if (!$stateParams.documentfilter) {
           this.documentfilter = 'default';
         }
@@ -43,7 +43,7 @@
         }
         this.layout = $stateParams.layout;
         this.documentFilter = $stateParams.documentfilter;
-        this.openfilters = mohican.urlParamToOpenfilters($stateParams.openfilters, openfiltersFields);
+        this.openfilters = mohican.urlParamToOpenfilters($stateParams.openfilters);
         this.column = $stateParams.column;
         this.direction = $stateParams.direction;
         this.itemPrimaryKeyId = $stateParams.itemPrimaryKeyId;
@@ -54,12 +54,12 @@
         this.filters = undefined;
       },
 
-      stateMachineToUrl: function(fields, openfiltersFields) {
+      stateMachineToUrl: function(fields) {
         return mohican.escapeDefaultParameters({
           page:             this.page,
           layout:           this.layout,
           documentfilter:   this.documentFilter,
-          openfilters:      mohican.openfiltersToUrlParam(this.openfilters, openfiltersFields),
+          openfilters:      mohican.openfiltersToUrlParam(this.openfilters),
           column:           this.column,
           direction:        this.direction,
           qf:               this.quickFilterShown,
