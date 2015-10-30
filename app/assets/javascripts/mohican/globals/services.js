@@ -167,6 +167,7 @@
             if(service.bufferBackendFilter === documentFilter) {
               service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, $q, apiResource, service.layout);
               service.buffer = resp.data.items;
+              service.backendTotalCount = resp.data.total_count;
               service.totalCount = resp.data.total_count > service.bufferMax ? service.bufferMax : resp.data.total_count;
               service.bottomIndex = resp.data.offset;
               // topIndex is not the index of top document, but one beyond!

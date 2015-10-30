@@ -109,6 +109,13 @@
                     message: 'Eager data has been loaded',
                     delay:   -1
                   });
+                  if(that.service.backendTotalCount !== that.service.totalCount) {
+                    that.mnNotify.warning({
+                      message: 'Eager data has been partialy loaded',
+                      details: that.service.totalCount + ' of ' + that.service.backendTotalCount + ' documents loaded.'
+                    });
+                  }
+                  console.log(that.service);
                 }
                 else {
                   that.moreDataLoadedMessage.dismiss();
