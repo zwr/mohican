@@ -7,6 +7,7 @@
   },
   "devDependencies": {
     "eslint": "^1.0.0",
-    "eslint-plugin-angular": "^0.2.2"
+    "eslint-plugin-angular": "^0.2.2",
+    "protractor": "^2.5.1"
   }
 }
