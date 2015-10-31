@@ -33,6 +33,10 @@ Note that this project repo includes two git sobmodule - clone with `--recursive
 
 If everything went well, hit [http://localhost:3000/]() and you are good to go.
 
+## Test it
+
+`protractor protractor.js`
+
 ## Export it
 
 It should be enough to run in the Rails.root:
