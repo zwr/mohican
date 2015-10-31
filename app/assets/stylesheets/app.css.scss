@@ -11,7 +11,7 @@ $panel-footer-padding: 2px 12px;
 $panel-body-padding: 6px;
 $panel-border-radius: 3px;
 
-@import "mohican/mohican";
+@import "mohican";
 
 .menu-bar-trigger-1 {
   @media (min-width: $grid-float-breakpoint) {

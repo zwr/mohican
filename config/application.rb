@@ -27,6 +27,10 @@ module Id5
     # config.i18n.load_path += Dir[Rails.root.join('my', 'locales', '*.{rb,yml}').to_s]
     config.i18n.default_locale = :fi
     config.i18n.fallbacks = { 'fi' => 'en' }
+
+    # Without the following Mohican will not work!
+    config.angular_templates.inside_paths = [Rails.root.join('app', 'assets'),
+                                             Rails.root.join('vendor', 'mohican', 'app', 'assets')]
   end
 end
 

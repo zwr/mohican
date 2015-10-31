@@ -9,14 +9,14 @@ gem 'uglifier', '>= 1.3.0'
 # Use CoffeeScript for .js.coffee assets and views
 gem 'coffee-rails', '~> 4.0.0'
 # See https://github.com/sstephenson/execjs#readme for more supported runtimes
-gem 'therubyracer',  platforms: :ruby
+gem 'therubyracer', platforms: :ruby
 
 # Use jquery as the JavaScript library
 gem 'jquery-rails'
 # Build JSON APIs with ease. Read more: https://github.com/rails/jbuilder
 gem 'jbuilder', '~> 2.0'
 # bundle exec rake doc:rails generates the API under doc/api.
-gem 'sdoc', '~> 0.4.0',          group: :doc
+gem 'sdoc', '~> 0.4.0', group: :doc
 
 # Use ActiveModel has_secure_password
 # gem 'bcrypt', '~> 3.1.7'
@@ -31,19 +31,21 @@ gem 'sdoc', '~> 0.4.0',          group: :doc
 # gem 'debugger', group: [:development, :test]
 
 # gem 'zwr', :path => 'vendor/zwr-gem'
-# gem 'mohican', :path => 'vendor/mohican'
+gem 'pry-rails', group: :development
+gem 'mohican', path: 'vendor/mohican'
+
 # TODO: all mohican vendor games could be moved to mohican Gemfile?
-gem 'bootstrap-sass', '~> 3.2.0'
-gem 'bootstrap_form'
+# gem 'bootstrap-sass', '~> 3.2.0'
+# gem 'bootstrap_form'
 gem 'puma', platforms: :ruby
 gem 'haml-rails'
-gem 'angularjs-rails'
-gem 'angular-rails-templates'
+# gem 'angularjs-rails'
+# gem 'angular-rails-templates'
 # Read this:
 # https://github.com/pitr/angular-rails-templates#configuration-option-ignore_prefix
 
-gem 'angular-ui-bootstrap-rails'
-gem 'angular_rails_csrf'
+# gem 'angular-ui-bootstrap-rails'
+# gem 'angular_rails_csrf'
 gem 'redcarpet'
 gem 'paperclip'
 gem 'html2haml'
@@ -54,12 +56,11 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'tzinfo', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'devise'
 
-source 'https://rails-assets.org' do
-  gem 'rails-assets-angular-devise'
-end
+# source 'https://rails-assets.org' do
+#   gem 'rails-assets-angular-devise'
+# end
 
 gem 'rest-client'
-gem 'pry-rails', group: :development
 
 gem 'rack-reverse-proxy',
     require: 'rack/reverse_proxy',
