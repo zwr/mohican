@@ -19,6 +19,7 @@
       service.loadingBuffer = null;
       service.bufferSnapshotActive = false;
       service.bufferBackendFilter = null;
+      service.openfilters = null;
       service.bufferView = null;
 
       // Following is the bottom and top index of the buffer data. At some point,
@@ -95,9 +96,11 @@
 
     // pageNumber is 1 based!
     service.getBackendPage = function(pageNumber, dataFields, documentFilter, openfilters) {
-      if(service.bufferBackendFilter !== documentFilter) {
+      if(service.bufferBackendFilter !== documentFilter ||
+         service.openfilters !== openfilters) {
         service.resetLoading();
         service.bufferBackendFilter = documentFilter;
+        service.openfilters = openfilters;
       }
 
       // If we have the page, return the page
@@ -164,7 +167,8 @@
             '&openfilters=' + openfilters)
           .then(function(resp) {
             service.thePromise = null;
-            if(service.bufferBackendFilter === documentFilter) {
+            if(service.bufferBackendFilter === documentFilter ||
+               service.openfilters !== openfilters) {
               service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, $q, apiResource, service.layout);
               service.buffer = resp.data.items;
               service.backendTotalCount = resp.data.total_count;
@@ -277,7 +281,8 @@
     };
 
     service.getBackendPageCount = function(dataFields, tip, documentFilter, openfilters) {
-      if(service.bufferBackendFilter !== documentFilter) {
+      if(service.bufferBackendFilter !== documentFilter ||
+         service.openfilters !== openfilters) {
         service.resetLoading();
       }
       if(service.buffer) {

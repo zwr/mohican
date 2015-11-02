@@ -219,7 +219,7 @@
 
   mohican.openfiltersToBackendUrlParam = function(openfilters) {
     var urlParams = mohican.openfiltersToUrlParam(openfilters);
-    return urlParams.replace('A--', '').replace('D--', '');
+    return urlParams.replace(/A--/g, '').replace(/D--/g, '');
   };
 
   mohican.openfiltersToUrlParam = function(openfilters) {
