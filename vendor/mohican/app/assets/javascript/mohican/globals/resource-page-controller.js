@@ -115,7 +115,6 @@
                       details: that.service.totalCount + ' of ' + that.service.backendTotalCount + ' documents loaded.'
                     });
                   }
-                  console.log(that.service);
                 }
                 else {
                   that.moreDataLoadedMessage.dismiss();
