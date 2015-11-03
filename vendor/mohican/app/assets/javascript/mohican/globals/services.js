@@ -37,12 +37,12 @@
       // Following becomes true when all the filter records have been retrieved
       // if somebody was waiting on this promise, we need to disapoint them
       if(service._fullyLoadedPromise) {
-        service._fullyLoadedPromise.reject();
+        service._fullyLoadedPromise.reject('_fullyLoadedPromise: reset loading');
       }
       service._fullyLoadedPromise = null;
 
       if(service._snapshotLoadedPromise) {
-        service._snapshotLoadedPromise.reject();
+        service._snapshotLoadedPromise.reject('_snapshotLoadedPromise: reset loading');
       }
       service._snapshotLoadedPromise = null;
     };
@@ -243,7 +243,9 @@
             + start + '&count=' + count + '&filter=' + documentFilter +
             '&openfilters=' + openfilters)
           .then(function(resp) {
-            service._fullyLoadedPromise.notify(resp.data.items);
+            if(service._fullyLoadedPromise) {
+              service._fullyLoadedPromise.notify(resp.data.items);
+            }
             service.thePromise = null;
             // if we were told to stop, just do nothing
             if(service.beEager) {
