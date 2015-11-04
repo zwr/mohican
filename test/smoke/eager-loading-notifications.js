@@ -42,11 +42,11 @@ describe('rails login', function() {
     var previewLink = element.all(by.css('mnf-preview-grid a')).get(0);
     previewLink.getAttribute('href').then(function(hrefLink) {
       previewLink.click();
-
       expect(browser.getCurrentUrl()).toEqual(hrefLink);
 
-      notifBtn = element(by.id('notification-button'));
-      expect(notifBtn.isPresent()).toEqual(false);
+      notifBtn.click();
+      var notifBtnInfo = element(by.css('.alert-info'));
+      expect(notifBtnInfo.isPresent()).toEqual(false);
     });
   });
 });
