@@ -37,14 +37,6 @@
 
         this.stateMachine.stateMachineFromUrl(this.mnRouter.$stateParams, service);
 
-        var notif = this.mnNotify.info({
-          message: 'Loading ' + this.resourceName + '...',
-          details: 'Loading ' + this.resourceName + '...',
-
-          dismissable: false
-        });
-        this.startLoadingMessage = notif.message;
-
         this.fullyLoaded = false;
         this.layouts = [];
         this.layoutDefs = [];
@@ -55,7 +47,9 @@
 
       loadMnGridItems: function() {
         var that = this;
-        that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(pageCount) {
+        that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(resolveValue) {
+          var pageCount = resolveValue.pageCount;
+          var alreadyLoadedData = resolveValue.alreadyLoadedData;
           that.pageCount = pageCount;
 
           if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter)) {
@@ -103,7 +97,9 @@
               // We want to be careful to call waitFullyLoaded only when the
               // initial promise has returned! Now we are sure the eager loading
               // is ongoing.
-              that.service.waitFullyLoaded().then(function() {
+              that.service.waitFullyLoaded().then(function(resolveMessage) {
+                console.log('waitFullyLoaded()', resolveMessage);
+                console.log(alreadyLoadedData);
                 if(!that.moreDataLoadedMessage) {
                   that.mnNotify.success({
                     message: 'Eager data has been loaded',
@@ -247,6 +243,14 @@
             });
           }
           else {
+            var notif = that.mnNotify.info({
+              message: 'Loading ' + that.resourceName + '...',
+              details: 'Loading ' + that.resourceName + '...',
+
+              dismissable: false
+            });
+            that.startLoadingMessage = notif.message;
+
             mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.mnRouter);
             that.service.getBackendFilters().then(function(documentFilters) {
               documentFilters.forEach(function(documentFilter) {

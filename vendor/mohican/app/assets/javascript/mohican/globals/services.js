@@ -54,7 +54,7 @@
     // wait for it to fulfill and only .then set our own promise.
     service.thePromise = null;
 
-    service.bufferMax = 1000;
+    service.bufferMax = 500;
 
     // Following is used to calculate the actual index of the required element
     service.pageSize = 20;
@@ -167,8 +167,8 @@
             '&openfilters=' + openfilters)
           .then(function(resp) {
             service.thePromise = null;
-            if(service.bufferBackendFilter === documentFilter ||
-               service.openfilters !== openfilters) {
+            if(service.bufferBackendFilter === documentFilter &&
+               service.openfilters === openfilters) {
               service.prepareDocumentsCrudOperations(resp.data.items, dataFields, $http, $q, apiResource, service.layout);
               service.buffer = resp.data.items;
               service.backendTotalCount = resp.data.total_count;
@@ -288,10 +288,12 @@
         service.resetLoading();
       }
       if(service.buffer) {
+        console.log('alreadyLoadedData');
         var pageCount = parseInt(
           (service.totalCount - 1) / service.pageSize + 1);
-        return $q.when(pageCount);
+        return $q.when({pageCount: pageCount, alreadyLoadedData: true});
       } else if(service.thePromise) {
+        console.log('promise exists');
         return service.thePromise.then(function() {
           // Somebody is already getting something, which will probably
           // do what we need, so just wait for that promise to fullfil and
@@ -299,6 +301,7 @@
           return service.getBackendPageCount(dataFields, tip, documentFilter, openfilters);
         });
       } else {
+        console.log('not loaded');
         return service.getBackendPage(tip || 1, dataFields, documentFilter, openfilters)
           .then(function() {
             return service.getBackendPageCount(dataFields, tip, documentFilter, openfilters);
@@ -482,7 +485,8 @@
     /* eslint-enable no-extend-native */
 
     service._completeFullLoading = function() {
-      service._fullyLoadedPromise.resolve();
+      console.log('_completeFullLoading');
+      service._fullyLoadedPromise.resolve('_completeFullLoading');
       service.nextCloned = 1;
       trace('data are fully loaded');
     };
