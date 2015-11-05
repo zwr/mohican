@@ -63,7 +63,7 @@
                       angular.isDefined(that.mnRouter.$stateParams.filters)) {
                   if(that.mnRouter.currentRouteName() === that.routeName) {
                     var notif = that.mnNotify.warning({
-                      message: 'Data arriving, filtering postponed',
+                      message: _.capitalize(that.resourceName) + ' data arriving, filtering postponed',
                       details: 'Click \'filter\ to apply filter and sorting to the arrived data, or \'clear\' to show all data',
                       actions: ['filter', 'clear'],
 
@@ -85,7 +85,7 @@
                 else {
                   if(that.mnRouter.currentRouteName() === that.routeName) {
                     var notif = that.mnNotify.info({
-                      message: 'Data arriving...',
+                      message: _.capitalize(that.resourceName) + ' data arriving...',
                       details: 'You will be able to see all data after eager loading finish',
 
                       dismissable: false
@@ -102,12 +102,12 @@
                 console.log(alreadyLoadedData);
                 if(!that.moreDataLoadedMessage) {
                   that.mnNotify.success({
-                    message: 'Eager data has been loaded',
+                    message: _.capitalize(that.resourceName) + ' data has been loaded',
                     delay:   -1
                   });
                   if(that.service.backendTotalCount !== that.service.totalCount) {
                     that.mnNotify.warning({
-                      message: 'Eager data has been partialy loaded',
+                      message: _.capitalize(that.resourceName) + ' data has been partialy loaded',
                       details: that.service.totalCount + ' of ' + that.service.backendTotalCount + ' documents loaded.'
                     });
                   }
@@ -115,8 +115,8 @@
                 else {
                   that.moreDataLoadedMessage.dismiss();
                   var notif = that.mnNotify.warning({
-                    message: 'Loading is compelted',
-                    details: 'Loading is compelted but not all the data is merged. Click \'apply\' to merge them in.',
+                    message: _.capitalize(that.resourceName) + ' loading is compelted',
+                    details: _.capitalize(that.resourceName) + ' loading is compelted but not all the data is merged. Click \'apply\' to merge them in.',
                     actions: ['apply'],
 
                     dismissable: false
