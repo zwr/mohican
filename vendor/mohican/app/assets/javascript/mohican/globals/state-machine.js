@@ -33,7 +33,7 @@
         }
 
         //if we have qf or qs on, show first page from backend filter,
-        //but after loading data is finished, page will be set to $stateParams.page
+        //but after loading data has been finished, page will be set to $stateParams.page
         //also check service.thePromise to see if user has changed page while eager loading
         if(($stateParams.qf || $stateParams.column) && service && service.thePromise === null) {
           this.page = 1;
