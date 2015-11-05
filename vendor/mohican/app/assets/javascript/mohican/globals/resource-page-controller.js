@@ -126,7 +126,7 @@
                     if(action === 'apply') {
                       that.moreDataLoadedMessage = undefined;
                       that.service.refreshCurrentBufferSnapshot();
-                      that.loadQuickFiltersAndSort();
+                      that.loadQuickFiltersAndSort(true);
                     }
                   });
                 }
@@ -147,7 +147,7 @@
                     if(action === 'apply') {
                       that.moreDataLoadedMessage = undefined;
                       that.service.refreshCurrentBufferSnapshot();
-                      that.loadQuickFiltersAndSort();
+                      that.loadQuickFiltersAndSort(true);
                     }
                   });
                 }
@@ -158,7 +158,7 @@
               }, function(error) {
                 console.log(error);
               }, function() {
-                that.loadQuickFiltersAndSort();
+                that.loadQuickFiltersAndSort(true);
               });
             }, function(error) {
               console.log(error);
@@ -167,7 +167,7 @@
         });
       },
 
-      loadQuickFiltersAndSort: function() {
+      loadQuickFiltersAndSort: function(resetPage) {
         var that = this;
         that.fullyLoaded = true;
         if(that.eagerLoadingMessage) {
@@ -175,12 +175,17 @@
           that.eagerLoadingMessage = undefined;
         }
         if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
-          that.stateMachine.page = 1;
+          if(resetPage) {
+            that.stateMachine.page = 1;
+          }
+          else {
+            that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$state.params.page) ? 1 : parseInt(that.mnRouter.$state.params.page));
+          }
           that.mnRouter.transitionTo(that.mnRouter.currentRouteName(),
                          that.stateMachine.stateMachineToUrl(that.fields),
                          { notify: false })
                        .then(function() {
-            that.service.getClientPage(1,
+            that.service.getClientPage(that.stateMachine.page,
                                        that.stateMachine.column,
                                        that.stateMachine.direction,
                                        that.stateMachine.filters,
