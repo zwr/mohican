@@ -58,10 +58,10 @@
               if(that.startLoadingMessage) {
                 that.startLoadingMessage.dismiss();
                 that.startLoadingMessage = undefined;
-                if(angular.isDefined(that.mnRouter.$stateParams.column) ||
-                      angular.isDefined(that.mnRouter.$stateParams.qf) ||
-                      angular.isDefined(that.mnRouter.$stateParams.filters)) {
-                  if(that.mnRouter.currentRouteName() === that.routeName) {
+                if(that.mnRouter.currentRouteName() === that.routeName) {
+                  if(angular.isDefined(that.mnRouter.$stateParams.column) ||
+                        angular.isDefined(that.mnRouter.$stateParams.qf) ||
+                        angular.isDefined(that.mnRouter.$stateParams.filters)) {
                     var notif = that.mnNotify.warning({
                       message: _.capitalize(that.resourceName) + ' data arriving, filtering postponed',
                       details: 'Click \'filter\ to apply filter and sorting to the arrived data, or \'clear\' to show all data',
@@ -81,9 +81,7 @@
                       }
                     });
                   }
-                }
-                else {
-                  if(that.mnRouter.currentRouteName() === that.routeName) {
+                  else {
                     var notif = that.mnNotify.info({
                       message: _.capitalize(that.resourceName) + ' data arriving...',
                       details: 'You will be able to see all data after eager loading finish',
@@ -93,6 +91,15 @@
                     that.eagerLoadingMessage = notif.message;
                   }
                 }
+                else {
+                  var notif = that.mnNotify.info({
+                    message: _.capitalize(that.resourceName) + ' data arriving...',
+                    // details: 'You will be able to see all data after eager loading finish',
+
+                    dismissable: false
+                  });
+                  that.eagerLoadingMessage = notif.message;
+                }
               }
               // We want to be careful to call waitFullyLoaded only when the
               // initial promise has returned! Now we are sure the eager loading
@@ -100,6 +107,10 @@
               that.service.waitFullyLoaded().then(function(resolveMessage) {
                 console.log('waitFullyLoaded()', resolveMessage);
                 console.log(alreadyLoadedData);
+                if(that.eagerLoadingMessage && that.mnRouter.currentRouteName() !== that.routeName) {
+                  that.eagerLoadingMessage.dismiss();
+                  that.eagerLoadingMessage = undefined;
+                }
                 if(!that.moreDataLoadedMessage) {
                   that.mnNotify.success({
                     message: _.capitalize(that.resourceName) + ' data has been loaded',
@@ -130,11 +141,13 @@
                     }
                   });
                 }
-                that.loadQuickFiltersAndSort();
+                if(that.mnRouter.currentRouteName() === that.routeName) {
+                  that.loadQuickFiltersAndSort();
+                }
               }, function(error) {
                 console.log(error);
               }, function(notification) {
-                if(!that.moreDataLoadedMessage && !that.eagerLoadingMessage) {
+                if(that.mnRouter.currentRouteName() === that.routeName && !that.moreDataLoadedMessage && !that.eagerLoadingMessage) {
                   var notif = that.mnNotify.warning({
                     message: 'More data has arrived',
                     details: 'More data has arrived, click \'apply\' to load new arrived data to current filter.',
@@ -158,7 +171,15 @@
               }, function(error) {
                 console.log(error);
               }, function() {
-                that.loadQuickFiltersAndSort(true);
+                if(that.mnRouter.currentRouteName() === that.routeName) {
+                  that.loadQuickFiltersAndSort(true);
+                }
+                else {
+                  if(that.eagerLoadingMessage) {
+                    that.eagerLoadingMessage.dismiss();
+                    that.eagerLoadingMessage = undefined;
+                  }
+                }
               });
             }, function(error) {
               console.log(error);
