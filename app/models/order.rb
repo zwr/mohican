@@ -27,25 +27,28 @@ class Order
   field :actual_delivery_date, type: Date
   field :cell_id, type: BSON::ObjectId
   field :next_cells, type: Array
+  field :cell_name, type: String
+  field :next_cell_names, type: String
 
-  include_into_json :cell_name, label: :cell
-  include_into_json :next_cell_names
+  # include_into_json :cell_name, label: :cell
+  # include_into_json :next_cell_names
 
-  def cell_name
-    cell.name if cell.present?
-  end
-
+  # def cell_name
+  #   cell.name if cell.present?
+  # end
+  #
   def cell
     ProductionLine.cells.select { |c| c.id == cell_id }[0]
   end
 
   def cell=(cell)
     self.cell_id = cell.id
+    self.cell_name = cell.name
   end
-
-  def next_cell_names
-    (next_cells || []).map { |cid| ProductionLine.cells.select { |c| c.id == cid }[0] }.map(&:name).join(', ')
-  end
+  #
+  # def next_cell_names
+  #   (next_cells || []).map { |cid| ProductionLine.cells.select { |c| c.id == cid }[0] }.map(&:name).join(', ')
+  # end
 
   def production_cell
     ProductionLine.cells.select { |c| c.id == cell_id }[0]
@@ -79,6 +82,8 @@ class Order
   def remember_references
     self.__products = order_items.map(&:product)
     self.__handlers = order_handlers.map(&:user)
+    self.cell_name = cell.name if cell.present?
+    self.next_cell_names = (next_cells || []).map { |cid| ProductionLine.cells.select { |c| c.id == cid }[0] }.map(&:name).join(', ')
   end
 
   def remember_referenced_object_data
