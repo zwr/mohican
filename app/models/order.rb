@@ -30,7 +30,7 @@ class Order
   field :cell_name, type: String
   field :next_cell_names, type: String
 
-  # include_into_json :cell_name, label: :cell
+  include_into_json :cell_name, label: :cell
   # include_into_json :next_cell_names
 
   # def cell_name
@@ -41,9 +41,9 @@ class Order
     ProductionLine.cells.select { |c| c.id == cell_id }[0]
   end
 
-  def cell=(cell)
-    self.cell_id = cell.id
-    self.cell_name = cell.name
+  def cell=(cell_object)
+    self.cell_id = cell_object.id
+    self.cell_name = cell_object.name
   end
   #
   # def next_cell_names
