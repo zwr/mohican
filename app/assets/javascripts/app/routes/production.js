@@ -32,6 +32,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         'View resources'];
       $scope.resources = ['forklifts', 'workers', 'material'];
       $scope.showStats = function(cellName, status, timeframe) {
+        if(!timeframe) { timeframe = ''; }
         if(!status || status === 'kaikki') { status = 'avoinna,valmis,tuotannossa'; }
         // '$$delivery_date$Sat_Oct_03_2015_00:00:00_GMT%2B0300---Sat_Oct_03_2015_23:59:59_GMT%2B0300'
         var format_the_timeframe = function(start, end) {
