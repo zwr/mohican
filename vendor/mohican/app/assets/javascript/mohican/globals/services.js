@@ -96,6 +96,9 @@
 
     // pageNumber is 1 based!
     service.getBackendPage = function(pageNumber, dataFields, documentFilter, openfilters) {
+      if(!openfilters) {
+        openfilters = '';
+      }
       if(service.bufferBackendFilter !== documentFilter ||
          service.openfilters !== openfilters) {
         service.resetLoading();
@@ -280,6 +283,9 @@
     };
 
     service.getBackendPageCount = function(dataFields, tip, documentFilter, openfilters) {
+      if(!openfilters) {
+        openfilters = '';
+      }
       if(service.bufferBackendFilter !== documentFilter ||
          service.openfilters !== openfilters) {
         service.resetLoading();
