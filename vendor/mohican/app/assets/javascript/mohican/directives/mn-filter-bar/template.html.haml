@@ -11,7 +11,6 @@
                        input-model="filterBar.owner.layouts" isteven-multi-select=""
                        item-label="name desc" ng-show="filterBar.owner.layouts.length > 1"
                        on-item-click="filterBar.changeLayout(data.name)"
-                       output-model="filterBar.outputBrowsers"
                        selection-mode="single" tick-property="selected")
     %button.btn(ng-class="{'btn-primary': filterBar.owner.stateMachine.quickFilterShown}"
                 ng-click="filterBar.owner.toggleQuickFilter()"
