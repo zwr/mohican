@@ -49,8 +49,8 @@
           });
         }).
         then(function() {
-          that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(pageCount) {
-            that.pageCount = pageCount;
+          that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(resolveValue) {
+            that.pageCount = resolveValue.pageCount;
             that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentFilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(items) {
               that.items = items;
               that.service.waitFullyLoaded().then(function() {
