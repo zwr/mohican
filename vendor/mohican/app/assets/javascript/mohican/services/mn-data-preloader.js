@@ -9,9 +9,7 @@
     var service = {};
     service.load = function(routes) {
       routes.forEach(function(route) {
-        $injector.get(route + 'Service').preloadAllData().then(function() {
-          console.log('all orders are loaded');
-        });
+        $injector.get(route + 'Service').preloadAllData();
       });
     };
     return service;

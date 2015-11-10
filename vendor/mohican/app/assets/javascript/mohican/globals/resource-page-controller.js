@@ -49,7 +49,6 @@
         var that = this;
         that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(resolveValue) {
           var pageCount = resolveValue.pageCount;
-          var alreadyLoadedData = resolveValue.alreadyLoadedData;
           that.pageCount = pageCount;
 
           if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter)) {
@@ -105,8 +104,6 @@
               // initial promise has returned! Now we are sure the eager loading
               // is ongoing.
               that.service.waitFullyLoaded().then(function(resolveMessage) {
-                console.log('waitFullyLoaded()', resolveMessage);
-                console.log(alreadyLoadedData);
                 if(that.eagerLoadingMessage && that.mnRouter.currentRouteName() !== that.routeName) {
                   that.eagerLoadingMessage.dismiss();
                   that.eagerLoadingMessage = undefined;

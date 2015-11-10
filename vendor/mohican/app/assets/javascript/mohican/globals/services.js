@@ -293,7 +293,7 @@
       if(service.buffer) {
         var pageCount = parseInt(
           (service.totalCount - 1) / service.pageSize + 1);
-        return $q.when({pageCount: pageCount, alreadyLoadedData: true});
+        return $q.when({pageCount: pageCount});
       } else if(service.thePromise) {
         return service.thePromise.then(function() {
           // Somebody is already getting something, which will probably
