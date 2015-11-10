@@ -139,6 +139,15 @@
       return service.create(options);
     };
     service.create = function(options) {
+      if(service.currentControllName &&
+         options.ownerCtrl &&
+         service.currentControllName !== options.ownerCtrl) {
+        var returnMessage = 'Controller has been changed';
+        return {
+          promise: $q.reject(returnMessage),
+          message: null
+        };
+      }
       var existingMessage;
       service.notifications.forEach(function(msg) {
         if(msg.type === options.type &&
@@ -156,12 +165,13 @@
       else {
         var deffered = $q.defer();
         var msg = mnsMessage.create({
-          type:    options.type,
-          message: options.message,
-          buffer:  service.notifications,
-          details: options.details,
-          q:       deffered,
-          actions: options.actions,
+          type:      options.type,
+          message:   options.message,
+          buffer:    service.notifications,
+          details:   options.details,
+          q:         deffered,
+          actions:   options.actions,
+          ownerCtrl: options.ownerCtrl,
 
           dismissable:    options.dismissable,
           fullyClickable: options.fullyClickable
@@ -192,6 +202,15 @@
     };
     service.get = function() {
       return service.notifications;
+    };
+    service.controllerChanged = function(ctrlName) {
+      service.currentControllName = ctrlName;
+      service.notifications.forEach(function(message) {
+        if(message.ownerCtrl &&
+           message.ownerCtrl !== ctrlName) {
+          message.dismiss();
+        }
+      });
     };
     service.countByMessageType = function(type) {
       var count = 0;

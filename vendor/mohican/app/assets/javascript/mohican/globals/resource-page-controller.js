@@ -47,6 +47,7 @@
 
       loadMnGridItems: function() {
         var that = this;
+        that.mnNotify.controllerChanged(that.routeName);
         that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(resolveValue) {
           var pageCount = resolveValue.pageCount;
           that.pageCount = pageCount;
@@ -62,9 +63,10 @@
                         angular.isDefined(that.mnRouter.$stateParams.qf) ||
                         angular.isDefined(that.mnRouter.$stateParams.filters)) {
                     var notif = that.mnNotify.warning({
-                      message: _.capitalize(that.resourceName) + ' data arriving, filtering postponed',
-                      details: 'Click \'filter\ to apply filter and sorting to the arrived data, or \'clear\' to show all data',
-                      actions: ['filter', 'clear'],
+                      message:   _.capitalize(that.resourceName) + ' data arriving, filtering postponed',
+                      details:   'Click \'filter\ to apply filter and sorting to the arrived data, or \'clear\' to show all data',
+                      actions:   ['filter', 'clear'],
+                      ownerCtrl: that.routeName,
 
                       dismissable: false
                     });
@@ -110,13 +112,15 @@
                 }
                 if(!that.moreDataLoadedMessage) {
                   that.mnNotify.success({
-                    message: _.capitalize(that.resourceName) + ' data has been loaded',
-                    delay:   -1
+                    message:   _.capitalize(that.resourceName) + ' data has been loaded',
+                    delay:     -1,
+                    ownerCtrl: that.routeName
                   });
                   if(that.service.backendTotalCount !== that.service.totalCount) {
                     that.mnNotify.warning({
-                      message: _.capitalize(that.resourceName) + ' data has been partialy loaded',
-                      details: that.service.totalCount + ' of ' + that.service.backendTotalCount + ' documents loaded.'
+                      message:   _.capitalize(that.resourceName) + ' data has been partialy loaded',
+                      details:   that.service.totalCount + ' of ' + that.service.backendTotalCount + ' documents loaded.',
+                      ownerCtrl: that.routeName
                     });
                   }
                 }
