@@ -54,7 +54,7 @@
     // wait for it to fulfill and only .then set our own promise.
     service.thePromise = null;
 
-    service.bufferMax = 2000;
+    service.bufferMax = 400;
 
     // Following is used to calculate the actual index of the required element
     service.pageSize = 20;

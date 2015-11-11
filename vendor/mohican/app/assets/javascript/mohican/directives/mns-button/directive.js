@@ -130,6 +130,7 @@
     return{
       link: function(scope, element, attrs) {
         function closeTrigger(trigger, i) {
+          console.log('closeTrigger');
           $timeout(function() {
             angular.element('#'+trigger[0].id).triggerHandler('click');
             angular.element('#'+trigger[0].id).removeClass('popover-trigger-element');
@@ -137,27 +138,37 @@
         }
 
         element.on('click', function(event) {
-          var trigger = document.getElementsByClassName('popover-trigger-element'),
-              etarget = angular.element(event.target),
-              tlength = trigger.length;
+          var trigger = document.getElementsByClassName('popover-trigger-element');
+          var etarget = angular.element(event.target);
+          var tlength = trigger.length;
 
-          if(!etarget.hasClass('popover-trigger-element') &&
-             !(etarget.hasClass('popover-stay-opened') ||
-               etarget.hasClass('popover-title') ||
-               etarget.hasClass('popover-content') ||
-               etarget.hasClass('notifications-holder'))
-            ) {
+          if(trigger && !etarget.hasClass('mns-button')) {
             for(var i = 0; i < tlength; i++) {
               closeTrigger(trigger, i);
             }
           }
-          else {
-            if(mnNotify.get().length === 0) {
-              for(var i = 0; i < tlength; i++) {
-                closeTrigger(trigger, i);
-              }
-            }
-          }
+
+          // var trigger = document.getElementsByClassName('popover-trigger-element'),
+          //     etarget = angular.element(event.target),
+          //     tlength = trigger.length;
+          //
+          // if(!etarget.hasClass('popover-trigger-element') &&
+          //    !(etarget.hasClass('popover-stay-opened') ||
+          //      etarget.hasClass('popover-title') ||
+          //      etarget.hasClass('popover-content') ||
+          //      etarget.hasClass('notifications-holder'))
+          //   ) {
+          //   for(var i = 0; i < tlength; i++) {
+          //     closeTrigger(trigger, i);
+          //   }
+          // }
+          // else {
+          //   if(mnNotify.get().length === 0) {
+          //     for(var i = 0; i < tlength; i++) {
+          //       closeTrigger(trigger, i);
+          //     }
+          //   }
+          // }
         });
       }
     };
