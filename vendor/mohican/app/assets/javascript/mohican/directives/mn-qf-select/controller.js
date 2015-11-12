@@ -36,10 +36,12 @@
            }, function() {
              vm.selectItems.forEach(function(sItem) {
                sItem.selected = false;
-               for(var i = 0; i < vm.modelBefore.length; i++) {
-                 if(vm.modelBefore[i] === sItem.name) {
-                   sItem.selected = true;
-                   break;
+               if(vm.modelBefore) {
+                 for(var i = 0; i < vm.modelBefore.length; i++) {
+                   if(vm.modelBefore[i] === sItem.name) {
+                     sItem.selected = true;
+                     break;
+                   }
                  }
                }
              });
