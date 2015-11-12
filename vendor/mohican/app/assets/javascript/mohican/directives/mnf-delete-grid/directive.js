@@ -20,7 +20,8 @@ angular.module('mohican')
           scope.mnfFormGridCtrl = mnfFormGridCtrl;
           scope.mnOnDelete = angular.isDefined(scope.mnOnDelete) ? scope.mnOnDelete : function() {};
 
-          scope.confirmDelete = function() {
+          scope.confirmDelete = function($event) {
+            $event.stopPropagation();
             if(scope.mnfFormGridCtrl.mnfSubdocumetsGrid === true && (scope.mnfDoc._state === 'editing' || scope.mnfDoc._state === 'added')) {
               scope.mnfDoc.delete().then(scope.mnOnDelete);
               mnfFormGridCtrl.currentMnfDoc = null;
