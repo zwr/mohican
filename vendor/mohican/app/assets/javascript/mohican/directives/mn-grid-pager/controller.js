@@ -9,6 +9,16 @@
 
   function MnGridPagerController() {
     var vm = this;
+    vm.isQuickFiltered = function() {
+      var filtered = false;
+      for(var f in vm.owner.stateMachine.filters) {
+        if(!_.isEmpty(vm.owner.stateMachine.filters[f])) {
+          filtered = true;
+          break;
+        }
+      }
+      return filtered;
+    };
 
     vm.nextPage = function() {
       return vm.owner.stateMachine.page >= vm.owner.pageCount ? vm.owner.pageCount : (parseInt(vm.owner.stateMachine.page) + 1);
