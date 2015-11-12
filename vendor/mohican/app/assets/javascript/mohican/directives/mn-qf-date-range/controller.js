@@ -47,7 +47,10 @@
         }
         $timeout(function() {
           vm.qfChanged({fieldName: vm.field.name}).then(function() {
-            vm.dateRangeBefore = _.cloneDeep(vm.dateRange);
+            vm.dateRangeBefore = {
+              startDate: vm.dateRange.startDate.clone(),
+              endDate:   vm.dateRange.endDate.clone()
+            };
           }, function() {
             if(vm.dateRangeBefore) {
               if(!vm.model) {
