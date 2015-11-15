@@ -1,6 +1,6 @@
 .container-fluid
   .row
-    .col-xs-9
+    .col-xs-12
       %mn-filter-bar
         %mn-fb-document-filter-selector
         %mn-fb-date-selector(field='delivery_date'
@@ -11,9 +11,6 @@
         %mn-fb-multi-selector(field='delivery_tag'
                               label='Delivery Tag'
                               values='large,urgent,tax_free,export,import,secret,poison,heavy,fragile,insured,standard,flammable')
-    .col-xs-3
-      %a.btn.btn-primary(href='#/orders/new') New Order
-      %a.btn(href='#/special-orders') Special Orders
   .row.demo-feature
     .col-xs-10
       %button.btn.btn-danger(ng-click='ctrl.addModalNotif()') danger modal
