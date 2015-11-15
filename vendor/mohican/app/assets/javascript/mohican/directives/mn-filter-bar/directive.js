@@ -7,7 +7,8 @@
     .directive('mnFilterBar', ['$compile', function($compile) {
         return {
           scope: {
-            owner: '=?'
+            owner:         '=?',
+            showNewButton: '@'
           },
           restrict:     'E',
           templateUrl:  'mohican/directives/mn-filter-bar/template.html',
