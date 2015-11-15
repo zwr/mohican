@@ -2,7 +2,7 @@
   .col-xs-12.btn-toolbar
     %button.btn(type="button"
                     ng-click="isCollapsed = !isCollapsed")
-      Toggle collapse
+      Change working dataset
     .btn.primary(button-label="show" helper-elements=""
                        input-model="filterBar.owner.layouts" isteven-multi-select=""
                        item-label="name desc" ng-show="filterBar.owner.layouts.length > 1"
@@ -16,7 +16,7 @@
       %span.loader.pull-left(ng-show="!filterBar.owner.fullyLoaded"
                              style="margin: 0px 0px 0px 8px;")
     %a.btn.btn-primary.pull-right(href='#/orders/new') New Order
-%div(uib-collapse="isCollapsed")
+%div(ng-show="isCollapsed")
   .well.well-lg
     .row
       .col-xs-12.btn-toolbar
