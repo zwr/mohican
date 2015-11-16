@@ -48,8 +48,8 @@
         $timeout(function() {
           vm.qfChanged({fieldName: vm.field.name}).then(function() {
             vm.dateRangeBefore = {
-              startDate: vm.dateRange.startDate.clone(),
-              endDate:   vm.dateRange.endDate.clone()
+              startDate: vm.dateRange.startDate ? vm.dateRange.startDate.clone() : null,
+              endDate:   vm.dateRange.endDate ? vm.dateRange.endDate.clone() : null
             };
           }, function() {
             if(vm.dateRangeBefore) {
