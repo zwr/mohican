@@ -1,10 +1,12 @@
 .form-group
-  %label {{filterBarMultiSelector.label}}
-  %span(button-label="name"
-        helper-elements=""
-        input-model="filterBarMultiSelector.selectValues"
-        isteven-multi-select=""
-        item-label="name"
-        output-model="filterBarMultiSelector.selectedValues"
-        tick-property="selected"
-        translation="filterBarMultiSelector.selectValuesLabels")
+  %label.col-sm-2.control-label
+    {{filterBarMultiSelector.label}}
+  .col-sm-10
+    %div(button-label="name"
+         helper-elements=""
+         input-model="filterBarMultiSelector.selectValues"
+         isteven-multi-select=""
+         item-label="name"
+         output-model="filterBarMultiSelector.selectedValues"
+         tick-property="selected"
+         translation="filterBarMultiSelector.selectValuesLabels")

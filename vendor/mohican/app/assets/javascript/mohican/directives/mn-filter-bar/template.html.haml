@@ -1,7 +1,8 @@
 .row
   .col-xs-12.btn-toolbar
     %button.btn(type="button"
-                ng-click="isBackendFilterPanelOpened = !isBackendFilterPanelOpened")
+                ng-click="isBackendFilterPanelOpened = !isBackendFilterPanelOpened"
+                ng-class="{'btn-primary': isBackendFilterPanelOpened}")
       Change working dataset
     .btn.primary(button-label="show" helper-elements=""
                  input-model="filterBar.owner.layouts" isteven-multi-select=""
@@ -20,9 +21,8 @@
   .well.well-lg
     .row
       .col-xs-12.btn-toolbar
-        %form.form-inline
-          .row
-            .col-xs-12.mn-translude
-          .row
-            .col-xs-12
-              %button.btn.btn-primary(ng-click="filterBar.changeDocumentFilter()") Change
+        %form.form-horizontal
+          %div.mn-translude
+          .form-group
+            .col-sm-offset-2.col-sm-10
+              %button.btn.btn-default(ng-click="filterBar.changeDocumentFilter()") Change
