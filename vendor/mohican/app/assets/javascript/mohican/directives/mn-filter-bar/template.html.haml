@@ -4,11 +4,11 @@
                 ng-click="isBackendFilterPanelOpened = !isBackendFilterPanelOpened"
                 ng-class="{'btn-primary': isBackendFilterPanelOpened}")
       Change working dataset
-    .btn.primary(button-label="show" helper-elements=""
-                 input-model="filterBar.owner.layouts" isteven-multi-select=""
-                 item-label="name desc" ng-show="filterBar.owner.layouts.length > 1"
-                 on-item-click="filterBar.changeLayout(data.name)"
-                 selection-mode="single" tick-property="selected")
+    .btn(button-label="show" helper-elements=""
+         input-model="filterBar.owner.layouts" isteven-multi-select=""
+         item-label="name desc" ng-show="filterBar.owner.layouts.length > 1"
+         on-item-click="filterBar.changeLayout(data.name)"
+         selection-mode="single" tick-property="selected")
     %button.btn(ng-class="{'btn-primary': filterBar.owner.stateMachine.quickFilterShown}"
                 ng-click="filterBar.owner.toggleQuickFilter()"
                 ng-disabled="!filterBar.owner.fullyLoaded"

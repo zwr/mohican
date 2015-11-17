@@ -1,8 +1,21 @@
 .form-group
   %label.col-sm-2.control-label(for="date-from")
     {{filterBarDateSelector.label}}
-  .col-sm-10
-    %div.input-group.input-group-sm(style="width: 132px;")
+  .col-sm-4
+    %div.input-group.input-group-sm
+      %span.input-group-btn
+        %button.btn(type="button"
+                    ng-click="filterBarDateSelector.setDateFrom(-1)"
+                    ng-class="{'btn-primary': filterBarDateSelector.dateFrom === filterBarDateSelector.getDateFrom(-1)}")
+          yesterday
+        %button.btn(type="button"
+                    ng-click="filterBarDateSelector.setDateFrom(0)"
+                    ng-class="{'btn-primary': filterBarDateSelector.dateFrom === filterBarDateSelector.getDateFrom(0)}")
+          today
+        %button.btn(type="button"
+                    ng-click="filterBarDateSelector.setDateFrom(1)"
+                    ng-class="{'btn-primary': filterBarDateSelector.dateFrom === filterBarDateSelector.getDateFrom(1)}")
+          tomorrow
       %input#date-from.form-control(close-text="Close"
                                     datepicker-popup="dd.MM.yyyy."
                                     is-open="dialogOpened"
