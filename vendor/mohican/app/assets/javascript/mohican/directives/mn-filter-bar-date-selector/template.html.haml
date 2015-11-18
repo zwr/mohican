@@ -6,15 +6,15 @@
       %span.input-group-btn
         %button.btn(type="button"
                     ng-click="filterBarDateSelector.setDateFrom(-1)"
-                    ng-class="{'btn-primary': filterBarDateSelector.dateFrom === filterBarDateSelector.getDateFrom(-1)}")
+                    ng-class="{'btn-primary': filterBarDateSelector.dateFrom.toString() === filterBarDateSelector.getDateFrom(-1).toString()}")
           yesterday
         %button.btn(type="button"
                     ng-click="filterBarDateSelector.setDateFrom(0)"
-                    ng-class="{'btn-primary': filterBarDateSelector.dateFrom === filterBarDateSelector.getDateFrom(0)}")
+                    ng-class="{'btn-primary': filterBarDateSelector.dateFrom.toString() === filterBarDateSelector.getDateFrom(0).toString()}")
           today
         %button.btn(type="button"
                     ng-click="filterBarDateSelector.setDateFrom(1)"
-                    ng-class="{'btn-primary': filterBarDateSelector.dateFrom === filterBarDateSelector.getDateFrom(1)}")
+                    ng-class="{'btn-primary': filterBarDateSelector.dateFrom.toString() === filterBarDateSelector.getDateFrom(1).toString()}")
           tomorrow
       %input#date-from.form-control(close-text="Close"
                                     datepicker-popup="dd.MM.yyyy."
