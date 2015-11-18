@@ -54,7 +54,7 @@
     // wait for it to fulfill and only .then set our own promise.
     service.thePromise = null;
 
-    service.bufferMax = 400;
+    service.bufferMax = 4000;
 
     // Following is used to calculate the actual index of the required element
     service.pageSize = 20;
@@ -68,7 +68,12 @@
     service.firstFetchSize = 200;
 
     service.waitFullyLoaded = function() {
-      return service._fullyLoadedPromise.promise;
+      if(service._fullyLoadedPromise) {
+        return service._fullyLoadedPromise.promise;
+      }
+      else {
+        return $q.when(null);
+      }
     };
 
     service.waitSnapshotLoaded = function() {
@@ -485,7 +490,8 @@
     /* eslint-enable no-extend-native */
 
     service._completeFullLoading = function() {
-      service._fullyLoadedPromise.resolve('_completeFullLoading');
+      service._fullyLoadedPromise.resolve('_completeFullLoading = %%% ' + service.bufferBackendFilter + ' %%%');
+      service._fullyLoadedPromise = null;
       service.nextCloned = 1;
       trace('data are fully loaded');
     };

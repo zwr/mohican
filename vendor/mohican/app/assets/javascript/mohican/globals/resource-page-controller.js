@@ -138,11 +138,21 @@
                     if(action === 'apply') {
                       that.moreDataLoadedMessage = undefined;
                       that.service.refreshCurrentBufferSnapshot();
+                      if(that.eagerLoadingMessage) {
+                        that.eagerLoadingMessage.dismiss();
+                        that.eagerLoadingMessage = undefined;
+                      }
+                      that.fullyLoaded = true;
                       that.loadQuickFiltersAndSort(true);
                     }
                   });
                 }
-                if(that.mnRouter.currentRouteName() === that.routeName) {
+                if(that.eagerLoadingMessage) {
+                  that.eagerLoadingMessage.dismiss();
+                  that.eagerLoadingMessage = undefined;
+                }
+                that.fullyLoaded = true;
+                if(resolveMessage && that.mnRouter.currentRouteName() === that.routeName) {
                   that.loadQuickFiltersAndSort();
                 }
               }, function(error) {
@@ -161,18 +171,27 @@
                     if(action === 'apply') {
                       that.moreDataLoadedMessage = undefined;
                       that.service.refreshCurrentBufferSnapshot();
+                      if(that.eagerLoadingMessage) {
+                        that.eagerLoadingMessage.dismiss();
+                        that.eagerLoadingMessage = undefined;
+                      }
+                      that.fullyLoaded = true;
                       that.loadQuickFiltersAndSort(true);
                     }
                   });
                 }
               });
               that.service.waitSnapshotLoaded().then(function() {
-                // that.loadQuickFiltersAndSort();
                 // console.log('snapshot loaded');
               }, function(error) {
                 console.log(error);
               }, function() {
                 if(that.mnRouter.currentRouteName() === that.routeName) {
+                  if(that.eagerLoadingMessage) {
+                    that.eagerLoadingMessage.dismiss();
+                    that.eagerLoadingMessage = undefined;
+                  }
+                  that.fullyLoaded = true;
                   that.loadQuickFiltersAndSort(true);
                 }
                 else {
@@ -191,11 +210,6 @@
 
       loadQuickFiltersAndSort: function(resetPage) {
         var that = this;
-        that.fullyLoaded = true;
-        if(that.eagerLoadingMessage) {
-          that.eagerLoadingMessage.dismiss();
-          that.eagerLoadingMessage = undefined;
-        }
         if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
           if(resetPage) {
             that.stateMachine.page = 1;
