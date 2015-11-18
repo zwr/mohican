@@ -70,6 +70,7 @@
         </td>
       </tr>
       <tr class="mn-grid-data-row"
+          style="{{grid.mnFastPreview !== 'row' ? 'cursor: default' : ''}}"
           ng-repeat="item in grid.owner.items"
           mn-right-click="grid.rightClick(item, $event)"
           ng-class="{'last-selected': grid.isLastSelected(item),
