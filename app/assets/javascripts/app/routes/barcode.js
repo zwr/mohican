@@ -2,10 +2,9 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
   'use strict';
   mnRouterProvider.addSimpleRoute({
     routeName:  'barcode',
-    controller: function($scope, $injector) {
-      // var $scope = $injector.get('$scope');
+    controller: function($injector, $scope) {
       var $location = $injector.get('$location');
-      var productionLinesService = $injector.get('productionLinesService');
+      var productionLinesService = $injector.get('productionService');
       var mnRouter = $injector.get('mnRouter');
       var ctrl = this;
       mohican.extendBaseDriver(ctrl, $injector);
