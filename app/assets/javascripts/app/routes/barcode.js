@@ -24,7 +24,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
           $location.path('/orders')
                    .search({
                      column:  'status',
-                     qf:      false,
+                     qf:      'true',
                      filters: 'cell$' + $scope.cellName + '$$status$avoinna,valmis,tuotannossa' + timeframe
                    });
           //http://192.168.6.108:3000/#/barcode/CELL1
