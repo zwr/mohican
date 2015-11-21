@@ -22,7 +22,7 @@ Gem::Specification.new do |s|
   s.add_dependency('bootstrap_form', '~> 2.3.0')
   s.add_dependency('angularjs-rails', '~> 1.4.3')
   s.add_dependency('angular-rails-templates', '~> 0.2.0')
-  s.add_dependency('angular-ui-bootstrap-rails', '~> 0.13.0')
+  s.add_dependency('angular-ui-bootstrap-rails', '~> 0.14.0')
   s.add_dependency('angular_rails_csrf', '~> 1.0.3')
   s.add_dependency('rails-assets-angular-devise', '~> 1.1.0')
 end
