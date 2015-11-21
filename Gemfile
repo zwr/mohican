@@ -32,7 +32,6 @@ gem 'sdoc', '~> 0.4.0', group: :doc
 
 # gem 'zwr', :path => 'vendor/zwr-gem'
 gem 'pry-rails', group: :development
-gem 'mohican', path: 'vendor/mohican'
 
 # TODO: all mohican vendor games could be moved to mohican Gemfile?
 # gem 'bootstrap-sass', '~> 3.2.0'
@@ -56,9 +55,10 @@ gem 'tzinfo-data', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'tzinfo', platforms: [:mingw, :mswin, :x64_mingw]
 gem 'devise'
 
-# source 'https://rails-assets.org' do
-#   gem 'rails-assets-angular-devise'
-# end
+gem 'mohican', path: 'vendor/mohican'
+source 'https://rails-assets.org' do
+  gem 'rails-assets-angular-devise'
+end
 
 gem 'rest-client'
 
