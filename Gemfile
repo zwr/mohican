@@ -68,4 +68,7 @@ gem 'rack-reverse-proxy',
     branch: 'master'
 # gem 'rack-rewrite', '~> 1.5.0'
 
-gem 'rubocop', require: false
+# Inspect code with rubocop as part of RSpec
+# Lock Rubocop to 0.34 version to avoid newer Parser which prints an annoying warning.
+gem 'parser', '2.2.2.6'
+gem 'rubocop', '0.34.2', require: false
