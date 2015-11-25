@@ -7,10 +7,14 @@ angular.module('mohican')
       return {
         restrict: 'E',
         scope:    {
-          mnfDoc: '=?',
-          route:  '@'
+          owner:  '=?',
+          mnfDoc: '=?'
         },
-        templateUrl: 'mohican/directives/mnf-preview-grid/template.html'
+        templateUrl: 'mohican/directives/mnf-preview-grid/template.html',
+
+        link: function(scope) {
+          scope.owner = mohican.scopeLookup(scope);
+        }
       };
     }
   ]);
