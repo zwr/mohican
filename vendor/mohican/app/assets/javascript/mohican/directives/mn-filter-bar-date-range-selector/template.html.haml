@@ -1,0 +1,22 @@
+.form-group
+  %label.col-sm-2.control-label(for="date-from")
+    {{filterBarDateRangeSelector.label}}
+  .col-sm-4
+    %div.input-group.input-group-sm
+      %span.input-group-btn
+        %button.btn(type="button"
+                    ng-click="filterBarDateRangeSelector.setDateRange(-1)"
+                    ng-class="{'btn-primary': filterBarDateRangeSelector.isDaySelected(-1)}")
+          yesterday
+        %button.btn(type="button"
+                    ng-click="filterBarDateRangeSelector.setDateRange(0)"
+                    ng-class="{'btn-primary': filterBarDateRangeSelector.isDaySelected(0)}")
+          today
+        %button.btn(type="button"
+                    ng-click="filterBarDateRangeSelector.setDateRange(1)"
+                    ng-class="{'btn-primary': filterBarDateRangeSelector.isDaySelected(1)}")
+          tomorrow
+      %input.form-control.date-picker(type="text"
+                                      date-range-picker
+                                      clearable="true"
+                                      ng-model="filterBarDateRangeSelector.dateRange")

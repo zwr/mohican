@@ -52,6 +52,17 @@
 
                       angular.element(element.find('.mn-translude')[0]).append(mnDirective);
                     }
+                    if(elem.nodeName === 'MN-FB-DATE-RANGE-SELECTOR') {
+                      var mnDirective = angular.element('<mn-filter-bar-date-range-selector>');
+                      var field = elem.getAttribute('field');
+                      var label = elem.getAttribute('label');
+                      mnDirective.attr('date-range', 'filterBar.' + _.camelCase(field));
+                      mnDirective.attr('label', label);
+                      mnDirective.attr('field', field);
+                      $compile(mnDirective)(scope);
+
+                      angular.element(element.find('.mn-translude')[0]).append(mnDirective);
+                    }
                     if(elem.nodeName === 'MN-FB-MULTI-SELECTOR') {
                       var mnDirective = angular.element('<mn-filter-bar-multi-selector>');
                       var field = elem.getAttribute('field');
@@ -70,7 +81,6 @@
               }
             };
           }
-
         };
       }
     ]);

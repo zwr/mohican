@@ -28,6 +28,9 @@
         if(ctr.nodeName === 'MN-FB-DATE-SELECTOR') {
           openFilters[ctr.field] = vm[_.camelCase(ctr.field)];
         }
+        if(ctr.nodeName === 'MN-FB-DATE-RANGE-SELECTOR') {
+          openFilters[ctr.field] = vm[_.camelCase(ctr.field)];
+        }
         if(ctr.nodeName === 'MN-FB-MULTI-SELECTOR') {
           openFilters[ctr.field] = _.map(vm['selected' + _.capitalize(_.camelCase(ctr.field))], 'name');
         }
