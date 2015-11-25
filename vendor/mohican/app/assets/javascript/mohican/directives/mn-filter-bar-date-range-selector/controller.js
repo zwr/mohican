@@ -10,6 +10,8 @@
   function MnFilterBarDateRangeSelectorController($scope) {
     var vm = this;
 
+    vm.dateRange = {};
+
     vm.setDateRange = function(days) {
       var todayStart = new Date();
       todayStart.setHours(0, 0, 0, 0);
@@ -32,10 +34,12 @@
     }, function(newValue, oldValue) {
 
       if(newValue[vm.field]) {
-        vm.dateFrom = new Date(newValue[vm.field].setHours(12, 0, 0, 0));
+        vm.dateRange.startDate = new Date(newValue[vm.field].startDate);
+        vm.dateRange.endDate = new Date(newValue[vm.field].endDate);
       }
       else {
-        vm.dateFrom = undefined;
+        vm.dateRange.startDate = null;
+        vm.dateRange.endDate = null;
       }
     });
   }

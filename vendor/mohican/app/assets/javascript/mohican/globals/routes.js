@@ -236,6 +236,10 @@
         });
         paramStrings.push('A--' + key + '$' + values.join(','));
       }
+      if(filter.startDate && filter.endDate) {
+        paramStrings.push('R--' + key + '$' + filter.startDate.toString().split(' ').join('-') + '---' +
+                                              filter.endDate.toString().split(' ').join('-'));
+      }
     };
     return paramStrings.join('$$');
   };

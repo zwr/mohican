@@ -22,6 +22,7 @@
       var openFilters = {};
 
       $scope.fbControls.forEach(function(ctr) {
+        console.log(ctr.nodeName, vm[_.camelCase(ctr.field)]);
         if(ctr.nodeName === 'MN-FB-DOCUMENT-FILTER-SELECTOR') {
           docFilter = vm.seletedDocumentFilters[0].name;
         }
@@ -35,6 +36,8 @@
           openFilters[ctr.field] = _.map(vm['selected' + _.capitalize(_.camelCase(ctr.field))], 'name');
         }
       });
+
+      console.log(openFilters);
 
       vm.owner.getBackendFilter(docFilter, openFilters).
                then(function() {
