@@ -211,6 +211,11 @@
         if(type === 'A--') {
           openfilters[att[0]] = att[1].split(',');
         }
+        if(type === 'R--') {
+          openfilters[att[0]] = {};
+          openfilters[att[0]].startDate = att[1].split('---')[0];
+          openfilters[att[0]].endDate = att[1].split('---')[1];
+        }
 
       });
     }
@@ -226,19 +231,21 @@
     var paramStrings = [];
     for(var key in openfilters) {
       var filter = openfilters[key];
-      if(filter instanceof Date) {
-        paramStrings.push('D--' + key + '$' + filter.toString().split(' ').join('-'));
-      }
-      if(filter instanceof Array && filter.length > 0) {
-        var values = [];
-        filter.forEach(function(val) {
-          values.push(val);
-        });
-        paramStrings.push('A--' + key + '$' + values.join(','));
-      }
-      if(filter.startDate && filter.endDate) {
-        paramStrings.push('R--' + key + '$' + filter.startDate.toString().split(' ').join('-') + '---' +
-                                              filter.endDate.toString().split(' ').join('-'));
+      if(filter) {
+        if(filter instanceof Date) {
+          paramStrings.push('D--' + key + '$' + filter.toString().split(' ').join('-'));
+        }
+        if(filter instanceof Array && filter.length > 0) {
+          var values = [];
+          filter.forEach(function(val) {
+            values.push(val);
+          });
+          paramStrings.push('A--' + key + '$' + values.join(','));
+        }
+        if(filter.startDate && filter.endDate) {
+          paramStrings.push('R--' + key + '$' + filter.startDate.toString().split(' ').join('-') + '---' +
+                                                filter.endDate.toString().split(' ').join('-'));
+        }
       }
     };
     return paramStrings.join('$$');
