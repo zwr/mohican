@@ -399,7 +399,6 @@
         newRouteParams.filters = undefined;
         newRouteParams.documentfilter = documentFilter;
         newRouteParams.openfilters = mohican.openfiltersToUrlParam(openfilters);
-        console.log(newRouteParams);
         this.mnRouter.transitionTo(this.mnRouter.currentRouteName(), mohican.escapeDefaultParameters(newRouteParams)).
                       then(function() {
                         deffered.resolve();

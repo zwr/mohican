@@ -26,7 +26,18 @@
     };
 
     vm.isDaySelected = function(days) {
-      return false;
+      var today = new Date();
+      today.setHours(12, 0, 0, 0);
+
+      var targetDay = new Date(today.setDate(today.getDate() + days));
+
+      if(targetDay > vm.dateRange.startDate &&
+         targetDay < vm.dateRange.endDate) {
+        return true;
+      }
+      else {
+        return false;
+      }
     };
 
     $scope.$watch(function() {
