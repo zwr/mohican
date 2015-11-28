@@ -12,14 +12,12 @@
 
     vm.setDateFrom = function(days) {
       var today = new Date();
-      today.setHours(12, 0, 0, 0);
-      vm.dateFrom = new Date(today.setDate(today.getDate() + days));
+      vm.dateFrom = (new Date(today.setDate(today.getDate() + days))).toJSON().slice(0,10);
     };
 
     vm.getDateFrom = function(days) {
       var today = new Date();
-      today.setHours(12, 0, 0, 0);
-      return new Date(today.setDate(today.getDate() + days));
+      return new Date(today.setDate(today.getDate() + days)).toJSON().slice(0,10);
     };
 
     $scope.$watch(function() {
@@ -27,7 +25,7 @@
     }, function(newValue, oldValue) {
 
       if(newValue[vm.field]) {
-        vm.dateFrom = new Date(newValue[vm.field].setHours(12, 0, 0, 0));
+        vm.dateFrom = newValue[vm.field];
       }
       else {
         vm.dateFrom = undefined;

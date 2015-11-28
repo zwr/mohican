@@ -206,7 +206,7 @@
         var val = param.substring(3, param.length);
         var att = val.split('$');
         if(type === 'D--') {
-          openfilters[att[0]] = new Date(att[1]);
+          openfilters[att[0]] = att[1];
         }
         if(type === 'A--') {
           openfilters[att[0]] = att[1].split(',');
@@ -224,7 +224,9 @@
 
   mohican.openfiltersToBackendUrlParam = function(openfilters) {
     var urlParams = mohican.openfiltersToUrlParam(openfilters);
-    return urlParams.replace(/A--/g, '').replace(/D--/g, '');
+    return urlParams.replace(/A--/g, '').
+                     replace(/D--/g, '').
+                     replace(/R--/g, '');
   };
 
   mohican.openfiltersToUrlParam = function(openfilters) {
@@ -232,8 +234,8 @@
     for(var key in openfilters) {
       var filter = openfilters[key];
       if(filter) {
-        if(filter instanceof Date) {
-          paramStrings.push('D--' + key + '$' + filter.toString().split(' ').join('-'));
+        if(angular.isString(filter) && filter.split('-').length === 3) {
+          paramStrings.push('D--' + key + '$' + filter);
         }
         if(filter instanceof Array && filter.length > 0) {
           var values = [];
