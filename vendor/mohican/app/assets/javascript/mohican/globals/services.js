@@ -68,12 +68,12 @@
     service.firstFetchSize = 200;
 
     service.waitFullyLoaded = function() {
-      if(service._fullyLoadedPromise) {
+      //if(service._fullyLoadedPromise) {
         return service._fullyLoadedPromise.promise;
-      }
-      else {
-        return $q.when(null);
-      }
+      // }
+      // else {
+      //   return $q.when(null);
+      // }
     };
 
     service.waitSnapshotLoaded = function() {
@@ -491,7 +491,7 @@
 
     service._completeFullLoading = function() {
       service._fullyLoadedPromise.resolve('_completeFullLoading = %%% ' + service.bufferBackendFilter + ' %%%');
-      service._fullyLoadedPromise = null;
+      //service._fullyLoadedPromise = null;
       service.nextCloned = 1;
       trace('data are fully loaded');
     };
