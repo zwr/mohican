@@ -5,9 +5,9 @@
 
   angular
       .module('mohican')
-      .controller('MnGridController', ['mnRouter', '$scope', '$window', '$q', MnGridController]);
+      .controller('MnGridController', ['mnRouter', '$scope', '$window', '$q', '$location', MnGridController]);
 
-  function MnGridController(mnRouter, $scope, $window, $q) {
+  function MnGridController(mnRouter, $scope, $window, $q, $location) {
     var vm = this;
 
     vm.selectedItemsStateChangeValidator = function(fullStateReload) {
@@ -184,9 +184,8 @@
     vm.fastPreview = function(item) {
       if(vm.mnFastPreview === 'row' && item._state === 'ready') {
         if(vm.owner.resourceName) {
-          mnRouter.transitionTo(vm.owner.resourceName + '-doc', {
-            itemPrimaryKeyId: item._mnid
-          });
+          $location.path(vm.owner.resourceName + '/' + item._mnid);
+          $location.search({});
         }
       }
     };
