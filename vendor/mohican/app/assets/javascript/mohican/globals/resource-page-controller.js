@@ -31,6 +31,7 @@
         this.$q = $injector.get('$q');
         this.$http = $injector.get('$http');
         this.mnNotify = $injector.get('mnNotify');
+        this.$location = $injector.get('$location');
 
         mohican.redirectDefaultParameters(this.mnRouter);
         mohican.injectDefaultParameters(this.mnRouter);
@@ -152,7 +153,7 @@
                   that.eagerLoadingMessage = undefined;
                 }
                 that.fullyLoaded = true;
-                if(resolveMessage && that.mnRouter.currentRouteName() === that.routeName) {
+                if(that.$location.path().split('/').filter(function(n) { return n.length; }).length <= 1) {
                   that.loadQuickFiltersAndSort();
                 }
               }, function(error) {
