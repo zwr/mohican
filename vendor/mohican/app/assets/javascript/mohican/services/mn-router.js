@@ -132,10 +132,6 @@
         });
       }
 
-      function setLocation(location) {
-        $location.url(location);
-      }
-
       function redirectTo(routeName) {
         $state.transitionTo(routeName, {}, {location: 'replace'});
       }
@@ -237,7 +233,6 @@
 
       return {
         createAll:    createAll,
-        setLocation:  setLocation,
         redirectTo:   redirectTo,
         transitionTo: transitionTo,
         pageNotFound: pageNotFound,
