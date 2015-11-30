@@ -315,7 +315,10 @@
               });
               mohican.validateBackendFilterParameter(that.stateMachine.documentFilter, that.documentFilters, that.mnRouter);
             });
-            that.stateMachine.loadFromUrl(that.mnRouter.$stateParams, that.service);
+            //we need to load only stateMachine.filters instead of whole stateMachine
+            //because loadFromUrl is initialy designed to load qucik filter after
+            //all eager data has been loaded
+            that.stateMachine.filters = mohican.urlQfParamToJson(that.mnRouter.$stateParams.filters, that.fields);
 
             that.fullyLoaded = false;
 
