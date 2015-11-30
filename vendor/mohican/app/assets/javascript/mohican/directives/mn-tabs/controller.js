@@ -41,7 +41,7 @@
 
       selectedTab.active = true;
       vm.owner.mnRouter.transitionTo(vm.owner.mnRouter.$state.current.name,
-                                     vm.owner.stateMachine.stateMachineToUrl(),
+                                     vm.owner.stateMachine.toUrl(),
                                      { notify: false });
     };
   }

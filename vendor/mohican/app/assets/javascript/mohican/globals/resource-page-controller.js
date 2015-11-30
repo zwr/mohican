@@ -36,7 +36,7 @@
         mohican.redirectDefaultParameters(this.mnRouter);
         mohican.injectDefaultParameters(this.mnRouter);
 
-        this.stateMachine.stateMachineFromUrl(this.mnRouter.$stateParams, service);
+        this.stateMachine.loadFromUrl(this.mnRouter.$stateParams, service);
 
         this.fullyLoaded = false;
         this.layouts = [];
@@ -219,7 +219,7 @@
             that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$state.params.page) ? 1 : parseInt(that.mnRouter.$state.params.page));
           }
           that.mnRouter.transitionTo(that.mnRouter.currentRouteName(),
-                         that.stateMachine.stateMachineToUrl(that.fields),
+                         that.stateMachine.toUrl(that.fields),
                          { notify: false })
                        .then(function() {
             that.service.getClientPage(that.stateMachine.page,
@@ -304,7 +304,7 @@
               });
               mohican.validateBackendFilterParameter(that.stateMachine.documentFilter, that.documentFilters, that.mnRouter);
             });
-            that.stateMachine.stateMachineFromUrl(that.mnRouter.$stateParams, that.service);
+            that.stateMachine.loadFromUrl(that.mnRouter.$stateParams, that.service);
 
             that.fullyLoaded = false;
 
@@ -324,14 +324,14 @@
           this.stateMachine.filters = undefined;
 
           this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
-                         this.stateMachine.stateMachineToUrl(this.fields),
+                         this.stateMachine.toUrl(this.fields),
                          { notify: true });
         }
         else {
           var pageBefore = that.stateMachine.page;
           that.stateMachine.page = parseInt(page);
           this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
-                         this.stateMachine.stateMachineToUrl(this.fields),
+                         this.stateMachine.toUrl(this.fields),
                          { notify: false })
                        .then(function() {
                          that.service.getClientPage(that.stateMachine.page,
@@ -368,7 +368,7 @@
         });
 
         this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
-                       this.stateMachine.stateMachineToUrl(this.fields),
+                       this.stateMachine.toUrl(this.fields),
                        { notify: false }).
                       then(function() {
                         that.stateMachine.page = 1;
@@ -389,18 +389,34 @@
       },
 
       getBackendFilter: function(documentFilter, openfilters) {
+        var that = this;
+        console.log(openfilters);
         var deffered = this.$q.defer();
 
-        var newRouteParams = _.clone(this.mnRouter.$stateParams);
-        newRouteParams.page = undefined;
-        // newRouteParams.layout = undefined;
-        newRouteParams.column = undefined;
-        newRouteParams.direction = undefined;
-        newRouteParams.quickFilterShown = false;
-        newRouteParams.filters = undefined;
-        newRouteParams.documentfilter = documentFilter;
-        newRouteParams.openfilters = mohican.openfiltersToUrlParam(openfilters);
-        this.mnRouter.transitionTo(this.mnRouter.currentRouteName(), mohican.escapeDefaultParameters(newRouteParams)).
+        // var newRouteParams = _.clone(this.mnRouter.$stateParams);
+        // newRouteParams.page = undefined;
+        // // newRouteParams.layout = undefined;
+        // newRouteParams.column = undefined;
+        // newRouteParams.direction = undefined;
+        // newRouteParams.quickFilterShown = false;
+        // newRouteParams.filters = undefined;
+        // newRouteParams.documentfilter = documentFilter;
+        // newRouteParams.openfilters = mohican.openfiltersToUrlParam(openfilters);
+        // var transitionParams = mohican.escapeDefaultParameters(newRouteParams);
+        // console.log(transitionParams, newRouteParams);
+
+        that.stateMachine.page = undefined;
+        // that.stateMachine.layout = undefined;
+        that.stateMachine.column = undefined;
+        that.stateMachine.direction = undefined;
+        that.stateMachine.quickFilterShown = false;
+        that.stateMachine.filters = undefined;
+        that.stateMachine.documentfilter = documentFilter;
+        that.stateMachine.openfilters = openfilters;
+
+        console.log(that.stateMachine.toUrl(that.fields));
+
+        this.mnRouter.transitionTo(this.mnRouter.currentRouteName(), that.stateMachine.toUrl(that.fields)).
                       then(function() {
                         deffered.resolve();
                       }, function() {
@@ -427,7 +443,7 @@
         that.stateMachine.page = 1;//for all client side actions reset page to 1
 
         this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
-                       this.stateMachine.stateMachineToUrl(this.fields),
+                       this.stateMachine.toUrl(this.fields),
                        { notify: false }).
                       then(function() {
                         that.service.getClientPage(that.stateMachine.page,
@@ -470,7 +486,7 @@
         }
 
         this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
-                       this.stateMachine.stateMachineToUrl(this.fields),
+                       this.stateMachine.toUrl(this.fields),
                        { notify: false }).
                       then(function() {
                         that.service.getClientPage(that.stateMachine.page,
@@ -502,7 +518,7 @@
         this.stateMachine.filters = undefined;
 
         this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
-                       this.stateMachine.stateMachineToUrl(this.fields),
+                       this.stateMachine.toUrl(this.fields),
                        { notify: true });
       },
 

@@ -15,7 +15,7 @@
 
       activetab: undefined,
 
-      stateMachineFromUrl: function($stateParams, service) {
+      loadFromUrl: function($stateParams, service) {
         if (!$stateParams.documentfilter) {
           this.documentfilter = 'default';
         }
@@ -54,7 +54,7 @@
         this.filters = undefined;
       },
 
-      stateMachineToUrl: function(fields) {
+      toUrl: function(fields) {
         return mohican.escapeDefaultParameters({
           page:             this.page,
           layout:           this.layout,
