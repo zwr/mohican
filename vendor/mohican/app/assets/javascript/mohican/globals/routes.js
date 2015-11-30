@@ -253,7 +253,7 @@
     return paramStrings.join('$$');
   };
 
-  mohican.jsonToUrlParam = function(filters, dataFields) {
+  mohican.jsonToUrlQfParam = function(filters, dataFields) {
     var filterObjects = [];
     for (var key in filters) {
       if (filters.hasOwnProperty(key)) {
@@ -285,7 +285,7 @@
     return filterObjects.join('$$');
   };
 
-  mohican.urlParamToJson = function(urlParamString, dataFields) {
+  mohican.urlQfParamToJson = function(urlParamString, dataFields) {
     var filtersObject;
 
     if(urlParamString && urlParamString !== '') {

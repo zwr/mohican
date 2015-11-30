@@ -63,7 +63,7 @@
           column:           this.column,
           direction:        this.direction,
           qf:               this.quickFilterShown,
-          filters:          mohican.jsonToUrlParam(this.filters, fields),
+          filters:          mohican.jsonToUrlQfParam(this.filters, fields),
           itemPrimaryKeyId: this.itemPrimaryKeyId,
 
           activetab: this.activetab

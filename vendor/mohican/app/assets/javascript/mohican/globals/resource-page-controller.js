@@ -304,7 +304,7 @@
               });
               mohican.validateBackendFilterParameter(that.stateMachine.documentFilter, that.documentFilters, that.mnRouter);
             });
-            that.stateMachine.filters = mohican.urlParamToJson(that.mnRouter.$stateParams.filters, that.fields);
+            that.stateMachine.filters = mohican.urlQfParamToJson(that.mnRouter.$stateParams.filters, that.fields);
 
             that.fullyLoaded = false;
 
@@ -392,7 +392,6 @@
         var deffered = this.$q.defer();
 
         var newRouteParams = _.clone(this.mnRouter.$stateParams);
-        console.log(newRouteParams);
         newRouteParams.page = undefined;
         // newRouteParams.layout = undefined;
         newRouteParams.column = undefined;
