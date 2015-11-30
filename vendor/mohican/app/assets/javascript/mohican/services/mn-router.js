@@ -64,11 +64,9 @@
           }
         };
         var lcsuccess = $rootScope.$on('$locationChangeSuccess', function (event, next, current) {
-          console.log('Completed transitioning form ' + current + ' to ' + next);
           $window.scrollTo(0,0);
         });
         var lcs = $rootScope.$on('$locationChangeStart', function (event, next, current) {
-          console.log('Starting transitioning form ' + current + ' to ' + next);
           if(provider.transitionToValidarionAllreadyDone === false) {
             var nextWithNoParams = next.split('?')[0];
             var currentWithNoParams = current.split('?')[0];

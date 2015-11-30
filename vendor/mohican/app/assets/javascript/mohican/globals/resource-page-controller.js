@@ -392,6 +392,7 @@
         var deffered = this.$q.defer();
 
         var newRouteParams = _.clone(this.mnRouter.$stateParams);
+        console.log(newRouteParams);
         newRouteParams.page = undefined;
         // newRouteParams.layout = undefined;
         newRouteParams.column = undefined;
