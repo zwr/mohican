@@ -154,7 +154,7 @@
                 }
                 that.fullyLoaded = true;
                 if(that.$location.path().split('/').filter(function(n) { return n.length; }).length <= 1) {
-                  that.loadQuickFiltersAndSort();
+                  that.loadQuickFiltersAndSort(false);
                 }
               }, function(error) {
                 console.log(error);
@@ -214,14 +214,24 @@
         if(that.stateMachine.column || that.stateMachine.quickFilterShown) {
           if(resetPage) {
             that.stateMachine.page = 1;
+            that.mnRouter.transitionTo(that.mnRouter.currentRouteName(),
+                           that.stateMachine.toUrl(that.fields),
+                           { notify: false })
+                         .then(function() {
+              that.service.getClientPage(that.stateMachine.page,
+                                         that.stateMachine.column,
+                                         that.stateMachine.direction,
+                                         that.stateMachine.filters,
+                                         that.fields).then(function(data) {
+                that.items = data.items;
+                that.pageCount = data.pageCount;
+                that.totalQfCount = data.totalQfCount;
+                mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
+              });
+            });
           }
           else {
             that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$state.params.page) ? 1 : parseInt(that.mnRouter.$state.params.page));
-          }
-          that.mnRouter.transitionTo(that.mnRouter.currentRouteName(),
-                         that.stateMachine.toUrl(that.fields),
-                         { notify: false })
-                       .then(function() {
             that.service.getClientPage(that.stateMachine.page,
                                        that.stateMachine.column,
                                        that.stateMachine.direction,
@@ -232,7 +242,8 @@
               that.totalQfCount = data.totalQfCount;
               mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
             });
-          });
+          }
+
         }
       },
 
