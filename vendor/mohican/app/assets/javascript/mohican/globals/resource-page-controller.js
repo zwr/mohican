@@ -304,7 +304,7 @@
               });
               mohican.validateBackendFilterParameter(that.stateMachine.documentFilter, that.documentFilters, that.mnRouter);
             });
-            that.stateMachine.filters = mohican.urlQfParamToJson(that.mnRouter.$stateParams.filters, that.fields);
+            that.stateMachine.stateMachineFromUrl(that.mnRouter.$stateParams, that.service);
 
             that.fullyLoaded = false;
 
