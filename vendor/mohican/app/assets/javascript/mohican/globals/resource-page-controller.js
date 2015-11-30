@@ -403,21 +403,9 @@
       },
 
       getBackendFilter: function(documentFilter, openfilters) {
-        var that = this;
-        console.log(openfilters);
         var deffered = this.$q.defer();
 
-        // var newRouteParams = _.clone(this.mnRouter.$stateParams);
-        // newRouteParams.page = undefined;
-        // // newRouteParams.layout = undefined;
-        // newRouteParams.column = undefined;
-        // newRouteParams.direction = undefined;
-        // newRouteParams.quickFilterShown = false;
-        // newRouteParams.filters = undefined;
-        // newRouteParams.documentfilter = documentFilter;
-        // newRouteParams.openfilters = mohican.openfiltersToUrlParam(openfilters);
-        // var transitionParams = mohican.escapeDefaultParameters(newRouteParams);
-        // console.log(transitionParams, newRouteParams);
+        var that = this;
 
         that.stateMachine.page = undefined;
         // that.stateMachine.layout = undefined;
@@ -428,9 +416,7 @@
         that.stateMachine.documentfilter = documentFilter;
         that.stateMachine.openfilters = openfilters;
 
-        console.log(that.stateMachine.toUrl(that.fields));
-
-        this.mnRouter.transitionTo(this.mnRouter.currentRouteName(), that.stateMachine.toUrl(that.fields)).
+        that.mnRouter.transitionTo(that.mnRouter.currentRouteName(), that.stateMachine.toUrl(that.fields)).
                       then(function() {
                         deffered.resolve();
                       }, function() {
