@@ -405,23 +405,35 @@
       getBackendFilter: function(documentFilter, openfilters) {
         var deffered = this.$q.defer();
 
-        var that = this;
+        var currentDocumentFilter = this.stateMachine.documentFilter ? this.stateMachine.documentFilter : 'default';
+        var currentOpenFilters = mohican.openfiltersToUrlParam(this.stateMachine.openfilters) ? mohican.openfiltersToUrlParam(this.stateMachine.openfilters) : '';
 
-        that.stateMachine.page = undefined;
-        // that.stateMachine.layout = undefined;
-        that.stateMachine.column = undefined;
-        that.stateMachine.direction = undefined;
-        that.stateMachine.quickFilterShown = false;
-        that.stateMachine.filters = undefined;
-        that.stateMachine.documentfilter = documentFilter;
-        that.stateMachine.openfilters = openfilters;
+        var newDocumentFilter = documentFilter ? documentFilter : 'default';
+        var newOpenFilters = mohican.openfiltersToUrlParam(openfilters) ? mohican.openfiltersToUrlParam(openfilters) : '';
 
-        that.mnRouter.transitionTo(that.mnRouter.currentRouteName(), that.stateMachine.toUrl(that.fields)).
-                      then(function() {
-                        deffered.resolve();
-                      }, function() {
-                        deffered.reject();
-                      });
+        if(currentDocumentFilter === newDocumentFilter &&
+           currentOpenFilters === newOpenFilters) {
+          deffered.resolve('unchanged document and open filters');
+        }
+        else {
+          var that = this;
+
+          that.stateMachine.page = undefined;
+          // that.stateMachine.layout = undefined;
+          that.stateMachine.column = undefined;
+          that.stateMachine.direction = undefined;
+          that.stateMachine.quickFilterShown = false;
+          that.stateMachine.filters = undefined;
+          that.stateMachine.documentFilter = documentFilter;
+          that.stateMachine.openfilters = openfilters;
+
+          that.mnRouter.transitionTo(that.mnRouter.currentRouteName(), that.stateMachine.toUrl(that.fields)).
+                        then(function() {
+                          deffered.resolve();
+                        }, function() {
+                          deffered.reject();
+                        });
+        }
 
         return deffered.promise;
       },
