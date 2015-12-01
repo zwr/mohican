@@ -54,5 +54,9 @@
                       vm.owner.layouts = vm.layoutsBefore;
                     });
     };
+
+    vm.reload = function() {
+      vm.owner.reload();
+    };
   }
 })();

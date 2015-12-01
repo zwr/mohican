@@ -25,6 +25,10 @@
 
       onCurrentItemChanged: undefined,
 
+      reload: function() {
+        console.log('reload');
+      },
+
       initialize: function(service, $injector) {
         var that = this;
         this.mnRouter = $injector.get('mnRouter');

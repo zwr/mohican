@@ -13,6 +13,8 @@
 
       initialize: function() {},
 
+      reload: function() {},
+
       loadData: function() {},
 
       pageChanged: function() {},
