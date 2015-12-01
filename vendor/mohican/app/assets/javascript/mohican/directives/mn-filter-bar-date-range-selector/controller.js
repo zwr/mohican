@@ -76,10 +76,7 @@
 
       }
       else {
-        if(!vm.owner.stateMachine.openfilters[vm.field]) {
-          vm.owner.stateMachine.openfilters[vm.field] = {};
-        }
-        vm.dateRange = vm.owner.stateMachine.openfilters[vm.field];
+        vm.dateRange = {};
         var startDate = new Date(newValue.startDate);
         var endDate = new Date(newValue.endDate);
         startDate.setHours(12, 0, 0, 0);
