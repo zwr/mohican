@@ -186,6 +186,9 @@
         if(vm.owner.resourceName) {
           $location.path(vm.owner.resourceName + '/' + item._mnid);
           $location.search({});
+          // mnRouter.transitionTo(vm.owner.resourceName + '-doc', {
+          //   itemPrimaryKeyId: item._mnid
+          // });
         }
       }
     };
