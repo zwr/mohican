@@ -204,6 +204,18 @@
         $state.transitionTo('404', {}, {location: false});
       }
 
+      function currentRouteType() {
+        if(_.endsWith(currentRouteName(), '-doc')) {
+          return 'doc';
+        }
+        else if(_.endsWith(currentRouteName(), '-new')) {
+          return 'new';
+        }
+        else {
+          return 'index';
+        }
+      }
+
       function addStateChageValidator(validator) {
         provider.stateChangeValidators.push(validator);
       }
@@ -242,6 +254,7 @@
         currentRouteName:  currentRouteName,
         currentRouteIndex: currentRouteIndex,
         currentRouteDoc:   currentRouteDoc,
+        currentRouteType:  currentRouteType,
 
         addStateChageValidator:    addStateChageValidator,
         removeStateChageValidator: removeStateChageValidator

@@ -68,7 +68,7 @@
           });
         }).
         then(function() {
-          if(_.endsWith(that.mnRouter.currentRouteName(), '-new')) {
+          if(that.mnRouter.currentRouteType() === 'new') {
             that.fullyLoaded = true;
             that.itemForm = {};
             that.onCurrentItemChanged.forEach(function(callback) {
@@ -77,7 +77,7 @@
             that.service.prepareNewDoc(that.fields, that.$http, that.$q, that.resourceName,
                                       {primaryKeyName: that.primaryKeyName, doctype: that.doctype}, that.itemForm);
           }
-          else if(that.stateMachine.itemPrimaryKeyId) {
+          if(that.mnRouter.currentRouteType() === 'doc') {
             that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields)
             .then(function(items) {
               that.fullyLoaded = true;
@@ -95,7 +95,7 @@
               that.mnRouter.pageNotFound();
             });
           }
-          else {
+          if(that.mnRouter.currentRouteType() === 'index') {
             var notif = that.mnNotify.info({
               message: 'Loading ' + that.resourceName + '...',
               details: 'Loading ' + that.resourceName + '...',
