@@ -68,6 +68,7 @@
           });
         }).
         then(function() {
+          console.log(that.mnRouter.currentRouteType());
           if(that.mnRouter.currentRouteType() === 'new') {
             that.fullyLoaded = true;
             that.itemForm = {};
