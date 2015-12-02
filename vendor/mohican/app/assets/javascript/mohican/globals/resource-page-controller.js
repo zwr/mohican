@@ -111,7 +111,7 @@
               // We want to be careful to call waitFullyLoaded only when the
               // initial promise has returned! Now we are sure the eager loading
               // is ongoing.
-              that.service.waitFullyLoaded().then(function(resolveMessage) {
+              that.service.waitFullyLoaded().then(function() {
                 if(that.eagerLoadingMessage && that.mnRouter.currentRouteName() !== that.routeName) {
                   that.eagerLoadingMessage.dismiss();
                   that.eagerLoadingMessage = undefined;
@@ -159,6 +159,7 @@
                 }
                 that.fullyLoaded = true;
                 // console.log(that.mnRouter.currentRouteName(), that.$location.path());
+                // if(that.mnRouter.currentRouteName() === that.routeName) {
                 if(that.$location.path().split('/').filter(function(n) { return n.length; }).length <= 1) {
                   that.loadQuickFiltersAndSort(false);
                 }
