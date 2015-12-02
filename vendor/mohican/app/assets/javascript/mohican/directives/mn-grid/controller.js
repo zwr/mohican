@@ -184,11 +184,11 @@
     vm.fastPreview = function(item) {
       if(vm.mnFastPreview === 'row' && item._state === 'ready') {
         if(vm.owner.resourceName) {
-          $location.path(vm.owner.resourceName + '/' + item._mnid);
-          $location.search({});
-          // mnRouter.transitionTo(vm.owner.resourceName + '-doc', {
-          //   itemPrimaryKeyId: item._mnid
-          // });
+          // $location.path(vm.owner.resourceName + '/' + item._mnid);
+          // $location.search({});
+          mnRouter.transitionTo(vm.owner.resourceName + '-doc', {
+            itemPrimaryKeyId: item._mnid
+          });
         }
       }
     };

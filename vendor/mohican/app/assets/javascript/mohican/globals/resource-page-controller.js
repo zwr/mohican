@@ -32,6 +32,7 @@
       initialize: function(service, $injector) {
         var that = this;
         this.mnRouter = $injector.get('mnRouter');
+        console.log(this.mnRouter.currentRouteType());
         this.mnNotify = $injector.get('mnNotify');
 
         mohican.redirectDefaultParameters(this.mnRouter);
@@ -68,7 +69,6 @@
           });
         }).
         then(function() {
-          console.log(that.mnRouter.currentRouteType());
           if(that.mnRouter.currentRouteType() === 'new') {
             that.fullyLoaded = true;
             that.itemForm = {};
