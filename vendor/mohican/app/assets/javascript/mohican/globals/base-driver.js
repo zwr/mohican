@@ -5,7 +5,10 @@
     _.assign(ctrl, {
       modal: $injector.get('$modal'),
 
-      $q: $injector.get('$q'),
+      $q:    $injector.get('$q'),
+      $http: $injector.get('$http'),
+
+      $location: $injector.get('$location'),
 
       stateMachine: mohican.createStateMachine(),
 

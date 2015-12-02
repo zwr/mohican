@@ -32,11 +32,7 @@
       initialize: function(service, $injector) {
         var that = this;
         this.mnRouter = $injector.get('mnRouter');
-        this.$q = $injector.get('$q');
-        this.$http = $injector.get('$http');
         this.mnNotify = $injector.get('mnNotify');
-        this.$location = $injector.get('$location');
-        // console.log('init', this.mnRouter.currentRouteName(), this.$location.path());
 
         mohican.redirectDefaultParameters(this.mnRouter);
         mohican.injectDefaultParameters(this.mnRouter);
