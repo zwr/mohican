@@ -42,7 +42,7 @@
           this.page = parseInt($stateParams.page);
         }
         this.layout = $stateParams.layout;
-        this.documentFilter = $stateParams.documentfilter;
+        this.documentfilter = $stateParams.documentfilter;
         this.openfilters = mohican.urlParamToOpenfilters($stateParams.openfilters);
         this.column = $stateParams.column;
         this.direction = $stateParams.direction;
@@ -58,7 +58,7 @@
         return mohican.escapeDefaultParameters({
           page:             this.page,
           layout:           this.layout,
-          documentfilter:   this.documentFilter,
+          documentfilter:   this.documentfilter,
           openfilters:      mohican.openfiltersToUrlParam(this.openfilters),
           column:           this.column,
           direction:        this.direction,

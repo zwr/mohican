@@ -54,12 +54,12 @@
       loadMnGridItems: function() {
         var that = this;
         that.mnNotify.controllerChanged(that.routeName);
-        that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(resolveValue) {
+        that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentfilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(resolveValue) {
           var pageCount = resolveValue.pageCount;
           that.pageCount = pageCount;
 
           if(mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter)) {
-            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentFilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(items) {
+            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentfilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(items) {
               that.items = items;
               if(that.startLoadingMessage) {
                 that.startLoadingMessage.dismiss();
@@ -317,10 +317,10 @@
                 that.documentFilters.push({
                   name:     documentFilter.name,
                   show:     'Filter: ' + documentFilter.name,
-                  selected: documentFilter.name === that.stateMachine.documentFilter
+                  selected: documentFilter.name === that.stateMachine.documentfilter
                 });
               });
-              mohican.validateBackendFilterParameter(that.stateMachine.documentFilter, that.documentFilters, that.mnRouter);
+              mohican.validateBackendFilterParameter(that.stateMachine.documentfilter, that.documentFilters, that.mnRouter);
             });
             //we need to load only stateMachine.filters instead of whole stateMachine
             //because loadFromUrl is initialy designed to load qucik filter after
@@ -412,7 +412,7 @@
       getBackendFilter: function(documentFilter, openfilters) {
         var deffered = this.$q.defer();
 
-        var currentDocumentFilter = this.stateMachine.documentFilter ? this.stateMachine.documentFilter : 'default';
+        var currentDocumentFilter = this.stateMachine.documentfilter ? this.stateMachine.documentfilter : 'default';
         var currentOpenFilters = mohican.openfiltersToUrlParam(this.stateMachine.openfilters) ? mohican.openfiltersToUrlParam(this.stateMachine.openfilters) : '';
 
         var newDocumentFilter = documentFilter ? documentFilter : 'default';
@@ -431,7 +431,7 @@
           that.stateMachine.direction = undefined;
           that.stateMachine.quickFilterShown = false;
           that.stateMachine.filters = undefined;
-          that.stateMachine.documentFilter = documentFilter;
+          that.stateMachine.documentfilter = documentFilter;
           that.stateMachine.openfilters = openfilters;
 
           that.mnRouter.transitionTo(that.mnRouter.currentRouteName(), that.stateMachine.toUrl(that.fields)).

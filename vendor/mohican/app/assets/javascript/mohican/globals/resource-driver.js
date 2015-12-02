@@ -9,7 +9,7 @@
     ctrl.stateMachine.quickFilterShown = true;
     ctrl.stateMachine.page = 1;
     ctrl.stateMachine.layout = 'default';
-    ctrl.stateMachine.documentFilter = 'default';
+    ctrl.stateMachine.documentfilter = 'default';
 
     ctrl.initialize(service);
     ctrl.loadData();
@@ -49,9 +49,9 @@
           });
         }).
         then(function() {
-          that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentFilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(resolveValue) {
+          that.service.getBackendPageCount(that.fields, that.stateMachine.page, that.stateMachine.documentfilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(resolveValue) {
             that.pageCount = resolveValue.pageCount;
-            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentFilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(items) {
+            that.service.getBackendPage(that.stateMachine.page, that.fields, that.stateMachine.documentfilter, mohican.openfiltersToBackendUrlParam(that.stateMachine.openfilters)).then(function(items) {
               that.items = items;
               that.service.waitFullyLoaded().then(function() {
                 that.fullyLoaded = true;
