@@ -146,12 +146,12 @@
   mohican.redirectDefaultParameters = function(mnRouter) {
     var checkResult = _checkDefaultParams(mnRouter.$stateParams);
 
-    if(checkResult.dirty && mnRouter.$state) {
-      mnRouter.transitionTo(mnRouter.$state.current.name, checkResult.newParams);
+    if(checkResult.dirty) {
+      mnRouter.transitionTo(mnRouter.currentRouteName(), checkResult.newParams);
     }
     else {
       //redirect to index resource route if form have no id passed
-      if(_.endsWith(mnRouter.$state.current.name, '-doc') && !mnRouter.$stateParams.itemPrimaryKeyId) {
+      if(_.endsWith(mnRouter.currentRouteName(), '-doc') && !mnRouter.$stateParams.itemPrimaryKeyId) {
         mnRouter.transitionTo(mnRouter.currentRouteIndex(), {});
       }
     }

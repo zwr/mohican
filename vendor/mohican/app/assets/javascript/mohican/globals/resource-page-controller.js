@@ -238,7 +238,7 @@
             });
           }
           else {
-            that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$state.params.page) ? 1 : parseInt(that.mnRouter.$state.params.page));
+            that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$stateParams.page) ? 1 : parseInt(that.mnRouter.$stateParams.page));
             that.service.getClientPage(that.stateMachine.page,
                                        that.stateMachine.column,
                                        that.stateMachine.direction,

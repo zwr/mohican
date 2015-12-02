@@ -238,7 +238,6 @@
         transitionTo: transitionTo,
         pageNotFound: pageNotFound,
         $stateParams: $stateParams,
-        $state:       $state,
 
         currentRouteName:  currentRouteName,
         currentRouteIndex: currentRouteIndex,
