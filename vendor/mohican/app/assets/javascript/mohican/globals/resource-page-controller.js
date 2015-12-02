@@ -47,6 +47,86 @@
         this.onCurrentItemChanged = [];
       },
 
+      loadData: function() {
+        var that = this;
+
+        that.service.getPreviewDefinitions().
+        then(function(definition) {
+          that.primaryKeyName = definition.primaryKeyName;
+          that.doctype = definition.doctype;
+          that.layoutDefs = definition.layouts;
+          that.layoutDefs.forEach(function(layout) {
+            that.layouts.push({
+              name:     layout.name,
+              show:     'Layout: ' + layout.name,
+              desc:     'Shows ' + layout.definition.length + ' fields',
+              selected: layout.name === that.stateMachine.layout
+            });
+            if(layout.name === that.stateMachine.layout) {
+              that.fields = layout.definition;
+            }
+          });
+        }).
+        then(function() {
+          if(_.endsWith(that.mnRouter.currentRouteName(), '-new')) {
+            that.fullyLoaded = true;
+            that.itemForm = {};
+            that.onCurrentItemChanged.forEach(function(callback) {
+              callback(that.itemForm);
+            });
+            that.service.prepareNewDoc(that.fields, that.$http, that.$q, that.resourceName,
+                                      {primaryKeyName: that.primaryKeyName, doctype: that.doctype}, that.itemForm);
+          }
+          else if(that.stateMachine.itemPrimaryKeyId) {
+            that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields)
+            .then(function(items) {
+              that.fullyLoaded = true;
+              ///check is item exists
+              if(items[0]) {
+                that.itemForm = items[0];
+                that.onCurrentItemChanged.forEach(function(callback) {
+                  callback(that.itemForm);
+                });
+              }
+              else {
+                that.mnRouter.pageNotFound();
+              }
+            }, function() {
+              that.mnRouter.pageNotFound();
+            });
+          }
+          else {
+            var notif = that.mnNotify.info({
+              message: 'Loading ' + that.resourceName + '...',
+              details: 'Loading ' + that.resourceName + '...',
+
+              dismissable: false
+            });
+            that.startLoadingMessage = notif.message;
+
+            mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.mnRouter);
+            that.service.getBackendFilters().then(function(documentFilters) {
+              documentFilters.forEach(function(documentFilter) {
+                that.documentFilters.push({
+                  name:     documentFilter.name,
+                  show:     'Filter: ' + documentFilter.name,
+                  selected: documentFilter.name === that.stateMachine.documentfilter
+                });
+              });
+              mohican.validateBackendFilterParameter(that.stateMachine.documentfilter, that.documentFilters, that.mnRouter);
+            });
+            //we need to load only stateMachine.filters instead of whole stateMachine
+            //because loadFromUrl is initialy designed to load qucik filter after
+            //all eager data has been loaded
+            that.stateMachine.filters = mohican.urlQfParamToJson(that.mnRouter.$stateParams.filters, that.fields);
+
+            that.fullyLoaded = false;
+
+            that.loadMnGridItems();
+          }
+        });
+      },
+
       loadMnGridItems: function() {
         var that = this;
         that.mnNotify.controllerChanged(that.routeName);
@@ -248,86 +328,6 @@
           }
 
         }
-      },
-
-      loadData: function() {
-        var that = this;
-
-        that.service.getPreviewDefinitions().
-        then(function(definition) {
-          that.primaryKeyName = definition.primaryKeyName;
-          that.doctype = definition.doctype;
-          that.layoutDefs = definition.layouts;
-          that.layoutDefs.forEach(function(layout) {
-            that.layouts.push({
-              name:     layout.name,
-              show:     'Layout: ' + layout.name,
-              desc:     'Shows ' + layout.definition.length + ' fields',
-              selected: layout.name === that.stateMachine.layout
-            });
-            if(layout.name === that.stateMachine.layout) {
-              that.fields = layout.definition;
-            }
-          });
-        }).
-        then(function() {
-          if(_.endsWith(that.mnRouter.currentRouteName(), '-new')) {
-            that.fullyLoaded = true;
-            that.itemForm = {};
-            that.onCurrentItemChanged.forEach(function(callback) {
-              callback(that.itemForm);
-            });
-            that.service.prepareNewDoc(that.fields, that.$http, that.$q, that.resourceName,
-                                      {primaryKeyName: that.primaryKeyName, doctype: that.doctype}, that.itemForm);
-          }
-          else if(that.stateMachine.itemPrimaryKeyId) {
-            that.service.getDocument(that.stateMachine.itemPrimaryKeyId, that.fields)
-            .then(function(items) {
-              that.fullyLoaded = true;
-              ///check is item exists
-              if(items[0]) {
-                that.itemForm = items[0];
-                that.onCurrentItemChanged.forEach(function(callback) {
-                  callback(that.itemForm);
-                });
-              }
-              else {
-                that.mnRouter.pageNotFound();
-              }
-            }, function() {
-              that.mnRouter.pageNotFound();
-            });
-          }
-          else {
-            var notif = that.mnNotify.info({
-              message: 'Loading ' + that.resourceName + '...',
-              details: 'Loading ' + that.resourceName + '...',
-
-              dismissable: false
-            });
-            that.startLoadingMessage = notif.message;
-
-            mohican.validateLayoutParameter(that.stateMachine.layout, that.layouts, that.mnRouter);
-            that.service.getBackendFilters().then(function(documentFilters) {
-              documentFilters.forEach(function(documentFilter) {
-                that.documentFilters.push({
-                  name:     documentFilter.name,
-                  show:     'Filter: ' + documentFilter.name,
-                  selected: documentFilter.name === that.stateMachine.documentfilter
-                });
-              });
-              mohican.validateBackendFilterParameter(that.stateMachine.documentfilter, that.documentFilters, that.mnRouter);
-            });
-            //we need to load only stateMachine.filters instead of whole stateMachine
-            //because loadFromUrl is initialy designed to load qucik filter after
-            //all eager data has been loaded
-            that.stateMachine.filters = mohican.urlQfParamToJson(that.mnRouter.$stateParams.filters, that.fields);
-
-            that.fullyLoaded = false;
-
-            that.loadMnGridItems();
-          }
-        });
       },
 
       pageChanged: function(page) {
