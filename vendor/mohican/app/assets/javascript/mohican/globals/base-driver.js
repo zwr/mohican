@@ -5,11 +5,10 @@
     _.assign(ctrl, {
       modal: $injector.get('$modal'),
 
-      $q:    $injector.get('$q'),
-      $http: $injector.get('$http'),
-
-      $location: $injector.get('$location'),
-
+      $q:           $injector.get('$q'),
+      $http:        $injector.get('$http'),
+      $location:    $injector.get('$location'),
+      $injector:    $injector,
       stateMachine: mohican.createStateMachine(),
 
       currentItemChanged: function() {},

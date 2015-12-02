@@ -228,6 +228,14 @@
         }
       };
     };
+    service.dismissAllByController = function(ctrlName) {
+      for(var i = service.notifications.length - 1; i >= 0; i--) {
+        if(service.notifications.length &&
+           service.notifications[0].ownerCtrl === ctrlName) {
+          service.notifications[0].dismiss('dismiss all');
+        }
+      };
+    };
     service.getMostCriticalMessageType = function() {
       var types = ['success', 'info', 'warning', 'danger'];
       var mostCrType = '';

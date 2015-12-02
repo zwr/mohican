@@ -26,7 +26,21 @@
       onCurrentItemChanged: undefined,
 
       reload: function() {
-        console.log('reload');
+        this.service.resetLoading();
+        this.documentFilters = undefined;
+        this.layouts =         undefined;
+        this.layoutDefs =      undefined;
+        this.fields =          undefined;
+        this.pageCount =       undefined;
+        this.totalQfCount =    undefined;
+        this.primaryKeyName =  undefined;
+        this.itemForm =        undefined;
+        this.mnRouter =        undefined;
+        this.mnNotify.dismissAllByController(this.routeName)
+
+        this.onCurrentItemChanged = undefined;
+        this.initialize(this.service, this.$injector);
+        this.loadData();
       },
 
       initialize: function(service, $injector) {
