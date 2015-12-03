@@ -224,8 +224,8 @@
                 else {
                   that.moreDataLoadedMessage.dismiss();
                   var notif = that.mnNotify.warning({
-                    message: _.capitalize(that.resourceName) + ' loading is compelted',
-                    details: _.capitalize(that.resourceName) + ' loading is compelted but not all the data is merged. Click \'apply\' to merge them in.',
+                    message: _.capitalize(that.resourceName) + ' loading is completed',
+                    details: _.capitalize(that.resourceName) + ' loading is completed but not all the data is merged. Click \'apply\' to merge them in.',
                     actions: ['apply'],
 
                     dismissable: false
@@ -240,7 +240,7 @@
                         that.eagerLoadingMessage = undefined;
                       }
                       that.fullyLoaded = true;
-                      that.loadQuickFiltersAndSort(true);
+                      that.loadQuickFiltersAndSort(false);
                     }
                   });
                 }
@@ -275,7 +275,7 @@
                         that.eagerLoadingMessage = undefined;
                       }
                       that.fullyLoaded = true;
-                      that.loadQuickFiltersAndSort(true);
+                      that.loadQuickFiltersAndSort(false);
                     }
                   });
                 }
