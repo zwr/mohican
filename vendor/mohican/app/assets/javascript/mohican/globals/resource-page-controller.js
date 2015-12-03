@@ -46,7 +46,6 @@
       initialize: function(service, $injector) {
         var that = this;
         this.mnRouter = $injector.get('mnRouter');
-        console.log(this.mnRouter.currentRouteType());
         this.mnNotify = $injector.get('mnNotify');
 
         mohican.redirectDefaultParameters(this.mnRouter);
@@ -283,7 +282,7 @@
               that.service.waitSnapshotLoaded().then(function() {
                 // console.log('snapshot loaded');
               }, function(error) {
-                console.log(error);
+                // console.log(error);
               }, function() {
                 if(that.mnRouter.currentRouteName() === that.routeName) {
                   if(that.eagerLoadingMessage) {

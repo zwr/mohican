@@ -34,9 +34,11 @@
           resolve: function() {
             vm.currentMnfDoc.rollback();
             vm.currentMnfDoc = null;
-            console.log('resolve');
+            // console.log('resolve');
           },
-          reject: function() { console.log('reject'); }
+          reject: function() {
+            // console.log('reject');
+          }
         };
       }
       else {
