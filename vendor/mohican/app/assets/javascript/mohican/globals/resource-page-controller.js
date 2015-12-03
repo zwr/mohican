@@ -36,7 +36,7 @@
         this.primaryKeyName =  undefined;
         this.itemForm =        undefined;
         this.mnRouter =        undefined;
-        this.mnNotify.dismissAllByController(this.routeName)
+        this.mnNotify.dismissAllByController(this.routeName);
 
         this.onCurrentItemChanged = undefined;
         this.initialize(this.service, this.$injector);
