@@ -249,7 +249,25 @@
         redirectTo:   redirectTo,
         transitionTo: transitionTo,
         pageNotFound: pageNotFound,
-        $stateParams: $stateParams,
+        $stateParams: function() {
+          return $stateParams;
+        },
+
+        $stateParamsSetDocumentfilter: function(value) {
+          $stateParams.documentfilter = value;
+        },
+        $stateParamsSetPage: function(value) {
+          $stateParams.page = value;
+        },
+        $stateParamsSetLayout: function(value) {
+          $stateParams.layout = value;
+        },
+        $stateParamsSetDirection: function(value) {
+          $stateParams.direction = value;
+        },
+        $stateParamsSetActivetab: function(value) {
+          $stateParams.activetab = value;
+        },
 
         currentRouteName:  currentRouteName,
         currentRouteIndex: currentRouteIndex,

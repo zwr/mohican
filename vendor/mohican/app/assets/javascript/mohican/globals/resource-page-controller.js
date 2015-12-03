@@ -52,7 +52,7 @@
         mohican.redirectDefaultParameters(this.mnRouter);
         mohican.injectDefaultParameters(this.mnRouter);
 
-        this.stateMachine.loadFromUrl(this.mnRouter.$stateParams, service);
+        this.stateMachine.loadFromUrl(this.mnRouter.$stateParams(), service);
 
         this.fullyLoaded = false;
         this.layouts = [];
@@ -133,7 +133,7 @@
             //we need to load only stateMachine.filters instead of whole stateMachine
             //because loadFromUrl is initialy designed to load qucik filter after
             //all eager data has been loaded
-            that.stateMachine.filters = mohican.urlQfParamToJson(that.mnRouter.$stateParams.filters, that.fields);
+            that.stateMachine.filters = mohican.urlQfParamToJson(that.mnRouter.$stateParams().filters, that.fields);
 
             that.fullyLoaded = false;
 
@@ -156,9 +156,9 @@
                 that.startLoadingMessage.dismiss();
                 that.startLoadingMessage = undefined;
                 if(that.mnRouter.currentRouteName() === that.routeName) {
-                  if(angular.isDefined(that.mnRouter.$stateParams.column) ||
-                        angular.isDefined(that.mnRouter.$stateParams.qf) ||
-                        angular.isDefined(that.mnRouter.$stateParams.filters)) {
+                  if(angular.isDefined(that.mnRouter.$stateParams().column) ||
+                        angular.isDefined(that.mnRouter.$stateParams().qf) ||
+                        angular.isDefined(that.mnRouter.$stateParams().filters)) {
                     var notif = that.mnNotify.warning({
                       message:   _.capitalize(that.resourceName) + ' data arriving, filtering postponed',
                       details:   'Click \'filter\ to apply filter and sorting to the arrived data, or \'clear\' to show all data',
@@ -329,7 +329,7 @@
             });
           }
           else {
-            that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$stateParams.page) ? 1 : parseInt(that.mnRouter.$stateParams.page));
+            that.stateMachine.page = parseInt(angular.isUndefined(that.mnRouter.$stateParams().page) ? 1 : parseInt(that.mnRouter.$stateParams().page));
             that.service.getClientPage(that.stateMachine.page,
                                        that.stateMachine.column,
                                        that.stateMachine.direction,

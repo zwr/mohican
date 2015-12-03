@@ -29,7 +29,7 @@
           }
         }
         else {
-          mnRouter.transitionTo(redirectTo, mnRouter.$stateParams, {location: 'replace'});
+          mnRouter.transitionTo(redirectTo, mnRouter.$stateParams(), {location: 'replace'});
         }
       }];
     }
@@ -151,30 +151,30 @@
     }
     else {
       //redirect to index resource route if form have no id passed
-      if(_.endsWith(mnRouter.currentRouteName(), '-doc') && !mnRouter.$stateParams.itemPrimaryKeyId) {
+      if(_.endsWith(mnRouter.currentRouteName(), '-doc') && !mnRouter.$stateParams().itemPrimaryKeyId) {
         mnRouter.transitionTo(mnRouter.currentRouteIndex(), {});
       }
     }
   };
 
   mohican.injectDefaultParameters = function(mnRouter) {
-    if (!mnRouter.$stateParams.documentfilter) {
-      mnRouter.$stateParams.documentfilter = 'default';
+    if (!mnRouter.$stateParams().documentfilter) {
+      mnRouter.$stateParamsSetDocumentfilter('default');
     }
-    if (!mnRouter.$stateParams.page) {
-      mnRouter.$stateParams.page = '1';
+    if (!mnRouter.$stateParams().page) {
+      mnRouter.$stateParamsSetPage('1');
     }
-    if (!mnRouter.$stateParams.layout) {
-      mnRouter.$stateParams.layout = 'default';
+    if (!mnRouter.$stateParams().layout) {
+      mnRouter.$stateParamsSetLayout('default');
     }
-    if (!mnRouter.$stateParams.direction) {
-      mnRouter.$stateParams.direction = 'asc';
+    if (!mnRouter.$stateParams().direction) {
+      mnRouter.$stateParamsSetDirection('asc');
     }
-    if (!mnRouter.$stateParams.activetab) {
-      mnRouter.$stateParams.activetab = '0';
+    if (!mnRouter.$stateParams().activetab) {
+      mnRouter.$stateParamsSetActivetab('0');
     }
 
-    return mnRouter.$stateParams;
+    return mnRouter.$stateParams();
   };
 
   //HelloWorld -> hello-world
