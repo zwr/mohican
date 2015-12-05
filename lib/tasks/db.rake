@@ -1,4 +1,5 @@
 require 'random_hash'
+require 'nokogiri'
 
 SEED_ORDER_COUNT = 1127
 HANDLERS_COUNT = { '10': (1..3) }
