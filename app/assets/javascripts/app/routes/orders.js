@@ -176,7 +176,7 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         $location.path('/production');
       };
       ctrl.back = function() {
-        $window.history.back();
+        ctrl.backToIndex();
       };
       ctrl.logFromTemplate = function() {
         console.log(Array.prototype.slice.call(arguments).join(', '));

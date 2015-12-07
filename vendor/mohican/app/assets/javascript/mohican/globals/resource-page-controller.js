@@ -61,6 +61,22 @@
         this.onCurrentItemChanged = [];
       },
 
+      backToIndex: function() {
+        var that = this;
+        var lastIndexStateMachine = that.mnRouter.getLastIndexStateMachine(that.routeName);
+        if(lastIndexStateMachine) {
+          var indexParams = lastIndexStateMachine.toUrl(that.fields);
+          that.mnRouter.transitionTo(that.mnRouter.currentRouteIndex(),
+                         indexParams,
+                         { notify: true });
+        }
+        else {
+          that.mnRouter.transitionTo(that.mnRouter.currentRouteIndex(),
+                         {},
+                         { notify: true });
+        }
+      },
+
       loadData: function() {
         var that = this;
 
@@ -133,6 +149,13 @@
             //because loadFromUrl is initialy designed to load qucik filter after
             //all eager data has been loaded
             that.stateMachine.filters = mohican.urlQfParamToJson(that.mnRouter.$stateParams().filters, that.fields);
+
+            //also here is a right place to clone last index route state machine
+            //because quickfilters are loaded to state machine object
+            if(that.mnRouter.currentRouteName() ===
+               that.mnRouter.currentRouteIndex()) {
+              that.mnRouter.setLastIndexStateMachine(that.routeName, that.stateMachine);
+            }
 
             that.fullyLoaded = false;
 

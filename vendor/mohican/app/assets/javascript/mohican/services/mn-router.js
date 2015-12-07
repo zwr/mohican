@@ -137,6 +137,10 @@
       }
 
       function transitionTo(routeName, params, options) {
+        //default values
+        if(!params) {
+          params = {};
+        }
         var deffered  = $q.defer();
 
         var fullStateReload = routeName !== this.currentRouteName();
@@ -244,6 +248,19 @@
         return currentRouteIndex() + '-doc';
       }
 
+      provider.setLastIndexStateMachine = function(routeName, stateMachine) {
+        provider.lastIndexStateMachine = {};
+        provider.lastIndexStateMachine[routeName] = _.cloneDeep(stateMachine);
+      };
+      provider.getLastIndexStateMachine = function(routeName) {
+        if(provider.lastIndexStateMachine) {
+          return provider.lastIndexStateMachine[routeName];
+        }
+        else {
+          return undefined;
+        }
+      };
+
       return {
         createAll:    createAll,
         redirectTo:   redirectTo,
@@ -252,6 +269,9 @@
         $stateParams: function() {
           return $stateParams;
         },
+
+        setLastIndexStateMachine: provider.setLastIndexStateMachine,
+        getLastIndexStateMachine: provider.getLastIndexStateMachine,
 
         $stateParamsSetDocumentfilter: function(value) {
           $stateParams.documentfilter = value;
