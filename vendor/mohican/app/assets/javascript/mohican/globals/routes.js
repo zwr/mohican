@@ -224,9 +224,13 @@
 
   mohican.openfiltersToBackendUrlParam = function(openfilters) {
     var urlParams = mohican.openfiltersToUrlParam(openfilters);
-    return urlParams.replace(/A--/g, '').
-                     replace(/D--/g, '').
-                     replace(/R--/g, '');
+    var returnValue = '';
+    if(urlParams) {
+      returnValue = urlParams.replace(/A--/g, '').
+                              replace(/D--/g, '').
+                              replace(/R--/g, '');
+    }
+    return returnValue;
   };
 
   mohican.openfiltersToUrlParam = function(openfilters) {
@@ -250,7 +254,7 @@
         }
       }
     };
-    return paramStrings.join('$$');
+    return paramStrings.length > 0 ? paramStrings.join('$$') : undefined;
   };
 
   mohican.jsonToUrlQfParam = function(filters, dataFields) {
