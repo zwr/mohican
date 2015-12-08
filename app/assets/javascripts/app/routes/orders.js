@@ -115,6 +115,10 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         });
       };
 
+      ctrl.rollbackSuccess = function() {
+        console.log('rollbackSuccess');
+      };
+
       ctrl.deleteSuccess = function(mnfDoc) {
         ctrl.mnNotify.success({
           message: 'Document has been deleted successfully',

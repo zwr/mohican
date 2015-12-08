@@ -5,7 +5,9 @@ angular.module('mohican')
   .directive('mnfRollback', [function() {
       'use strict';
       return {
-        scope:       {},
+        scope: {
+          onRollbackSuccess: '&?'
+        },
         restrict:    'E',
         require:     '^mnfForm',
         templateUrl: 'mohican/directives/mnf-rollback/template.html',
@@ -13,6 +15,25 @@ angular.module('mohican')
         link: function(scope, elem, attr, mnfFormCtrl) {
           scope.mnfDoc = mnfFormCtrl.mnfDoc;
           scope.mnfFormCtrl = mnfFormCtrl;
+          if(!scope.mnfDoc._mnid && !scope.onRollbackSuccess) {
+            scope.actionShown = false;
+          }
+          else {
+            scope.actionShown = true;
+          }
+          scope.rollbackPressed = function() {
+            if(!scope.mnfDoc._mnid) {
+              if(scope.onRollbackSuccess) {
+                scope.onRollbackSuccess();
+              }
+            }
+            else {
+              scope.mnfDoc.rollback();
+              if(scope.onRollbackSuccess) {
+                scope.onRollbackSuccess();
+              }
+            }
+          };
         }
       };
     }
