@@ -24,13 +24,13 @@ angular.module('mohican')
           scope.rollbackPressed = function() {
             if(!scope.mnfDoc._mnid) {
               if(scope.onRollbackSuccess) {
-                scope.onRollbackSuccess();
+                scope.onRollbackSuccess({mnfDoc: scope.mnfDoc});
               }
             }
             else {
               scope.mnfDoc.rollback();
               if(scope.onRollbackSuccess) {
-                scope.onRollbackSuccess();
+                scope.onRollbackSuccess({mnfDoc: scope.mnfDoc});
               }
             }
           };

@@ -19,7 +19,7 @@
           .col-xs-12.mn-buttons-group.hidden-xs
             %mnf-edit
             %mnf-commit(on-commit-success="ctrl.commitSuccess(mnfDoc)")
-            %mnf-rollback(on-rollback-success="ctrl.rollbackSuccess()")
+            %mnf-rollback(on-rollback-success="ctrl.rollbackSuccess(mnfDoc)")
             %mnf-delete(on-delete-success="ctrl.deleteSuccess()")
           %mnf-select(allowed-values="['standard', 'urgent', 'insured', 'fragile', 'flammable', 'tax_free', 'export', 'import', 'secret', 'poison', 'large', 'heavy']" mnf-field="delivery_tag" mnf-label="Delivery tag:")
           %mnf-select(allowed-values="['avoinna', 'valmis', 'tuotannossa']" mnf-field="status" mnf-label="Status:" mnf-select-type="single")

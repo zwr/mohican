@@ -115,8 +115,10 @@ angular.module('id5').config(['mnRouterProvider', function(mnRouterProvider) {
         });
       };
 
-      ctrl.rollbackSuccess = function() {
-        console.log('rollbackSuccess');
+      ctrl.rollbackSuccess = function(mnfDoc) {
+        if(!mnfDoc._mnid) {
+          ctrl.backToIndex();
+        }
       };
 
       ctrl.deleteSuccess = function(mnfDoc) {
