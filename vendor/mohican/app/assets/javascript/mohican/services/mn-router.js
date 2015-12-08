@@ -159,16 +159,9 @@
               validationObject.resolve();
             }
           });
-          if(options) {
-            $state.transitionTo(routeName, params, options).then(function() {
-              deffered.resolve();
-            });
-          }
-          else {
-            $state.transitionTo(routeName, params).then(function() {
-              deffered.resolve();
-            });
-          }
+          $state.transitionTo(routeName, params, options).then(function() {
+            deffered.resolve();
+          });
         };
 
         var validationMessages = [];
