@@ -414,28 +414,55 @@
 
         var fieldsBefore = _.clone(that.fields);
         var layoutBefore = that.stateMachine.layout;
-
+        var pageBefore = that.stateMachine.page;
+        var columnBefore = that.stateMachine.column;
+        var directionBefore = that.stateMachine.direction;
+        var quickFilterShownBefore = that.stateMachine.quickFilterShown;
+        var filtersBefore = that.stateMachine.filters;
         that.layoutDefs.forEach(function(layout) {
           if(layout.name === newLayoutName) {
             that.stateMachine.layout = newLayoutName;
+            that.fields = layout.definition;
           }
         });
+        that.stateMachine.page = 1;
+        that.stateMachine.column = undefined;
+        that.stateMachine.direction = undefined;
+        that.stateMachine.quickFilterShown = false;
+        that.stateMachine.filters = undefined;
 
         this.mnRouter.transitionTo(this.mnRouter.currentRouteName(),
                        this.stateMachine.toUrl(this.fields),
                        { notify: false }).
                       then(function() {
-                        that.stateMachine.page = 1;
-                        that.layoutDefs.forEach(function(layout) {
-                          if(layout.name === newLayoutName) {
-                            that.fields = layout.definition;
-                            that.stateMachine.layout = newLayoutName;
-                          }
+                        // that.layoutDefs.forEach(function(layout) {
+                        //   if(layout.name === newLayoutName) {
+                        //     that.fields = layout.definition;
+                        //     that.stateMachine.layout = newLayoutName;
+                        //   }
+                        // });
+                        that.service.getClientPage(that.stateMachine.page,
+                                                   that.stateMachine.column,
+                                                   that.stateMachine.direction,
+                                                   that.stateMachine.filters,
+                                                   that.fields).then(function(data) {
+                          that.items = data.items;
+                          that.pageCount = data.pageCount;
+                          that.totalQfCount = data.totalQfCount;
+                          mohican.validatePageParameter(that.stateMachine.page, that.pageCount, that.mnRouter);
+
+                          deffered.resolve();
                         });
                         deffered.resolve();
                       }, function() {
                         that.fields = _.clone(fieldsBefore);
                         that.stateMachine.layout = layoutBefore;
+                        that.stateMachine.page = pageBefore;
+                        that.stateMachine.column = columnBefore;
+                        that.stateMachine.direction = directionBefore;
+                        that.stateMachine.quickFilterShown = quickFilterShownBefore;
+                        that.stateMachine.filters = filtersBefore;
+
                         deffered.reject();
                       });
 
@@ -459,7 +486,6 @@
           var that = this;
 
           that.stateMachine.page = undefined;
-          // that.stateMachine.layout = undefined;
           that.stateMachine.column = undefined;
           that.stateMachine.direction = undefined;
           that.stateMachine.quickFilterShown = false;
