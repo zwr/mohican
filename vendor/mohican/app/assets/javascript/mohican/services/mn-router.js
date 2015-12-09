@@ -141,7 +141,7 @@
         if(!params) {
           params = {};
         }
-        var deffered  = $q.defer();
+        var deffered = $q.defer();
 
         var fullStateReload = routeName !== this.currentRouteName();
 
@@ -152,7 +152,7 @@
           fullStateReload = true;
         }
 
-        var resolveTransition = function(fullStateReload, routeName, params, options) {
+        var resolveTransition = function(fullStateReload, routeName, params, options, defferedPromise) {
           provider.stateChangeValidators.forEach(function(validator) {
             var validationObject = validator(fullStateReload, undefined, undefined, params);
             if(validationObject) {
@@ -160,7 +160,7 @@
             }
           });
           $state.transitionTo(routeName, params, options).then(function() {
-            deffered.resolve();
+            defferedPromise.resolve();
           });
         };
 
@@ -185,11 +185,11 @@
             deffered.reject();
           }
           else {
-            resolveTransition(fullStateReload, routeName, params, options);
+            resolveTransition(fullStateReload, routeName, params, options, deffered);
           }
         }
         else {
-          resolveTransition(fullStateReload, routeName, params, options);
+          resolveTransition(fullStateReload, routeName, params, options, deffered);
         }
 
         provider.transitionToValidarionAllreadyDone = true;
