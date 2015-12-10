@@ -129,12 +129,15 @@
   angular.module('mohican').directive('popoverClose', ['$timeout', 'mnNotify', function($timeout, mnNotify) {
     return{
       link: function(scope, element, attrs) {
+        scope.isOpened = false;
         function closeTrigger(trigger, i) {
-          console.log('closeTrigger');
-          $timeout(function() {
-            angular.element('#'+trigger[0].id).triggerHandler('click');
-            angular.element('#'+trigger[0].id).removeClass('popover-trigger-element');
-          });
+          if(scope.isOpened) {
+            scope.isOpened = false;
+            $timeout(function() {
+              angular.element('#'+trigger[0].id).triggerHandler('click');
+              angular.element('#'+trigger[0].id).removeClass('popover-trigger-element');
+            });
+          }
         }
 
         element.on('click', function(event) {
@@ -142,33 +145,26 @@
           var etarget = angular.element(event.target);
           var tlength = trigger.length;
 
-          if(trigger && !etarget.hasClass('mns-button')) {
+          if(!etarget.hasClass('popover-trigger-element') &&
+             !(etarget.hasClass('popover-stay-opened') ||
+               etarget.hasClass('popover-title') ||
+               etarget.hasClass('popover-content') ||
+               etarget.hasClass('notifications-holder'))
+            ) {
             for(var i = 0; i < tlength; i++) {
               closeTrigger(trigger, i);
             }
           }
-
-          // var trigger = document.getElementsByClassName('popover-trigger-element'),
-          //     etarget = angular.element(event.target),
-          //     tlength = trigger.length;
-          //
-          // if(!etarget.hasClass('popover-trigger-element') &&
-          //    !(etarget.hasClass('popover-stay-opened') ||
-          //      etarget.hasClass('popover-title') ||
-          //      etarget.hasClass('popover-content') ||
-          //      etarget.hasClass('notifications-holder'))
-          //   ) {
-          //   for(var i = 0; i < tlength; i++) {
-          //     closeTrigger(trigger, i);
-          //   }
-          // }
-          // else {
-          //   if(mnNotify.get().length === 0) {
-          //     for(var i = 0; i < tlength; i++) {
-          //       closeTrigger(trigger, i);
-          //     }
-          //   }
-          // }
+          else {
+            if(mnNotify.get().length === 0) {
+              for(var i = 0; i < tlength; i++) {
+                closeTrigger(trigger, i);
+              }
+            }
+            else {
+              scope.isOpened = !scope.isOpened;
+            }
+          }
         });
       }
     };
